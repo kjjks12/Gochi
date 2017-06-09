@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 
+	configuration: root Element
+	dtd : element정의해놓았데!!  이게 있어야 자동완성이 돼!!
+-->
+<configuration>
+
+<!-- 외부 Properties 파일 위치 로딩 
+	 경로 : Class Path기준
+-->
+<properties resource="mapper/dbInfo.properties"/>
+
+
+<!-- #{}를 사용 했을때 NULL을 허용하도록 설정 -->
+<settings>
+	<setting name="jdbcTypeForNull" value="NULL"/>
+</settings>
+
+<!-- 별칭 만들기 -->
+<typeAliases>
+<package name="gochi.travel.model.dto" />
+</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<!-- 
+			POOLED :데이터 베이스 커넥션 풀 (DBCP)방식 
+			UNPOOLED :순수 자바방식
+			-->
+			<dataSource type="UNPOOLED">
+				<property name="driver" value="${driverName}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${userName}" />
+				<property name="password" value="${userPass}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+
+</configuration>
