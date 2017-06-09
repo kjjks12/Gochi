@@ -41,7 +41,7 @@
 								<a href="#">나믿따</a>
 								</li>
 								<li class="has_submenu">
-								<a href="#">여행일정</a>
+								<a href="${pageContext.request.contextPath}/travel/travel">여행일정</a>
 								</li>
 								<li class="has_submenu">
 								<a href="${pageContext.request.contextPath}/travel/travel2">여행후기</a>
