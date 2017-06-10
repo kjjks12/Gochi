@@ -33,32 +33,40 @@
   </head>
   <body class="fixed-header">
 
+	<!-- 페이지 컨테이너 -->
 	<div id="page-container">
-		
+	<!-- 머리 부분 section -->
 		<section id="header-page" class="header-margin-base">
+			
 			<div class="skyline">
 				<div data-offset="50" class="p1 parallax"></div>
 				<div data-offset="25" class="p2 parallax"></div>
 				<div data-offset="15" class="p3 parallax"></div>
 				<div data-offset="8"  class="p4 parallax"></div>
 				<span class="cover"></span>
+				
+				<!-- 헤더 텍스트 -->
 				<div class="container header-text">
-					<div><h1 class="title">Left Sidebar</h1></div>
-					<div><h2 class="sub-title">Lorem ipsum dolor sit amet, consecing elit justo</h2></div>
+					<div><h1 class="title">여행 후기</h1></div>
+					<div><h2 class="sub-title">여행을 떠나보아요</h2></div>
 				</div>
 			</div>
+			
+			<!-- home->이미지 아이콘 -->
 			<div id="breadcrumb">
 				<div class="container">
 					<ol class="breadcrumb">
 						<li><a href="#"><i class="fa fa-home"></i></a></li>
 						<li><a href="#">Pages</a></li>
-						<li class="active">Left Sidebar</li>
+						<li class="active">여행 후기</li>
 					</ol>
 				</div>
 			</div><!-- /#breadcrumb -->
 			<span class="cover"></span>
 		</section><!-- /#header -->
 
+
+		<!--  진짜 내용 -->
 		<section id="sidebar">
 			<div class="container">
 				<div class="row">
@@ -72,13 +80,14 @@
 								<a href="#"><i class="fa fa-comments"></i><span>102</span></a>
 							</div>
 							<div class="image image-fill">
-								<img src="http://placehold.it/1280x850/bbbbbb/ffffff" alt="Image Sample" />
+								<!-- <img src="http://placehold.it/1280x850/bbbbbb/ffffff" alt="Image Sample" /> -->
 							</div>
 							<h3 class="subtitle">libero vitae viverra posuere, ante.</h3>
 							<div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent molestie in ipsum et tincidunt. Aliquam efficitur accumsan metus non iaculis. Quisque sed mauris lacinia, bibendum turpis et, mattis nisi. Donec vulputate leo id finibus commodo. Quisque accumsan neque in aliquet vestibulum. Proin auctor maximus molestie. Duis sodales tincidunt ipsum a accumsan. Suspendisse pulvinar libero enim, et finibus massa commodo vitae.</div>
 							<input type="button" value="Read now" class="btn btn-default button-read" />
 						</div><!-- /.blog-list -->
 					</div>
+					
 					
 					<!-- 왼쪽 left- menu -->
 					<div class="col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-9">
@@ -91,7 +100,7 @@
 
 						<!-- 5. Search -->
 						<div class="section-title line-style">
-							<h3 class="title">Search Property</h3>
+							<h3 class="title">검색 조건</h3>
 						</div>
 						<div class="search-box-page">
 							<div class="row">

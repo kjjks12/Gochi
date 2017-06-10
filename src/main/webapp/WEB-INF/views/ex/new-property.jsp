@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -662,7 +665,7 @@
 						</div><!-- ./recovery -->
 						<div id="recovery" class="box">
 							<h2 class="title">Need a new password?</h2>
-							<h3 class="sub-title">Enter your email address, and we’ll email you instructions to reset your password.</h3>
+							<h3 class="sub-title">Enter your email address, and weâll email you instructions to reset your password.</h3>
 							<div class="field">
 								<input id="recovery-email" class="form-control" type="text" name="recovery-email" placeholder="Your email">
 								<i class="fa fa-envelope-o"></i>
