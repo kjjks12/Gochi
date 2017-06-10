@@ -93,19 +93,18 @@
         	<textarea  rows="3" class="form-control"></textarea> 
     	</div>
   		<div class="form-group">  
-        	<label for="content">여행 태마</label>
-    		<label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="five" value="option5">  나홀로
-            </label> 
-            <label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="four" value="option4" >  커플
-            </label> 
-            <label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="three" value="option3" checked>  친구들
-            </label>
-            <label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="two" value="option2">  가족
-            </label>
+        	 <fieldset>
+    <legend>여행태마</legend>
+    <label for="radio-1">혼자</label>
+    <input type="radio" name="radio-1" id="radio-1">
+    <label for="radio-2">커플</label>
+    <input type="radio" name="radio-1" id="radio-2">
+    <label for="radio-3">가족</label>
+    <input type="radio" name="radio-1" id="radio-3">
+    <label for="radio-3">친구와</label>
+    <input type="radio" name="radio-1" id="radio-3">
+  </fieldset>
+            
         <span>
              <select class="form-control" id="capa" name="capa">
                      <option value="0">-- 인원 --</option>
@@ -127,7 +126,7 @@
         		  </div>
         		
         	</div>
-    		<div class="col-sm-4"></div>
+    		<div class="col-sm-2"></div>
         </div>
          
      
