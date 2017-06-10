@@ -29,11 +29,6 @@ public class NoteController {
 		//내가 받은 메세지정보들을 조회한다.
 		List<NoteDTO> noteList = noteService.selectMessage("kjy73845@naver.com");
 		
-		for(NoteDTO dto:noteList){
-			
-			System.out.println("메세지의 정보들 : "+dto);
-		}
-		
 		//내가 받은 노트정보들과 작성자들의 정보들을 저장할 변수를 선언한다.
 		List<Object> twoDTO = new ArrayList<>();
 		
@@ -45,6 +40,8 @@ public class NoteController {
 				MypageDTO mypageDTO = mypageService.selectByEmail(sendEmail);
 				//작성자들의 정보를 arrayList에 저장
 				twoDTO.add(mypageDTO);
+				
+				System.out.println("메세지의 정보들 : "+dto);
 				//작성자들의 정보를 세션에 저장
 				session.setAttribute("senderDTO", twoDTO);
 			}
