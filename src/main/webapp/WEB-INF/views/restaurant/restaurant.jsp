@@ -68,6 +68,7 @@
 						<div class="item">
 							<div class="blog-list masonry-post">
 								<h2 class="title"><a href="blog-detail.html">Fusce luctus vulputate nisl vitae auctor</a></h2>
+								
 								<div class="image">
 									<img src="http://placehold.it/1280x850/bbbbbb/ffffff" alt="Image Sample" class="img-responsive" />
 									<div class="social">

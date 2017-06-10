@@ -16,7 +16,11 @@
 							<a href="#mobile-menu" id="mobile-menu-button" class="visible-xs"><i class="fa fa-bars"></i></a>
 							<a href="call:1-800-555-1234" class="hidden-xs"><i class="icon fa fa-phone"></i> (011)-8800-555</a>
 							<a href="#" data-section="modal-contact" data-target="#modal-contact" data-toggle="modal" class="hidden-xs"><i class="icon fa fa-envelope-o"></i> Info</a>
+							
+							<a href="${pageContext.request.contextPath}/mypage/goInfo" class="hidden-xs"><i class="icon fa fa-envelope-o"></i> myPageUpdate TEST</a>
 						</div>
+						
+						
 						<div id="login-pan" class="col-md-6 hidden-xs">
 							<a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i> Sign up</a>
 							<a href="#" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> Login</a>
