@@ -8,16 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <title>PROHOME - Responsive Real Estate Template</title>
 
-	<link rel="stylesheet" href="css/bootstrap.min.css">                            <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/vendor/font-awesom/css/font-awesome.min.css">  <!-- Font Awesome -->
-	<link rel="stylesheet" href="css/vendor/mmenu/jquery.mmenu.all.css" />          <!-- Menu Responsive -->
-	<link rel="stylesheet" href="css/vendor/animate-wow/animate.css">               <!-- Animation WOW -->
 
-	<link rel="stylesheet" href="css/vendor/labelauty/labelauty.css">               <!-- Checkbox form Style -->
-	<link rel="stylesheet" href="css/menu.css">                                     <!-- Include Menu stylesheet -->
-	<link rel="stylesheet" href="css/custom.css">                                   <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="css/media-query.css">                              <!-- Media Query -->
+<jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
 
+	
 	<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
 	<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
 	<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
@@ -496,9 +490,9 @@
 		</div><!-- /.modal -->
 	</div><!-- /#page-container -->
 
-	<script	src="script/jquery.min.js"></script>		<!-- jQuery	(necessary for Bootstrap's JavaScript plugins) -->
-	<script	src="script/jquery-ui.min.js"></script>		<!-- jQuery	UI is a	curated	set	of user	interface interactions,	effects, widgets, and themes -->
-	<script	src="script/bootstrap.min.js"></script>		<!-- Include all compiled plugins (below), or include individual files as needed -->
+	
+<!-- buttom css -->
+	<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
 
 	<script	src="script/vendor/mmenu/mmenu.min.all.js"></script>					<!-- Menu Responsive -->
 	<script	src="script/vendor/animation-wow/wow.min.js"></script>					<!-- Animate Script	-->

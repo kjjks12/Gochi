@@ -1,3 +1,8 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/main/webapp/WEB-INF/views/login/callback.jsp=UTF-8
+=======
+encoding//src/main/webapp/WEB-INF/views/traveladd/basic_info_add.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/traveladd/calendar.jsp=UTF-8
+>>>>>>> 6152f5090406a025f72d385fff1cf9053d31cac1
 encoding/<project>=UTF-8
