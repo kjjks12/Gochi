@@ -50,7 +50,7 @@
 								<a href="${pageContext.request.contextPath}/restaurant/restaurant">맛집</a>
 								</li>
 								<li class="has_submenu">
-								<a href="#">커뮤니티</a>
+								<a href="${pageContext.request.contextPath}/community/faq">커뮤니티</a>
 								</li>
 						</ul>
 					</nav>
