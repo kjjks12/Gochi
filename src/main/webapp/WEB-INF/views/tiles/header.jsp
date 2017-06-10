@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
 <!-- 달력 링크 , 부트스트랩 ======================================== -->
  	<link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datepicker.css" rel="stylesheet" />  
@@ -26,7 +29,10 @@
 							<a href="#mobile-menu" id="mobile-menu-button" class="visible-xs"><i class="fa fa-bars"></i></a>
 							<a href="call:1-800-555-1234" class="hidden-xs"><i class="icon fa fa-phone"></i> (011)-8800-555</a>
 							<a href="#" data-section="modal-contact" data-target="#modal-contact" data-toggle="modal" class="hidden-xs"><i class="icon fa fa-envelope-o"></i> Info</a>
+							
+							<a href="${pageContext.request.contextPath}/mypage/goInfo" class="hidden-xs"><i class="icon fa fa-envelope-o"></i> myPageUpdate TEST</a>
 						</div>
+						
 						<div id="login-pan" class="col-md-6 hidden-xs">
 							<a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i> 회원가입</a>
 							<a href="#" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
@@ -61,7 +67,7 @@
 								<a href="${pageContext.request.contextPath}/restaurant/restaurant">맛집</a>
 								</li>
 								<li class="has_submenu">
-								<a href="#">커뮤니티</a>
+								<a href="${pageContext.request.contextPath}/community/faq">커뮤니티</a>
 								</li>
 						</ul>
 					</nav>

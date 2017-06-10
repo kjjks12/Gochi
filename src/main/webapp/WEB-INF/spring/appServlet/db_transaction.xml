@@ -36,7 +36,9 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<!-- ~~Mapper.xml로 끝나는 문서 모두 등록 -->
 		<property name="mapperLocations" value="classpath:mapper/*Mapper.xml"></property>
-		<property name="typeAliasesPackage" value="com.jgs.model.vo"></property>
+		<!-- <property name="typeAliasesPackage" value="gochi.travel.model.*dto"></property> -->
+		<!-- dto가 여러 패키지에 분산되어있으므로 적용 불가능 -->
+		
 		<!-- com.jgs.web.dto폴더안에 있는 모든 파일 alias 를 자동으로 정해준다 
 			 클래스의 첫글자만 소문자로 변환 해준데 !!! Mapper에서 ex) 패키지명 없이 studentDTO로사용 가능
 -->

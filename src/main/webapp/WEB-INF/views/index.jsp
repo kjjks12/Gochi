@@ -29,6 +29,8 @@
     <![endif]-->
 
 	<script src="${pageContext.request.contextPath}/resources/script/modernizr.min.js"></script> <!-- Modernizr -->
+	 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	
   </head>
 
@@ -621,7 +623,7 @@
 					<form method="post" action="#">
 						<div id="login" class="box">
 							<h2 class="title">Login in to your account</h2>
-							<h3 class="sub-title">It is a breach of our terms and conditions to provide username and password details to unauthorised third parties. Unauthorised use may lead to suspension or termination.</h3>
+							<h3 class="sub-title">come to KkoChi World~!</h3>
 							<div class="field">
 								<input id="user-log" name="user-log" class="form-control" type="text" placeholder="Username or email">
 								<i class="fa fa-user user"></i>
@@ -629,11 +631,23 @@
 							<div class="field">
 								<input id="password-log" name="password-log" class="form-control" type="password" placeholder="Password">
 								<i class="fa fa-ellipsis-h"></i>
-							</div>
+							</div>						
 							<div class="field footer-form text-right">
-								<span class="remember"><input class="labelauty" type="checkbox" data-labelauty="Keep me signed in" checked /></span>
-								<button type="button" class="btn btn-reverse button-form">Reset</button>
-								<button type="button" class="btn btn-default button-form">Login</button>
+							
+							<!-- 네이버 로그인 API 적용. -->
+							<button style="background-color:#ffffff; border:none" onClick=" $('.login-modal').hide();"><div id="naver_id_login"></div></button>
+								<script type="text/javascript">
+									  	var naver_id_login = new naver_id_login("qkQPxecKnvS2x7Gphr25", "http://localhost:8000/controller/login/callback");
+									  	var state = naver_id_login.getUniqState();
+									  	naver_id_login.setButton("green", 3,40);
+									  	naver_id_login.setDomain("http://localhost:8000/controller/");
+									  	naver_id_login.setState(state);
+									  	naver_id_login.setPopup();
+									  	naver_id_login.init_naver_id_login();
+								</script>
+								<form></form>
+							<button type="button" class="btn btn-reverse button-form">Reset</button>
+							<button type="button" class="btn btn-default button-form">Login</button>
 							</div>
 						</div> <!-- ./login -->
 						<div id="sign-in" class="box">
