@@ -21,7 +21,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 <!-- 별칭 만들기 -->
 <typeAliases>
-<package name="gochi.travel.model.dto" />
+<package name="gochi.travel.model.mypagedto" />
+<package name="gochi.travel.model.frienddto" />
+<package name="gochi.travel.model.notedto" />
 </typeAliases>
 
 	<environments default="development">
@@ -40,5 +42,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		</environment>
 	</environments>
 	
+	<mappers>
+		<mapper resource="mapper/mypageMapper.xml"/>
+		<mapper resource="mapper/friendMapper.xml"/>
+		<mapper resource="mapper/noteMapper.xml"/>
+	</mappers>
 
 </configuration>
