@@ -29,6 +29,8 @@
     <![endif]-->
 
 	<script src="${pageContext.request.contextPath}/resources/script/modernizr.min.js"></script> <!-- Modernizr -->
+	 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	
   </head>
 
@@ -39,32 +41,24 @@
 		<section id="home-slide" class="header-margin-base">
 			<div class="home-slider" data-navigation=".home-slider-nav">
 				<div class="crsl-wrap">
-					<figure class="crsl-item" data-image="http://placehold.it/1920x1080/bbbbbb/ffffff">
+					<figure class="crsl-item" data-image="${pageContext.request.contextPath}/resources/main_img/travel_main.jpg"
+					>
 						<div class="container slider-box">
-							<div class="content"><h2>There are many variations</h2></div>
-							<div class="content"><h1>Real Estate</h1></div>
-							<div class="content"><h3>If you are going to use a passage of Lorem Ipsum, you need to be sure anything</h3></div>
+							<div class="content"><h2>당신의 여행을</h2></div>
+							<div class="content"><h1>여행꼬치에서</h1></div>
+							<div class="content"><h3>시작하세요. </h3></div>
 						</div>
 					</figure>
-					<figure class="crsl-item" data-image="http://placehold.it/1920x1080/bbbbbb/ffffff">
+					<figure class="crsl-item" data-image="${pageContext.request.contextPath}/resources/main_img/travel_main2.jpg">
 						<div class="container slider-box">
-							<div class="content"><h2>Curabitur tinunt facilisis ex</h2></div>
-							<div class="content"><h1>Home Design</h1></div>
-							<div class="content"><h3>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks</h3></div>
+							<div class="content"><h2>여행 일정도 후기 공유도</h2></div>
+							<div class="content"><h1>여행꼬치에서 </h1></div>
 						</div>
 					</figure>
-					<figure class="crsl-item" data-image="http://placehold.it/1920x1080/bbbbbb/ffffff">
+					<figure class="crsl-item" data-image="${pageContext.request.contextPath}/resources/main_img/travel_main3.jpg">
 						<div class="container slider-box">
-							<div class="content"><h2>Uta ultrices lectus</h2></div>
-							<div class="content"><h1>Custom Tracker</h1></div>
-							<div class="content"><h3>It uses a dictionary of over 200 Latin words, combined with a handful of model</h3></div>
-						</div>
-					</figure>
-					<figure class="crsl-item" data-image="http://placehold.it/1920x1080/bbbbbb/ffffff">
-						<div class="container slider-box">
-							<div class="content"><h2>Praesent ultricies lorem massa</h2></div>
-							<div class="content"><h1>Quick Details</h1></div>
-							<div class="content"><h3>Phasellus blandit ultricies vehicula. Proin auctor sapien justo, vitaque velit</h3></div>
+							<div class="content"><h2>나만의 패키지를 만들어</h2></div>
+							<div class="content"><h1>여행갈 친구를 만들어보세요 </h1></div>
 						</div>
 					</figure>
 				</div>
@@ -629,7 +623,7 @@
 					<form method="post" action="#">
 						<div id="login" class="box">
 							<h2 class="title">Login in to your account</h2>
-							<h3 class="sub-title">It is a breach of our terms and conditions to provide username and password details to unauthorised third parties. Unauthorised use may lead to suspension or termination.</h3>
+							<h3 class="sub-title">come to KkoChi World~!</h3>
 							<div class="field">
 								<input id="user-log" name="user-log" class="form-control" type="text" placeholder="Username or email">
 								<i class="fa fa-user user"></i>
@@ -637,11 +631,23 @@
 							<div class="field">
 								<input id="password-log" name="password-log" class="form-control" type="password" placeholder="Password">
 								<i class="fa fa-ellipsis-h"></i>
-							</div>
+							</div>						
 							<div class="field footer-form text-right">
-								<span class="remember"><input class="labelauty" type="checkbox" data-labelauty="Keep me signed in" checked /></span>
-								<button type="button" class="btn btn-reverse button-form">Reset</button>
-								<button type="button" class="btn btn-default button-form">Login</button>
+							
+							<!-- 네이버 로그인 API 적용. -->
+							<button style="background-color:#ffffff; border:none" onClick=" $('.login-modal').hide();"><div id="naver_id_login"></div></button>
+								<script type="text/javascript">
+									  	var naver_id_login = new naver_id_login("qkQPxecKnvS2x7Gphr25", "http://localhost:8000/controller/login/callback");
+									  	var state = naver_id_login.getUniqState();
+									  	naver_id_login.setButton("green", 3,40);
+									  	naver_id_login.setDomain("http://localhost:8000/controller/");
+									  	naver_id_login.setState(state);
+									  	naver_id_login.setPopup();
+									  	naver_id_login.init_naver_id_login();
+								</script>
+								<form></form>
+							<button type="button" class="btn btn-reverse button-form">Reset</button>
+							<button type="button" class="btn btn-default button-form">Login</button>
 							</div>
 						</div> <!-- ./login -->
 						<div id="sign-in" class="box">

@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -349,15 +352,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="info-block" id="images">
-							<div class="section-title line-style">
-								<h3 class="title">Images</h3>
-							</div>
-							<form action="./upload.php" method="post" class="dropzone"></form>
-							<span class="text">
-								<strong>Drop files</strong> here or <strong>click</strong> to upload.<br />
-							</span>
-						</div>
 
 						<div class="info-block" id="features">
 							<div class="section-title line-style">
@@ -662,7 +656,7 @@
 						</div><!-- ./recovery -->
 						<div id="recovery" class="box">
 							<h2 class="title">Need a new password?</h2>
-							<h3 class="sub-title">Enter your email address, and we’ll email you instructions to reset your password.</h3>
+							<h3 class="sub-title">Enter your email address, and weâll email you instructions to reset your password.</h3>
 							<div class="field">
 								<input id="recovery-email" class="form-control" type="text" name="recovery-email" placeholder="Your email">
 								<i class="fa fa-envelope-o"></i>
