@@ -5,11 +5,12 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
 <title>PROHOME - Responsive Real Estate Template</title>
 
+  
 <jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
+
 
 <style type="text/css">
 #mortgage-calc {
@@ -23,7 +24,65 @@
 	width: 30%;
 }
 </style>
+<style type='text/css'>
 
+	body {
+		text-align: center;
+		font-size: 14px;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		}
+		
+	#wrap {
+		width: 1100px;
+		margin: 0 auto;
+		}
+		
+	#external-events {
+		float: left;
+		width: 150px;
+		padding: 0 10px;
+		border: 1px solid #ccc;
+		background: #eee;
+		text-align: left;
+		margin-left: 20px;
+		margin-top: 30px;
+		}
+		
+	#external-events h4 {
+		font-size: 16px;
+		margin-top: 0;
+		padding-top: 1em;
+		}
+		
+	.external-event { /* try to mimick the look of a real event */
+		margin: 10px 0;
+		padding: 2px 4px;
+		background: #3366CC;
+		color: #fff;
+		font-size: .85em;
+		cursor: pointer;
+		}
+		
+	#external-events p {
+		margin: 1.5em 0;
+		font-size: 11px;
+		color: #666;
+		}
+		
+	#external-events p input {
+		margin: 0;
+		vertical-align: middle;
+		}
+
+	#calendar {
+		float: right;
+		width: 900px;
+		margin-right: 100px;
+		margin-top: 30px;
+		
+		}
+
+</style>
 
 <!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
 <link rel="shortcut icon" href="images/favicon/favicon.ico"
@@ -70,6 +129,7 @@
 							data-target=".login-modal" data-section="login"><i
 							class="icon fa fa-user user"></i> Login</a>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -94,6 +154,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div id="breadcrumb">
 				<div class="container">
 					<ol class="breadcrumb">
@@ -102,71 +163,82 @@
 						<li class="active">일정추가</li>
 					</ol>
 				</div>
-				<a href="${pageContext.request.contextPath}/traveladd/calendar"
-					id="calendarPageMove" class="btn btn-reverse" type="button">일정스케줄링</a>
+
 			</div>
+
+
+
 
 		</section>
 
 		<section id="contact">
+
 			<div class="container">
 				<div class="row">
+					<div class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 form-container">
+						
+						<!-- 스토리 / 지도 /일정표 -->
+						<div class="plan-view-tab">
+							<h3 align="center">
+								<a href="#"> <i class="icon fa fa-th-list">스토리</i>
+								</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								 <a href="#"> <i class="icon fa fa-th-list">지도/일정표</i></a>
+							</h3>
+						</div>
+						<!-- 스토리 / 지도 /일정표 end -->
+						<!-- 스토리 영역  -->
+						<div id="story" style="visibility: inherit;">
+						<form method="post" action="contact.php" class="form-large" role="form" data-toggle="validator">
 
-					<div class="container"></div>
-					<div
-						class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 form-container">
-						<h3 class="title">Signin in with yout ProHome Account</h3>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-						pharetra diam dui, eget semper dui fermentum non. Ac semper neque
-						metus nec diam.
-						<form method="post" action="contact.php" class="form-large"
-							role="form" data-toggle="validator">
-							<div class="row">
-								<div class="col-md-6 col-sm-6 col-xs-12">
-									<label for="name">Name</label> <input type="text"
-										class="margin-bottom form-control" id="name" name="name"
-										placeholder="First &amp; Last Name .." required>
-								</div>
-								<div class="col-md-6 col-sm-6 col-xs-12">
-									<label for="email">Email</label> <input type="email"
-										class="margin-bottom form-control" id="email" name="email"
-										placeholder="Email .." required>
-								</div>
-								<div class="col-md-12">
-									<label for="subject">Subject</label> <input type="text"
-										class="margin-bottom form-control" id="subject" name="subject"
-										placeholder="Subject">
-								</div>
-								<div class="col-md-12">
-									<label for="text-message">Message</label>
-									<textarea class="margin-bottom form-control" rows="4"
-										name="text-message" id="text-message" required></textarea>
-								</div>
-								<div class="col-md-12">
-									<label for="privacy">Privacy</label>
-									<textarea class="margin-bottom form-control privacy" rows="1"
-										name="privacy" id="privacy" disabled>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque quam ut fermentum ullamcorper. Pellentesque lobortis, ante vitae egestas venenatis, ante elit consectetur sem, sit amet auctor ex ligula sed mauris. Suspendisse tempor diam et hendrerit ullamcorper. Proin urna orci, pellentesque quis bibendum at, ultrices vulputate tortor. Integer ac ante diam. In et euismod nulla. Donec nibh nisl, egestas nec porta eu, hendrerit et urna.</textarea>
-								</div>
-								<div class="col-md-12 margin-bottom">
-									<input class="labelauty" type="checkbox"
-										data-labelauty="Privacy accept" checked />
-								</div>
-							</div>
-							<input id="submit" name="submit" type="submit" value="Send mail"
-								class="btn btn-default">
+							<h3 class="title">여행일정</h3>
+							<input type="text" id="planMessage"
+								class="form-control plan-brief"
+								placeholder="어떤 여행인지 간단히 설명해 주세요 " maxlength="300" value="" />
+							<textarea class="form-control" id="planDetailMessage"
+								placeholder="당신의 여행 스토리를 남겨보세요!" maxlength="10000"></textarea>
+						
+					
+					<!-- 지도/일정영역 -->
+					<div>
+						<a href="${pageContext.request.contextPath}/traveladd/calendar"
+								id="calendarPageMove" class="btn btn-reverse" type="button">일정스케줄링</a>
+
+
+
+					 </div>	<!-- 지도/일정영역 end--> 
 						</form>
 					</div>
-					<!-- /.form-container -->
-
-					<div
-						class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 hidden-xs">
+					</div><!-- 스토리 영역 end  -->
+					
+					
+					
+					<!-- 왼쪽 정보  -->
+					<div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 hidden-xs">
 						<div class="info-container">
 							<h1>Contact</h1>
+							
+							<!-- 왼쪾 내정보  -->
+							<div class="author-box">
+									<div class="author-img">
+										<a target="_blank"
+											href="../myPage/user/0cf608b29ae518684037.html?active=myPlan">
+											<img id="profile-img"
+											src="${pageContext.request.contextPath}/resources/review_img/review_detail_profile_img.jpg">
+										</a>
+									</div>
+									<div class="author-name">
+										<h3>김 준</h3>
+									</div>
+								</div>
+								<div class="author-ment">내상태 메세지</div>
+								<!-- 왼쪽 내정보  end -->
 
-							<button id="mortgage-calc" class="btn btn-reverse" type="button">저
-								장</button>
-							<button id="mortgage-calc" class="btn btn-reverse" type="button">취
-								소</button>
+							<!-- 왼쪽 정보칸 -->
+							<button id="mortgage-calc" class="btn btn-reverse" type="button">저장</button>
+							<button id="mortgage-calc" class="btn btn-reverse" type="button">취소</button>
 							<ul class="grey-box">
 
 								<li>+123-456-789 <i class="icon fa fa-phone"></i></li>
@@ -184,6 +256,7 @@
 								<li><a href="mailto:development@prohome.com">친구별명</a><i
 									class="icon fa fa-envelope-o"></i></li>
 							</ul>
+
 							<h2>
 								<button type="button" class="btn btn-reverse"
 									data-toggle="modal" data-target="#exampleModal"
@@ -195,257 +268,278 @@
 								<li>Dev: +0123-123-456 <i class="icon fa fa-phone"></i></li>
 							</ul>
 
+
+
 							<!-- 체크리스트 모달  -->
 							<div class="modal fade" id="exampleModal" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalLabel"
 								aria-hidden="true">
-								<div class="modal-dialog"  >
-									<div class="modal-content"  >
-										<div class="modal-header" >
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal">
 												<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 											</button>
-											<h4 class="modal-title" id="exampleModalLabel">Check List</h4>
+											<h4 class="modal-title" id="exampleModalLabel">Check
+												List</h4>
 										</div>
-										
+
 										<div class="menu-navbar">
-				<nav id="navigation">
-				
-					
-						<ul>
-								<li class="has_submenu">
-								<h5><a href="#"  onclick="checkChange('start')">출발</a></h5>
-								</li>
-								<li class="has_submenu">
-								<h5><a href="#" onclick="checkChange('see')" >해변여행</a></h5>
-								</li>
-								<li class="has_submenu">
-								<h5><a href="#" onclick="checkChange('mt')" >산 여행</a></h5>
-								</li>
-							    <li class="has_submenu">
-								<h5><a href="#" onclick="checkChange('buty')" >미용도구</a></h5>
-								</li>
-							    <li class="has_submenu">
-								<h5><a href="#" onclick="checkChange('119')">구급약</a></h5>
-								</li>
-								
-								
-						</ul>
-				</nav>
-			</div><!-- /.menu -->
-								<div class="modal-body" >
-									<div class="modal-body-list">히릿</div>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">취소</button>
-									<button type="button" class="btn btn-primary">저장</button>
+											<nav id="navigation">
+
+
+												<ul>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('start')">출발</a>
+														</h5>
+													</li>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('see')">해변여행</a>
+														</h5>
+													</li>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('mt')">산 여행</a>
+														</h5>
+													</li>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('buty')">미용도구</a>
+														</h5>
+													</li>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('119')">구급약</a>
+														</h5>
+													</li>
+
+
+												</ul>
+											</nav>
+										</div>
+										<!-- /.menu -->
+										<div class="modal-body">
+											<div class="modal-body-list">히릿</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">취소</button>
+											<button type="button" class="btn btn-primary">저장</button>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					<!-- 체크리스트 모달 끝 -->
+							<!-- 체크리스트 모달 끝 -->
 
+						</div>
+						<!-- /.info-container -->
+					</div>
+					<!-- 왼쪽 정보칸 end -->
+
+					<!-- ./col-sm-4 -->
 				</div>
-				<!-- /.info-container -->
 			</div>
-			<!-- ./col-sm-4 -->
-	</div>
-	</div>
-	</section>
+		</section>
 
 
 
-	<div class="modal fade login-modal" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">
-				<i class="fa fa-close"></i>
-			</button>
-			<div class="login-button-container">
-				<a href="#" data-section="login"><i class="fa fa-user"></i></a> <a
-					href="#" data-section="sign-in"><i
-					class="fa fa-pencil-square-o"></i></a> <a href="#"
-					data-section="recovery"><i class="fa fa-lock"></i></a> <a href="#"
-					data-section="setting"><i class="fa fa-cog"></i></a>
-			</div>
-			<!-- ./login-button-container -->
-			<div class="form-container">
-				<form method="post" action="#">
-					<div id="login" class="box">
-						<h2 class="title">Login in to your account</h2>
-						<h3 class="sub-title">It is a breach of our terms and
-							conditions to provide username and password details to
-							unauthorised third parties. Unauthorised use may lead to
-							suspension or termination.</h3>
-						<div class="field">
-							<input id="user-log" name="user-log" class="form-control"
-								type="text" placeholder="Username or email"> <i
-								class="fa fa-user user"></i>
-						</div>
-						<div class="field">
-							<input id="password-log" name="password-log" class="form-control"
-								type="password" placeholder="Password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<span class="remember"><input class="labelauty"
-								type="checkbox" data-labelauty="Keep me signed in" checked /></span>
-							<button type="button" class="btn btn-reverse button-form">Reset</button>
-							<button type="button" class="btn btn-default button-form">Login</button>
-						</div>
-					</div>
-					<!-- ./login -->
-					<div id="sign-in" class="box">
-						<h2 class="title">Sign In</h2>
-						<h3 class="sub-title">Create a Free account and discover how
-							you can centralize all communication around a transaction,
-							connect with clients, market your listings, and more.</h3>
-						<div class="form-inline">
-							<div class="form-group">
-								<input id="user-sign" name="user-sign"
-									class="form-control input-inline margin-right" type="text"
-									placeholder="Username"> <i class="fa fa-user user"></i>
+		<div class="modal fade login-modal" tabindex="-1" role="dialog"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="fa fa-close"></i>
+				</button>
+				<div class="login-button-container">
+					<a href="#" data-section="login"><i class="fa fa-user"></i></a> <a
+						href="#" data-section="sign-in"><i
+						class="fa fa-pencil-square-o"></i></a> <a href="#"
+						data-section="recovery"><i class="fa fa-lock"></i></a> <a href="#"
+						data-section="setting"><i class="fa fa-cog"></i></a>
+				</div>
+				<!-- ./login-button-container -->
+				<div class="form-container">
+					<form method="post" action="#">
+						<div id="login" class="box">
+							<h2 class="title">Login in to your account</h2>
+							<h3 class="sub-title">It is a breach of our terms and
+								conditions to provide username and password details to
+								unauthorised third parties. Unauthorised use may lead to
+								suspension or termination.</h3>
+							<div class="field">
+								<input id="user-log" name="user-log" class="form-control"
+									type="text" placeholder="Username or email"> <i
+									class="fa fa-user user"></i>
 							</div>
-							<div class="form-group">
-								<input id="email-sign" class="form-control input-inline"
-									type="text" name="email-sign" placeholder="Email"> <i
+							<div class="field">
+								<input id="password-log" name="password-log"
+									class="form-control" type="password" placeholder="Password">
+								<i class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<span class="remember"><input class="labelauty"
+									type="checkbox" data-labelauty="Keep me signed in" checked /></span>
+								<button type="button" class="btn btn-reverse button-form">Reset</button>
+								<button type="button" class="btn btn-default button-form">Login</button>
+							</div>
+						</div>
+						<!-- ./login -->
+						<div id="sign-in" class="box">
+							<h2 class="title">Sign In</h2>
+							<h3 class="sub-title">Create a Free account and discover how
+								you can centralize all communication around a transaction,
+								connect with clients, market your listings, and more.</h3>
+							<div class="form-inline">
+								<div class="form-group">
+									<input id="user-sign" name="user-sign"
+										class="form-control input-inline margin-right" type="text"
+										placeholder="Username"> <i class="fa fa-user user"></i>
+								</div>
+								<div class="form-group">
+									<input id="email-sign" class="form-control input-inline"
+										type="text" name="email-sign" placeholder="Email"> <i
+										class="fa fa-envelope-o"></i>
+								</div>
+							</div>
+							<div class="field">
+								<input id="password-sign" class="form-control" type="password"
+									name="password-sign" placeholder="Password"> <i
+									class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field">
+								<input id="re-password-sign" class="form-control"
+									type="password" name="re-password-sign"
+									placeholder="Repeat password"> <i
+									class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<span class="remember"><input class="labelauty"
+									type="checkbox"
+									data-labelauty="I have read the privacy policy." checked /></span>
+								<button type="button" class="btn btn-default button-form">Sign
+									in</button>
+							</div>
+						</div>
+						<!-- ./sign-in -->
+						<div id="setting" class="box">
+							<h2 class="title">Setting profile</h2>
+							<h3 class="sub-title">
+								Please note: You won't be able to change your name within the
+								next 60 days. Make sure that you don't add any unusual
+								capitalisation, punctuation, characters or random words. <a
+									href="#">Learn more</a>.
+							</h3>
+							<div class="field">
+								<input id="username-block" class="form-control" type="text"
+									name="username-block" value="John Doe" disabled> <i
+									class="fa fa-user user"></i>
+							</div>
+							<div class="field">
+								<input id="email-setting" class="form-control" type="text"
+									name="email-setting" value="administrator@prohome.com">
+								<i class="fa fa-envelope-o"></i>
+							</div>
+							<div class="field">
+								<input id="update-pass" class="form-control" type="password"
+									name="update-pass" placeholder="New password"> <i
+									class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field">
+								<input id="update-repass" class="form-control" type="password"
+									name="update-repass" placeholder="Repeat password"> <i
+									class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<button type="button" class="btn btn-reverse button-form">Cancel</button>
+								<button type="button" class="btn btn-default button-form">Update</button>
+							</div>
+						</div>
+						<!-- ./recovery -->
+						<div id="recovery" class="box">
+							<h2 class="title">Need a new password?</h2>
+							<h3 class="sub-title">Enter your email address, and we’ll
+								email you instructions to reset your password.</h3>
+							<div class="field">
+								<input id="recovery-email" class="form-control" type="text"
+									name="recovery-email" placeholder="Your email"> <i
 									class="fa fa-envelope-o"></i>
 							</div>
+							<div class="field footer-form text-right">
+								<button type="button" class="btn btn-default button-form">Recovery</button>
+							</div>
 						</div>
-						<div class="field">
-							<input id="password-sign" class="form-control" type="password"
-								name="password-sign" placeholder="Password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field">
-							<input id="re-password-sign" class="form-control" type="password"
-								name="re-password-sign" placeholder="Repeat password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<span class="remember"><input class="labelauty"
-								type="checkbox" data-labelauty="I have read the privacy policy."
-								checked /></span>
-							<button type="button" class="btn btn-default button-form">Sign
-								in</button>
-						</div>
-					</div>
-					<!-- ./sign-in -->
-					<div id="setting" class="box">
-						<h2 class="title">Setting profile</h2>
-						<h3 class="sub-title">
-							Please note: You won't be able to change your name within the
-							next 60 days. Make sure that you don't add any unusual
-							capitalisation, punctuation, characters or random words. <a
-								href="#">Learn more</a>.
-						</h3>
-						<div class="field">
-							<input id="username-block" class="form-control" type="text"
-								name="username-block" value="John Doe" disabled> <i
-								class="fa fa-user user"></i>
-						</div>
-						<div class="field">
-							<input id="email-setting" class="form-control" type="text"
-								name="email-setting" value="administrator@prohome.com">
-							<i class="fa fa-envelope-o"></i>
-						</div>
-						<div class="field">
-							<input id="update-pass" class="form-control" type="password"
-								name="update-pass" placeholder="New password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field">
-							<input id="update-repass" class="form-control" type="password"
-								name="update-repass" placeholder="Repeat password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<button type="button" class="btn btn-reverse button-form">Cancel</button>
-							<button type="button" class="btn btn-default button-form">Update</button>
-						</div>
-					</div>
-					<!-- ./recovery -->
-					<div id="recovery" class="box">
-						<h2 class="title">Need a new password?</h2>
-						<h3 class="sub-title">Enter your email address, and we’ll
-							email you instructions to reset your password.</h3>
-						<div class="field">
-							<input id="recovery-email" class="form-control" type="text"
-								name="recovery-email" placeholder="Your email"> <i
-								class="fa fa-envelope-o"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<button type="button" class="btn btn-default button-form">Recovery</button>
-						</div>
-					</div>
-					<!-- ./recovery -->
-				</form>
-				<!-- ./form-container -->
+						<!-- ./recovery -->
+					</form>
+					<!-- ./form-container -->
+				</div>
+				<!-- ./login-button-container -->
 			</div>
-			<!-- ./login-button-container -->
+			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
+		<!-- /.modal -->
 
 
-	<div class="modal fade" id="modal-contact" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">
-				<i class="fa fa-close"></i>
-			</button>
+		<div class="modal fade" id="modal-contact" tabindex="-1" role="dialog"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="fa fa-close"></i>
+				</button>
 
-			<div class="form-container full-fixed">
-				<form method="post" action="#">
-					<div id="form-modal-contact" class="box active modal-contact">
-						<h2 class="title">How can we help?</h2>
-						<h3 class="sub-title">Please send us your thoughts by filling
-							out the below form. Comments are solely for internal use. Your
-							address will not be shared with outside parties or used for any
-							other purpose than to respond to your comments.</h3>
-						<ul class="object-contact">
-							<li><a href="#"><i class="fa fa-code"></i>Suggestion</a></li>
-							<li><a href="#"><i class="fa fa-question"></i>Question</a></li>
-							<li><a href="#" class="active"><i class="fa fa-bug"></i>Problems</a></li>
-							<li><a href="#"><i class="fa fa-comment-o"></i>Feedback</a></li>
-						</ul>
-						<div class="field">
-							<textarea class="form-control" name="message" id="message"
-								placeholder="Your message"></textarea>
-						</div>
-						<div class="field">
-							<input id="short-summary" class="form-control" type="text"
-								name="short-summary" placeholder="Short summary"> <i
-								class="fa fa-tag"></i>
-						</div>
-						<div class="field">
-							<input id="email-help" class="form-control" type="text"
-								name="email-help" placeholder="Your email"> <i
-								class="fa fa-envelope-o"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<button type="button" class="btn btn-reverse button-form">Cancel</button>
-							<button type="button" class="btn btn-default button-form">Send</button>
-						</div>
+				<div class="form-container full-fixed">
+					<form method="post" action="#">
+						<div id="form-modal-contact" class="box active modal-contact">
+							<h2 class="title">How can we help?</h2>
+							<h3 class="sub-title">Please send us your thoughts by
+								filling out the below form. Comments are solely for internal
+								use. Your address will not be shared with outside parties or
+								used for any other purpose than to respond to your comments.</h3>
+							<ul class="object-contact">
+								<li><a href="#"><i class="fa fa-code"></i>Suggestion</a></li>
+								<li><a href="#"><i class="fa fa-question"></i>Question</a></li>
+								<li><a href="#" class="active"><i class="fa fa-bug"></i>Problems</a></li>
+								<li><a href="#"><i class="fa fa-comment-o"></i>Feedback</a></li>
+							</ul>
+							<div class="field">
+								<textarea class="form-control" name="message" id="message"
+									placeholder="Your message"></textarea>
+							</div>
+							<div class="field">
+								<input id="short-summary" class="form-control" type="text"
+									name="short-summary" placeholder="Short summary"> <i
+									class="fa fa-tag"></i>
+							</div>
+							<div class="field">
+								<input id="email-help" class="form-control" type="text"
+									name="email-help" placeholder="Your email"> <i
+									class="fa fa-envelope-o"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<button type="button" class="btn btn-reverse button-form">Cancel</button>
+								<button type="button" class="btn btn-default button-form">Send</button>
+							</div>
 
-					</div>
-				</form>
+
+
+						</div>
+					</form>
+				</div>
+
+
 			</div>
-
-
+			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
+		<!-- /.modal -->
 	</div>
 	<!-- /#page-container -->
 
 	<!-- buttom css -->
 	<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
+	
+
 	<script>
 		"use strict";
 
@@ -469,81 +563,82 @@
 		}
 		/* google.maps.event.addDomListener(window, 'load', initialize); */
 	</script>
-<script type="text/javascript">
+	<script type="text/javascript">
+		/*  체크리스트 리스트 change */
+		function checkChange(str) {
+			var output = "";
+			var list = str;
+			if (list == "start") {
+				output = "";
+				list = "";
+
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+
+				return;
+			}
+			if (list == "see") {
+				output = "";
+				list = "";
+
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+
+				return;
+			}
+			if (list == "mt") {
+				output = "";
+				list = "";
+
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+
+				return;
+			}
+			if (list == "buty") {
+				output = "";
+				list = "";
+
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+
+				return;
+			}
+			if (list == "119") {
+				output = "";
+				list = "";
+
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+
+				return;
+
+			}
+
+		}
+	</script>
 	
-/*  체크리스트 리스트 change */
-function checkChange(str) {
-	var output ="";
-	var list = str;
-	if(list=="start"){
-		 output ="";
-		 list = "";
-		
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-		
-		return;
-	} if(list=="see"){
-		 output ="";
-		 list = "";
-
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-
-		return;
-	} if(list=="mt"){
-		 output ="";
-		 list = "";
-
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-
-		return;
-	} if(list=="buty"){
-		 output ="";
-		 list = "";
-
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-
-		
-		return;
-	} if(list=="119"){
-		 output ="";
-		 list = "";
-
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-
-		return;
-
-	}
-
- 
-}
-
-</script>
 </body>
 </html>

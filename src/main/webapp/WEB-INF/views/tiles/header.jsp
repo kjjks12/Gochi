@@ -9,15 +9,7 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-<!-- 달력 링크 , 부트스트랩 ======================================== -->
- 	<link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datepicker.css" rel="stylesheet" />  
-  
-	<script src="${pageContext.request.contextPath}/resources/fullcalendar/jquery-1.10.2.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datepicker.js"></script>
- <!-- 달력 링크 , 부트스트랩 ======================================== -->
-    
+
 </head>
 
 <body>
@@ -123,23 +115,45 @@
              </span>   
          </div> 
         
+        <div class="btn-group">
+         <button type="button" class="btn btn-default btn-danger"> 버튼2 </button> 
+          <button type="button" class="btn btn-default btn-danger dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+         </button>
+       <ul class="dropdown-menu" role="menu">
+        <li><a href="#">메뉴 1</a></li>
+        <li><a href="#">메뉴 2</a></li>
+        <li><a href="#">메뉴 3</a></li>
+        <li class="divider"></li>
+        <li><a href="#">다른 메뉴 </a></li>
+      </ul>
+    </div>    
          
-        <div class="row">
-            <div class="col-sm-4"></div>
-        	<div class="col-xs-12 col-sm-4">
-        		  <div class="controls">
-        		      <input class="datepicker form-control" type="text"/>
-        		  </div>
-        		
-        	</div>
-    		<div class="col-sm-2"></div>
-        </div>
+      
          
      
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         <button type="submit" class="btn btn-primary" >저장 후 이동</button>
       </div>
+      
+      <div class="start-data box">
+                <label for="start-data">출발일</label>
+              <span class="field">
+                <div class=""><input type="text" id="start-date" readonly="true"></div>
+                <span class="alert">출발일을 선택해주세요.</span>
+              </span>
+                <div id="start-date-picker"></div>
+            </div>
+
+            <div class="arrival box">
+                <label for="arrival">도착일</label>
+              <span class="field">
+                <div class=""><input type="text" id="arrival-date" readonly="true"></div>
+                <span class="alert">도착일을 선택해주세요.</span>
+              </span>
+                <div id="arrival-date-picker"></div>
+            </div>
        
     </form>
     </div> <!-- 모달 콘텐츠 -->
@@ -150,14 +164,5 @@
 
 		
 </body>
-	<script type="text/javascript">
-	 $('.datepicker').datepicker({
-    	 weekStart:1,
-    	 color: 'red'
-    	
-	 });
-	 
-	
-	 
-	</script>
+
 </html>

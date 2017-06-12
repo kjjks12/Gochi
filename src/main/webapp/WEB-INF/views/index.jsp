@@ -179,6 +179,8 @@
 								<dt class="bed">Beds:</dt><dd><span>2</span></dd>
 								<dt class="bath">Baths:</dt><dd><span>1</span></dd>
 							</dl><!-- /.detail -->
+							
+							
 							<div class="footer">
 								<a class="btn btn-reverse" href="property-detail.html">Read now</a>
 							</div>
