@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Built-By: jgs
 Build-Jdk: 1.8.0_131
-=======
-Built-By: kawaji
-Build-Jdk: 1.8.0_111
->>>>>>> e849f48adc00d0af6e229aa8626806d9e629d86e
 Created-By: Maven Integration for Eclipse
 
