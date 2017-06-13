@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>PROHOME - Responsive Real Estate Template</title>
 
-  
+
 <jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
 
 
@@ -25,65 +25,225 @@
 }
 </style>
 <style type='text/css'>
+body {
+	text-align: center;
+	font-size: 14px;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+		background: #f2f2f2;
+}
+#wrap {
+	width: 1100px;
+	margin: 0 auto;
+}
 
-	body {
-		text-align: center;
-		font-size: 14px;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		}
-		
-	#wrap {
-		width: 1100px;
-		margin: 0 auto;
-		}
-		
-	#external-events {
-		float: left;
-		width: 150px;
-		padding: 0 10px;
-		border: 1px solid #ccc;
-		background: #eee;
-		text-align: left;
-		margin-left: 20px;
-		margin-top: 30px;
-		}
-		
-	#external-events h4 {
-		font-size: 16px;
-		margin-top: 0;
-		padding-top: 1em;
-		}
-		
-	.external-event { /* try to mimick the look of a real event */
-		margin: 10px 0;
-		padding: 2px 4px;
-		background: #3366CC;
-		color: #fff;
-		font-size: .85em;
-		cursor: pointer;
-		}
-		
-	#external-events p {
-		margin: 1.5em 0;
-		font-size: 11px;
-		color: #666;
-		}
-		
-	#external-events p input {
-		margin: 0;
-		vertical-align: middle;
-		}
+#external-events {
+	float: left;
+	width: 150px;
+	padding: 0 10px;
+	border: 1px solid #ccc;
+	background: #eee;
+	text-align: left;
+	margin-left: 20px;
+	margin-top: 30px;
+}
 
-	#calendar {
-		float: right;
-		width: 900px;
-		margin-right: 100px;
-		margin-top: 30px;
-		
-		}
+#external-events h4 {
+	font-size: 16px;
+	margin-top: 0;
+	padding-top: 1em;
+}
+
+.external-event { /* try to mimick the look of a real event */
+	margin: 10px 0;
+	padding: 2px 4px;
+	background: #3366CC;
+	color: #fff;
+	font-size: .85em;
+	cursor: pointer;
+}
+
+#external-events p {
+	margin: 1.5em 0;
+	font-size: 11px;
+	color: #666;
+}
+
+#external-events p input {
+	margin: 0;
+	vertical-align: middle;
+}
+
+#calendar {
+	float: right;
+	width: 900px;
+	margin-right: 100px;
+	margin-top: 30px;
+}
+
+#title {
+	text-align: center;
+}
+
+.buttonWrap {
+	position: relative;
+	float: left;
+	overflow: hidden;
+	cursor: pointer;
+	background-image:
+		url('${pageContext.request.contextPath}/resources/custom_icon/user_back_icon.png');
+	width: 52px;
+	height: 40px;
+}
+
+#customer_back_img {position：absolute;
+	margin-left: -10px;
+	filter: alpha(opacity = 0);
+	opacity: 0;
+	-moz-opacity: 0;
+	cursor: pointer;
+	width: 74px;
+	height: 20px;
+}
+
+#user_back_icon {
+	width: 60px;
+	height: 60px;
+}
+
+/*user back cover file 태그 숨기기*/
+#user_backcover_filebtn {
+	display: none;
+}
+
+.profile_title_div {
+	padding-top: 40px;
+}
+
+.profile_cover_div {
+	padding-top: 50px;
+}
+
+#travel_title_span {
+	font-weight: bold;
+}
+
+.plan-view-tab {
+	text-align: center; height : 50px;
+	background: #fff;
+	background-image: initial;
+	background-position-x: initial;
+	background-position-y: initial;
+	background-size: initial;
+	background-repeat-x: initial;
+	background-repeat-y: initial;
+	background-attachment: initial;
+	background-origin: initial;
+	background-clip: initial;
+	background-color: rgb(255, 255, 255);
+	border-radius: 4px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(125, 125, 125, .2);
+	-webkit-box-shadow: 0 1px 1px rgba(125, 125, 125, .2);
+	-moz-box-shadow: 0 1px 1px rgba(125, 125, 125, .2);
+	height: 50px;
+}
+
+#plan-select-tab{
+  border-width:1px 0;
+  list-style:none;
+  margin:0;
+  padding:0;
+  text-align:center;
+}
+#plan-select-tab li{
+  margin-right:50px;
+  display:inline;
+    font-size: 20px;
+}
+#plan-select-tab li a i{
+  display:inline-block;
+  padding:10px;
+
+}
+
+#planMessage{
+margin-bottom: 10px;
+}
 
 </style>
 
+
+<!-- Jquery Script Start-->
+<script>
+	$(document).ready(function() {
+
+		//여행 타이틀 수정하기 아이콘을 눌렀을때
+		$("#user_back_icon").click(function() {
+			//alert($("#travel_title").text());
+			//수정 입력폼 보여주기
+			$("#travel_title_text").show();
+			$("#travel_title_save_btn").show();
+
+			//수정폼 text에 기존 값 보여주기
+			$("#travel_title_text").val($("#travel_title").text());
+
+			//기존 보여주는 양식 숨기기
+			$("#travel_title").hide();
+			$("#travel_title_change_btn").hide();
+		});
+
+		//여행 타이틀 수정 완료 버튼 눌렀을때
+		$("#travel_title_save_btn").click(function() {
+			//원래 여행 타이틀 div에 입력받은 text값 넣음
+			//alert($("#travel_title_text").val());
+			$("#travel_title").text($("#travel_title_text").val());
+
+			//수정 입력폼 숨기기
+			$("#travel_title_text").hide();
+			$("#travel_title_save_btn").hide();
+
+			//기존 보여주는 양식 보여주기
+			$("#travel_title").show();
+			$("#travel_title_change_btn").show();
+		})
+
+
+		$("#user_backcover_changebtn").click(function() {
+
+			$("#user_backcover_filebtn").trigger('click');
+		})
+
+
+		//이미지 변경 됬으면
+		$("#user_backcover_filebtn").change(function() {
+			var file = this.files[0];
+			var reader = new FileReader();
+			reader.onloadend = function() {
+				$('#user_backcover_div').css('background-image', 'url("' + reader.result + '")');
+
+				$("#default_back_div1").hide();
+				$("#default_back_div2").hide();
+				$("#default_back_div3").hide();
+				$("#default_back_div4").hide();
+
+				//글씨 색 바꾸기
+				$("#travel_title_span").css('color', 'white');
+			}
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+			}
+
+		});
+
+
+	}); //jQuery 끝
+</script>
 <!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
 <link rel="shortcut icon" href="images/favicon/favicon.ico"
 	type="image/x-icon" />
@@ -138,32 +298,39 @@
 
 		<section id="header-page" class="header-margin-base">
 
-			<div class="skyline">
-				<div data-offset="50" class="p1 parallax"></div>
-				<div data-offset="25" class="p2 parallax"></div>
-				<div data-offset="15" class="p3 parallax"></div>
-				<div data-offset="8" class="p4 parallax"></div>
+			<div class="skyline" id="user_backcover_div">
 
+				<div data-offset="50" class="p1 parallax" id="default_back_div1"></div>
+				<div data-offset="25" class="p2 parallax" id="default_back_div2"></div>
+				<div data-offset="15" class="p3 parallax" id="default_back_div3"></div>
+				<div data-offset="8" class="p4 parallax" id="default_back_div4"></div>
+
+
+				<!-- 여행 타이틀 부분 -->
 				<div class="container header-text">
-					<div>
-						<h1 class="title">Property Details</h1>
-					</div>
-					<div>
-						<h2 class="sub-title">Lorem ipsum dolor consectetur ats
-							adipiscing elit</h2>
-					</div>
-				</div>
-			</div>
+					<div class="profile_title_div">
+						<h1 align="center">
+							<span id="travel_title_span"> <span id="travel_title">도른자와 함꼐하는 오키나와 뚜벅이 여행</span>
+							</span> <span id="travel_title_change_btn"> <a href="#"
+								id="user_back_icon"> <i class="fa fa-pencil-square-o"
+									aria-hidden="true"></i></a>
+							</span>
+						</h1>
 
-			<div id="breadcrumb">
-				<div class="container">
-					<ol class="breadcrumb">
-						<li><a href="#"><i class="fa fa-home"></i></a></li>
-						<li><a href="#">home</a></li>
-						<li class="active">일정추가</li>
-					</ol>
-				</div>
+						<h2>
+							<input type="text" id="travel_title_text" size="30"
+								maxlength="30" hidden> <input type="button"
+								id="travel_title_save_btn" value="저장" hidden>
+						</h2>
+					</div>
+					<div class="profile_cover_div">
+						<button type="button" class="btn btn-default btn-sm"
+							id="user_backcover_changebtn">커버 바꾸기</button>
+						<input type="file" id="user_backcover_filebtn"
+							onchange="previewImage(this,'user_backcover_div')" />
+					</div>
 
+				</div>
 			</div>
 
 
@@ -175,66 +342,68 @@
 
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 form-container">
+
+	<!-- 여행 들어갈 내용 -->
+					<div
+						class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 form-container">
+
 						
-						<!-- 스토리 / 지도 /일정표 -->
-						<div class="plan-view-tab">
-							<h3 align="center">
-								<a href="#"> <i class="icon fa fa-th-list">스토리</i>
-								</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								 <a href="#"> <i class="icon fa fa-th-list">지도/일정표</i></a>
-							</h3>
-						</div>
 						<!-- 스토리 / 지도 /일정표 end -->
 						<!-- 스토리 영역  -->
 						<div id="story" style="visibility: inherit;">
-						<form method="post" action="contact.php" class="form-large" role="form" data-toggle="validator">
+							<form method="post" action="contact.php" class="form-large"
+								role="form" data-toggle="validator">
 
-							<h3 class="title">여행일정</h3>
-							<input type="text" id="planMessage"
-								class="form-control plan-brief"
-								placeholder="어떤 여행인지 간단히 설명해 주세요 " maxlength="300" value="" />
-							<textarea class="form-control" id="planDetailMessage"
-								placeholder="당신의 여행 스토리를 남겨보세요!" maxlength="10000"></textarea>
-						
-					
-					<!-- 지도/일정영역 -->
-					<div>
-						<a href="${pageContext.request.contextPath}/traveladd/calendar"
-								id="calendarPageMove" class="btn btn-reverse" type="button">일정스케줄링</a>
+								<input type="text" id="planMessage"
+									class="form-control plan-brief"
+									placeholder="어떤 여행인지 간단히 설명해 주세요 " maxlength="300" value="" />
+								<textarea class="form-control" id="planDetailMessage"
+									placeholder="당신의 여행 스토리를 남겨보세요!" maxlength="10000"></textarea>
 
 
+					<!-- 스토리 / 지도 /일정표 -->
+						<div class="plan-view-tab">
+								<ul id="plan-select-tab">
+									<li><a href="/"><i class="fa fa-comment-o" aria-hidden="true"></i>스토리</a></li>
+									<li><a href="/"><i class="fa fa-calendar" aria-hidden="true"></i> 지도 / 일정표</a></li>
+								</ul>
+						</div>
 
-					 </div>	<!-- 지도/일정영역 end--> 
-						</form>
+								<!-- 지도/일정영역 -->
+								<div>
+									<a href="${pageContext.request.contextPath}/traveladd/calendar"
+										id="calendarPageMove" class="btn btn-reverse" type="button">일정스케줄링</a>
+
+								</div>
+								<!-- 지도/일정영역 end-->
+							</form>
+						</div>
 					</div>
-					</div><!-- 스토리 영역 end  -->
-					
-					
-					
+					<!-- 스토리 영역 end  -->
+
+
+
 					<!-- 왼쪽 정보  -->
-					<div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 hidden-xs">
+					<div
+						class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 hidden-xs">
 						<div class="info-container">
 							<h1>Contact</h1>
-							
+
 							<!-- 왼쪾 내정보  -->
 							<div class="author-box">
-									<div class="author-img">
-										<a target="_blank"
-											href="../myPage/user/0cf608b29ae518684037.html?active=myPlan">
-											<img id="profile-img"
-											src="${pageContext.request.contextPath}/resources/review_img/review_detail_profile_img.jpg">
-										</a>
-									</div>
-									<div class="author-name">
-										<h3>김 준</h3>
-									</div>
+								<div class="author-img">
+									<a target="_blank"
+										href="../myPage/user/0cf608b29ae518684037.html?active=myPlan">
+										<img id="profile-img"
+										src="${pageContext.request.contextPath}/resources/review_img/review_detail_profile_img.jpg">
+									</a>
 								</div>
-								<div class="author-ment">내상태 메세지</div>
-								<!-- 왼쪽 내정보  end -->
+								<div class="author-name">
+									<h3>김 준</h3>
+								</div>
+							</div>
+							<div class="author-ment">내상태 메세지</div>
+							<!-- 왼쪽 내정보  end -->
 
 							<!-- 왼쪽 정보칸 -->
 							<button id="mortgage-calc" class="btn btn-reverse" type="button">저장</button>
@@ -538,11 +707,11 @@
 
 	<!-- buttom css -->
 	<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
-	
+
 
 	<script>
 		"use strict";
-
+	
 		// MAPS GOOGLE
 		function initialize() {
 			var mapOptions = {
@@ -551,8 +720,8 @@
 				center : new google.maps.LatLng(-33.890542, 151.274856)
 			}
 			var map = new google.maps.Map(
-					document.getElementById('map-canvas'), mapOptions);
-
+				document.getElementById('map-canvas'), mapOptions);
+	
 			var image = 'resources/images/maps/pin-maps.png';
 			var myLatLng = new google.maps.LatLng(-33.890542, 151.274856);
 			var beachMarker = new google.maps.Marker({
@@ -571,57 +740,57 @@
 			if (list == "start") {
 				output = "";
 				list = "";
-
+	
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				$("div .modal-body-list").html(output);
-
+	
 				return;
 			}
 			if (list == "see") {
 				output = "";
 				list = "";
-
+	
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				$("div .modal-body-list").html(output);
-
+	
 				return;
 			}
 			if (list == "mt") {
 				output = "";
 				list = "";
-
+	
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				$("div .modal-body-list").html(output);
-
+	
 				return;
 			}
 			if (list == "buty") {
 				output = "";
 				list = "";
-
+	
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				$("div .modal-body-list").html(output);
-
+	
 				return;
 			}
 			if (list == "119") {
 				output = "";
 				list = "";
-
+	
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
@@ -632,13 +801,13 @@
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				output += "<input  type='checkbox' value='아이템' >아이템</input>";
 				$("div .modal-body-list").html(output);
-
+	
 				return;
-
+	
 			}
-
+	
 		}
 	</script>
-	
+
 </body>
 </html>

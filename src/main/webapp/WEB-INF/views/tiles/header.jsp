@@ -81,7 +81,7 @@
       </div>
       <div class="modal-body">
       <!-- Form Start -->
-      <form role="form" action="#">  
+      <form role="form" action="${pageContext.request.contextPath}/traveladd/travel_add">  
     	<div class="form-group">   
         	<label for="Title">일정등록</label>
        	 	<input type="text" class="form-control" placeholder="여행 제목"> 
@@ -136,26 +136,8 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         <button type="submit" class="btn btn-primary" >저장 후 이동</button>
       </div>
-      
-      <div class="start-data box">
-                <label for="start-data">출발일</label>
-              <span class="field">
-                <div class=""><input type="text" id="start-date" readonly="true"></div>
-                <span class="alert">출발일을 선택해주세요.</span>
-              </span>
-                <div id="start-date-picker"></div>
-            </div>
-
-            <div class="arrival box">
-                <label for="arrival">도착일</label>
-              <span class="field">
-                <div class=""><input type="text" id="arrival-date" readonly="true"></div>
-                <span class="alert">도착일을 선택해주세요.</span>
-              </span>
-                <div id="arrival-date-picker"></div>
-            </div>
-       
     </form>
+			<!--./form 전송 끝 -->    
     </div> <!-- 모달 콘텐츠 -->
   </div> <!-- 모달 다이얼로그 -->
 </div> <!-- 모달 전체 윈도우 -->
