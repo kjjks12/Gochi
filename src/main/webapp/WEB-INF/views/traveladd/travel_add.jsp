@@ -9,7 +9,26 @@
 <title>PROHOME - Responsive Real Estate Template</title>
 
   
+	<script	src="${pageContext.request.contextPath}/resources/script/jquery.min.js"></script>		<!-- jQuery	(necessary for Bootstrap's JavaScript plugins) -->
+	<script	src="${pageContext.request.contextPath}/resources/script/jquery-ui.min.js"></script>		<!-- jQuery	UI is a	curated	set	of user	interface interactions,	effects, widgets, and themes -->
+	<script	src="${pageContext.request.contextPath}/resources/script/bootstrap.min.js"></script>		<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/mmenu/mmenu.min.all.js"></script>					<!-- Menu Responsive -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/animation-wow/wow.min.js"></script>					<!-- Animate Script	-->
+	<script src="${pageContext.request.contextPath}/resources/script/vendor/labelauty/labelauty.min.js"></script>					<!-- Checkbox Script -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/parallax/parallax.min.js"></script>						<!-- Parallax Script -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/images-fill/imagesloaded.min.js"></script>			<!-- Loaded	image with ImageFill -->
+	<script src="${pageContext.request.contextPath}/resources/script/vendor/images-fill/imagefill.min.js"></script>					<!-- ImageFill Script -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/easydropdown/jquery.easydropdown.min.js"></script>	<!-- Select	list Script	-->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/carousel/responsiveCarousel.min.js"></script>		<!-- Carousel Script -->
+	<script	src="${pageContext.request.contextPath}/resources/script/custom.js"></script>		<!-- Custom	Script -->
+  
 <jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
+<link href='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.css' rel='stylesheet' />
+<link href='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='${pageContext.request.contextPath}/resources/fullcalendar/moment.min.js'></script>
+<script src='${pageContext.request.contextPath}/resources/fullcalendar/jquery.min.js'></script>
+<script src='${pageContext.request.contextPath}/resources/fullcalendar/jquery-ui.min.js'></script>
+<script src='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.js'></script>
 
 
 <style type="text/css">
@@ -24,18 +43,69 @@
 	width: 30%;
 }
 </style>
-<style type='text/css'>
+<script>
+
+	$(document).ready(function() {
+
+
+		/* initialize the external events
+		-----------------------------------------------------------------*/
+
+		$('#external-events .fc-event').each(function() {
+
+			// store data so the calendar knows to render an event upon drop
+			$(this).data('event', {
+				title: $.trim($(this).text()), // use the element's text as the event title
+				stick: true // maintain when user navigates (see docs on the renderEvent method)
+			});
+
+			// make the event draggable using jQuery UI
+			$(this).draggable({
+				zIndex: 999,
+				revert: true,      // will cause the event to go back to its
+				revertDuration: 0  //  original position after the drag
+			});
+
+		});
+
+
+		/* initialize the calendar
+		-----------------------------------------------------------------*/
+
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			editable: true,
+			droppable: true, // this allows things to be dropped onto the calendar
+			drop: function() {
+				// is the "remove after drop" checkbox checked?
+				if ($('#drop-remove').is(':checked')) {
+					// if so, remove the element from the "Draggable Events" list
+					$(this).remove();
+				}
+			}
+		});
+
+
+	});
+
+</script>
+<style>
 
 	body {
+		margin-top: 40px;
 		text-align: center;
 		font-size: 14px;
 		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		}
+	}
 		
 	#wrap {
 		width: 1100px;
 		margin: 0 auto;
-		}
+	}
 		
 	#external-events {
 		float: left;
@@ -44,43 +114,34 @@
 		border: 1px solid #ccc;
 		background: #eee;
 		text-align: left;
-		margin-left: 20px;
-		margin-top: 30px;
-		}
+	}
 		
 	#external-events h4 {
 		font-size: 16px;
 		margin-top: 0;
 		padding-top: 1em;
-		}
+	}
 		
-	.external-event { /* try to mimick the look of a real event */
+	#external-events .fc-event {
 		margin: 10px 0;
-		padding: 2px 4px;
-		background: #3366CC;
-		color: #fff;
-		font-size: .85em;
 		cursor: pointer;
-		}
+	}
 		
 	#external-events p {
 		margin: 1.5em 0;
 		font-size: 11px;
 		color: #666;
-		}
+	}
 		
 	#external-events p input {
 		margin: 0;
 		vertical-align: middle;
-		}
+	}
 
 	#calendar {
 		float: right;
 		width: 900px;
-		margin-right: 100px;
-		margin-top: 30px;
-		
-		}
+	}
 
 </style>
 
@@ -180,17 +241,18 @@
 						<!-- 스토리 / 지도 /일정표 -->
 						<div class="plan-view-tab">
 							<h3 align="center">
-								<a href="#"> <i class="icon fa fa-th-list">스토리</i>
+								<a href="#"> <i class="icon fa fa-th-list" data-group="all" >스토리</i>
 								</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								 <a href="#"> <i class="icon fa fa-th-list">지도/일정표</i></a>
+								 <a href="${pageContext.request.contextPath}/a"> <i class="icon fa fa-th-list" data-group="all">지도/일정표</i></a>
 							</h3>
+		
 						</div>
-						<!-- 스토리 / 지도 /일정표 end -->
+						
 						<!-- 스토리 영역  -->
-						<div id="story" style="visibility: inherit;">
+						<div id="story" >
 						<form method="post" action="contact.php" class="form-large" role="form" data-toggle="validator">
 
 							<h3 class="title">여행일정</h3>
@@ -200,24 +262,40 @@
 							<textarea class="form-control" id="planDetailMessage"
 								placeholder="당신의 여행 스토리를 남겨보세요!" maxlength="10000"></textarea>
 						
-					
+						</form>
+						</div><!-- 스토리 영역 end  -->
 					<!-- 지도/일정영역 -->
 					<div>
-						<a href="${pageContext.request.contextPath}/traveladd/calendar"
-								id="calendarPageMove" class="btn btn-reverse" type="button">일정스케줄링</a>
+				<div id='wrap'>
 
+		<div id='external-events'>
+			<h4>Draggable Events</h4>
+			<div class='fc-event'>My Event 1</div>
+			<div class='fc-event'>My Event 2</div>
+			<div class='fc-event'>My Event 3</div>
+			<div class='fc-event'>My Event 4</div>
+			<div class='fc-event'>My Event 5</div>
+			<p>
+				<input type='checkbox' id='drop-remove' />
+				<label for='drop-remove'>remove after drop</label>
+			</p>
+		</div>
 
+		<div id='calendar'></div>
 
+		<div style='clear:both'></div>
+
+	</div>
 					 </div>	<!-- 지도/일정영역 end--> 
-						</form>
+					
 					</div>
-					</div><!-- 스토리 영역 end  -->
+				
 					
 					
 					
 					<!-- 왼쪽 정보  -->
 					<div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 hidden-xs">
-						<div class="info-container">
+						<div class="info-container" >
 							<h1>Contact</h1>
 							
 							<!-- 왼쪾 내정보  -->
@@ -536,8 +614,6 @@
 	</div>
 	<!-- /#page-container -->
 
-	<!-- buttom css -->
-	<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
 	
 
 	<script>
