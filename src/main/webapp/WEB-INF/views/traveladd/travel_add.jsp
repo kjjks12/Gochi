@@ -10,6 +10,21 @@
 
 
 <jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
+<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
+<link
+	href='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.css'
+	rel='stylesheet' />
+<link
+	href='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.print.css'
+	rel='stylesheet' media='print' />
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar/moment.min.js'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar/jquery.min.js'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar/jquery-ui.min.js'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.js'></script>
 
 
 <style type="text/css">
@@ -24,61 +39,8 @@
 	width: 30%;
 }
 </style>
+
 <style type='text/css'>
-body {
-	text-align: center;
-	font-size: 14px;
-	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-		background: #f2f2f2;
-}
-#wrap {
-	width: 1100px;
-	margin: 0 auto;
-}
-
-#external-events {
-	float: left;
-	width: 150px;
-	padding: 0 10px;
-	border: 1px solid #ccc;
-	background: #eee;
-	text-align: left;
-	margin-left: 20px;
-	margin-top: 30px;
-}
-
-#external-events h4 {
-	font-size: 16px;
-	margin-top: 0;
-	padding-top: 1em;
-}
-
-.external-event { /* try to mimick the look of a real event */
-	margin: 10px 0;
-	padding: 2px 4px;
-	background: #3366CC;
-	color: #fff;
-	font-size: .85em;
-	cursor: pointer;
-}
-
-#external-events p {
-	margin: 1.5em 0;
-	font-size: 11px;
-	color: #666;
-}
-
-#external-events p input {
-	margin: 0;
-	vertical-align: middle;
-}
-
-#calendar {
-	float: right;
-	width: 900px;
-	margin-right: 100px;
-	margin-top: 30px;
-}
 
 #title {
 	text-align: center;
@@ -120,15 +82,19 @@ body {
 }
 
 .profile_cover_div {
+	text-align:center;
 	padding-top: 50px;
 }
 
 #travel_title_span {
 	font-weight: bold;
+	text-align: center;
 }
 
 .plan-view-tab {
-	text-align: center; height : 50px;
+	margin-top: 20px;
+	text-align: center;
+	height: 50px;
 	background: #fff;
 	background-image: initial;
 	background-position-x: initial;
@@ -151,34 +117,105 @@ body {
 	-webkit-box-shadow: 0 1px 1px rgba(125, 125, 125, .2);
 	-moz-box-shadow: 0 1px 1px rgba(125, 125, 125, .2);
 	height: 50px;
+	text-align: center;
 }
 
-#plan-select-tab{
-  border-width:1px 0;
-  list-style:none;
-  margin:0;
-  padding:0;
-  text-align:center;
-}
-#plan-select-tab li{
-  margin-right:50px;
-  display:inline;
-    font-size: 20px;
-}
-#plan-select-tab li a i{
-  display:inline-block;
-  padding:10px;
-
+/*여행 스토리 / 지도,일정 선택부분*/
+#plan-select-tab {
+	margin-top: 10px;
+	border-width: 1px 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	color: #1fb8a6;
+	border-width: 1px 0;
 }
 
-#planMessage{
-margin-bottom: 10px;
+/*여행 스토리 li 태그 */
+#plan-select-tab li {
+	margin-right: 100px;
+	margin-left: 100px;
+	display: inline;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#plan-select-tab li a i {
+	display: inline-block;
+	padding: 10px;
+	color: #1fb8a6;
+}
+
+/*어떤 여행인지 간단히 설명해주세요 부분*/
+#planMessage {
+	margin-bottom: 10px;
+}
+
+/*초기 스토리영역 숨기기 -> 지도 일정표 보여줄거야*/
+#story_section {
+	display: none;
+}
+
+#wrap {
+	margin-top:60px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+#external-events {
+	float: left;
+	width: 10%;
+	padding: 0 10px;
+	border: 1px solid #ccc;
+	background: #eee;
+	text-align: left;
+}
+
+#external-events h4 {
+	font-size: 16px;
+	margin-top: 0;
+	padding-top: 1em;
+}
+
+#external-events .fc-event {
+	margin: 10px 0;
+	cursor: pointer;
+}
+
+#external-events p {
+	margin: 1.5em 0;
+	font-size: 11px;
+	color: #666;
+}
+
+#external-events p input {
+	margin: 0;
+	vertical-align: middle;
+}
+
+#calendar {
+float: left;
+width: 90%;
+}
+
+#planDetailMessage {
+	resize: vertical;
+}
+
+#travel_itinery_map {
+	margin-top: 10px;
+	width: 100%;
+	height: 400px;
+}
+
+.profile_modified_div{
+text-align: center;
 }
 
 </style>
 
-
-<!-- Jquery Script Start-->
+<!-- Jquery Script Start 광수-->
 <script>
 	$(document).ready(function() {
 
@@ -242,8 +279,88 @@ margin-bottom: 10px;
 		});
 
 
+		$("#btn_story").click(function() {
+			$("#story_section").show();
+			$("#map_itinerary_section").hide();
+
+		})
+		$("#map_itinerary_btn").click(function() {
+			$("#map_itinerary_section").show();
+			$("#story_section").hide();
+
+		})
+
+
+
 	}); //jQuery 끝
 </script>
+
+<script>
+
+	$(document).ready(function() {
+
+
+		/* initialize the external events
+		-----------------------------------------------------------------*/
+
+		$('#external-events .fc-event').each(function() {
+
+			// store data so the calendar knows to render an event upon drop
+			$(this).data('event', {
+				title : $.trim($(this).text()), // use the element's text as the event title
+				stick : true // maintain when user navigates (see docs on the renderEvent method)
+			});
+
+			// make the event draggable using jQuery UI
+			$(this).draggable({
+				zIndex : 999,
+				revert : true, // will cause the event to go back to its
+				revertDuration : 0 //  original position after the drag
+			});
+
+		});
+
+
+		/* initialize the calendar
+		-----------------------------------------------------------------*/
+
+		$('#calendar').fullCalendar({
+			header : {
+				left : 'prev,next today',
+				center : 'title',
+				right : 'month,agendaWeek,agendaDay'
+			},
+			editable : true,
+			droppable : true, // this allows things to be dropped onto the calendar
+			drop : function(date, allDay) {
+				/*    alert(date)
+				   alert(allDay) */
+
+
+			}
+		});
+
+
+		/* 드랍된 버튼 클릭시 발생이벤트 */
+		$(document).on("click", ".fc-title", function() {
+			alert("클릭:" + $(this))
+			$(this).append("222222")
+			return;
+		})
+
+		if ($('#drop-remove').is(':checked')) {
+			// if so, remove the element from the "Draggable Events" list
+			$(this).remove();
+		}
+
+
+
+	});
+</script>
+
+
+<!-- DAUM MAP API -->
+
 <!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
 <link rel="shortcut icon" href="images/favicon/favicon.ico"
 	type="image/x-icon" />
@@ -270,31 +387,6 @@ margin-bottom: 10px;
 
 	<div id="page-container">
 
-		<div class="info">
-			<!-- info -->
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<a href="#mobile-menu" id="mobile-menu-button" class="visible-xs"><i
-							class="fa fa-bars"></i></a> <a href="call:1-800-555-1234"
-							class="hidden-xs"><i class="icon fa fa-phone"></i>
-							(011)-8800-555</a> <a href="#" data-section="modal-contact"
-							data-target="#modal-contact" data-toggle="modal"
-							class="hidden-xs"><i class="icon fa fa-envelope-o"></i> Info</a>
-					</div>
-					<div id="login-pan" class="col-md-6 hidden-xs">
-						<a href="#" data-toggle="modal" data-target=".login-modal"
-							data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>
-							Sign up</a> <a href="#" data-toggle="modal"
-							data-target=".login-modal" data-section="login"><i
-							class="icon fa fa-user user"></i> Login</a>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		<!-- /.info -->
-
 
 		<section id="header-page" class="header-margin-base">
 
@@ -317,11 +409,13 @@ margin-bottom: 10px;
 							</span>
 						</h1>
 
+						<div class="profile_modified_div">
 						<h2>
 							<input type="text" id="travel_title_text" size="30"
-								maxlength="30" hidden> <input type="button"
-								id="travel_title_save_btn" value="저장" hidden>
+								maxlength="30" hidden> 
+								<input type="button" id="travel_title_save_btn" value="저장" hidden>
 						</h2>
+						</div>
 					</div>
 					<div class="profile_cover_div">
 						<button type="button" class="btn btn-default btn-sm"
@@ -340,56 +434,16 @@ margin-bottom: 10px;
 
 		<section id="contact">
 
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row">
 
-	<!-- 여행 들어갈 내용 -->
-					<div
-						class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 form-container">
 
-						
-						<!-- 스토리 / 지도 /일정표 end -->
-						<!-- 스토리 영역  -->
-						<div id="story" style="visibility: inherit;">
-							<form method="post" action="contact.php" class="form-large"
-								role="form" data-toggle="validator">
-
-								<input type="text" id="planMessage"
-									class="form-control plan-brief"
-									placeholder="어떤 여행인지 간단히 설명해 주세요 " maxlength="300" value="" />
-								<textarea class="form-control" id="planDetailMessage"
-									placeholder="당신의 여행 스토리를 남겨보세요!" maxlength="10000"></textarea>
-
-
-					<!-- 스토리 / 지도 /일정표 -->
-						<div class="plan-view-tab">
-								<ul id="plan-select-tab">
-									<li><a href="/"><i class="fa fa-comment-o" aria-hidden="true"></i>스토리</a></li>
-									<li><a href="/"><i class="fa fa-calendar" aria-hidden="true"></i> 지도 / 일정표</a></li>
-								</ul>
-						</div>
-
-								<!-- 지도/일정영역 -->
-								<div>
-									<a href="${pageContext.request.contextPath}/traveladd/calendar"
-										id="calendarPageMove" class="btn btn-reverse" type="button">일정스케줄링</a>
-
-								</div>
-								<!-- 지도/일정영역 end-->
-							</form>
-						</div>
-					</div>
-					<!-- 스토리 영역 end  -->
-
-
-
-					<!-- 왼쪽 정보  -->
-					<div
-						class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 hidden-xs">
+	<!-- 왼쪽 정보  -->
+						<div class="col-xs-3 col-sm-3 col-md-3  col-lg-2" >
 						<div class="info-container">
-							<h1>Contact</h1>
+							<h1>여행일정 만들기</h1>
 
-							<!-- 왼쪾 내정보  -->
+							<!-- 왼쪽 내정보  -->
 							<div class="author-box">
 								<div class="author-img">
 									<a target="_blank"
@@ -506,6 +560,94 @@ margin-bottom: 10px;
 						<!-- /.info-container -->
 					</div>
 					<!-- 왼쪽 정보칸 end -->
+
+					<!-- 여행 들어갈 내용 -->
+					<div class="col-xs-9 col-sm-9 col-md-9  col-lg-10">
+
+
+						<!-- 간단한 여행 설명 부분  -->
+						<div id="story">
+							<form method="post" action="contact.php" class="form-large"
+								role="form" data-toggle="validator">
+
+								<input type="text" id="planMessage"
+									class="form-control plan-brief"
+									placeholder="어떤 여행인지 간단히 설명해 주세요 " maxlength="300" value="" />
+								<textarea class="form-control" id="planDetailMessage" rows="10"
+									placeholder="당신의 여행 스토리를 남겨보세요!" maxlength="10000"></textarea>
+
+							</form>
+						</div>
+						<!-- 간단한 여행 설명 부분 end  -->
+
+
+						<!-- 스토리 / 지도 /일정표 -->
+						<div class="plan-view-tab">
+							<ul id="plan-select-tab">
+								<li><a href="#" id="btn_story"><i
+										class="fa fa-comment-o" aria-hidden="true"></i>스토리</a></li>
+								<li><a href="#" id="map_itinerary_btn"><i
+										class="fa fa-calendar" aria-hidden="true"></i> 지도 / 일정표</a></li>
+							</ul>
+						</div>
+						<!--./스토리 / 지도 /일정탭   -->
+
+
+
+						<!-- 스토리 영역 -->
+						<div id="story_section">스토리 영역 입니다.</div>
+
+						<!-- 지도/일정표 영역 -->
+						<div id="map_itinerary_action">
+
+							<div id="travel_itinery_map"></div>
+
+							<script type="text/javascript"
+								src="//apis.daum.net/maps/maps3.js?apikey=83a724e8d3593fe936b266b976eff510"></script>
+							<script>
+								var container = document.getElementById('travel_itinery_map');
+								var options = {
+									center : new daum.maps.LatLng(33.450701, 126.570667),
+									level : 3
+								};
+							
+								var map = new daum.maps.Map(container, options);
+							</script>
+
+							<div id='wrap'>
+
+								<div id='external-events'>
+									<h4>Draggable Events</h4>
+									<div class='fc-event' value="12345">My Event 1</div>
+									<div class='fc-event'>My Event 2</div>
+									<div class='fc-event'>My Event 3</div>
+									<div class='fc-event'>My Event 4</div>
+									<div class='fc-event'>My Event 5</div>
+									<p>
+										<input type='checkbox' id='drop-remove' /> <label
+											for='drop-remove'>remove after drop</label>
+									</p>
+								</div>
+
+								<div id='calendar'></div>
+
+								<div style='clear: both'></div>
+
+							</div>
+
+
+							<!-- 지도 API표시 영역  -->
+
+
+						</div>
+						<!-- 지도/일정영역 end-->
+
+
+					</div>
+		<!--./ 여행 들어갈 내용 -->
+
+
+				
 
 					<!-- ./col-sm-4 -->
 				</div>
@@ -704,9 +846,6 @@ margin-bottom: 10px;
 		<!-- /.modal -->
 	</div>
 	<!-- /#page-container -->
-
-	<!-- buttom css -->
-	<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
 
 
 	<script>
