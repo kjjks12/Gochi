@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import gochi.travel.member.dto.MemberDTO;
 import gochi.travel.model.frienddto.FriendDTO;
+import gochi.travel.model.memberdto.MemberDTO;
 
 @Repository
 public class FriendDAOImpl implements FriendDAO {

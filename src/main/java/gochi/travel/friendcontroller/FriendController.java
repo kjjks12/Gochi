@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import gochi.travel.friendservice.FriendService;
-import gochi.travel.member.dto.MemberDTO;
 import gochi.travel.model.frienddto.FriendDTO;
+import gochi.travel.model.memberdto.MemberDTO;
 import gochi.travel.model.mypagedto.MypageDTO;
 import gochi.travel.mypageservice.MypageService;
 

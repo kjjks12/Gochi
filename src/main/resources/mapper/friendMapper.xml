@@ -10,7 +10,7 @@
 	<result property="fEmail" column="F_EMAIL"/>
 </resultMap>
 
-<resultMap type="gochi.travel.member.dto.MemberDTO" id="memberDTO">
+<resultMap type="MemberDTO" id="memberDTO">
 	<id property="email" column="EMAIL"/>
 	<result property="password" column="PASSWORD"/>
 	<result property="nickname" column="NICKNAME"/>

@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import gochi.travel.member.dto.MemberDTO;
 import gochi.travel.model.frienddao.FriendDAO;
 import gochi.travel.model.frienddto.FriendDTO;
+import gochi.travel.model.memberdto.MemberDTO;
 
 @Service
 public class FriendServiceImpl implements FriendService {
