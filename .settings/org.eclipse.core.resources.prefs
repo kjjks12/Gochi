@@ -1,12 +1,11 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=8f02d7ddf8f61fa98db4afa191d30381bf02086a
 eclipse.preferences.version=1
-<<<<<<< HEAD
 encoding//src/main/webapp/WEB-INF/views/ex/profile.jsp=UTF-8
-=======
-<<<<<<< HEAD
 encoding//src/main/webapp/WEB-INF/views/login/callback.jsp=UTF-8
-=======
-encoding//src/main/webapp/WEB-INF/views/traveladd/basic_info_add.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/travel_review/review_detail3.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/traveladd/calendar.jsp=UTF-8
->>>>>>> 6152f5090406a025f72d385fff1cf9053d31cac1
->>>>>>> 848ca37d8eb441db27f8af5e77fdc8c7d4cff461
+encoding//src/main/webapp/WEB-INF/views/traveladd/map_plan/map_plan.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/traveladd/travel_add.jsp=UTF-8
 encoding/<project>=UTF-8

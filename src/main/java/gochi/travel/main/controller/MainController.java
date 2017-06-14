@@ -22,6 +22,12 @@ public class MainController {
 		
 	}
 	
+	@RequestMapping("/a")
+	public String junTest(){
+		return "traveladd/map_plan/map_plan";
+	}
+	
+	
 	/**
 	 * callback
 	 * */

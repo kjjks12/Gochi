@@ -1,284 +1,284 @@
 
---½ÃÄö½º »ç¿ë ¿¹Á¦
-  insert into board(no,subject,content) values(board_no.nextval, 'ÀÚ¹Ù' , 'Àç¹Õ´Ù!!');
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+  insert into board(no,subject,content) values(board_no.nextval, 'ï¿½Ú¹ï¿½' , 'ï¿½ï¿½Õ´ï¿½!!');
 
--- MEMBER TABLE (È¸¿øÁ¤º¸)
+-- MEMBER TABLE (È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 CREATE TABLE MEMBER
 (
 	EMAIL                 VARCHAR2(50)  NOT NULL PRIMARY KEY ,  --ID
-	PASSWORD              VARCHAR2(50)  NOT NULL , -- ºñ¹Ð¹øÈ£
-	NICKNAME              VARCHAR2(50)  NOT NULL , -- º°¸í
-	PHONE_NUMBER          VARCHAR2(50)  NULL , -- ÇÚµåÆù¹øÈ£
-	PROFILE_IMG           VARCHAR2(50)  NULL , -- ÇÁ·ÎÇÊÀÌ¹ÌÁö
-	BACK_IMG              VARCHAR2(50)  NULL , -- ¹è°æÀÌ¹ÌÁö
-	SELF_CONTENT          VARCHAR2(50)  NULL   -- °£´ÜÇÑ ÀÚ±â¼Ò°³ ±Û
+	PASSWORD              VARCHAR2(50)  NOT NULL , -- ï¿½ï¿½Ð¹ï¿½È£
+	NICKNAME              VARCHAR2(50)  NOT NULL , -- ï¿½ï¿½ï¿½ï¿½
+	PHONE_NUMBER          VARCHAR2(50)  NULL , -- ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½È£
+	PROFILE_IMG           VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½
+	BACK_IMG              VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½
+	SELF_CONTENT          VARCHAR2(50)  NULL   -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú±ï¿½Ò°ï¿½ ï¿½ï¿½
 );
 
 
--- FRIEND TABLE (Ä£±¸¸ñ·Ï)
+-- FRIEND TABLE (Ä£ï¿½ï¿½ï¿½ï¿½ï¿½)
 CREATE TABLE FRIEND
 (
-  FRIEND_NO             INTEGER  NOT NULL PRIMARY KEY , -- Ä£±¸Å×ÀÌºí ¹øÈ£
-  EMAIL                 VARCHAR2(50)  NOT NULL  REFERENCES MEMBER(EMAIL),  -- º»ÀÎID(¿Ö·¡Å°)
-	F_EMAIL               VARCHAR2(50)  NOT NULL  -- Ä£±¸ ID
+  FRIEND_NO             INTEGER  NOT NULL PRIMARY KEY , -- Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½È£
+  EMAIL                 VARCHAR2(50)  NOT NULL  REFERENCES MEMBER(EMAIL),  -- ï¿½ï¿½ï¿½ï¿½ID(ï¿½Ö·ï¿½Å°)
+	F_EMAIL               VARCHAR2(50)  NOT NULL  -- Ä£ï¿½ï¿½ ID
 	
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence FRIEND_NO nocache;
 
 
 
---¸ÞÀÏ ½Ã½ºÅÛ
+--ï¿½ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½
 CREATE TABLE NOTE
 (
-	NOTE_NO               INTEGER  NOT NULL PRIMARY KEY, -- ¸ÞÀÏ½Ã½ºÅÛ ¹øÈ£
-	SEND_EMAIL           VARCHAR2(50)  NULL , -- º¸³½»ç¶÷(ID)
-	TITLE                 VARCHAR2(50)  NULL , -- ¸ÞÀÏÁ¦¸ñ
-	CONTENT               VARCHAR2(500)  NULL , -- ¸ÞÀÏ³»¿ë
+	NOTE_NO               INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½Ï½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	SEND_EMAIL           VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ID)
+	TITLE                 VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	CONTENT               VARCHAR2(500)  NULL , -- ï¿½ï¿½ï¿½Ï³ï¿½ï¿½ï¿½
 	D_DAY                  VARCHAR2(50)  NULL , -- SYSDATE
-	FLAG                  INTEGER  DEFAULT 0 ,  -- 0 ¸ÞÀÏ¾øÀ½ , 1 ¸ÞÀÏ¿È!
-	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL) -- ¼ö½ÅÀÚID(¿Ö·¡Å°)
+	FLAG                  INTEGER  DEFAULT 0 ,  -- 0 ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½ï¿½ , 1 ï¿½ï¿½ï¿½Ï¿ï¿½!
+	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL) -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID(ï¿½Ö·ï¿½Å°)
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence NOTE_NO nocache;
 
---³ª¸¸¹Ï°íµû¶ó¿Í 
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ 
 CREATE TABLE FOLLOW_ME
 (
-	TRAVEL_NO             INTEGER  NOT NULL PRIMARY KEY, -- ³ª¹Ïµû ¹øÈ£
-	TITLE                 VARCHAR2(50)  NULL , -- ³ª¹Ïµû ±ÛÁ¦¸ñ
-	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ³ª¹Ïµû µî·ÏÀÚID (¿Ö·¡Å°)
-	THEMA                 VARCHAR2(50)  NULL , -- ¿©ÇàÅ×¸¶ (¿©ÇàÀü/ ¿©ÇàÈÄ µîµî)
-	TRAVEL_START_DAY      VARCHAR2(50)  NULL , -- ½ÃÀÛ³¯Â¥
-	TRAVEL_END_DAY        VARCHAR2(50)  NULL , -- Á¾·á³¯Â¥
-	BRIEF_STORY           VARCHAR2(50)  NULL , -- ÂªÀº ¼Ò°³±Û
-	FAVOR                 INTEGER  NULL , -- ÁÁ¾Æ¿ä
-	TRAVEL_COVER_IMG      VARCHAR2(50)  NULL   -- ¹è°æÀÌ¹ÌÁö
+	TRAVEL_NO             INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½È£
+	TITLE                 VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ID (ï¿½Ö·ï¿½Å°)
+	THEMA                 VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½×¸ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
+	TRAVEL_START_DAY      VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½Û³ï¿½Â¥
+	TRAVEL_END_DAY        VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½á³¯Â¥
+	BRIEF_STORY           VARCHAR2(50)  NULL , -- Âªï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½
+	FAVOR                 INTEGER  NULL , -- ï¿½ï¿½ï¿½Æ¿ï¿½
+	TRAVEL_COVER_IMG      VARCHAR2(50)  NULL   -- ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½
 );
 SELECT * FROM FOLLOW_ME;
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence FOLLOW_ME_NO nocache; 
 
---³ª¸¸¹Ï°íµû¶ó¿Í ÀÏÁ¤°ü¸®
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE FOLLOW_ME_ITINERARY
 (
-	ITINERARY_NO          INTEGER  NOT NULL PRIMARY KEY, -- ³ª¹Ïµû ÀÏÁ¤°ü¸® ¹øÈ£
-	D_DAY                 VARCHAR2(50)  NULL , -- ³¯Â¥(1DAY , 2DAY ... )
-	AREA                  VARCHAR2(50)  NULL , -- Áö¿ª±¸ºÐ
-	MONEY                 INTEGER  DEFAULT 0 , -- ÃÑ±Ý¾×
-	END_TIME              VARCHAR2(50)  NULL , -- Á¾·á½Ã°£
-	START_TIME            VARCHAR2(50)  NULL , -- ½ÃÀÛ½Ã°£
-	SUBSTANCE             VARCHAR2(500)  NULL , -- ±Û³»¿ë
-	IMG                   VARCHAR2(50)  NULL , -- »çÁøÃâ·Â
-	TRAVEL_NO             INTEGER  NOT NULL REFERENCES FOLLOW_ME(TRAVEL_NO) -- ³ª¹Ïµû ¹øÈ£ (¿Ö·¡Å°)
+	ITINERARY_NO          INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	D_DAY                 VARCHAR2(50)  NULL , -- ï¿½ï¿½Â¥(1DAY , 2DAY ... )
+	AREA                  VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	MONEY                 INTEGER  DEFAULT 0 , -- ï¿½Ñ±Ý¾ï¿½
+	END_TIME              VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+	START_TIME            VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½Û½Ã°ï¿½
+	SUBSTANCE             VARCHAR2(500)  NULL , -- ï¿½Û³ï¿½ï¿½ï¿½
+	IMG                   VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	TRAVEL_NO             INTEGER  NOT NULL REFERENCES FOLLOW_ME(TRAVEL_NO) -- ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½È£ (ï¿½Ö·ï¿½Å°)
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence FOLLOW_ME_ITINERARY_NO nocache;
 
---³ª¸¸¹Ï°íµû¶ó¿Í Ã¼Å©¸®½ºÆ®
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½Æ®
 CREATE TABLE FOLLOW_ME_CHECK_LIST
 (
-	CHECKLIST_NO          INTEGER  NOT NULL PRIMARY KEY , -- ³ª¹Ïµû Ã¼Å©¸®½ºÆ® ¹øÈ£
-  TRAVEL_NO             INTEGER  NOT NULL REFERENCES FOLLOW_ME(TRAVEL_NO), -- ¿©Çà¹øÈ£ (¿Ö·¡Å°)
-	CHECK_CATAGORY        VARCHAR2(50)  NULL , -- Ä«Å×°í¸®
-	ITEMS                 VARCHAR2(500)  NULL  -- ¾ÆÀÌÅÛ½º
+	CHECKLIST_NO          INTEGER  NOT NULL PRIMARY KEY , -- ï¿½ï¿½ï¿½Ïµï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È£
+  TRAVEL_NO             INTEGER  NOT NULL REFERENCES FOLLOW_ME(TRAVEL_NO), -- ï¿½ï¿½ï¿½ï¿½ï¿½È£ (ï¿½Ö·ï¿½Å°)
+	CHECK_CATAGORY        VARCHAR2(50)  NULL , -- Ä«ï¿½×°ï¿½
+	ITEMS                 VARCHAR2(500)  NULL  -- ï¿½ï¿½ï¿½ï¿½ï¿½Û½ï¿½
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence FOLLOW_ME_CHECK_LIST_NO nocache;
 
 
---³ª¸¸¹Ï°íµû¶ó¿Í ´ñ±Û
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 CREATE TABLE FOLLOW_ME_COMMENT
 (
-	COMMENT_NO            INTEGER  NOT NULL PRIMARY KEY, -- ³ª¹Ïµû ´ñ±Û ¹øÈ£
-  TRAVEL_NO             INTEGER  NOT NULL REFERENCES FOLLOW_ME(TRAVEL_NO), -- ³ª¹Ïµû ¿©Çà¹øÈ£(¿Ö·¡Å°)
-	WRITER_EMAIL          VARCHAR2(50)  NULL , -- ÀÛ¼ºÀÚ ID
-	CONTENT               VARCHAR2(500)  NULL -- ³»¿ë
+	COMMENT_NO            INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+  TRAVEL_NO             INTEGER  NOT NULL REFERENCES FOLLOW_ME(TRAVEL_NO), -- ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È£(ï¿½Ö·ï¿½Å°)
+	WRITER_EMAIL          VARCHAR2(50)  NULL , -- ï¿½Û¼ï¿½ï¿½ï¿½ ID
+	CONTENT               VARCHAR2(500)  NULL -- ï¿½ï¿½ï¿½ï¿½
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence FOLLOW_ME_COMMENT_NO nocache;
   
---ÀÚÀ¯°Ô½ÃÆÇ
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½
 CREATE TABLE FREE_BOARD
 (
-	BOARD_NO               INTEGER  NOT NULL PRIMARY KEY, -- ÀÚÀ¯°Ô½ÃÆÇ ¹øÈ£
-  EMAIL                  VARCHAR2(50)  NOT NULL  REFERENCES MEMBER(EMAIL), -- ÀÛ¼ºÀÚ ID(¿Ö·¡Å°)
-	TITLE                  VARCHAR2(50)  NULL ,  -- ±ÛÁ¦¸ñ
-	FAVOR                  INTEGER  NULL ,  -- ÁÁ¾Æ¿ë
-	CONTENT                VARCHAR2(50)  NULL , -- ±Û³»¿ë
+	BOARD_NO               INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+  EMAIL                  VARCHAR2(50)  NOT NULL  REFERENCES MEMBER(EMAIL), -- ï¿½Û¼ï¿½ï¿½ï¿½ ID(ï¿½Ö·ï¿½Å°)
+	TITLE                  VARCHAR2(50)  NULL ,  -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	FAVOR                  INTEGER  NULL ,  -- ï¿½ï¿½ï¿½Æ¿ï¿½
+	CONTENT                VARCHAR2(50)  NULL , -- ï¿½Û³ï¿½ï¿½ï¿½
 	D_DAY                  VARCHAR2(50)  NULL , -- SYSDATE
-	HITS                  VARCHAR2(500)  NULL  -- Á¶È¸¼ö
+	HITS                  VARCHAR2(500)  NULL  -- ï¿½ï¿½È¸ï¿½ï¿½
 );
 DROP TABLE FREE_BOARD;
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence FREE_BOARD_no nocache;
 
---ÀÚÀ¯°Ô½ÃÆÇ ´ñ±Û
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 CREATE TABLE FREE_BOARD_COMMENT
 (
- COMMNET_NO            INTEGER  NOT NULL , -- ÀÚÀ¯°Ô½ÃÆÇ ´ñ±Û¹øÈ£
-	CONTENT             VARCHAR2(500)  NULL , -- ±Û³»¿ë
-	BOARD_NO             INTEGER  NOT NULL REFERENCES FREE_BOARD(BOARD_NO), -- ÀÚÀ¯°Ô½ÃÆÇ ¹øÈ£ (¿Ö·¡Å°)
-	EMAIL                VARCHAR2(50)  NULL , -- ÀÛ¼ºÀÚ ID
+ COMMNET_NO            INTEGER  NOT NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½Û¹ï¿½È£
+	CONTENT             VARCHAR2(500)  NULL , -- ï¿½Û³ï¿½ï¿½ï¿½
+	BOARD_NO             INTEGER  NOT NULL REFERENCES FREE_BOARD(BOARD_NO), -- ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ (ï¿½Ö·ï¿½Å°)
+	EMAIL                VARCHAR2(50)  NULL , -- ï¿½Û¼ï¿½ï¿½ï¿½ ID
 	D_DAY                VARCHAR2(50)  NULL  -- SYSDATE
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence FREE_BOARD_COMMENT_NO nocache;
   select * from FREE_BOARD_COMMENT;
   
---QA°Ô½ÃÆÇ
+--QAï¿½Ô½ï¿½ï¿½ï¿½
 CREATE TABLE QA_BOARD
 (
-	BOARD_NO               INTEGER  NOT NULL PRIMARY KEY, -- QA°Ô½ÃÆÇ ¹øÈ£
-	TITLE                  VARCHAR2(50)  NULL , -- ±ÛÁ¦¸ñ
-	FAVOR                  INTEGER  NULL , -- ÁÁ¾Æ¿ë
-	EMAIL                  VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ±ÛÀÛ¼º ID (¿Ö·¡Å°)
-	CONTENT                VARCHAR2(500)  NULL , -- ±Û³»¿ë
+	BOARD_NO               INTEGER  NOT NULL PRIMARY KEY, -- QAï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	TITLE                  VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	FAVOR                  INTEGER  NULL , -- ï¿½ï¿½ï¿½Æ¿ï¿½
+	EMAIL                  VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ï¿½ï¿½ï¿½Û¼ï¿½ ID (ï¿½Ö·ï¿½Å°)
+	CONTENT                VARCHAR2(500)  NULL , -- ï¿½Û³ï¿½ï¿½ï¿½
 	D_DAY                  VARCHAR2(50)  NULL , -- SYSDATE
-	HITS                   INTEGER  DEFAULT O  --Á¶È¸¼ö
+	HITS                   INTEGER  DEFAULT O  --ï¿½ï¿½È¸ï¿½ï¿½
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence QA_BOARD_NO nocache;
 
---QA°Ô½ÃÆÇ ´ñ±Û
+--QAï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 CREATE TABLE QA_COMMENT
 (
-  COMMNET_NO            INTEGER  NOT NULL PRIMARY KEY, -- QA°Ô½ÃÆÇ ´ñ±Û¹øÈ£
-	CONTENT               VARCHAR2(500)  NULL , -- ±Û³»¿ë
-	BOARD_NO              INTEGER  NOT NULL REFERENCES QA_BOARD(BOARD_NO) , -- QA°Ô½ÃÆÇ ¹øÈ£(¿Ö·¡Å°)
-	EMAIL                 VARCHAR2(50)  NULL , -- ´ñ±Û ÀÛ¼ºÀÚ ID
+  COMMNET_NO            INTEGER  NOT NULL PRIMARY KEY, -- QAï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½Û¹ï¿½È£
+	CONTENT               VARCHAR2(500)  NULL , -- ï¿½Û³ï¿½ï¿½ï¿½
+	BOARD_NO              INTEGER  NOT NULL REFERENCES QA_BOARD(BOARD_NO) , -- QAï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½È£(ï¿½Ö·ï¿½Å°)
+	EMAIL                 VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ID
 	D_DAY                 VARCHAR2(50)  NULL  -- SYSDATE
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence QA_COMMENT nocache;
   
 
---¸ÀÁý 
+--ï¿½ï¿½ï¿½ï¿½ 
 CREATE TABLE RESTAURANT
 (
-	RESTURANT_NO          INTEGER  NOT NULL PRIMARY KEY, -- ¸ÀÁý ¹øÈ£
-	CLASSIFICATION        VARCHAR2(50)  NULL , -- ºÐ·ù(ÇØ»ê¹°,µðÀúÆ®... ¹¹ÀÌ·±°Å?)
-	AREA                  VARCHAR2(50)  NULL , -- Áö¿ª
-	EXPLANATION           VARCHAR2(50)  NULL , -- ¼³¸í
-	RESTAURANT_NAME       VARCHAR2(50)  NULL , -- ¸ÀÁý °¡°Ô¸í
-	OPERATING_TIME        VARCHAR2(50)  NULL , -- ¿µ¾÷½Ã°£
-	HOLIDAY               VARCHAR2(50)  NULL , -- ÈÞÀÏ
-	PHONE                 VARCHAR2(50)  NULL , -- °¡°Ô¹øÈ£
-	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ±ÛÀÛ¼ºÀÚ ID(¿Ö·¡Å°)
-	WIKI                  VARCHAR2(50)  NULL , -- ÁØ ÀÌ ÇÒ²¨¾ß ~ ³ªµµ¹¹ÇÒÁö¸ô¶ó~
-	WISH                  INTEGER  DEFAULT 0  , -- °¡°í½Í´Ù
-	BEAN                  INTEGER  DEFAULT 0  -- ´Ù³à¿Ô´Ù
+	RESTURANT_NO          INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	CLASSIFICATION        VARCHAR2(50)  NULL , -- ï¿½Ð·ï¿½(ï¿½Ø»ê¹°,ï¿½ï¿½ï¿½ï¿½Æ®... ï¿½ï¿½ï¿½Ì·ï¿½ï¿½ï¿½?)
+	AREA                  VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½
+	EXPLANATION           VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½
+	RESTAURANT_NAME       VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¸ï¿½
+	OPERATING_TIME        VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+	HOLIDAY               VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½
+	PHONE                 VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½Ô¹ï¿½È£
+	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ ID(ï¿½Ö·ï¿½Å°)
+	WIKI                  VARCHAR2(50)  NULL , -- ï¿½ï¿½ ï¿½ï¿½ ï¿½Ò²ï¿½ï¿½ï¿½ ~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~
+	WISH                  INTEGER  DEFAULT 0  , -- ï¿½ï¿½ï¿½ï¿½Í´ï¿½
+	BEAN                  INTEGER  DEFAULT 0  -- ï¿½Ù³ï¿½Ô´ï¿½
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence RESTAURANT_NO nocache;
 
---¿©ÇàÀÏÁ¤ 
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 CREATE TABLE TRAVEL
 (
-	TRAVEL_NO             INTEGER  NOT NULL PRIMARY KEY, -- ¿©ÇàÀÏÁ¤ ¹øÈ£
-	TITLE                 VARCHAR2(50)  NULL , -- ±ÛÁ¦¸ñ
-	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ÀÛ¼ºÀÚ ID(¿Ö·¡Å°)
-	THEMA                 VARCHAR2(50)  NULL , -- Å×¸¶
-	TRAVEL_START_DAY      VARCHAR2(50)  NULL , -- ½ÃÀÛ³¯Â¥
-	TRAVEL_END_DAY        VARCHAR2(50)  NULL , -- Á¾·á³¯Â¥
-	BRIEF_STORY           VARCHAR2(50)  NULL , -- ¿©Çà°£´Ü¼³¸í
-	FAVOR                  INTEGER  NULL , -- ÁÁ¾Æ¿ë
-	TRAVEL_COVER_IMG      VARCHAR2(50)  NULL  -- ¿©Çà¹è°æÀÌ¹ÌÁö
+	TRAVEL_NO             INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	TITLE                 VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ï¿½Û¼ï¿½ï¿½ï¿½ ID(ï¿½Ö·ï¿½Å°)
+	THEMA                 VARCHAR2(50)  NULL , -- ï¿½×¸ï¿½
+	TRAVEL_START_DAY      VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½Û³ï¿½Â¥
+	TRAVEL_END_DAY        VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½á³¯Â¥
+	BRIEF_STORY           VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½à°£ï¿½Ü¼ï¿½ï¿½ï¿½
+	FAVOR                  INTEGER  NULL , -- ï¿½ï¿½ï¿½Æ¿ï¿½
+	TRAVEL_COVER_IMG      VARCHAR2(50)  NULL  -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence TRAVEL_NO nocache;
 
---¿©ÇàÀÏÁ¤ ÀÏÁ¤°ü¸®
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE TRAVEL_ITINERARY
 (
-	ITINERARY_NO          INTEGER  NOT NULL PRIMARY KEY, -- ¿©ÇàÀÏÁ¤ ¹øÈ£
-  D_DAY                 VARCHAR2(50)  NULL , -- ³¯Â¥
-	AREA                  VARCHAR2(50)  NULL , -- Áö¿ª
-	MONEY                 INTEGER  DEFAULT 0 , -- µ·
-	END_TIME              VARCHAR2(50)  NULL , -- Á¾·á½Ã°£
-	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL(TRAVEL_NO), -- ¿©ÇàÀÏÁ¤ ¹øÈ£(¿Ö·¡Å°)
-	START_TIME            VARCHAR2(50)  NULL , -- ½ÃÀÛ½Ã°£
-	CONTENTSS               VARCHAR2(500)  NULL , -- ¼³¸í
-	IMG                   VARCHAR2(50)  NULL  -- »çÁøµé
+	ITINERARY_NO          INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+  D_DAY                 VARCHAR2(50)  NULL , -- ï¿½ï¿½Â¥
+	AREA                  VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½
+	MONEY                 INTEGER  DEFAULT 0 , -- ï¿½ï¿½
+	END_TIME              VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL(TRAVEL_NO), -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£(ï¿½Ö·ï¿½Å°)
+	START_TIME            VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½Û½Ã°ï¿½
+	CONTENTSS               VARCHAR2(500)  NULL , -- ï¿½ï¿½ï¿½ï¿½
+	IMG                   VARCHAR2(50)  NULL  -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence TRAVEL_ITINERARY nocache;
 
 
---¿©ÇàÀÏÁ¤ Ã¼Å©¸®½ºÆ®
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½Æ®
 CREATE TABLE TRAVEL_CHECK_LIST
 (
-	CHECKLIST_NO          INTEGER  NOT NULL  PRIMARY KEY, -- Ã¼Å©¸®½ºÆ® ¹øÈ£
-	CHECK_CATEGORY              VARCHAR2(50)  NULL , -- ºÐ·ù
-	ITEM                  VARCHAR2(500)  NULL , --¾ÆÀÌÅÛµé
-	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL(TRAVEL_NO) -- ¿©ÇàÀÏÁ¤ ¹øÈ£(¿Ö·¡Å°)
+	CHECKLIST_NO          INTEGER  NOT NULL  PRIMARY KEY, -- Ã¼Å©ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È£
+	CHECK_CATEGORY              VARCHAR2(50)  NULL , -- ï¿½Ð·ï¿½
+	ITEM                  VARCHAR2(500)  NULL , --ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½
+	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL(TRAVEL_NO) -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£(ï¿½Ö·ï¿½Å°)
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence TRAVEL_CHECK_LIST nocache;
 
 
--- AUTHORITY(±ÇÇÑÀÎÁõ)
+-- AUTHORITY(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 CREATE TABLE AUTHORITY
 (
-	AUTHORITY_NO          VARCHAR2(50)  NOT NULL PRIMARY KEY, -- ±ÇÇÑ¹øÈ£
-	WRITER_EMAILS          VARCHAR2(50)  NULL , -- ¿©ÇàÀÏÁ¤ ¿¡¼­ ¼öÁ¤ÀÌ °¡´ÉÇÑ ±ÇÇÑÀ» °¡Áø IDµé
-	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL(TRAVEL_NO)  -- ¿©ÇàÀÏÁ¤ ¹øÈ£(¿Ö·¡Å°)
+	AUTHORITY_NO          VARCHAR2(50)  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½Ñ¹ï¿½È£
+	WRITER_EMAILS          VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½
+	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL(TRAVEL_NO)  -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£(ï¿½Ö·ï¿½Å°)
 );
---±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+--ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence AUTHORITY_NO nocache;
 
---¿©ÇàÈÄ±â
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½
 CREATE TABLE TRAVEL_REVIEW
 (
-	TRAVEL_NO             INTEGER  NOT NULL PRIMARY KEY, -- ¿©ÇàÈÄ±â¹øÈ£
-	TITLE                 VARCHAR2(50)  NULL , -- ±ÛÁ¦¸ñ
-	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ±ÛÀÛ¼ºID(¿Ö·¡Å°)
-	THEMA                 VARCHAR2(50)  NULL , -- Å×¸¶
-	TRAVEL_START_DAY      VARCHAR2(50)  NULL , -- ¿©Çà½ÃÀÛ³¯Â¥
-	TRAVEL_END_DAY        VARCHAR2(50)  NULL , -- ¿©ÇàÁ¾·á³¯Â¥
-	BRIEF_STORY           VARCHAR2(50)  NULL , -- ¿©Çà°£´Ü¼³¸í
-	FAVOR                  INTEGER  DEFAULT 0, -- ÁÁ¾Æ¿ë
-	TRAVEL_COVER_IMG      VARCHAR2(50)  NULL  -- ¿©Çà¹è°æÀÌ¹ÌÁö
+	TRAVEL_NO             INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½È£
+	TITLE                 VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	EMAIL                 VARCHAR2(50)  NOT NULL REFERENCES MEMBER(EMAIL), -- ï¿½ï¿½ï¿½Û¼ï¿½ID(ï¿½Ö·ï¿½Å°)
+	THEMA                 VARCHAR2(50)  NULL , -- ï¿½×¸ï¿½
+	TRAVEL_START_DAY      VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û³ï¿½Â¥
+	TRAVEL_END_DAY        VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á³¯Â¥
+	BRIEF_STORY           VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½à°£ï¿½Ü¼ï¿½ï¿½ï¿½
+	FAVOR                  INTEGER  DEFAULT 0, -- ï¿½ï¿½ï¿½Æ¿ï¿½
+	TRAVEL_COVER_IMG      VARCHAR2(50)  NULL  -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence TRAVEL_REVIEW nocache;
 
---¿©ÇàÈÄ±â ÀÏÁ¤°ü¸®
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE TRAVEL_ITINERARY
 (
-	ITINERARY_NO          INTEGER  NOT NULL PRIMARY KEY, -- ¿©ÇàÈÄ±â ÀÏÁ¤°ü¸® ¹øÈ£
-	D_DAY                 VARCHAR2(50)  NULL , -- ³¯Â¥(1DAY, 2DAY ...)
-	ATEA                  VARCHAR2(50)  NULL , -- Áö¿ª
-	MONETY                INTEGER  DEFAULT 0 , -- µ·µ·µ·µ·
-	END_TIME              VARCHAR2(50)  NULL , -- Á¾·á½Ã°£
-	TRAVEL_NO             VARCHAR2(50)  NOT NULL REFERENCES TRAVEL_REVIEW(TRAVEL_NO), -- ¿©ÇàÈÄ±â¹øÈ£(¿Ö·¡Å°)
-	START_TIME            VARCHAR2(50)  NULL , -- ½ÃÀÛ½Ã°£
-	CONTENT               VARCHAR2(500)  NULL , -- ¼³¸í
-	IMG                   VARCHAR2(500)  NULL  -- »çÁøµé
+	ITINERARY_NO          INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	D_DAY                 VARCHAR2(50)  NULL , -- ï¿½ï¿½Â¥(1DAY, 2DAY ...)
+	ATEA                  VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½
+	MONETY                INTEGER  DEFAULT 0 , -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	END_TIME              VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+	TRAVEL_NO             VARCHAR2(50)  NOT NULL REFERENCES TRAVEL_REVIEW(TRAVEL_NO), -- ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½È£(ï¿½Ö·ï¿½Å°)
+	START_TIME            VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½Û½Ã°ï¿½
+	CONTENT               VARCHAR2(500)  NULL , -- ï¿½ï¿½ï¿½ï¿½
+	IMG                   VARCHAR2(500)  NULL  -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence TRAVEL_ITINERARY nocache;
 
---¿©ÇàÈÄ±â Ã¼Å©¸®½ºÆ®
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½Æ®
 CREATE TABLE REVIEW_CHECK_LIST
 (
-	CHECKLIST_NO          INTEGER  NOT NULL  PRIMARY KEY, -- ¿©ÇàÈÄ±â Ã¼Å©¸®½ºÆ® ¹øÈ£
-	CHECK_CATEGORY              VARCHAR2(50)  NULL , -- ºÐ·ù
-	ITEM                  VARCHAR2(500)  NULL , -- ¾ÆÀÌÅÛµé
-	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL_REVIEW(TRAVEL_NO) -- ¿©ÇàÈÄ±â ¹øÈ£(¿Ö·¡Å°)
+	CHECKLIST_NO          INTEGER  NOT NULL  PRIMARY KEY, -- ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È£
+	CHECK_CATEGORY              VARCHAR2(50)  NULL , -- ï¿½Ð·ï¿½
+	ITEM                  VARCHAR2(500)  NULL , -- ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½
+	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL_REVIEW(TRAVEL_NO) -- ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ ï¿½ï¿½È£(ï¿½Ö·ï¿½Å°)
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence REVIEW_CHECK_LIST nocache;
 
 
--- ¿©ÇàÈÄ±â ´ñ±Û
+-- ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½
 CREATE TABLE TRAVEL_REVIEW_COMMENT
 (
-	COMMENT_NO            INTEGER  NOT NULL PRIMARY KEY, -- ¿©ÇàÈÄ±â ´ñ±Û ¹øÈ£
-	WRITER_EMAIL          VARCHAR2(50)  NULL , -- ±ÛÀÛ¼ºÀÚ
-	CONTENT               VARCHAR2(500)  NULL , -- ±Û³»¿ë
-	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL_REVIEW(TRAVEL_NO)  -- ¿©ÇàÈÄ±â ¹øÈ£(¿Ö·¡Å°)
+	COMMENT_NO            INTEGER  NOT NULL PRIMARY KEY, -- ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	WRITER_EMAIL          VARCHAR2(50)  NULL , -- ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½
+	CONTENT               VARCHAR2(500)  NULL , -- ï¿½Û³ï¿½ï¿½ï¿½
+	TRAVEL_NO             INTEGER  NOT NULL REFERENCES TRAVEL_REVIEW(TRAVEL_NO)  -- ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ ï¿½ï¿½È£(ï¿½Ö·ï¿½Å°)
 );
- --±Û¹øÈ£ »ý¼ºÀ» À§ÇÑ ½ÃÄõ½º »ý¼º
+ --ï¿½Û¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   create sequence TRAVEL_REVIEW_COMMENT nocache;
 

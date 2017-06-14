@@ -1,15 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
 <title>PROHOME - Responsive Real Estate Template</title>
 
+
 <jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
+<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
+<link
+	href='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.css'
+	rel='stylesheet' />
+<link
+	href='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.print.css'
+	rel='stylesheet' media='print' />
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar/moment.min.js'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar/jquery.min.js'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar/jquery-ui.min.js'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.js'></script>
+
 
 <style type="text/css">
 #mortgage-calc {
@@ -24,6 +40,326 @@
 }
 </style>
 
+<style type='text/css'>
+
+#title {
+	text-align: center;
+}
+
+.buttonWrap {
+	position: relative;
+	float: left;
+	overflow: hidden;
+	cursor: pointer;
+	background-image:
+		url('${pageContext.request.contextPath}/resources/custom_icon/user_back_icon.png');
+	width: 52px;
+	height: 40px;
+}
+
+#customer_back_img {position：absolute;
+	margin-left: -10px;
+	filter: alpha(opacity = 0);
+	opacity: 0;
+	-moz-opacity: 0;
+	cursor: pointer;
+	width: 74px;
+	height: 20px;
+}
+
+#user_back_icon {
+	width: 60px;
+	height: 60px;
+}
+
+/*user back cover file 태그 숨기기*/
+#user_backcover_filebtn {
+	display: none;
+}
+
+.profile_title_div {
+	padding-top: 40px;
+}
+
+.profile_cover_div {
+	text-align:center;
+	padding-top: 50px;
+}
+
+#travel_title_span {
+	font-weight: bold;
+	text-align: center;
+}
+
+.plan-view-tab {
+	margin-top: 20px;
+	text-align: center;
+	height: 50px;
+	background: #fff;
+	background-image: initial;
+	background-position-x: initial;
+	background-position-y: initial;
+	background-size: initial;
+	background-repeat-x: initial;
+	background-repeat-y: initial;
+	background-attachment: initial;
+	background-origin: initial;
+	background-clip: initial;
+	background-color: rgb(255, 255, 255);
+	border-radius: 4px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(125, 125, 125, .2);
+	-webkit-box-shadow: 0 1px 1px rgba(125, 125, 125, .2);
+	-moz-box-shadow: 0 1px 1px rgba(125, 125, 125, .2);
+	height: 50px;
+	text-align: center;
+}
+
+/*여행 스토리 / 지도,일정 선택부분*/
+#plan-select-tab {
+	margin-top: 10px;
+	border-width: 1px 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	color: #1fb8a6;
+	border-width: 1px 0;
+}
+
+/*여행 스토리 li 태그 */
+#plan-select-tab li {
+	margin-right: 100px;
+	margin-left: 100px;
+	display: inline;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#plan-select-tab li a i {
+	display: inline-block;
+	padding: 10px;
+	color: #1fb8a6;
+}
+
+/*어떤 여행인지 간단히 설명해주세요 부분*/
+#planMessage {
+	margin-bottom: 10px;
+}
+
+/*초기 스토리영역 숨기기 -> 지도 일정표 보여줄거야*/
+#story_section {
+	display: none;
+}
+
+#wrap {
+	margin-top:60px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+#external-events {
+	float: left;
+	width: 10%;
+	padding: 0 10px;
+	border: 1px solid #ccc;
+	background: #eee;
+	text-align: left;
+}
+
+#external-events h4 {
+	font-size: 16px;
+	margin-top: 0;
+	padding-top: 1em;
+}
+
+#external-events .fc-event {
+	margin: 10px 0;
+	cursor: pointer;
+}
+
+#external-events p {
+	margin: 1.5em 0;
+	font-size: 11px;
+	color: #666;
+}
+
+#external-events p input {
+	margin: 0;
+	vertical-align: middle;
+}
+
+#calendar {
+float: left;
+width: 90%;
+}
+
+#planDetailMessage {
+	resize: vertical;
+}
+
+#travel_itinery_map {
+	margin-top: 10px;
+	width: 100%;
+	height: 400px;
+}
+
+.profile_modified_div{
+text-align: center;
+}
+
+</style>
+
+<!-- Jquery Script Start 광수-->
+<script>
+	$(document).ready(function() {
+
+		//여행 타이틀 수정하기 아이콘을 눌렀을때
+		$("#user_back_icon").click(function() {
+			//alert($("#travel_title").text());
+			//수정 입력폼 보여주기
+			$("#travel_title_text").show();
+			$("#travel_title_save_btn").show();
+
+			//수정폼 text에 기존 값 보여주기
+			$("#travel_title_text").val($("#travel_title").text());
+
+			//기존 보여주는 양식 숨기기
+			$("#travel_title").hide();
+			$("#travel_title_change_btn").hide();
+		});
+
+		//여행 타이틀 수정 완료 버튼 눌렀을때
+		$("#travel_title_save_btn").click(function() {
+			//원래 여행 타이틀 div에 입력받은 text값 넣음
+			//alert($("#travel_title_text").val());
+			$("#travel_title").text($("#travel_title_text").val());
+
+			//수정 입력폼 숨기기
+			$("#travel_title_text").hide();
+			$("#travel_title_save_btn").hide();
+
+			//기존 보여주는 양식 보여주기
+			$("#travel_title").show();
+			$("#travel_title_change_btn").show();
+		})
+
+
+		$("#user_backcover_changebtn").click(function() {
+
+			$("#user_backcover_filebtn").trigger('click');
+		})
+
+
+		//이미지 변경 됬으면
+		$("#user_backcover_filebtn").change(function() {
+			var file = this.files[0];
+			var reader = new FileReader();
+			reader.onloadend = function() {
+				$('#user_backcover_div').css('background-image', 'url("' + reader.result + '")');
+
+				$("#default_back_div1").hide();
+				$("#default_back_div2").hide();
+				$("#default_back_div3").hide();
+				$("#default_back_div4").hide();
+
+				//글씨 색 바꾸기
+				$("#travel_title_span").css('color', 'white');
+			}
+			if (file) {
+				reader.readAsDataURL(file);
+			} else {
+			}
+
+		});
+
+
+		$("#btn_story").click(function() {
+			$("#story_section").show();
+			$("#map_itinerary_section").hide();
+
+		})
+		$("#map_itinerary_btn").click(function() {
+			$("#map_itinerary_section").show();
+			$("#story_section").hide();
+
+		})
+
+
+
+	}); //jQuery 끝
+</script>
+
+<script>
+
+	$(document).ready(function() {
+
+
+		/* initialize the external events
+		-----------------------------------------------------------------*/
+
+		$('#external-events .fc-event').each(function() {
+
+			// store data so the calendar knows to render an event upon drop
+			$(this).data('event', {
+				title : $.trim($(this).text()), // use the element's text as the event title
+				stick : true // maintain when user navigates (see docs on the renderEvent method)
+			});
+
+			// make the event draggable using jQuery UI
+			$(this).draggable({
+				zIndex : 999,
+				revert : true, // will cause the event to go back to its
+				revertDuration : 0 //  original position after the drag
+			});
+
+		});
+
+
+		/* initialize the calendar
+		-----------------------------------------------------------------*/
+
+		$('#calendar').fullCalendar({
+			header : {
+				left : 'prev,next today',
+				center : 'title',
+				right : 'month,agendaWeek,agendaDay'
+			},
+			editable : true,
+			droppable : true, // this allows things to be dropped onto the calendar
+			drop : function(date, allDay) {
+				/*    alert(date)
+				   alert(allDay) */
+
+
+			}
+		});
+
+
+		/* 드랍된 버튼 클릭시 발생이벤트 */
+		$(document).on("click", ".fc-title", function() {
+			alert("클릭:" + $(this))
+			$(this).append("222222")
+			return;
+		})
+
+		if ($('#drop-remove').is(':checked')) {
+			// if so, remove the element from the "Draggable Events" list
+			$(this).remove();
+		}
+
+
+
+	});
+</script>
+
+
+<!-- DAUM MAP API -->
 
 <!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
 <link rel="shortcut icon" href="images/favicon/favicon.ico"
@@ -51,122 +387,81 @@
 
 	<div id="page-container">
 
-		<div class="info">
-			<!-- info -->
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<a href="#mobile-menu" id="mobile-menu-button" class="visible-xs"><i
-							class="fa fa-bars"></i></a> <a href="call:1-800-555-1234"
-							class="hidden-xs"><i class="icon fa fa-phone"></i>
-							(011)-8800-555</a> <a href="#" data-section="modal-contact"
-							data-target="#modal-contact" data-toggle="modal"
-							class="hidden-xs"><i class="icon fa fa-envelope-o"></i> Info</a>
-					</div>
-					<div id="login-pan" class="col-md-6 hidden-xs">
-						<a href="#" data-toggle="modal" data-target=".login-modal"
-							data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>
-							Sign up</a> <a href="#" data-toggle="modal"
-							data-target=".login-modal" data-section="login"><i
-							class="icon fa fa-user user"></i> Login</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /.info -->
-
 
 		<section id="header-page" class="header-margin-base">
 
-			<div class="skyline">
-				<div data-offset="50" class="p1 parallax"></div>
-				<div data-offset="25" class="p2 parallax"></div>
-				<div data-offset="15" class="p3 parallax"></div>
-				<div data-offset="8" class="p4 parallax"></div>
+			<div class="skyline" id="user_backcover_div">
 
+				<div data-offset="50" class="p1 parallax" id="default_back_div1"></div>
+				<div data-offset="25" class="p2 parallax" id="default_back_div2"></div>
+				<div data-offset="15" class="p3 parallax" id="default_back_div3"></div>
+				<div data-offset="8" class="p4 parallax" id="default_back_div4"></div>
+
+
+				<!-- 여행 타이틀 부분 -->
 				<div class="container header-text">
-					<div>
-						<h1 class="title">Property Details</h1>
+					<div class="profile_title_div">
+						<h1 align="center">
+							<span id="travel_title_span"> <span id="travel_title">도른자와 함꼐하는 오키나와 뚜벅이 여행</span>
+							</span> <span id="travel_title_change_btn"> <a href="#"
+								id="user_back_icon"> <i class="fa fa-pencil-square-o"
+									aria-hidden="true"></i></a>
+							</span>
+						</h1>
+
+						<div class="profile_modified_div">
+						<h2>
+							<input type="text" id="travel_title_text" size="30"
+								maxlength="30" hidden> 
+								<input type="button" id="travel_title_save_btn" value="저장" hidden>
+						</h2>
+						</div>
 					</div>
-					<div>
-						<h2 class="sub-title">Lorem ipsum dolor consectetur ats
-							adipiscing elit</h2>
+					<div class="profile_cover_div">
+						<button type="button" class="btn btn-default btn-sm"
+							id="user_backcover_changebtn">커버 바꾸기</button>
+						<input type="file" id="user_backcover_filebtn"
+							onchange="previewImage(this,'user_backcover_div')" />
 					</div>
+
 				</div>
 			</div>
-			<div id="breadcrumb">
-				<div class="container">
-					<ol class="breadcrumb">
-						<li><a href="#"><i class="fa fa-home"></i></a></li>
-						<li><a href="#">home</a></li>
-						<li class="active">일정추가</li>
-					</ol>
-				</div>
-				<a href="${pageContext.request.contextPath}/traveladd/calendar"
-					id="calendarPageMove" class="btn btn-reverse" type="button">일정스케줄링</a>
-			</div>
+
+
+
 
 		</section>
 
 		<section id="contact">
-			<div class="container">
+
+			<div class="container-fluid">
 				<div class="row">
 
-					<div class="container"></div>
-					<div
-						class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 form-container">
-						<h3 class="title">Signin in with yout ProHome Account</h3>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-						pharetra diam dui, eget semper dui fermentum non. Ac semper neque
-						metus nec diam.
-						<form method="post" action="contact.php" class="form-large"
-							role="form" data-toggle="validator">
-							<div class="row">
-								<div class="col-md-6 col-sm-6 col-xs-12">
-									<label for="name">Name</label> <input type="text"
-										class="margin-bottom form-control" id="name" name="name"
-										placeholder="First &amp; Last Name .." required>
+
+	<!-- 왼쪽 정보  -->
+						<div class="col-xs-3 col-sm-3 col-md-3  col-lg-2" >
+						<div class="info-container">
+							<h1>여행일정 만들기</h1>
+
+							<!-- 왼쪽 내정보  -->
+							<div class="author-box">
+								<div class="author-img">
+									<a target="_blank"
+										href="../myPage/user/0cf608b29ae518684037.html?active=myPlan">
+										<img id="profile-img"
+										src="${pageContext.request.contextPath}/resources/review_img/review_detail_profile_img.jpg">
+									</a>
 								</div>
-								<div class="col-md-6 col-sm-6 col-xs-12">
-									<label for="email">Email</label> <input type="email"
-										class="margin-bottom form-control" id="email" name="email"
-										placeholder="Email .." required>
-								</div>
-								<div class="col-md-12">
-									<label for="subject">Subject</label> <input type="text"
-										class="margin-bottom form-control" id="subject" name="subject"
-										placeholder="Subject">
-								</div>
-								<div class="col-md-12">
-									<label for="text-message">Message</label>
-									<textarea class="margin-bottom form-control" rows="4"
-										name="text-message" id="text-message" required></textarea>
-								</div>
-								<div class="col-md-12">
-									<label for="privacy">Privacy</label>
-									<textarea class="margin-bottom form-control privacy" rows="1"
-										name="privacy" id="privacy" disabled>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque quam ut fermentum ullamcorper. Pellentesque lobortis, ante vitae egestas venenatis, ante elit consectetur sem, sit amet auctor ex ligula sed mauris. Suspendisse tempor diam et hendrerit ullamcorper. Proin urna orci, pellentesque quis bibendum at, ultrices vulputate tortor. Integer ac ante diam. In et euismod nulla. Donec nibh nisl, egestas nec porta eu, hendrerit et urna.</textarea>
-								</div>
-								<div class="col-md-12 margin-bottom">
-									<input class="labelauty" type="checkbox"
-										data-labelauty="Privacy accept" checked />
+								<div class="author-name">
+									<h3>김 준</h3>
 								</div>
 							</div>
-							<input id="submit" name="submit" type="submit" value="Send mail"
-								class="btn btn-default">
-						</form>
-					</div>
-					<!-- /.form-container -->
+							<div class="author-ment">내상태 메세지</div>
+							<!-- 왼쪽 내정보  end -->
 
-					<div
-						class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 hidden-xs">
-						<div class="info-container">
-							<h1>Contact</h1>
-
-							<button id="mortgage-calc" class="btn btn-reverse" type="button">저
-								장</button>
-							<button id="mortgage-calc" class="btn btn-reverse" type="button">취
-								소</button>
+							<!-- 왼쪽 정보칸 -->
+							<button id="mortgage-calc" class="btn btn-reverse" type="button">저장</button>
+							<button id="mortgage-calc" class="btn btn-reverse" type="button">취소</button>
 							<ul class="grey-box">
 
 								<li>+123-456-789 <i class="icon fa fa-phone"></i></li>
@@ -184,6 +479,7 @@
 								<li><a href="mailto:development@prohome.com">친구별명</a><i
 									class="icon fa fa-envelope-o"></i></li>
 							</ul>
+
 							<h2>
 								<button type="button" class="btn btn-reverse"
 									data-toggle="modal" data-target="#exampleModal"
@@ -195,260 +491,366 @@
 								<li>Dev: +0123-123-456 <i class="icon fa fa-phone"></i></li>
 							</ul>
 
+
+
 							<!-- 체크리스트 모달  -->
 							<div class="modal fade" id="exampleModal" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalLabel"
 								aria-hidden="true">
-								<div class="modal-dialog"  >
-									<div class="modal-content"  >
-										<div class="modal-header" >
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal">
 												<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 											</button>
-											<h4 class="modal-title" id="exampleModalLabel">Check List</h4>
+											<h4 class="modal-title" id="exampleModalLabel">Check
+												List</h4>
 										</div>
-										
+
 										<div class="menu-navbar">
-				<nav id="navigation">
+											<nav id="navigation">
+
+
+												<ul>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('start')">출발</a>
+														</h5>
+													</li>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('see')">해변여행</a>
+														</h5>
+													</li>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('mt')">산 여행</a>
+														</h5>
+													</li>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('buty')">미용도구</a>
+														</h5>
+													</li>
+													<li class="has_submenu">
+														<h5>
+															<a href="#" onclick="checkChange('119')">구급약</a>
+														</h5>
+													</li>
+
+
+												</ul>
+											</nav>
+										</div>
+										<!-- /.menu -->
+										<div class="modal-body">
+											<div class="modal-body-list">히릿</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">취소</button>
+											<button type="button" class="btn btn-primary">저장</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 체크리스트 모달 끝 -->
+
+						</div>
+						<!-- /.info-container -->
+					</div>
+					<!-- 왼쪽 정보칸 end -->
+
+					<!-- 여행 들어갈 내용 -->
+					<div class="col-xs-9 col-sm-9 col-md-9  col-lg-10">
+
+
+						<!-- 간단한 여행 설명 부분  -->
+						<div id="story">
+							<form method="post" action="contact.php" class="form-large"
+								role="form" data-toggle="validator">
+
+								<input type="text" id="planMessage"
+									class="form-control plan-brief"
+									placeholder="어떤 여행인지 간단히 설명해 주세요 " maxlength="300" value="" />
+								<textarea class="form-control" id="planDetailMessage" rows="10"
+									placeholder="당신의 여행 스토리를 남겨보세요!" maxlength="10000"></textarea>
+
+							</form>
+						</div>
+						<!-- 간단한 여행 설명 부분 end  -->
+
+
+						<!-- 스토리 / 지도 /일정표 -->
+						<div class="plan-view-tab">
+							<ul id="plan-select-tab">
+								<li><a href="#" id="btn_story"><i
+										class="fa fa-comment-o" aria-hidden="true"></i>스토리</a></li>
+								<li><a href="#" id="map_itinerary_btn"><i
+										class="fa fa-calendar" aria-hidden="true"></i> 지도 / 일정표</a></li>
+							</ul>
+						</div>
+						<!--./스토리 / 지도 /일정탭   -->
+
+
+
+						<!-- 스토리 영역 -->
+						<div id="story_section">스토리 영역 입니다.</div>
+
+						<!-- 지도/일정표 영역 -->
+						<div id="map_itinerary_action">
+
+							<div id="travel_itinery_map"></div>
+
+							<script type="text/javascript"
+								src="//apis.daum.net/maps/maps3.js?apikey=83a724e8d3593fe936b266b976eff510"></script>
+							<script>
+								var container = document.getElementById('travel_itinery_map');
+								var options = {
+									center : new daum.maps.LatLng(33.450701, 126.570667),
+									level : 3
+								};
+							
+								var map = new daum.maps.Map(container, options);
+							</script>
+
+							<div id='wrap'>
+
+								<div id='external-events'>
+									<h4>Draggable Events</h4>
+									<div class='fc-event' value="12345">My Event 1</div>
+									<div class='fc-event'>My Event 2</div>
+									<div class='fc-event'>My Event 3</div>
+									<div class='fc-event'>My Event 4</div>
+									<div class='fc-event'>My Event 5</div>
+									<p>
+										<input type='checkbox' id='drop-remove' /> <label
+											for='drop-remove'>remove after drop</label>
+									</p>
+								</div>
+
+								<div id='calendar'></div>
+
+								<div style='clear: both'></div>
+
+							</div>
+
+
+							<!-- 지도 API표시 영역  -->
+
+
+						</div>
+						<!-- 지도/일정영역 end-->
+
+
+					</div>
+		<!--./ 여행 들어갈 내용 -->
+
+
 				
-					
-						<ul>
-								<li class="has_submenu">
-								<h5><a href="#"  onclick="checkChange('start')">출발</a></h5>
-								</li>
-								<li class="has_submenu">
-								<h5><a href="#" onclick="checkChange('see')" >해변여행</a></h5>
-								</li>
-								<li class="has_submenu">
-								<h5><a href="#" onclick="checkChange('mt')" >산 여행</a></h5>
-								</li>
-							    <li class="has_submenu">
-								<h5><a href="#" onclick="checkChange('buty')" >미용도구</a></h5>
-								</li>
-							    <li class="has_submenu">
-								<h5><a href="#" onclick="checkChange('119')">구급약</a></h5>
-								</li>
-								
-								
-						</ul>
-				</nav>
-			</div><!-- /.menu -->
-								<div class="modal-body" >
-									<div class="modal-body-list">히릿</div>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">취소</button>
-									<button type="button" class="btn btn-primary">저장</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 체크리스트 모달 끝 -->
 
+					<!-- ./col-sm-4 -->
 				</div>
-				<!-- /.info-container -->
 			</div>
-			<!-- ./col-sm-4 -->
-	</div>
-	</div>
-	</section>
+		</section>
 
 
 
-	<div class="modal fade login-modal" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">
-				<i class="fa fa-close"></i>
-			</button>
-			<div class="login-button-container">
-				<a href="#" data-section="login"><i class="fa fa-user"></i></a> <a
-					href="#" data-section="sign-in"><i
-					class="fa fa-pencil-square-o"></i></a> <a href="#"
-					data-section="recovery"><i class="fa fa-lock"></i></a> <a href="#"
-					data-section="setting"><i class="fa fa-cog"></i></a>
-			</div>
-			<!-- ./login-button-container -->
-			<div class="form-container">
-				<form method="post" action="#">
-					<div id="login" class="box">
-						<h2 class="title">Login in to your account</h2>
-						<h3 class="sub-title">It is a breach of our terms and
-							conditions to provide username and password details to
-							unauthorised third parties. Unauthorised use may lead to
-							suspension or termination.</h3>
-						<div class="field">
-							<input id="user-log" name="user-log" class="form-control"
-								type="text" placeholder="Username or email"> <i
-								class="fa fa-user user"></i>
-						</div>
-						<div class="field">
-							<input id="password-log" name="password-log" class="form-control"
-								type="password" placeholder="Password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<span class="remember"><input class="labelauty"
-								type="checkbox" data-labelauty="Keep me signed in" checked /></span>
-							<button type="button" class="btn btn-reverse button-form">Reset</button>
-							<button type="button" class="btn btn-default button-form">Login</button>
-						</div>
-					</div>
-					<!-- ./login -->
-					<div id="sign-in" class="box">
-						<h2 class="title">Sign In</h2>
-						<h3 class="sub-title">Create a Free account and discover how
-							you can centralize all communication around a transaction,
-							connect with clients, market your listings, and more.</h3>
-						<div class="form-inline">
-							<div class="form-group">
-								<input id="user-sign" name="user-sign"
-									class="form-control input-inline margin-right" type="text"
-									placeholder="Username"> <i class="fa fa-user user"></i>
+		<div class="modal fade login-modal" tabindex="-1" role="dialog"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="fa fa-close"></i>
+				</button>
+				<div class="login-button-container">
+					<a href="#" data-section="login"><i class="fa fa-user"></i></a> <a
+						href="#" data-section="sign-in"><i
+						class="fa fa-pencil-square-o"></i></a> <a href="#"
+						data-section="recovery"><i class="fa fa-lock"></i></a> <a href="#"
+						data-section="setting"><i class="fa fa-cog"></i></a>
+				</div>
+				<!-- ./login-button-container -->
+				<div class="form-container">
+					<form method="post" action="#">
+						<div id="login" class="box">
+							<h2 class="title">Login in to your account</h2>
+							<h3 class="sub-title">It is a breach of our terms and
+								conditions to provide username and password details to
+								unauthorised third parties. Unauthorised use may lead to
+								suspension or termination.</h3>
+							<div class="field">
+								<input id="user-log" name="user-log" class="form-control"
+									type="text" placeholder="Username or email"> <i
+									class="fa fa-user user"></i>
 							</div>
-							<div class="form-group">
-								<input id="email-sign" class="form-control input-inline"
-									type="text" name="email-sign" placeholder="Email"> <i
+							<div class="field">
+								<input id="password-log" name="password-log"
+									class="form-control" type="password" placeholder="Password">
+								<i class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<span class="remember"><input class="labelauty"
+									type="checkbox" data-labelauty="Keep me signed in" checked /></span>
+								<button type="button" class="btn btn-reverse button-form">Reset</button>
+								<button type="button" class="btn btn-default button-form">Login</button>
+							</div>
+						</div>
+						<!-- ./login -->
+						<div id="sign-in" class="box">
+							<h2 class="title">Sign In</h2>
+							<h3 class="sub-title">Create a Free account and discover how
+								you can centralize all communication around a transaction,
+								connect with clients, market your listings, and more.</h3>
+							<div class="form-inline">
+								<div class="form-group">
+									<input id="user-sign" name="user-sign"
+										class="form-control input-inline margin-right" type="text"
+										placeholder="Username"> <i class="fa fa-user user"></i>
+								</div>
+								<div class="form-group">
+									<input id="email-sign" class="form-control input-inline"
+										type="text" name="email-sign" placeholder="Email"> <i
+										class="fa fa-envelope-o"></i>
+								</div>
+							</div>
+							<div class="field">
+								<input id="password-sign" class="form-control" type="password"
+									name="password-sign" placeholder="Password"> <i
+									class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field">
+								<input id="re-password-sign" class="form-control"
+									type="password" name="re-password-sign"
+									placeholder="Repeat password"> <i
+									class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<span class="remember"><input class="labelauty"
+									type="checkbox"
+									data-labelauty="I have read the privacy policy." checked /></span>
+								<button type="button" class="btn btn-default button-form">Sign
+									in</button>
+							</div>
+						</div>
+						<!-- ./sign-in -->
+						<div id="setting" class="box">
+							<h2 class="title">Setting profile</h2>
+							<h3 class="sub-title">
+								Please note: You won't be able to change your name within the
+								next 60 days. Make sure that you don't add any unusual
+								capitalisation, punctuation, characters or random words. <a
+									href="#">Learn more</a>.
+							</h3>
+							<div class="field">
+								<input id="username-block" class="form-control" type="text"
+									name="username-block" value="John Doe" disabled> <i
+									class="fa fa-user user"></i>
+							</div>
+							<div class="field">
+								<input id="email-setting" class="form-control" type="text"
+									name="email-setting" value="administrator@prohome.com">
+								<i class="fa fa-envelope-o"></i>
+							</div>
+							<div class="field">
+								<input id="update-pass" class="form-control" type="password"
+									name="update-pass" placeholder="New password"> <i
+									class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field">
+								<input id="update-repass" class="form-control" type="password"
+									name="update-repass" placeholder="Repeat password"> <i
+									class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<button type="button" class="btn btn-reverse button-form">Cancel</button>
+								<button type="button" class="btn btn-default button-form">Update</button>
+							</div>
+						</div>
+						<!-- ./recovery -->
+						<div id="recovery" class="box">
+							<h2 class="title">Need a new password?</h2>
+							<h3 class="sub-title">Enter your email address, and we’ll
+								email you instructions to reset your password.</h3>
+							<div class="field">
+								<input id="recovery-email" class="form-control" type="text"
+									name="recovery-email" placeholder="Your email"> <i
 									class="fa fa-envelope-o"></i>
 							</div>
+							<div class="field footer-form text-right">
+								<button type="button" class="btn btn-default button-form">Recovery</button>
+							</div>
 						</div>
-						<div class="field">
-							<input id="password-sign" class="form-control" type="password"
-								name="password-sign" placeholder="Password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field">
-							<input id="re-password-sign" class="form-control" type="password"
-								name="re-password-sign" placeholder="Repeat password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<span class="remember"><input class="labelauty"
-								type="checkbox" data-labelauty="I have read the privacy policy."
-								checked /></span>
-							<button type="button" class="btn btn-default button-form">Sign
-								in</button>
-						</div>
-					</div>
-					<!-- ./sign-in -->
-					<div id="setting" class="box">
-						<h2 class="title">Setting profile</h2>
-						<h3 class="sub-title">
-							Please note: You won't be able to change your name within the
-							next 60 days. Make sure that you don't add any unusual
-							capitalisation, punctuation, characters or random words. <a
-								href="#">Learn more</a>.
-						</h3>
-						<div class="field">
-							<input id="username-block" class="form-control" type="text"
-								name="username-block" value="John Doe" disabled> <i
-								class="fa fa-user user"></i>
-						</div>
-						<div class="field">
-							<input id="email-setting" class="form-control" type="text"
-								name="email-setting" value="administrator@prohome.com">
-							<i class="fa fa-envelope-o"></i>
-						</div>
-						<div class="field">
-							<input id="update-pass" class="form-control" type="password"
-								name="update-pass" placeholder="New password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field">
-							<input id="update-repass" class="form-control" type="password"
-								name="update-repass" placeholder="Repeat password"> <i
-								class="fa fa-ellipsis-h"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<button type="button" class="btn btn-reverse button-form">Cancel</button>
-							<button type="button" class="btn btn-default button-form">Update</button>
-						</div>
-					</div>
-					<!-- ./recovery -->
-					<div id="recovery" class="box">
-						<h2 class="title">Need a new password?</h2>
-						<h3 class="sub-title">Enter your email address, and we’ll
-							email you instructions to reset your password.</h3>
-						<div class="field">
-							<input id="recovery-email" class="form-control" type="text"
-								name="recovery-email" placeholder="Your email"> <i
-								class="fa fa-envelope-o"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<button type="button" class="btn btn-default button-form">Recovery</button>
-						</div>
-					</div>
-					<!-- ./recovery -->
-				</form>
-				<!-- ./form-container -->
+						<!-- ./recovery -->
+					</form>
+					<!-- ./form-container -->
+				</div>
+				<!-- ./login-button-container -->
 			</div>
-			<!-- ./login-button-container -->
+			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
+		<!-- /.modal -->
 
 
-	<div class="modal fade" id="modal-contact" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">
-				<i class="fa fa-close"></i>
-			</button>
+		<div class="modal fade" id="modal-contact" tabindex="-1" role="dialog"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="fa fa-close"></i>
+				</button>
 
-			<div class="form-container full-fixed">
-				<form method="post" action="#">
-					<div id="form-modal-contact" class="box active modal-contact">
-						<h2 class="title">How can we help?</h2>
-						<h3 class="sub-title">Please send us your thoughts by filling
-							out the below form. Comments are solely for internal use. Your
-							address will not be shared with outside parties or used for any
-							other purpose than to respond to your comments.</h3>
-						<ul class="object-contact">
-							<li><a href="#"><i class="fa fa-code"></i>Suggestion</a></li>
-							<li><a href="#"><i class="fa fa-question"></i>Question</a></li>
-							<li><a href="#" class="active"><i class="fa fa-bug"></i>Problems</a></li>
-							<li><a href="#"><i class="fa fa-comment-o"></i>Feedback</a></li>
-						</ul>
-						<div class="field">
-							<textarea class="form-control" name="message" id="message"
-								placeholder="Your message"></textarea>
-						</div>
-						<div class="field">
-							<input id="short-summary" class="form-control" type="text"
-								name="short-summary" placeholder="Short summary"> <i
-								class="fa fa-tag"></i>
-						</div>
-						<div class="field">
-							<input id="email-help" class="form-control" type="text"
-								name="email-help" placeholder="Your email"> <i
-								class="fa fa-envelope-o"></i>
-						</div>
-						<div class="field footer-form text-right">
-							<button type="button" class="btn btn-reverse button-form">Cancel</button>
-							<button type="button" class="btn btn-default button-form">Send</button>
-						</div>
+				<div class="form-container full-fixed">
+					<form method="post" action="#">
+						<div id="form-modal-contact" class="box active modal-contact">
+							<h2 class="title">How can we help?</h2>
+							<h3 class="sub-title">Please send us your thoughts by
+								filling out the below form. Comments are solely for internal
+								use. Your address will not be shared with outside parties or
+								used for any other purpose than to respond to your comments.</h3>
+							<ul class="object-contact">
+								<li><a href="#"><i class="fa fa-code"></i>Suggestion</a></li>
+								<li><a href="#"><i class="fa fa-question"></i>Question</a></li>
+								<li><a href="#" class="active"><i class="fa fa-bug"></i>Problems</a></li>
+								<li><a href="#"><i class="fa fa-comment-o"></i>Feedback</a></li>
+							</ul>
+							<div class="field">
+								<textarea class="form-control" name="message" id="message"
+									placeholder="Your message"></textarea>
+							</div>
+							<div class="field">
+								<input id="short-summary" class="form-control" type="text"
+									name="short-summary" placeholder="Short summary"> <i
+									class="fa fa-tag"></i>
+							</div>
+							<div class="field">
+								<input id="email-help" class="form-control" type="text"
+									name="email-help" placeholder="Your email"> <i
+									class="fa fa-envelope-o"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<button type="button" class="btn btn-reverse button-form">Cancel</button>
+								<button type="button" class="btn btn-default button-form">Send</button>
+							</div>
 
-					</div>
-				</form>
+
+
+						</div>
+					</form>
+				</div>
+
+
 			</div>
-
-
+			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- /.modal -->
+		<!-- /.modal -->
 	</div>
 	<!-- /#page-container -->
 
-	<!-- buttom css -->
-	<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
+
 	<script>
 		"use strict";
-
+	
 		// MAPS GOOGLE
 		function initialize() {
 			var mapOptions = {
@@ -457,8 +859,8 @@
 				center : new google.maps.LatLng(-33.890542, 151.274856)
 			}
 			var map = new google.maps.Map(
-					document.getElementById('map-canvas'), mapOptions);
-
+				document.getElementById('map-canvas'), mapOptions);
+	
 			var image = 'resources/images/maps/pin-maps.png';
 			var myLatLng = new google.maps.LatLng(-33.890542, 151.274856);
 			var beachMarker = new google.maps.Marker({
@@ -469,81 +871,82 @@
 		}
 		/* google.maps.event.addDomListener(window, 'load', initialize); */
 	</script>
-<script type="text/javascript">
+	<script type="text/javascript">
+		/*  체크리스트 리스트 change */
+		function checkChange(str) {
+			var output = "";
+			var list = str;
+			if (list == "start") {
+				output = "";
+				list = "";
 	
-/*  체크리스트 리스트 change */
-function checkChange(str) {
-	var output ="";
-	var list = str;
-	if(list=="start"){
-		 output ="";
-		 list = "";
-		
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-		
-		return;
-	} if(list=="see"){
-		 output ="";
-		 list = "";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+	
+				return;
+			}
+			if (list == "see") {
+				output = "";
+				list = "";
+	
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+	
+				return;
+			}
+			if (list == "mt") {
+				output = "";
+				list = "";
+	
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+	
+				return;
+			}
+			if (list == "buty") {
+				output = "";
+				list = "";
+	
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+	
+				return;
+			}
+			if (list == "119") {
+				output = "";
+				list = "";
+	
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				output += "<input  type='checkbox' value='아이템' >아이템</input>";
+				$("div .modal-body-list").html(output);
+	
+				return;
+	
+			}
+	
+		}
+	</script>
 
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-
-		return;
-	} if(list=="mt"){
-		 output ="";
-		 list = "";
-
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-
-		return;
-	} if(list=="buty"){
-		 output ="";
-		 list = "";
-
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-
-		
-		return;
-	} if(list=="119"){
-		 output ="";
-		 list = "";
-
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		output +="<input  type='checkbox' value='아이템' >아이템</input>";
-		$("div .modal-body-list").html(output);
-
-		return;
-
-	}
-
- 
-}
-
-</script>
 </body>
 </html>

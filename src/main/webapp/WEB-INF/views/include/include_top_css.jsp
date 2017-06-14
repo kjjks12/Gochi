@@ -17,8 +17,8 @@
 	<script src="${pageContext.request.contextPath}/resources/script/modernizr.min.js"></script> <!-- Modernizr -->
 
 	<!-- wish -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review_detail/review_detail.css">                              <!-- plan view Stylesheet -->
-   <%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/wish/styles/plan-view-styles.css"> --%>  <!-- 플랜 -->                          <!-- Media Query -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gochi/review_detail.css">                              <!-- plan view Stylesheet -->
+<%--       <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/wish/styles/plan-view-styles.css"> --%> <!-- 플랜 -->                          <!-- Media Query -->
 
 
 

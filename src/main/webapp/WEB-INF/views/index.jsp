@@ -74,7 +74,7 @@
 		<section id="recent-list">
 			<div class="section-detail">
 				<h1>
-				  <span>Prohome </span>
+				  <span>여행 후기 </span>
 				  <span id="spinner-show">
 					  <em class="current">Real Estate</em>
 					  <span class="next"><span></span></span>
@@ -92,7 +92,7 @@
 			</div>
 			<div class="container">
 				<div class="list-box-title">
-					<span><i class="icon fa fa-plus-square"></i>Recent Listed</span>
+					<span><i class="icon fa fa-plus-square"></i>나만믿고 따라와 패키지</span>
 				</div>
 				<div class="row">
 					<div class="col-md-4">
@@ -179,6 +179,8 @@
 								<dt class="bed">Beds:</dt><dd><span>2</span></dd>
 								<dt class="bath">Baths:</dt><dd><span>1</span></dd>
 							</dl><!-- /.detail -->
+							
+							
 							<div class="footer">
 								<a class="btn btn-reverse" href="property-detail.html">Read now</a>
 							</div>
