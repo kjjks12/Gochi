@@ -24,6 +24,8 @@
 	
 	<context:component-scan base-package="gochi.travel" />
 	
-	
-	
+	<!-- json 등록 -->
+	<beans:bean class="net.sf.json.spring.web.servlet.view.JsonView" id="jsonView"/>
+	<!-- <beans:property value="text/html;charset=UTF-8" name="contentType" /> -->
+		
 </beans:beans>

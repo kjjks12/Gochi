@@ -3,6 +3,7 @@ package gochi.travel.notecontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import gochi.travel.noteservice.NoteService;
 
 @Controller
 public class NoteController {
-
 	@Autowired
 	private NoteService noteService;
 	
@@ -28,25 +28,36 @@ public class NoteController {
 	public String selectMessage(HttpSession session){
 		//내가 받은 메세지정보들을 조회한다.
 		List<NoteDTO> noteList = noteService.selectMessage("kjy73845@naver.com");
-		
-		//내가 받은 노트정보들과 작성자들의 정보들을 저장할 변수를 선언한다.
+	
+		//작성자들의 정보들을 저장할 변수를 선언한다.
 		List<Object> twoDTO = new ArrayList<>();
-		
 		try{
 			for(NoteDTO dto:noteList){
 				//작성자들의 아이디(이메일주소)를 String값에 저장한다.
 				String sendEmail = dto.getSendEmail();
-				//작성자들의 이메일주소를 토대로 작성자들의 정보를 가져온다.
+				//System.out.println("작성자들의 id : "+sendEmail);		
+				//작성자들의 정보를 조회한다.
 				MypageDTO mypageDTO = mypageService.selectByEmail(sendEmail);
 				//작성자들의 정보를 arrayList에 저장
 				twoDTO.add(mypageDTO);
-				
-				System.out.println("메세지의 정보들 : "+dto);
 				//작성자들의 정보를 세션에 저장
 				session.setAttribute("senderDTO", twoDTO);
 			}
+			session.setAttribute("noteDTO",noteList);
+			session.setAttribute("MyEmail", "kjy73845@naver.com");
+			session.setAttribute("maxNum", noteService.selectMaxNum());
 			}catch(Exception e){}
-		System.out.println("보낸이 정보 : "+twoDTO);
 		return "ex/my-note";
+	}
+	@RequestMapping("/noteWrite")
+	public String selectMessage(String replyReceiveEmail,String messageTitle,String messageContent,String myEmail){
+		int flag=0;
+		noteService.insertNote(new NoteDTO(myEmail, messageTitle, messageContent,flag,replyReceiveEmail));
+		return "index";
+	}
+	@RequestMapping("/updateFlag")
+	public String updateFlag(int flag,int messageNum){//메세지 읽음 여부
+		noteService.updateFlagNum(flag, messageNum);
+		return "index";
 	}
 }

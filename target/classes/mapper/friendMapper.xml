@@ -10,11 +10,25 @@
 	<result property="fEmail" column="F_EMAIL"/>
 </resultMap>
 
+<resultMap type="gochi.travel.member.dto.MemberDTO" id="memberDTO">
+	<id property="email" column="EMAIL"/>
+	<result property="password" column="PASSWORD"/>
+	<result property="nickname" column="NICKNAME"/>
+	<result property="phoneNumber" column="PHONE_NUMBER"/>
+	<result property="profileImg" column="PROFILE_IMG"/>
+	<result property="backImg" column="BACK_IMG"/>
+	<result property="selfContent" column="SELF_CONTENT"/>
+</resultMap>
+
 <!-- 친구 리스트 columns -->
 <sql id="friendColumns">
 	FRIEND_NO,EMAIL,F_EMAIL
 </sql>
 
+<!-- 멤버 리스트 columns -->
+<sql id="memberColumns">
+	EMAIL,PASSWORD,NICKNAME,PHONE_NUMBER,PROFILE_IMG,BACK_IMG,SELF_CONTENT
+</sql>
 <!-- 해당 멤버의 친구 리스트 조회 -->
 <select id="selectFriendList" parameterType="String" resultMap="friendMypageDTO">
 	select <include refid="friendColumns"/>
@@ -23,11 +37,20 @@
 </select>
 
 <!-- 친구 추가 이전에 검색을 통한 친구 찾기 -->
-<select id="selectFriend" parameterType="Map" resultMap="friendMypageDTO">
-	select <include refid="friendColumns"/>
-	from Friend
-	where EMAIL = #{email}
-	and F_EMAIL like '%'||#{f_email}||'%'
+<select id="selectMember" parameterType="String" resultMap="memberDTO">
+	select <include refid="memberColumns"/>
+	from MEMBER
+	where EMAIL like '%'||#{keyword}||'%'
 </select>
 
+<!-- 친구 추가 하기 -->
+<insert id="insertFriend" parameterType="gochi.travel.model.frienddto.FriendDTO">
+	insert into FRIEND(<include refid="friendColumns"/>)
+	values(#{friendNo},#{email},#{fEmail})
+</insert>
+
+<!-- 친구 최고 번호 검색 -->
+<select id="selectMaxFriend" resultType="Integer">
+	select max(FRIEND_NO) from FRIEND
+</select>
 </mapper>

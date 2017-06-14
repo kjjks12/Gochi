@@ -16,7 +16,7 @@ public class MypageController {
 	
 	@RequestMapping("/goInfo")
 	public String gotoInfoForm(HttpSession session){
-		System.out.println("프로필로이동");
+		//System.out.println("프로필로이동");
 		session.setAttribute("MYPAGEDTO", mypageService.selectByEmail("kjy73845@naver.com"));
 		return "ex/profile";
 	}
