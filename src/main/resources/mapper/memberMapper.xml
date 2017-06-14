@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- member 관련 xml -->
+<mapper namespace="memberMapper">
+
+<!-- 회원 정보 DTO properties와 DB Column 값 일치화 작업 -->
+<resultMap type="gochi.travel.member.dto.MemberDTO" id="resultMemberDTO">
+	<id column="EMAIL" property="email"/>
+	<result column="PASSWORD" property="password"/>
+	<result column="NICKNAME" property="nickname"/>
+	<result column="PHONE_NUMBER" property="phoneNumber"/>
+	<result column="PROFILE_IMG" property="profileImg"/>
+	<result column="BACK_IMG" property="backImg"/>
+	<result column="SELF_CONTENT" property="selfContent"/>
+</resultMap>
+
+<!-- 회원 정보 SQL -->
+<sql id="memberColumns">
+	EMAIL,PASSWORD,NICKNAME,PHONE_NUMBER,PROFILE_IMG,BACK_IMG,SELF_CONTENT
+</sql>
+
+<!-- 회원 검색 -->
+<select id="selectMember" parameterType="String" resultMap="resultMemberDTO">
+	select <include refid="memberColumns"/>
+	from MEMBER
+	where EMAIL = #{_parameter}
+</select>
+
+<!-- 네이버 아이디로 로그인 한 유저 insert -->
+<insert id="insertNaverLogin" parameterType="Map" >
+insert into MEMBER (email,nickname) values(#{email},#{nickname})
+</insert>
+
+<!-- 일반유저 회원가입 -->
+<insert id="insertMember" parameterType="MemberDTO">
+insert into MEMBER(email,password,nickname) values(#{email},#{password},#{nickname})
+</insert>
+
+<!-- 회원가입 될 때 auth 삽입 -->
+<insert id="insertAuth" parameterType="String">
+insert into MEMBER_AUTH(email,auth) values(#{_parameter},'NORMAL')
+</insert>
+
+
+
+</mapper>

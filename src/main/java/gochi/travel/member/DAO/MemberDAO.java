@@ -1,9 +1,13 @@
-package gochi.travel.member.service;
+package gochi.travel.member.DAO;
 
 import gochi.travel.member.dto.MemberDTO;
 
-public interface MemberService {
-
+public interface MemberDAO {
+	
+	/**
+	 * 유저 검색
+	 * */
+	public MemberDTO searchMember(String email);
 	/**
 	 * 네이버 아이디로 로그인 된 경우
 	 * */

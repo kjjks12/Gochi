@@ -22,8 +22,8 @@
 		<beans:property name="order" value="2"/>
 	</beans:bean>
 	
-	<context:component-scan base-package="gochi.travel" />
-	
+
+	<context:component-scan base-package="gochi.travel"/>
 	
 	
 </beans:beans>
