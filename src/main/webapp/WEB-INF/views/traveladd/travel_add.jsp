@@ -336,8 +336,16 @@
          });
 
       });
-
-
+      
+      $('#calendar').find('.fc-slats').find('[class="fc-widget-content"]').hover(
+            function() {
+                var tr = $(this).parent();
+                var time = tr.find('td.fc-axis.fc-time.fc-widget-content').find("span").text();
+                $(this).append('<td class="temp_cell" style="border: 0px; width:5px;">'+time+'</td>');
+            },          
+            function() {                        
+                $(this).children('.temp_cell').remove();
+            });
       /* initialize the calendar
       -----------------------------------------------------------------*/
 
@@ -353,8 +361,6 @@
          drop : function(date, allDay) {
             /*    alert(date)
                alert(allDay) */
-
-
          },
          monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
          monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
@@ -368,11 +374,16 @@
          },
          dayClick : function(date, jsEvent, view) {
             
-            $("#add_my").show
-            alert('Clicked on: ' + date.format());
+            alert($(this).position());
+            //$("#add_my").show();
+            //alert('Clicked on: ' + date.format());
 
          },
-
+         navLinks: true,
+          navLinkDayClick: function(date, jsEvent) {
+              console.log('day', date.format()); // date is a moment
+              console.log('coords', jsEvent.pageX, jsEvent.pageY);
+          },
       }); /*./fullCalendar 끝*/
 
       /*       $('td.fc-widget-content').mouseover(function () {
