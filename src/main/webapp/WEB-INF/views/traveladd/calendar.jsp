@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/css/fullcalendar.css' />
-<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/css/fullcalendar.print.css' media='print' />
+<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.css' />
+<link rel='stylesheet' type='text/css' href='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.print.css' media='print' />
 <script type='text/javascript' src='${pageContext.request.contextPath}/resources/jquery/jquery-1.5.2.min.js'></script>
 <script type='text/javascript' src='${pageContext.request.contextPath}/resources/jquery/jquery-ui-1.8.11.custom.min.js'></script>
 <script type='text/javascript' src='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.js'></script>
@@ -32,9 +32,8 @@
 			
 			// make the event draggable using jQuery UI
 			$(this).draggable({
-				zIndex: 999,
 				revert: true,      // will cause the event to go back to its
-				revertDuration: 0 , //  original position after the drag
+				revertDuration: 1 , //  original position after the drag
 				cursor: "move", //   cursorìµìì ëëê·¸ íë ëì ë§ì°ì¤ í¬ì¸í°ì ëª¨ìì ë³íìí´
 				opacity: 0.5 // í¬ëªë ì¤ì 
 			});

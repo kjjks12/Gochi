@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="kor">
   <head>
@@ -110,7 +111,15 @@
 									</li>
 									<li>
 										<span>자기소개</span> 
+										 <c:choose>
+										<c:when test="${sessionScope.MYPAGEDTO.selfContent!=null }">
 										${sessionScope.MYPAGEDTO.selfContent }
+										</c:when>
+										<c:otherwise>
+											자기소개를 등록해 주세요
+										</c:otherwise>
+										</c:choose>
+										
 									</li>
 								</ul>
 							</div>

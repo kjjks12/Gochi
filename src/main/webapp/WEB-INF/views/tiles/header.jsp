@@ -1,23 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+function SignInCheck(){
+	
+	if(document.getElementById("nickname").value==""){
+		alert("닉네임을 입력해 주세요!");
+	}else if(document.getElementById("email-sign").value==""){
+		alert("email을 입력해 주세요!");
+	}else if(document.getElementById("password-sign").value==""){
+		alert("비밀번호를 입력해 주세요!");
+	}else if(document.getElementById("re-password-sign").value==""){
+		alert("비밀번호를 다시한번 입력해 주세요!");
+	}else if(document.getElementById("password-sign").value!=document.getElementById("re-password-sign").value){
+		alert("비밀번호가 서로 일치하지 않아요!");
+	}else{
+		document.signInForm.submit();
+	}
+	
+}
 
-<!-- 달력 링크 , 부트스트랩 ======================================== -->
- 	<link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datepicker.css" rel="stylesheet" />  
-  
-	<script src="${pageContext.request.contextPath}/resources/fullcalendar/jquery-1.10.2.js" type="text/javascript"></script>
+function loginCheck(){
+	
+	if(document.getElementById("loginEmail").value==""){
+		alert("이메일을 입력해 주세요.");
+	}else if(document.getElementById("loginPassword").value==""){
+		alert("패스워드를 입력해 주세요.");
+	}else{
+		document.loginForm.submit();
+	}
+}
+</script>
+
+
+
+<!-- 달력 링크 , 부트스트랩 *준* -->
+   <link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.css" rel="stylesheet" />
+   <link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datepicker.css" rel="stylesheet" />  
 	<script src="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datepicker.js"></script>
- <!-- 달력 링크 , 부트스트랩 ======================================== -->
-    
+
+<style>
+.modal-backdrop {
+	display :none !important
+	
+	
+}
+	.datepicker {
+		z-index: 1000 !important
+	}
+</style>
 </head>
 
 <body>
@@ -32,10 +71,15 @@
 							
 							<a href="${pageContext.request.contextPath}/mypage/goInfo" class="hidden-xs"><i class="icon fa fa-envelope-o"></i> myPageUpdate TEST</a>
 						</div>
-						
 						<div id="login-pan" class="col-md-6 hidden-xs">
+						<c:if test="${empty sessionScope.dto}">
 							<a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i> 회원가입</a>
-							<a href="#" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
+							<a href="#" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i>로그인</a>
+						</c:if>
+						<c:if test="${not empty sessionScope.dto}">
+							<a href="${pageContext.request.contextPath}/member/logout" ><i class="icon fa fa-user user"></i>로그아웃</a>
+							<a href="#" data-toggle="modal" data-target=".user-info-modal" data-section="setting"><i class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
+						</c:if>
 						</div>
 					</div>
 				</div>			
@@ -58,7 +102,7 @@
 								</li>
 								<li class="has_submenu">
 								<%-- <a href="${pageContext.request.contextPath}/traveladd/travel_add">여행일정</a> --%>
-								<a data-toggle="modal" data-target="#myModal">여행일정</a>
+								<a data-toggle="modal" data-target="#myModal">일정만들기</a> <!-- 일정만들기 모달   -->
 								</li>
 								<li class="has_submenu">
 								<a href="${pageContext.request.contextPath}/travel_review/review">여행후기</a>
@@ -80,73 +124,233 @@
 
 		
 <!--여행일정 모달  Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="z-index: 10">
-    <div class="modal-content">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1000" >
+  <div class="modal-dialog" style="z-index: 1001;">
+    <div class="modal-content" style="background-clip: border-box;">
       <div class="modal-header"><h3>여행일정 계획 기본정보 입력</h3>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel"> </h4>
       </div>
       <div class="modal-body">
       <!-- Form Start -->
-      <form role="form" action="#">  
+      <form role="form" action="${pageContext.request.contextPath}/traveladd/travel_add">  
     	<div class="form-group">   
-        	<label for="Title">일정등록</label>
+        	<label for="Title">여행제목</label>
        	 	<input type="text" class="form-control" placeholder="여행 제목"> 
     	</div>       
     	<div class="form-group">  
         	<label for="content">간단 여행 이야기</label>
-        	<textarea  rows="3" class="form-control"></textarea> 
+        	<textarea  rows="2" class="form-control"></textarea> 
     	</div>
-  		<div class="form-group">  
-        	<label for="content">여행 태마</label>
-    		<label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="five" value="option5">  나홀로
-            </label> 
-            <label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="four" value="option4" >  커플
-            </label> 
-            <label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="three" value="option3" checked>  친구들
-            </label>
-            <label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="two" value="option2">  가족
-            </label>
+  		
+  		<!-- datepicker 시작 -->
+  		<div class="controls">
+  		<table>
+  			<tr>
+  				<th>
+  				<span>시작날짜</span>
+        		<input class="datepicker form-control" type="text" id="indate"  placeholder="Check-in: YYYY/MM/DD" style="width: 200px"/>
+				</th>
+				<th>
+				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;끝 날짜</span>
+       			<input class="datepicker form-control" type="text" id="outdate" placeholder="Check-out: YYYY/MM/DD" style="width: 200px; margin-left: 20px"/>
+       		    </th>
+  			</tr>
+  		</table> 
+         </div>  
+       <!-- datepicker 끝 -->
+   		
+   <fieldset><br>
+   <table>
+    	<tr>
+    		<th colspan="4"  align="center">	
+    		<span>누구와 함께</span>
+    		</th>
+    	</tr>
+    	<tr>
+    		<th>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="labelauty" type="radio" name="radio-1" id="radio-1" data-labelauty="나혼자" checked="checked"/>
+    		</th>
+    		<th>
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="labelauty" type="radio" name="radio-1" id="radio-2" data-labelauty="나혼자2"  />
+    		</th>
+    		<th>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="labelauty" type="radio" name="radio-1" id="radio-3" data-labelauty="나혼자3"  />
+    		</th>
+    		<th>
+  			   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="labelauty" type="radio" name="radio-1" id="radio-4"  data-labelauty="나혼자4" />
+    		</th>
+    	</tr>
+    </table>
+  </fieldset>
+          
         <span>
-             <select class="form-control" id="capa" name="capa">
+        <select id="capa" name="capa" >
                      <option value="0">-- 인원 --</option>
                      <option value="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
                      <option value="4">4</option>
                      <option value="5">5+</option>
-                  </select>
-             </span>   
-         </div> 
-        
-         
-        <div class="row">
-            <div class="col-sm-4"></div>
-        	<div class="col-xs-12 col-sm-4">
-        		  <div class="controls">
-        		      <input class="datepicker form-control" type="text"/>
-        		  </div>
-        		
-        	</div>
-    		<div class="col-sm-4"></div>
-        </div>
-         
-     
+         </select>
+         </span>
+       
+       <!-- 모달 foot -->
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         <button type="submit" class="btn btn-primary" >저장 후 이동</button>
       </div>
+        <!-- 모달 foot end-->
+      
        
     </form>
+    </div>
+
+			<!--./form 전송 끝 -->    
     </div> <!-- 모달 콘텐츠 -->
   </div> <!-- 모달 다이얼로그 -->
 </div> <!-- 모달 전체 윈도우 -->
-</div>
+
+
+<!-- datepicker script -->
+<script type="text/javascript">
+	
+		 $('.datepicker').datepicker({
+	    	 weekStart:1,
+	    	 color: 'red'
+			
+		 });
+</script>   
+
+<!-- datepicker script  end-->
+
+
+<!-- 로그인/회원가입 모달!!!!!!!!!!!!!!!!! -->
+<div class="modal fade login-modal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+				<div class="login-button-container">
+					<a href="#" data-section="login"><i class="fa fa-user"></i></a>
+					<a href="#" data-section="sign-in"><i class="fa fa-pencil-square-o"></i></a>
+					<a href="#" data-section="recovery"><i class="fa fa-lock"></i></a>
+					<a href="#" data-section="setting"><i class="fa fa-cog"></i></a>
+				</div><!-- ./login-button-container -->
+				
+				<div class="form-container">
+					<!-- 로그인 Form 입니다. -->
+					<form action="${pageContext.request.contextPath}/member/Login" method="post" name="loginForm">
+						<div id="login" class="box">
+							<h2 class="title">Login in to your account</h2>
+							<h3 class="sub-title">come to KkoChi World~!</h3>
+							<input type="hidden" value="1" name="sep">
+							<div class="field">
+								<input id="loginEmail" name="user-log" class="form-control" type="email" placeholder="Email">
+								<i class="fa fa-user user"></i>
+							</div>
+							<div class="field">
+								<input id="loginPassword" name="password-log" class="form-control" type="password" placeholder="Password">
+								<i class="fa fa-ellipsis-h"></i>
+							</div>						
+							<div class="field footer-form text-right">
+							<!-- 네이버 로그인 API 적용. -->
+							<button class="btn btn-reverse button-form" style="background-color:#ffffff; border:none" onClick=" $('.login-modal').hide();"><div id="naver_id_login"></div></button>
+								<script type="text/javascript">
+									  	var naver_id_login = new naver_id_login("qkQPxecKnvS2x7Gphr25", "http://localhost:8000/controller/login/callback");
+									  	var state = naver_id_login.getUniqState();
+									  	naver_id_login.setButton("green", 2,40);
+									  	naver_id_login.setDomain("http://localhost:8000/controller/");
+									  	naver_id_login.setState(state);
+									  	naver_id_login.setPopup();
+									  	naver_id_login.init_naver_id_login();
+								</script>
+							<button type="reset" class="btn btn-reverse button-form">Reset</button>
+							<button type="button" class="btn btn-default button-form" id="loginBun" onclick="loginCheck()">Login</button>
+							</div>
+						</div> <!-- ./login -->
+						</form>
+						
+					<!-- SignIn Form 시작 입니다. -->
+					<form method="post" action="${pageContext.request.contextPath}/member/SignIn" name="signInForm" id="signForm">
+						<div id="sign-in" class="box">
+							<h2 class="title">Sign In</h2>
+							<h3 class="sub-title">Welcome to Gochi World~!</h3>
+								
+								<div class="field">
+								<input id="nickname" name="nickname" class="form-control" type="text" placeholder="NickName">
+								<i class="fa fa-user user"></i>
+							</div>
+								<div class="form-group">
+									<input id="email-sign" class="form-control" type="email" name="email-sign" placeholder="Email">
+									<i class="fa fa-envelope-o"></i>
+								</div>
+							<div class="field">
+								<input id="password-sign" class="form-control" type="password" name="password-sign" placeholder="Password">
+								<i class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field">
+								<input id="re-password-sign" class="form-control" type="password" name="re-password-sign" placeholder="Repeat password">
+								<i class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<span class="remember"><input class="labelauty" type="checkbox" data-labelauty="I have read the privacy policy." checked /></span>
+								<button type="button" class="btn btn-default button-form" id="signIn" onclick="SignInCheck()">Sign in</button>
+							</div>
+						</div><!-- ./sign-in -->
+					</form><!-- ./form-container -->
+				</div><!-- ./login-button-container -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
+		
+<!-- 사용자정보 모달!!!!!!!!!!!!!!!!!!!! -->
+<div class="modal fade user-info-modal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+				<div class="login-button-container">
+					<a href="#" data-section="recovery"><i class="fa fa-lock"></i></a>
+					<a href="#" data-section="setting"><i class="fa fa-cog"></i></a>
+				</div><!-- ./login-button-container -->
+				<div class="form-container">
+						<div id="setting" class="box">
+							<h2 class="title">Setting profile</h2>
+							<h3 class="sub-title">Please note: You won't be able to change your name within the next 60 days. Make sure that you don't add any unusual capitalisation, punctuation, characters or random words. <a href="#">Learn more</a>.</h3>
+							<div class="field">
+								<input id="username-block" class="form-control" type="text" name="username-block" value="${sessionScope.dto.nickname}" disabled>
+								<i class="fa fa-user user"></i>
+							</div>
+							<div class="field">
+								<input id="email-setting" class="form-control" type="text" name="email-setting" value="${sessionScope.dto.email}" disabled>
+								<i class="fa fa-envelope-o"></i>
+							</div>
+							<div class="field">
+								<input id="update-pass" class="form-control" type="password" name="update-pass" placeholder="New password">
+								<i class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field">
+								<input id="update-repass" class="form-control" type="password" name="update-repass" placeholder="Repeat password">
+								<i class="fa fa-ellipsis-h"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<button type="button" class="btn btn-reverse button-form">Cancel</button>
+								<button type="button" class="btn btn-default button-form">Update</button>
+							</div>
+						</div><!-- ./recovery -->
+						<form>
+						<div id="recovery" class="box">
+							<h2 class="title">Need a new password?</h2>
+							<h3 class="sub-title">Enter your email address, and weâll email you instructions to reset your password.</h3>
+							<div class="field">
+								<input id="recovery-email" class="form-control" type="text" name="recovery-email" placeholder="Your email">
+								<i class="fa fa-envelope-o"></i>
+							</div>
+							<div class="field footer-form text-right">
+								<button type="button" class="btn btn-default button-form">Recovery</button>
+							</div>
+						</div><!-- ./recovery -->
+					</form><!-- ./form-container -->
+				</div><!-- ./login-button-container -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 
 		
@@ -157,8 +361,5 @@
     	 color: 'red'
     	
 	 });
-	 
-	
-	 
 	</script>
 </html>

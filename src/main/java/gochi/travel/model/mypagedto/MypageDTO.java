@@ -22,6 +22,7 @@ public class MypageDTO implements Serializable{
 		this.backImg = backImg;
 		this.selfContent = selfContent;
 	}
+
 	public String getEmail() {
 		return email;
 	}
