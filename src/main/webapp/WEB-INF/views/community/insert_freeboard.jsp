@@ -74,7 +74,7 @@
 								<h3 class="title">게시글 작성</h3>
 							</div>
 							<div class="row">
-							<form>
+							<form name="inserForm" method="post" action="${pageContext.request.contextPath}/community/insert">
 								<div class="col-md-5 space-form">
 									<input id="title" class="form-control" type="text" placeholder="제목" name="title">
 								</div>
@@ -82,14 +82,15 @@
 									<input id="address" class="form-control" type="text" placeholder="닉네임" name="nickName">
 								</div>
 								<div class="col-md-12">
-									<textarea name="description" id="description" class="form-control description"></textarea>
+									<textarea name="content" id="content" class="form-control description"></textarea>
 								</div>
-								
-							</form>
-							</div>
-							<div style="text-align: right;">
+									<div style="text-align: right;">
 							<button class="btn btn-default">작성하기</button>
 							<button class="btn btn-default" onclick="location.href=history.back()">취소</button>
+							</div>
+							</form>
+							
+							
 							</div>
 						</div>
 						
@@ -148,36 +149,7 @@
 		</div><!-- /.modal -->
 	</div><!-- /#page-container -->
 
-	<script>
-
-		// MAPS GOOGLE
-		function initialize() {
-		  var mapOptions = {
-			scrollwheel: false,
-			zoom: 18,
-			center: new google.maps.LatLng(-33.890542, 151.274856)
-		  }
-		  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-		  var myLatLng = new google.maps.LatLng(-33.890542, 151.274856);
-		  var marker = new google.maps.Marker({
-			  position: myLatLng,
-			  map: map,
-			  icon: 'images/maps/pin-drag.png',
-			  draggable: true
-		  });
-			google.maps.event.addListener(marker, 'drag', function(event) {
-				$('#position').text('Position: ' + event.latLng.lat() + ' , ' + event.latLng.lng() );
-			});
-			google.maps.event.addListener(marker, 'dragend', function(event) {
-				$('#position').text('Position: ' + event.latLng.lat() + ' , ' + event.latLng.lng() );
-			});
-		}
-		google.maps.event.addDomListener(window, 'load', initialize);
-
-		// TEXT EDITOR INITIALIZATION
-		$('#description').editor();
-
-	</script>
+	
 
   </body>
 </html>

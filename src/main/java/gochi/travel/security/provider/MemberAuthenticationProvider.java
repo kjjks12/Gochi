@@ -15,10 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import gochi.travel.member.DAO.MemberDAO;
 import gochi.travel.member.authoritiesDAO.AuthoritiesDAO;
-import gochi.travel.member.dto.Authority;
-import gochi.travel.member.dto.MemberDTO;
+import gochi.travel.model.memberdao.MemberDAO;
+import gochi.travel.model.memberdto.Authority;
+import gochi.travel.model.memberdto.MemberDTO;
 
 @Service //id="memberAuthenticationProvider"
 public class MemberAuthenticationProvider implements AuthenticationProvider {

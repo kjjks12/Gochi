@@ -2,7 +2,7 @@ package gochi.travel.member.authoritiesDAO;
 
 import java.util.List;
 
-import gochi.travel.member.dto.Authority;
+import gochi.travel.model.memberdto.Authority;
 
 public interface AuthoritiesDAO {
 	/**

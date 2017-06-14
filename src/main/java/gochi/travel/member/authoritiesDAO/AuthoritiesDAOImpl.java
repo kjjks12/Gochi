@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import gochi.travel.member.dto.Authority;
+import gochi.travel.model.memberdto.Authority;
 
 @Repository
 public class AuthoritiesDAOImpl implements AuthoritiesDAO {

@@ -181,7 +181,7 @@
 
 						<div>
 						<div style="float: left;"><h2>자유게시판</h2></div>
-						<div style="float: none; text-align: right;"><h4><a href="freeboard">[자세히보기]</a></h4></div>
+						<div style="float: none; text-align: right;"><h4><a href="select">[자세히보기]</a></h4></div>
 						</div>
 						<div class="faq-container accordion" id="account">
 							<div class="accordion-box">

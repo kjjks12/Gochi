@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 function SignInCheck(){
@@ -40,15 +39,24 @@ function loginCheck(){
 }
 </script>
 
-<!-- 달력 링크 , 부트스트랩 ======================================== -->
- 	<link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datepicker.css" rel="stylesheet" />  
-  
-	<script src="${pageContext.request.contextPath}/resources/fullcalendar/jquery-1.10.2.js" type="text/javascript"></script>
+
+
+<!-- 달력 링크 , 부트스트랩 *준* -->
+   <link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.css" rel="stylesheet" />
+   <link href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datepicker.css" rel="stylesheet" />  
 	<script src="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datepicker.js"></script>
- <!-- 달력 링크 , 부트스트랩 ======================================== -->
-    
+
+<style>
+.modal-backdrop {
+	display :none !important
+	
+	
+}
+	.datepicker {
+		z-index: 1000 !important
+	}
+</style>
 </head>
 
 <body>
@@ -94,7 +102,7 @@ function loginCheck(){
 								</li>
 								<li class="has_submenu">
 								<%-- <a href="${pageContext.request.contextPath}/traveladd/travel_add">여행일정</a> --%>
-								<a data-toggle="modal" data-target="#myModal">여행일정</a>
+								<a data-toggle="modal" data-target="#myModal">일정만들기</a> <!-- 일정만들기 모달   -->
 								</li>
 								<li class="has_submenu">
 								<a href="${pageContext.request.contextPath}/travel_review/review">여행후기</a>
@@ -116,73 +124,105 @@ function loginCheck(){
 
 		
 <!--여행일정 모달  Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="z-index: 10">
-    <div class="modal-content">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1000" >
+  <div class="modal-dialog" style="z-index: 1001;">
+    <div class="modal-content" style="background-clip: border-box;">
       <div class="modal-header"><h3>여행일정 계획 기본정보 입력</h3>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel"> </h4>
       </div>
       <div class="modal-body">
       <!-- Form Start -->
-      <form role="form" action="#">  
+      <form role="form" action="${pageContext.request.contextPath}/traveladd/travel_add">  
     	<div class="form-group">   
-        	<label for="Title">일정등록</label>
+        	<label for="Title">여행제목</label>
        	 	<input type="text" class="form-control" placeholder="여행 제목"> 
     	</div>       
     	<div class="form-group">  
         	<label for="content">간단 여행 이야기</label>
-        	<textarea  rows="3" class="form-control"></textarea> 
+        	<textarea  rows="2" class="form-control"></textarea> 
     	</div>
-  		<div class="form-group">  
-        	<label for="content">여행 태마</label>
-    		<label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="five" value="option5">  나홀로
-            </label> 
-            <label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="four" value="option4" >  커플
-            </label> 
-            <label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="three" value="option3" checked>  친구들
-            </label>
-            <label class="radio-inline">
-               <input type="radio" name="optionsRadios" id="two" value="option2">  가족
-            </label>
+  		
+  		<!-- datepicker 시작 -->
+  		<div class="controls">
+  		<table>
+  			<tr>
+  				<th>
+  				<span>시작날짜</span>
+        		<input class="datepicker form-control" type="text" id="indate"  placeholder="Check-in: YYYY/MM/DD" style="width: 200px"/>
+				</th>
+				<th>
+				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;끝 날짜</span>
+       			<input class="datepicker form-control" type="text" id="outdate" placeholder="Check-out: YYYY/MM/DD" style="width: 200px; margin-left: 20px"/>
+       		    </th>
+  			</tr>
+  		</table> 
+         </div>  
+       <!-- datepicker 끝 -->
+   		
+   <fieldset><br>
+   <table>
+    	<tr>
+    		<th colspan="4"  align="center">	
+    		<span>누구와 함께</span>
+    		</th>
+    	</tr>
+    	<tr>
+    		<th>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="labelauty" type="radio" name="radio-1" id="radio-1" data-labelauty="나혼자" checked="checked"/>
+    		</th>
+    		<th>
+  				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="labelauty" type="radio" name="radio-1" id="radio-2" data-labelauty="나혼자2"  />
+    		</th>
+    		<th>
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="labelauty" type="radio" name="radio-1" id="radio-3" data-labelauty="나혼자3"  />
+    		</th>
+    		<th>
+  			   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="labelauty" type="radio" name="radio-1" id="radio-4"  data-labelauty="나혼자4" />
+    		</th>
+    	</tr>
+    </table>
+  </fieldset>
+          
         <span>
-             <select class="form-control" id="capa" name="capa">
+        <select id="capa" name="capa" >
                      <option value="0">-- 인원 --</option>
                      <option value="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
                      <option value="4">4</option>
                      <option value="5">5+</option>
-                  </select>
-             </span>   
-         </div> 
-        
-         
-        <div class="row">
-            <div class="col-sm-4"></div>
-        	<div class="col-xs-12 col-sm-4">
-        		  <div class="controls">
-        		      <input class="datepicker form-control" type="text"/>
-        		  </div>
-        		
-        	</div>
-    		<div class="col-sm-4"></div>
-        </div>
-         
-     
+         </select>
+         </span>
+       
+       <!-- 모달 foot -->
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         <button type="submit" class="btn btn-primary" >저장 후 이동</button>
       </div>
+        <!-- 모달 foot end-->
+      
        
     </form>
+    </div>
+
+			<!--./form 전송 끝 -->    
     </div> <!-- 모달 콘텐츠 -->
   </div> <!-- 모달 다이얼로그 -->
 </div> <!-- 모달 전체 윈도우 -->
-</div>
+
+
+<!-- datepicker script -->
+<script type="text/javascript">
+	
+		 $('.datepicker').datepicker({
+	    	 weekStart:1,
+	    	 color: 'red'
+			
+		 });
+</script>   
+
+<!-- datepicker script  end-->
 
 
 <!-- 로그인/회원가입 모달!!!!!!!!!!!!!!!!! -->
@@ -295,6 +335,7 @@ function loginCheck(){
 								<button type="button" class="btn btn-default button-form">Update</button>
 							</div>
 						</div><!-- ./recovery -->
+						<form>
 						<div id="recovery" class="box">
 							<h2 class="title">Need a new password?</h2>
 							<h3 class="sub-title">Enter your email address, and weâll email you instructions to reset your password.</h3>

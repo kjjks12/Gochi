@@ -4,7 +4,7 @@
 <mapper namespace="memberMapper">
 
 <!-- 회원 정보 DTO properties와 DB Column 값 일치화 작업 -->
-<resultMap type="gochi.travel.member.dto.MemberDTO" id="resultMemberDTO">
+<resultMap type="MemberDTO" id="resultMemberDTO">
 	<id column="EMAIL" property="email"/>
 	<result column="PASSWORD" property="password"/>
 	<result column="NICKNAME" property="nickname"/>

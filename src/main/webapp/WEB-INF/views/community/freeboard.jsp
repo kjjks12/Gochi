@@ -69,7 +69,7 @@
 				<div class="col-sm-3 col-md-3" id="block-menu-content">
 						<ul class="block-menu" data-spy="affix" data-offset-top="500" data-offset-bottom="400">
 							<li><a class="faq-button" href="faq"><i class="icon fa fa-check-square-o"></i>월간 베스트</a></li>
-							<li><a class="faq-button active" href="freeboard"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
+							<li><a class="faq-button active" href="select"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
 							<li><a class="faq-button" href=""><i class="icon fa fa-picture-o"></i> Q&A</a></li>
 						</ul>
 					</div>
@@ -98,26 +98,28 @@
 								</tr>
 							  </thead>
 							  <tbody id="plus" name="plus">
-								<tr>
-									<td style="text-align: center;">1</td>
-									<td><a href="detail_freeboard">59 Paterson Ave</a> Hoboken, NJ 07030, USA</td>
-									<td class="hidden-xs">Apartement</td>
-									<td class="hidden-xs hidden-sm">20/05/2014</td>
-									<td class="hidden-xs">4723</td>
-									<td><span class="label label-success">Active</span></td>
-									<td>
-										<a href="#"><i class="icon fa fa-cog"></i></a>
-									</td>
-								</tr>
-								<c:forEach var="i" begin="0" end="4" step="1">
+								<c:forEach items="${list}" var="i">
 									<tr>
-									<td style="text-align: center;">${i}</td>
-									<td><a href="property-detail.html">59 Paterson Ave</a> Hoboken, NJ 07030, USA</td>
-									<td class="hidden-xs">Apartement</td>
-									<td class="hidden-xs hidden-sm">20/05/2014</td>
-									<td class="hidden-xs">4723</td>
-									<td><span class="label label-success">Active</span></td>
-									<td><a href="#"><i class="icon fa fa-cog"></i></a></td>
+										<td style="text-align: center;">${i.boardno}</td>
+										<td><a href="detail/${i.boardno}">${i.title}</a></td>
+										<td class="hidden-xs">Apartement</td>
+										<td class="hidden-xs hidden-sm">${i.dDay}</td>
+										<td class="hidden-xs">${i.hits}</td>
+										<td><span class="label label-success">Active</span></td>
+										<td id="aa">
+												<a href="#" id="defaultA">
+													<i id="default_btn" class="icon fa fa-cog" ></i>
+												</a>
+											<span id="modify_delete_dis" style="width:100%; height:100%; display: none">
+												<a href="modify_freeboard/${i.boardno}">
+													<i id="modify_btn" class="icon fa fa-wrench"></i>
+<!-- 아이디 들어오면 권한 비교하는거 해야되 -->	</a>
+												<a href="delete/${i.boardno}">
+													<i id="delete_btn" class="icon fa fa-times"></i>
+												</a>	
+											</span>
+											
+										</td>
 								</tr>
 								</c:forEach>
 						
@@ -213,37 +215,38 @@ $(document).ready(function() {
 		}
 		e.preventDefault();
 	});
+	
+	$(document).on("mouseenter" , "#default_btn", function(){
+		$(this).hide();
+		$(this).parent().next().css("display","block");
+		/* $(this).parent().next().show(); */
+		//버퍼링 방식 이벤트 전이 안되게 prevent 문제 event 처리 막기
+	}).on("mouseleave","#modify_delete_dis",function(){
+		$(this).hide();
+		$(this).parent().parent().children().children().children().css("display","block");
+		
+	});
+	
+	
+	 /* $(document).on("mouseover","#default_btn", function(){
+		//$(this).show();
+		//$(this).parent().next().css("display","none");
+		//$(this).parent().next().hide();
+		
+		$(this).show();
+		$(this).parent().next().css("display","none");
+	}) */
+	
+	/* on("mouseleave","#modify_delete_dis",function(){
+		alert(1);
+		$(this).hide();
+		/* $(this).children().next().css("display","none");
+		$("#default_btn").css("display","block");
+	}); */
+		
 });
 
 </script>
 
 
-  $(function(){
-	  /* $("#plus").click(function(){
-		  alert(1);
-	  }); 동작확인 */
-	  
-	  /* function upload(){
-		  var tcontent="";
-		  for(var i=0; i<5; i++){
-			  tcontent +="<tr>";
-			  for(var j=0; j<1; j++){
-				  tcontent=
-					"<td style='text-align: center;'>1</td>"+
-					"<td><a href='property-detail.html'>59 Paterson Ave</a> Hoboken, NJ 07030, USA</td>"
-					+"<td class='hidden-xs'>Apartement</td>"
-					+"<td class='hidden-xs hidden-sm'>20/05/2014</td>"
-					+"<td class='hidden-xs'>4723</td>"
-					+"<td><span class='label label-success'>Active</span></td>"
-					+"<td><a href='#'><i class='icon fa fa-cog'></i></a></td>";
-			  }
-			  tcontent+="</tr>";
-		  }
-		  $("#plus").append(tcontent);
-	  }
-	  upload(); */
-  })
-  
-  
-  </script>
 </html>
