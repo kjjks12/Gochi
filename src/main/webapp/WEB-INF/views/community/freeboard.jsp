@@ -111,7 +111,7 @@
 													<i id="default_btn" class="icon fa fa-cog" ></i>
 												</a>
 											<span id="modify_delete_dis" style="width:100%; height:100%; display: none">
-												<a href="modify_freeboard/${i.boardno}">
+												<a href="modify_freeboard?modifyNum=${i.boardno}">
 													<i id="modify_btn" class="icon fa fa-wrench"></i>
 <!-- 아이디 들어오면 권한 비교하는거 해야되 -->	</a>
 												<a href="delete/${i.boardno}">

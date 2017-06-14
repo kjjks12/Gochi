@@ -37,6 +37,12 @@ public class BoardServiceImpl implements BoardService {
 		int result=boardDao.delete(deleteNum);
 		return result;
 	}
+
+	@Override
+	public int modify(BoardDTO boardDTO) {
+		int result=boardDao.modify(boardDTO);
+		return result;
+	}
 	
 
 }

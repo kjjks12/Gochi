@@ -59,17 +59,22 @@ public class BoardController {
 		return "redirect:/community/select";
 	}
 	
-	@RequestMapping("/modify_freeboard/{modifyNum}")
-	public String modify_freeboard(HttpServletRequest request, @PathVariable int modifyNum){
+	@RequestMapping("/modify_freeboard")
+	public String modify_freeboard(HttpServletRequest request, int modifyNum){
+		System.out.println("넘어온값"+modifyNum);
 		BoardDTO boardDTO=boardService.detail(modifyNum);
 		request.setAttribute("boardDTO", boardDTO);
 		return "community/modify_freeboard";
 	}
 	
-	/*@RequestMapping("/modify")
-	public String modify(HttpRequest request,){
+	@RequestMapping("/modify")
+	public String modify(HttpServletRequest request, BoardDTO boardDTO){
+		System.out.println("업데이트할 내용을 가져오기"+boardDTO.getContent());
+		int result=boardService.modify(boardDTO);
+		BoardDTO data = boardService.detail(boardDTO.getBoardno());
+		return "community/freeboard";
 		
-	}*/
+	}
 	
 
 }
