@@ -8,10 +8,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 <title>PROHOME - Responsive Real Estate Template</title>
-<script type="text/javascript"
-	src="//apis.daum.net/maps/maps3.js?apikey=e40a16eff3ba42746861fb88c1bc80d8"></script>
-<script type="text/javascript"
-	src="//apis.daum.net/maps/maps3.js?apikey=APIKEY&libraries=services"></script>
+
 <jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
 
 
@@ -43,10 +40,11 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-<script src="script/modernizr.min.js"></script>
+<!-- <script src="script/modernizr.min.js"></script> -->
 <!-- Modernizr -->
 
 </head>
+
 <body class="fixed-header">
 
 	<div id="page-container">
@@ -61,11 +59,10 @@
 				<span class="cover"></span>
 				<div class="container header-text">
 					<div>
-						<h1 class="title">Blog list v3</h1>
+						<h1 class="title">순댓국 이야기</h1>
 					</div>
 					<div>
-						<h2 class="sub-title">Lorem ipsum dolorur ats adipiscing elit
-							justo</h2>
+						<h2 class="sub-title">맛있는 순댓국을 찾아 나서자!</h2>
 					</div>
 				</div>
 			</div>
@@ -257,16 +254,11 @@
 					<div class="col-md-3">
 						<div class="section-title line-style no-margin">
 							<h3 class="title">
-								<a href="#" data-target="#modal-contact2" data-toggle="modal"
-									class="hidden-xs">맛집 등록</a>
+								<a href="#" id="modal-opener" data-target="#modal-contact2" data-toggle="modal"
+									class="hidden-xs"><i class="fa fa-cutlery"
+									aria-hidden="true"></i> 맛집 등록</a>
 							</h3>
 
-						</div>
-						<div class="blog-search">
-							<input type="text" placeholder="Keywords" class="form-control">
-							<button class="button-search" type="submit">
-								<i class="fa fa-search"></i>
-							</button>
 						</div>
 						<div class="section-title line-style">
 							<h3 class="title">Blog Categories</h3>
@@ -577,46 +569,245 @@
 			</div>
 			<!-- /.modal-dialog -->
 		</div>
+		<!-- /.modal-dialog -->
+	</div>
 
-		<div class="modal fade" id="modal-contact2" tabindex="-1"
-			role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">
-					<i class="fa fa-close"></i>
-				</button>
+	<div class="modal fade" id="modal-contact2" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">
+				<i class="fa fa-close"></i>
+			</button>
 
-				<div class="form-container full-fixed">
-					<form method="post" action="#">
-						<div id="form-modal-contact" class="box active modal-contact">
-							<h2 class="title">새로운 맛집 등록</h2>
-							<h3 class="sub-title">등록하려는 맛집이름을 등록하세요</h3>
+			<div class="form-container full-fixed">
+				<form method="post" action="#">
+					<div id="form-modal-map" class="box active modal-contact">
+						<h2 class="title" id="new-food">새로운 맛집 등록</h2>
+						<div class="wrap-left">	
+							<!-- 지도를 표시할 div 입니다 -->
+							<div id="map" style="width: 100%; height: 435px;"></div>
+							
 							<div class="field">
-								<input id="restaurant-help" class="form-control" type="text"
-									name="restaurant-help" placeholder="맛집이름"> <i
-									class="fa fa-search"></i>
+								<input id="food-search" class="form-control" type="text" name="food-search" placeholder="키워드 맛집 검색">
+								<a href="#"><i class="fa fa-search"></i></a>
 							</div>
-							<div class="field">
-								<textarea class="form-control" name="message" id="message"
-									placeholder="맛집을 선택해 주세요"></textarea>
-							</div>
-							<div class="field footer-form text-right">
-								<button type="button" class="btn btn-reverse button-form">취소</button>
-								<button type="button" class="btn btn-default button-form">보내기</button>
-							</div>
-
+							
+							
+							
 						</div>
-					</form>
-				</div>
+						
+						<div class="wrap-right">
+							<div class="field">
+								<span class="food-insert">맛집등록
+								<img id="star-icon" src="${pageContext.request.contextPath}/resources/images/staricon.png"></span>
+								<input id="food-name" class="form-control" type="text" name="food-name">
+								<i class="fa fa-home" aria-hidden="true"></i>
+							</div>
+							<div class="field">
+								<span class="food-insert">가는방법</span>
+								<input id="food-go" class="form-control" type="text" name="food-go">
+								<i class="fa fa-car" aria-hidden="true"></i>
+							</div>
+							
+							<div class="field">
+								<span class="food-insert">영업시간
+								<img id="star-icon" src="${pageContext.request.contextPath}/resources/images/staricon.png"></span>
+								<input id="food-time" class="form-control" type="text" name="food-time">
+								<i class="fa fa-clock-o" aria-hidden="true"></i>
+							</div>
+							
+							<div class="field">
+								<span class="food-insert">휴무일</span>
+								<input id="food-holiday" class="form-control" type="text" name="food-holiday">
+								<i class="fa fa-moon-o" aria-hidden="true"></i>
+							</div>
+							
+							<div class="field">
+								<span class="food-insert">연락처
+								<img id="star-icon" src="${pageContext.request.contextPath}/resources/images/staricon.png"></span>
+								<input id="food-phone" class="form-control" type="text" name="food-phone">
+								<i class="fa fa-phone" aria-hidden="true"></i>
+							</div>	
+							
+							<div class="field">
+							<textarea class="form-control" name="message" id="message" placeholder="추가 정보 기입"></textarea>
+							</div>	
+						</div>
+
+					</div>
+					
+					<div class="field footer-form text-right">
+						<button type="button" class="btn btn-reverse button-form" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-default button-form">Send</button>
+					</div>
+				</form>
 			</div>
+
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
 
 
 
+
+
 	<!-- /.modal-dialog -->
 	<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
+	
+	<style>
+		#modal-contact2 { padding-left: 0; }
+		#modal-contact2 .modal-dialog { 
+			width: 850px !important; left: calc(50% - 425px); margin-left: 0;
+		}
+		.wrap-left { float: left; width: 380px; margin-right: 15px; }
+		.wrap-right { float: left; width: 360px; }
+		.wrap-right .field:first-child { margin-top: 0; }
+		.wrap-right #message { height: 100px !important; }
+		.modal-backdrop { display: none !important; }
+		
+		#form-modal-map { overflow: hidden; }
+		#form-modal-map:before { display: block; content: ""; clear: both; }
+		
+		#search-box {margin-top: 14px; margin-bottom: 15px;}
+		
+		.food-insert {font-size: 12px;} 
+		
+		#star-icon {width : 8px; height : 8px;}
+		
+		#new-food { 
+			text-align : center;
+			font-weight: bold; 
+		}
 
+	</style>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=815544b5d2063051aa6e6316ed41e050&libraries=services"></script>
+<script>
+$(function() {
+	$('#modal-opener').click(function() {
+		setTimeout(setMap2, 500);
+	});
+	var isBindedMap = false; 
+	function setMap2() {
+		if (isBindedMap) {
+			return false;
+		}
+		
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center : new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+			level : 3
+		// 지도의 확대 레벨
+		};
+
+		var map = new daum.maps.Map(mapContainer, mapOption);
+		isBindedMap = true
+		
+		var markerPosition  = new daum.maps.LatLng(37.566826, 126.9786567); 
+		// 마커를 생성합니다
+		var marker = new daum.maps.Marker({
+		    position: markerPosition
+		});
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);	
+	}
+	
+ 	var ps = new daum.maps.services.Places();
+ /* 	$('[class="fa fa-search"]').click(function() {
+ 		var searchKeyword = $("#food-search").val();
+ 		keyWord = encodeURIComponent(searchKeyword);
+ 		var url = "https://apis.daum.net/local/v1/search/keyword.json?apikey=815544b5d2063051aa6e6316ed41e050&query="+keyWord; 
+
+	 	$.getJSON(url+"&callback=?", function(json){
+	 		var items = json.channel.item;
+	 		$.each(items, function(i,it){
+	 			var latitude = it.latitude;
+				var longitude = it.longitude;
+				if(i==0) {
+					var container = document.getElementById('map');
+					var options = { 
+							center: new daum.maps.LatLng(latitude, longitude), //지도의 중심좌표.
+							level: 3 //지도의 레벨(확대, 축소 정도)
+
+					};
+				}
+				var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+			});
+	 	});
+	 	$("#food-search").val("");	
+
+	}); */
+	
+
+	// 지도에 마커를 표시하는 함수
+	function displayMarker(place) {
+	    
+	    // 마커를 생성하고 지도에 표시합니다
+	    var marker = new daum.maps.Marker({
+	        map: map,
+	        position: new daum.maps.LatLng(place.latitude, place.longitude) 
+	    });
+
+	    // 마커에 클릭이벤트를 등록합니다
+	    daum.maps.event.addListener(marker, 'click', function() {
+	        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+	        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
+	        infowindow.open(map, marker);
+	    });
+	}
+	
+	 $(function(){
+		var callback = function(){
+			var keyWord = $("#food-search").val();
+			keyWord = encodeURIComponent(keyWord);
+				// keyword JSON데이터에 접근하기 위한 주소
+				var url = "https://apis.daum.net/local/v1/search/keyword.json?apikey=815544b5d2063051aa6e6316ed41e050&query="+keyWord;                             
+				$.getJSON(url + "&callback=?" , function(json){
+					var items = json.channel.item;
+					// item안의 latitude, longitude 데이터를 활용하기 위한 메서드
+					$.each(items, function(i, it){
+						var latitude = it.latitude;
+						var longitude = it.longitude;
+						var pos = latitude + "," + longitude;
+						
+						if(i == 0){
+							var container = document.getElementById('map'); 
+							var options = { // 지도를 생성할 때 필요한 기본 옵션
+								center: new daum.maps.LatLng(latitude, longitude), // 지도의 중심좌표.
+								level: 3 //지도의 레벨(확대, 축소 정도)
+		
+							};
+		
+						var map = new daum.maps.Map(container, options); // 지도 생성 및 객체 리턴
+					
+						}
+		
+					});	
+		
+				});	
+		}
+				// 검색 된 후 input에 입력했던 텍스트를 비워주는 코드
+		$("#food-search").val("");
+	  // 엔터키 누르면 위치검색 가능 메서드
+		$("#food-search").keypress(function() {
+		  if(event.which == 13) {
+			callback();
+		  } 
+		});
+	
+  		$('[class="fa fa-search"]').click(callback);	
+	 }); // 여기까지 callback 변수에 저장된 메서드
+
+	 $('[class="btn btn-reverse"]').click(function() {
+		$(this).close();
+	 })
+	 
+});
+
+
+
+		
+</script>
 </body>
 </html>
