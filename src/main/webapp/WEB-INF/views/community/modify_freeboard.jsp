@@ -1,18 +1,14 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <title>PROHOME - Responsive Real Estate Template</title>
-    
-    
     <jsp:include page="/WEB-INF/views/include/include_top_css.jsp"/>
-    
+
 	<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
 	<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
 	<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
@@ -31,11 +27,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
   </head>
-  
-  
-  <body class="fixed-header">
+  <body class="fixed-header*">
 
 	<div id="page-container">
 		
@@ -47,102 +40,72 @@
 				<div data-offset="8"  class="p4 parallax"></div>
 				<span class="cover"></span>
 				<div class="container header-text">
-					<div><h1 class="title">My Property</h1></div>
-					<div><h2 class="sub-title">Lorem ipsum dolor siscing elit justo</h2></div>
+					<div><h1 class="title">Submit Property</h1></div>
+					<div><h2 class="sub-title">Lorem ipsum detur ats adipiscing elit justo</h2></div>
 				</div>
 			</div>
 			<div id="breadcrumb">
 				<div class="container">
 					<ol class="breadcrumb">
 						<li><a href="#"><i class="fa fa-home"></i></a></li>
-						<li><a href="#">Pages</a></li>
-						<li class="active">My Property</li>
+						<li><a href="#">User</a></li>
+						<li class="active">Submit Property</li>
 					</ol>
 				</div>
 			</div><!-- /#breadcrumb -->
 			<span class="cover"></span>
 		</section><!-- /#header -->
 
-		<section id="user-profile">
+		<section id="new-property">
 			<div class="container">
 				<div class="row">
 				<div class="col-sm-3 col-md-3" id="block-menu-content">
 						<ul class="block-menu" data-spy="affix" data-offset-top="500" data-offset-bottom="400">
 							<li><a class="faq-button" href="faq"><i class="icon fa fa-check-square-o"></i>월간 베스트</a></li>
-							<li><a class="faq-button active" href="select"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
+							<li><a class="faq-button active" href="freeboard"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
 							<li><a class="faq-button" href=""><i class="icon fa fa-picture-o"></i> Q&A</a></li>
 						</ul>
 					</div>
-				
-					<!-- 이미지 사진 및 사이드바 -->
-					<div class="col-sm-9 col-md-9" >
-					
-						<div class="section-title line-style no-margin">
-							<h3 class="title">자유 게시판</h3>
-							<div style="text-align: right;">
-								<button type="button" class="btn btn-default" id="insert" name="insert" onclick="location.href='insert_freeboard'">글쓰기</button>
+					<div class="col-sm-9 col-md-9">
+						<div class="info-block">
+							<div class="section-title line-style no-margin">
+								<h3 class="title">게시글 수정</h3>
+							</div>
+							<div class="row">
+							<form name="modifyForm" method="post" action="${pageContext.request.contextPath}/community/modify">
+								<div class="col-md-5 space-form">
+									<input id="title" class="form-control" type="text" placeholder="제목" name="title" value="${boardDTO.title}">
+								</div>
+								<div class="col-md-7 space-form">
+									<input id="address" class="form-control" type="text" placeholder="닉네임" name="nickName">
+								</div>
+								<div class="col-md-12">
+									<textarea name="content" id="content" class="form-control description">${boardDTO.content}</textarea>
+								</div>
+									<div style="text-align: right;">
+							<button class="btn btn-default">수정하기</button>
+							<button class="btn btn-default" onclick="location.href=history.back()">취소</button>
+							</div>
+							</form>
+							
+							
 							</div>
 						</div>
 						
-						<div class="table-responsive property-list">
-							<table class="table-striped table-hover" style="margin: auto;">
-							  <thead>
-								<tr>
-									<th>글번호</th>
-									<th>제목</th>
-									<th class="hidden-xs">Type</th>
-									<th class="hidden-xs hidden-sm">작성일</th>
-									<th class="hidden-xs">View</th>
-									<th>Status</th>
-									<th></th>
-								</tr>
-							  </thead>
-							  <tbody id="plus" name="plus">
-								<c:forEach items="${list}" var="i">
-									<tr>
-										<td style="text-align: center;">${i.boardno}</td>
-										<td><a href="detail/${i.boardno}">${i.title}</a></td>
-										<td class="hidden-xs">Apartement</td>
-										<td class="hidden-xs hidden-sm">${i.dDay}</td>
-										<td class="hidden-xs">${i.hits}</td>
-										<td><span class="label label-success">Active</span></td>
-										<td id="aa">
-												<a href="#" id="defaultA">
-													<i id="default_btn" class="icon fa fa-cog" ></i>
-												</a>
-											<span id="modify_delete_dis" style="width:100%; height:100%; display: none">
-												<a href="modify_freeboard/${i.boardno}">
-													<i id="modify_btn" class="icon fa fa-wrench"></i>
-<!-- 아이디 들어오면 권한 비교하는거 해야되 -->	</a>
-												<a href="delete/${i.boardno}">
-													<i id="delete_btn" class="icon fa fa-times"></i>
-												</a>	
-											</span>
-											
-										</td>
-								</tr>
-								</c:forEach>
-						
-								
-							  </tbody>
-							</table>
-						</div><!-- /.table-responsive -->
-						<div class="pagination-content">
-							<ul class="pagination">
-							<li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-							<li><a class="active" href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a class="no-active">...</a></li>
-							<li><a href="#">9</a></li>
-							<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-							</ul><!-- /.pagination -->
-						</div><!-- /.pagination-content -->
+						<div class="info-block" id="images">
+							<div class="section-title line-style">
+								<h3 class="title">Images</h3>
+							</div>
+							<form action="./upload.php" method="post" class="dropzone"></form>
+							<span class="text">
+								<strong>Drop files</strong> here or <strong>click</strong> to upload.<br />
+							</span>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</section>
-
 
 		<div class="modal fade login-modal" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
@@ -277,70 +240,8 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 	</div><!-- /#page-container -->
-<!-- footer ë£ì´ì¼ë -->
+
+	
 
   </body>
-  <jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp"/>
-
-<script type="text/javascript">
-
-"use strict";
-// ACCORDION
-$(document).ready(function() {
-	var $title, $content;
-	var $selector = $('.accordion').selector;
-	var $title    = $($selector + ' .title');
-	var $content  = $($selector + ' .text-container');
-	var $close = function(){
-		$title.removeClass('active');
-		$content.slideUp(500).removeClass('open');			
-	}
-	$($selector).find('.title').on('click', function(e) {
-		var $idTarget = $(this).data('target');
-		var currentAttrValue = $(this).attr('href');
-		if($(e.target).is('.active')) {
-			$($idTarget).css({'display':'block'});
-			$close();
-		}else {
-			$($idTarget).css({'display':'none'});
-			$close();
-			$(this).addClass('active');
-			$($idTarget).slideDown(400).addClass('open'); 
-		}
-		e.preventDefault();
-	});
-	
-	$(document).on("mouseenter" , "#default_btn", function(){
-		$(this).hide();
-		$(this).parent().next().css("display","block");
-		/* $(this).parent().next().show(); */
-		//버퍼링 방식 이벤트 전이 안되게 prevent 문제 event 처리 막기
-	}).on("mouseleave","#modify_delete_dis",function(){
-		$(this).hide();
-		$(this).parent().parent().children().children().children().css("display","block");
-		
-	});
-	
-	
-	 /* $(document).on("mouseover","#default_btn", function(){
-		//$(this).show();
-		//$(this).parent().next().css("display","none");
-		//$(this).parent().next().hide();
-		
-		$(this).show();
-		$(this).parent().next().css("display","none");
-	}) */
-	
-	/* on("mouseleave","#modify_delete_dis",function(){
-		alert(1);
-		$(this).hide();
-		/* $(this).children().next().css("display","none");
-		$("#default_btn").css("display","block");
-	}); */
-		
-});
-
-</script>
-
-
 </html>

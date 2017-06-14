@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+
+<resultMap type="gochi.travel.model.boarddto.BoardDTO" id="board">
+	<id property="boardno" column="BOARD_No" />
+	<result property="email" column="EMAIL"/>
+	<result property="title" column="TITLE"/>
+	<result property="favor" column="FAVOR"/>
+	<result property="content" column="CONTENT"/>
+	<result property="dDay" column="D_DAY"/>
+	<result property="hits" column="HITS"/>
+</resultMap>
+
+<sql id="replay">
+	BOARD_NO, EMAIL, TITLE, FAVOR, CONTENT, D_DAY, HITS
+</sql>
+
+
+
+<insert id="insert" parameterType="gochi.travel.model.boarddto.BoardDTO">
+	insert into FREE_BOARD(BOARD_NO, EMAIL, TITLE, FAVOR, CONTENT, D_DAY, HITS) values (FREE_BOARD_NO.NEXTVAL,'noloo6974@naver.com',#{title},0,#{content},sysdate,0)
+</insert>
+
+<select id="select" parameterType="int" resultMap="board">
+	select <include refid="replay"/> from FREE_BOARD
+	<where>
+		<if test="_parameter!=null">
+			BOARD_NO=#{_parameter}
+		</if>
+	</where>
+	order by BOARD_NO desc
+</select>
+
+<delete id="delete" parameterType="int">
+	delete from FREE_BOARD
+	<where>
+		<if test="_parameter!=null">
+			BOARD_NO=#{_parameter}
+		</if>
+	</where>
+</delete>
+
+
+</mapper>

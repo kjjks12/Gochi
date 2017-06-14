@@ -28,6 +28,7 @@
     <![endif]-->
 
   </head>
+  
   <body class="fixed-header">
 
 	<div id="page-container">
@@ -58,31 +59,31 @@
 		</section><!-- /#header -->
 
 		<section id="blog">
-
+<%-- ${pageContext.request.contextPath} --%>
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-3 col-md-3" id="block-menu-content">
 						<ul class="block-menu" data-spy="affix" data-offset-top="500" data-offset-bottom="400">
 							<li><a class="faq-button" href="faq"><i class="icon fa fa-check-square-o"></i>월간 베스트</a></li>
-							<li><a class="faq-button active" href="freeboard"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
+							<li><a class="faq-button active" href="${pageContext.request.contextPath}/community/select"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
 							<li><a class="faq-button" href=""><i class="icon fa fa-picture-o"></i> Q&A</a></li>
 						</ul>
 					</div>
 					<div class="col-md-9">
 						<div class="blog-list blog-detail">
-							<h2 class="title"><a href="#">Making this the first true genator</a></h2>
+							<h2 class="title"><a href="#"></a></h2>
 							<div class="social">
-								<span class="date">15<span>Mar</span></span>
-								<a href="#"><i class="fa fa-heart-o"></i><span>654</span></a>
-								<a href="#"><i class="fa fa-eye"></i><span>92435</span></a>
+								<span class="date">${boardDTO.dDay.substring(3,5)}<span>${boardDTO.dDay.substring(6,8)}</span></span>
+								<a href="#"><i class="fa fa-heart-o"></i><span>${boardDTO.favor}</span></a>
+								<a href="#"><i class="fa fa-eye"></i><span>${boardDTO.hits}</span></a>
 								<a href="#"><i class="fa fa-comments"></i><span>69</span></a>
 							</div>
 							<div class="image">
 								<img src="http://placehold.it/1280x680/bbbbbb/ffffff" alt="Image Sample" class="img-responsive" />
 							</div>
-							<h3 class="subtitle">Internet tend to repeat predefined chunks.</h3>
+							<h3 class="subtitle">${boardDTO.title}</h3>
 							<div class="text">
-								Morbi nisl augue, hendrerit vitae posuere id, scelerisque vestibulum orci. Curabitur diam dolor, convallis vitae blandit a, fringilla id massa. In ornare ante diam, eget rutrum libero varius nec. Praesent efficitur velit erat, vel sodales eros faucibus vel. Sed lacus massa, convallis non neque porttitor, porttitor egestas nulla.<br /><br />
+								${boardDTO.content}<br /><br />
 							</div>
 						</div><!-- /.blog-list -->
 
@@ -322,6 +323,6 @@
 	</div><!-- /#page-container -->
 	
 	<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp"/>
-
+	
   </body>
 </html>
