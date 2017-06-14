@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,8 +32,8 @@
 <link rel="apple-touch-icon" sizes="152x152"
 	href="images/favicon/apple-touch-icon-152x152.png" />
 
-   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -44,14 +44,27 @@
 <script>
 	$(document).ready(function() {
 
+
 		// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
-		var floatPosition = parseInt($("#floatMenu").css('top'));
+		var floatPosition = parseInt($("#floatMenu").offset().top);
 		// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
 
 		$(window).scroll(function() {
 			// 현재 스크롤 위치를 가져온다.
 			var scrollTop = $(window).scrollTop();
-			var newPosition = scrollTop + floatPosition + "px";
+			console.log('float :' + floatPosition);
+			console.log('scrollTop :' + scrollTop);
+
+
+			//처음 시작 위치보다 스크롤 위치가 커지면 이동시작
+			if (scrollTop > floatPosition) {
+
+				var newPosition = scrollTop + "px";
+			}
+
+
+
+
 
 			/* 애니메이션 없이 바로 따라감
 			 $("#floatMenu").css('top', newPosition);
@@ -59,23 +72,12 @@
 
 			$("#floatMenu").stop().animate({
 				"top" : newPosition
-			}, 100);
+			}, 500);
 
 		}).scroll();
 
 
-
-		$("#floatMenu").stop().animate({
-			"top" : newPosition
-		}, {
-			'duration' : 500,
-			'easing' : 'easeInOutCubic',
-			'complete' : function() {
-				console.log('이동 완료하였습니다.');
-			}
-		});
-
-	});//jQuery 끝
+	}); //jQuery 끝
 </script>
 
 
@@ -106,16 +108,16 @@
 
 
 		<!-- 내용 시작 -->
-		<section id="blog">
+		<section class="shortcode-box" id="blog">
 			<div class="container-fluid">
 
 				<div class="row">
 					<!-- 전체 화면 한줄(왼쪽 프로필 + 내용) -->
 					<div class="col-xs-12 col-sm-12 col-md-12  col-lg-12">
 
-
 						<!-- 왼쪽 메뉴 -->
-						<div class="col-xs-2 col-sm-2 col-md-2  col-lg-2">
+						<div class="col-xs-3 col-sm-3 col-md-3  col-lg-2" >
+
 							<div class="user-info-box">
 
 								<div class="author-box">
@@ -135,8 +137,7 @@
 								<div class="author-ment">지구 ㅅr랑ㅎri........♠</div>
 
 								<div class="follower-btns">
-									<button class="follower following-btn"
-										data-id="0cf608b29ae51868">팔로우</button>
+									<button class="following-btn" data-id="0cf608b29ae51868">팔로우</button>
 									<button class="following follower-btn hide"
 										data-id="0cf608b29ae51868">팔로잉</button>
 								</div>
@@ -164,55 +165,32 @@
 
 							</div>
 
-							<div class="cont-list">
-								<div class="btn-share-group">
-									<a id="likeBtn" class="btn-like " title="좋아요"> <span><img
-											src="/images/bg-btn-like.png" alt="" class="off"><img
-											src="/images/bg-btn-like-on.png" alt="" class="on"><span
-											class="plan-detail-view-like-count">18</span></span> <span
-										class="txt-info">추천</span>
-									</a>
-									<!-- 좋아요 -->
-									<a id="bookmarkBtn" class="btn-bookmark  " title="북마크"> <span><img
-											src="/images/bg-btn-bookmark.png" alt="" class="off"><img
-											src="/images/bg-btn-bookmark-on.png" alt="" class="on"><span
-											class="plan-detail-view-bookmark-count">36</span></span> <span
-										class="txt-info">북마크</span>
-									</a>
-									<!-- 북마크 -->
-									<a id="customizeBtn" class="btn-customize " title="커스터마이즈">
-										<span><img src="/images/bg-btn-customize.png" alt=""
-											class="off"><img src="/images/bg-btn-customize-on.png"
-											alt="" class="on"><span
-											class="plan-detail-view-scrap-count">6</span></span> <span
-										class="txt-info">커스터마이즈</span>
-									</a>
-									<!--커스터마이즈 -->
-								</div>
+							<span class="left-menu-add">추천</span>
+							<span class="left-menu-add">북마크</span>	
+							<ul class="block-menu">
+								<li><a class="faq-button active" href="#basic"><i
+										class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;방문&nbsp;명소</a></li>
+								<li><a class="faq-button" href="#summary"><i
+										class="fa fa-krw" aria-hidden="true"></i>&nbsp;여행가계부</a></li>
+								<li><a class="faq-button" href="#images"><i
+										class="fa fa-check-square-o" aria-hidden="true"></i>
+										&nbsp;체크리스트</a></li>
+							</ul>
 
-								<ul>
-									<li class="visit-spot"><a id="visited-spot-modal-button"><span>방문
-												명소</span><span class="count">20</span></a></li>
-									<li class="budget"><a id="budget-modal-button"><span>여행가계부</span><span
-											class="count">KRW 796,578</span></a></li>
-									<li class="check-list"><a id="checklist-modal-button"><span>체크리스트</span>
-											<span class="count"> 23 </span> </a></li>
-								</ul>
-							</div>
+
 						</div>
-						<!-- md-2 왼쪽 메뉴 끝-->
+						<!-- 왼쪽 메뉴 끝-->
 
 
 
-						<!--  오른쪽 내용  -->
-						<div class="col-xs-10 col-sm-10 col-md-10  col-lg-10">
+						<!--  오른쪽 내용 (블로그 본문+오른쪽 날짜) -->
+						<div class="col-xs-9 col-sm-9 col-md-9  col-lg-10">
 
 							<!-- 여행에 대한 간단한 소개 -->
 							<div class="plan-info-top">
 								<h2>흰자와 도른자 오키나와</h2>
 								<div>여권정보를 입력하다가 너와 나의 생일이 같았다는 사실을 다시한번 깨닫고 소름.</div>
 							</div>
-
 
 
 							<!-- 스토리 / 지도 /일정표 -->
@@ -224,55 +202,28 @@
 								</h3>
 
 							</div>
-							
-							
-							<!-- 여행 내용 -->
-							<div class="col-xs-9 col-sm-9 col-md-9  col-lg-9">
 
-								<!-- 방문한 장소 + 내용 들어갈 곳 -->
-								<div class="spot-note-box">
-									<div class="spot-tit type00 ">
-										<a class="spot-title-area"><h4>
-												<span class="ct"></span>
-												<h3>
-													<span class="fa fa-camera">인천공항 (Incheon
-														International Airport, ICN) 
-												</h3>
-												</span>
-											</h4></a><a class="icon-info story-spot-info-btn"><img
-											src="/images/icon-spot-on-off.png"></a><span class="time">오전
-											11:00</span>
-										<div class="spot-wishbeen story-spot-info-box hide">
-											<div class="inner-box">
-												<div class="spot-tmb">
-													<img
-														src="https://thumb.wishbeen.com/ECu7nHg0w2w6aWqX_J4iTKkg8wk=/140x80/smart/filters:no_upscale()/img-wishbeen.akamaized.net/spot/1413479422552_1%5B1%5D.jpg">
-												</div>
-												<div class="spot-information-box">
-													<p class="txt">대한민국의 관문</p>
-													<p>
-														<span class="category">교통</span><span class="address">대한민국
-															인천광역시 중구 운서동 2851</span>
-													</p>
-													<div class="btn-box">
-														<span class="bookmark-count">28950</span><span
-															class="post-count">5577</span><a class="btn-wish "><span>3687</span></a><a
-															class="btn-been "><span>2749</span></a>
-													</div>
-												</div>
-											</div>
+
+							<!-- 여행 내용 -->
+							<div class="col-xs-11 col-sm-11 col-md-11  col-lg-11">
+
+
+								<div class="day-box">
+									<h2>1일차</h2>
+									<!-- 방문한 장소 + 내용 들어갈 곳  1개-->
+									<div class="spot-note-box">
+										<!-- 1.방문 장소 -->
+										<div class="spot_location">
+											<h4>
+												<span class="ct"></span><span><i class="fa fa-camera"
+													aria-hidden="true"></i>인천공항 (Incheon International Airport,
+													ICN)</span>
+											</h4>
 										</div>
-									</div>
-									<div id="notes-0-10">
+										<!-- 2.방문 내용 -->
 										<div class="spot-contents">
 											<div id="note_panel">
-												<div class="conts-tit-bar">
-													<span class="btn btn-memo">메모</span>
-													<div class="p">
-														<h1></h1>
-													</div>
-													<div class="btn-box"></div>
-												</div>
+
 												<!-- conts-tit-bar -->
 												<div class="conts-txt-area">
 													<p>제주항공 7C1802편 13시30분 출발</p>
@@ -397,8 +348,9 @@
 								</div>
 
 							</div>
-							<!-- 여행 내용 부분 -->
-							<!-- 오른쪽 일정 보여주기 -->
+
+
+							<!-- 왼쪽 날짜 보여줄 부분 -->
 							<div class="col-xs-1 col-sm-1 col-md-1  col-lg-1" id="floatMenu">
 								<ul>
 									<li class="story-view-nav-li"><a
@@ -415,9 +367,8 @@
 							</div>
 
 						</div>
-						<!-- ./ 오른일정 보여주기 끝 -->
-						
-						
+						<!--  ./오른쪽 내용 (블로그 본문+오른쪽 날짜) 끝-->
+
 					</div>
 					<!-- /.전체 12개 컬럼  -->
 				</div>
@@ -551,7 +502,6 @@
 					</form>
 				</div>
 				<!-- /. end-comment -->
-
 			</div>
 			<!-- /.container끝 -->
 		</section>

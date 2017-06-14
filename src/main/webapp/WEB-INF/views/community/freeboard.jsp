@@ -69,7 +69,7 @@
 				<div class="col-sm-3 col-md-3" id="block-menu-content">
 						<ul class="block-menu" data-spy="affix" data-offset-top="500" data-offset-bottom="400">
 							<li><a class="faq-button" href="faq"><i class="icon fa fa-check-square-o"></i>월간 베스트</a></li>
-							<li><a class="faq-button active" href="freeboard"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
+							<li><a class="faq-button active" href="select"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
 							<li><a class="faq-button" href=""><i class="icon fa fa-picture-o"></i> Q&A</a></li>
 						</ul>
 					</div>
@@ -98,26 +98,28 @@
 								</tr>
 							  </thead>
 							  <tbody id="plus" name="plus">
-								<tr>
-									<td style="text-align: center;">1</td>
-									<td><a href="detail_freeboard">59 Paterson Ave</a> Hoboken, NJ 07030, USA</td>
-									<td class="hidden-xs">Apartement</td>
-									<td class="hidden-xs hidden-sm">20/05/2014</td>
-									<td class="hidden-xs">4723</td>
-									<td><span class="label label-success">Active</span></td>
-									<td>
-										<a href="#"><i class="icon fa fa-cog"></i></a>
-									</td>
-								</tr>
-								<c:forEach var="i" begin="0" end="4" step="1">
+								<c:forEach items="${list}" var="i">
 									<tr>
-									<td style="text-align: center;">${i}</td>
-									<td><a href="property-detail.html">59 Paterson Ave</a> Hoboken, NJ 07030, USA</td>
-									<td class="hidden-xs">Apartement</td>
-									<td class="hidden-xs hidden-sm">20/05/2014</td>
-									<td class="hidden-xs">4723</td>
-									<td><span class="label label-success">Active</span></td>
-									<td><a href="#"><i class="icon fa fa-cog"></i></a></td>
+										<td style="text-align: center;">${i.boardno}</td>
+										<td><a href="detail/${i.boardno}">${i.title}</a></td>
+										<td class="hidden-xs">Apartement</td>
+										<td class="hidden-xs hidden-sm">${i.dDay}</td>
+										<td class="hidden-xs">${i.hits}</td>
+										<td><span class="label label-success">Active</span></td>
+										<td id="aa">
+												<a href="#" id="defaultA">
+													<i id="default_btn" class="icon fa fa-cog" ></i>
+												</a>
+											<span id="modify_delete_dis" style="width:100%; height:100%; display: none">
+												<a href="modify_freeboard/${i.boardno}">
+													<i id="modify_btn" class="icon fa fa-wrench"></i>
+<!-- 아이디 들어오면 권한 비교하는거 해야되 -->	</a>
+												<a href="delete/${i.boardno}">
+													<i id="delete_btn" class="icon fa fa-times"></i>
+												</a>	
+											</span>
+											
+										</td>
 								</tr>
 								</c:forEach>
 						
@@ -141,100 +143,6 @@
 			</div>
 		</section>
 
-
-		<div class="modal fade login-modal" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
-				<div class="login-button-container">
-					<a href="#" data-section="login"><i class="fa fa-user"></i></a>
-					<a href="#" data-section="sign-in"><i class="fa fa-pencil-square-o"></i></a>
-					<a href="#" data-section="recovery"><i class="fa fa-lock"></i></a>
-					<a href="#" data-section="setting"><i class="fa fa-cog"></i></a>
-				</div><!-- ./login-button-container -->
-				<div class="form-container">
-					<form method="post" action="#">
-						<div id="login" class="box">
-							<h2 class="title">Login in to your account</h2>
-							<h3 class="sub-title">It is a breach of our terms and conditions to provide username and password details to unauthorised third parties. Unauthorised use may lead to suspension or termination.</h3>
-							<div class="field">
-								<input id="user-log" name="user-log" class="form-control" type="text" placeholder="Username or email">
-								<i class="fa fa-user user"></i>
-							</div>
-							<div class="field">
-								<input id="password-log" name="password-log" class="form-control" type="password" placeholder="Password">
-								<i class="fa fa-ellipsis-h"></i>
-							</div>
-							<div class="field footer-form text-right">
-								<span class="remember"><input class="labelauty" type="checkbox" data-labelauty="Keep me signed in" checked /></span>
-								<button type="button" class="btn btn-reverse button-form">Reset</button>
-								<button type="button" class="btn btn-default button-form">Login</button>
-							</div>
-						</div> <!-- ./login -->
-						<div id="sign-in" class="box">
-							<h2 class="title">Sign In</h2>
-							<h3 class="sub-title">Create a Free account and discover how you can centralize all communication around a transaction, connect with clients, market your listings, and more. </h3>
-							<div class="form-inline">
-								<div class="form-group">
-									<input id="user-sign" name="user-sign" class="form-control input-inline margin-right" type="text" placeholder="Username">
-									<i class="fa fa-user user"></i>
-								</div>
-								<div class="form-group">
-									<input id="email-sign" class="form-control input-inline" type="text" name="email-sign" placeholder="Email">
-									<i class="fa fa-envelope-o"></i>
-								</div>
-							</div>
-							<div class="field">
-								<input id="password-sign" class="form-control" type="password" name="password-sign" placeholder="Password">
-								<i class="fa fa-ellipsis-h"></i>
-							</div>
-							<div class="field">
-								<input id="re-password-sign" class="form-control" type="password" name="re-password-sign" placeholder="Repeat password">
-								<i class="fa fa-ellipsis-h"></i>
-							</div>
-							<div class="field footer-form text-right">
-								<span class="remember"><input class="labelauty" type="checkbox" data-labelauty="I have read the privacy policy." checked /></span>
-								<button type="button" class="btn btn-default button-form">Sign in</button>
-							</div>
-						</div><!-- ./sign-in -->
-						<div id="setting" class="box">
-							<h2 class="title">Setting profile</h2>
-							<h3 class="sub-title">Please note: You won't be able to change your name within the next 60 days. Make sure that you don't add any unusual capitalisation, punctuation, characters or random words. <a href="#">Learn more</a>.</h3>
-							<div class="field">
-								<input id="username-block" class="form-control" type="text" name="username-block" value="John Doe" disabled>
-								<i class="fa fa-user user"></i>
-							</div>
-							<div class="field">
-								<input id="email-setting" class="form-control" type="text" name="email-setting" value="administrator@prohome.com">
-								<i class="fa fa-envelope-o"></i>
-							</div>
-							<div class="field">
-								<input id="update-pass" class="form-control" type="password" name="update-pass" placeholder="New password">
-								<i class="fa fa-ellipsis-h"></i>
-							</div>
-							<div class="field">
-								<input id="update-repass" class="form-control" type="password" name="update-repass" placeholder="Repeat password">
-								<i class="fa fa-ellipsis-h"></i>
-							</div>
-							<div class="field footer-form text-right">
-								<button type="button" class="btn btn-reverse button-form">Cancel</button>
-								<button type="button" class="btn btn-default button-form">Update</button>
-							</div>
-						</div><!-- ./recovery -->
-						<div id="recovery" class="box">
-							<h2 class="title">Need a new password?</h2>
-							<h3 class="sub-title">Enter your email address, and weâll email you instructions to reset your password.</h3>
-							<div class="field">
-								<input id="recovery-email" class="form-control" type="text" name="recovery-email" placeholder="Your email">
-								<i class="fa fa-envelope-o"></i>
-							</div>
-							<div class="field footer-form text-right">
-								<button type="button" class="btn btn-default button-form">Recovery</button>
-							</div>
-						</div><!-- ./recovery -->
-					</form><!-- ./form-container -->
-				</div><!-- ./login-button-container -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
 
 		<div class="modal fade" id="modal-contact" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
@@ -307,37 +215,38 @@ $(document).ready(function() {
 		}
 		e.preventDefault();
 	});
+	
+	$(document).on("mouseenter" , "#default_btn", function(){
+		$(this).hide();
+		$(this).parent().next().css("display","block");
+		/* $(this).parent().next().show(); */
+		//버퍼링 방식 이벤트 전이 안되게 prevent 문제 event 처리 막기
+	}).on("mouseleave","#modify_delete_dis",function(){
+		$(this).hide();
+		$(this).parent().parent().children().children().children().css("display","block");
+		
+	});
+	
+	
+	 /* $(document).on("mouseover","#default_btn", function(){
+		//$(this).show();
+		//$(this).parent().next().css("display","none");
+		//$(this).parent().next().hide();
+		
+		$(this).show();
+		$(this).parent().next().css("display","none");
+	}) */
+	
+	/* on("mouseleave","#modify_delete_dis",function(){
+		alert(1);
+		$(this).hide();
+		/* $(this).children().next().css("display","none");
+		$("#default_btn").css("display","block");
+	}); */
+		
 });
 
 </script>
 
 
-  $(function(){
-	  /* $("#plus").click(function(){
-		  alert(1);
-	  }); 동작확인 */
-	  
-	  /* function upload(){
-		  var tcontent="";
-		  for(var i=0; i<5; i++){
-			  tcontent +="<tr>";
-			  for(var j=0; j<1; j++){
-				  tcontent=
-					"<td style='text-align: center;'>1</td>"+
-					"<td><a href='property-detail.html'>59 Paterson Ave</a> Hoboken, NJ 07030, USA</td>"
-					+"<td class='hidden-xs'>Apartement</td>"
-					+"<td class='hidden-xs hidden-sm'>20/05/2014</td>"
-					+"<td class='hidden-xs'>4723</td>"
-					+"<td><span class='label label-success'>Active</span></td>"
-					+"<td><a href='#'><i class='icon fa fa-cog'></i></a></td>";
-			  }
-			  tcontent+="</tr>";
-		  }
-		  $("#plus").append(tcontent);
-	  }
-	  upload(); */
-  })
-  
-  
-  </script>
 </html>
