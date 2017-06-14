@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- member 관련 xml -->
+<mapper namespace="authMapper">
+
+<!-- 회원 정보 DTO properties와 DB Column 값 일치화 작업 -->
+<resultMap type="authority" id="resultMemberDTO">
+	<id column="EMAIL" property="email"/>
+	<result column="AUTH" property="role"/>
+</resultMap>
+
+<!-- 회원의 권한 검색하기 -->
+<select id="selectAuthorityByUserName" parameterType="string" resultType="authority">
+	select USERNAME, ROLE
+	from AUTHORITIES
+	where email=#{_parameter}
+</select>
+
+<!-- 회원의 권한등록 -->
+<insert id="insertAuthority" parameterType="Authority">
+	insert into AUTHORITIES(email, auth) values(#{email}, #{role})
+</insert>
+
+</mapper>

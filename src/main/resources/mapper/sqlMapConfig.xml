@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <package name="gochi.travel.model.mypagedto" />
 <package name="gochi.travel.model.frienddto" />
 <package name="gochi.travel.model.notedto" />
+<package name="gochi.travel.model.memberdto"/>
 <package name="gochi.travel.model.boarddto"/>
 </typeAliases>
 
@@ -47,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mapper/mypageMapper.xml"/>
 		<mapper resource="mapper/friendMapper.xml"/>
 		<mapper resource="mapper/noteMapper.xml"/>
+		<mapper resource="mapper/memberMapper.xml"/>
 		<mapper resource="mapper/boardMapper.xml"/>
 	</mappers>
 
