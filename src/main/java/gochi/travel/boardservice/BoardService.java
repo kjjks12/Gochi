@@ -9,6 +9,7 @@ public interface BoardService {
 	List<BoardDTO> select();
 	BoardDTO detail(int boardno);
 	int delete(int deleteNum);
+	int modify(BoardDTO boardDTO);
 	
 
 }

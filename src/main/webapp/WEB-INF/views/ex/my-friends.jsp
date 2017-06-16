@@ -97,7 +97,56 @@
 	src="${pageContext.request.contextPath}/resources/script/custom.js"></script>
 <!-- Custom	Script -->
 
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script type="text/javascript">
+/* 에이작스 시작 */
+$(function(){
+	$("#friends-search").keyup(function(){//멤버 찾기
+		$.ajax({
+			type : "post",  
+			url:"${pageContext.request.contextPath}/searchMember",
+			data:"keyword="+$(this).val(),
+			dataType:"json",
+			success:function(data){
+				var str="";
+				$.each(data,function(index,item){
+					str+="<ul id='searchEmail'>"+item.email+"</ul>";
+				})
+				$("#searchArea").html(str);
+			},
+			error:function(){
+				console.log("실패");
+			}
+		})
+	})
+	
+	$(document).on("click","#searchEmail",function(){//멤버 찾기 후 클릭시 text박스로 이동
+		var name = $(this).text();
+		console.log(name);
+		$('[id="friends-search"]').val(name);
+		$("ul").hide();
+	})
+	
+	$("#friendsAdd").click(function(){//친구추가 처리
+		
+		var FriendDTO = $("form[name=insertFriendForm]").serialize();
+		console.log("버튼클릭");
+		$.ajax({
+			type : "post",
+			url:"${pageContext.request.contextPath}/insertFriend",
+			data:FriendDTO
+		}) 
+	})
+	
+	$('[id="friendsAdd"]').click(function(){//(친구추가모달에서)확인버튼 클릭시
+		window.location.reload(true);//리플래쉬
+	})
+	
+	$('[class="btn btn-reverse button-form"]').click(function(){//(친구추가모달에서)취소버튼 클릭시
+		window.location.reload(true);//리플래쉬
+	})
+})
+</script>
 </head>
 <body class="fixed-header">
 
@@ -142,7 +191,7 @@
 							<li><a class="faq-button" href="${pageContext.request.contextPath}/mypage/goInfo"><i class="icon fa fa-user-secret"></i>프로필</a></li>
 							<li><a class="faq-button" href="${pageContext.request.contextPath}/mypage/property"><i class="icon fa fa-pencil-square-o"></i>내가쓴글</a></li>
 							<li><a class="faq-button active" href="${pageContext.request.contextPath}/friends"><i class="icon fa fa-pencil-square-o"></i>친구목록</a></li>
-							<li><a class="faq-button" href="${pageContext.request.contextPath}/note"><i class="icon fa fa-envelope-o"></i>쪽지함</a></li>
+							<li><a class="faq-button" href="${pageContext.request.contextPath}/note"><i class="icon fa fa-envelope-o"></i>받은쪽지함</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-9 col-md-9">
@@ -160,7 +209,7 @@
 								<tbody>
 									<c:if test="${FriendDTO==null }">
 										<tr>
-											<td>친구가 없습니다</td>
+											<td colspan="2" align="center">친구가 없습니다</td>
 										</tr>
 									</c:if>
 									<c:forEach items="${FriendDTO}" var="i">
@@ -169,16 +218,55 @@
 										    <td>${i.nickName }</td>
 										</tr>
 									</c:forEach>
-
 								</tbody>
 							</table>
+							<br><br>
+							<div class="field footer-form text-right">
+								<button type="button"  id="cofirmMessage" class="btn btn-default button-form" data-target="#modal-friend" data-toggle="modal">친구등록</button>
+							</div>
 						</div>
 						<!-- /.table-responsive -->
 					</div>
+					
 				</div>
+				
 			</div>
 		</section>
 	</div>
 	<!-- /#page-container -->
+	
+	<!-- 모달부분 -->
+	<!-- 친구 추가 모달 -->
+	<div class="modal fade" id="modal-friend" tabindex="-1"
+			role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="fa fa-close"></i>
+				</button>
+
+				<div class="form-container full-fixed">
+					<form method="post" action="#" name="insertFriendForm">
+						<div id="form-modal-contact" class="box active modal-contact">
+							<h2 class="title"><i class="icon fa fa-user user"></i> Friends Search </h2>
+							<h3 class="sub-title"></h3>
+							<div class="field">
+							<i class="fa fa-search"></i>
+								
+								<input id="friends-search" class="form-control" type="text" name="fEmail">
+								<input type="text" hidden="true" value="${sessionScope.myEmail}" name="email">
+								
+							</div>
+							<div id="searchArea" class="box active modal-contact"></div>
+							<div class="field footer-form text-right">
+								<button type="submit" id="friendsAdd" class="btn btn-default button-form" data-dismiss="modal">확인</button>
+								<button type="button" class="btn btn-reverse button-form" data-dismiss="modal">취소</button>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div><!-- 친구 추가 모달 종료 -->
 </body>
 </html>

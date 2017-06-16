@@ -1,9 +1,11 @@
 package gochi.travel.model.notedto;
 
+import java.io.Serializable;
+
 /**
  * 메세지 관련 DTO
  */
-public class NoteDTO {
+public class NoteDTO implements Serializable {
 	private int noteNo;
 	private String sendEmail;
 	private String title;
@@ -20,6 +22,13 @@ public class NoteDTO {
 		this.title = title;
 		this.content = content;
 		this.dDay = dDay;
+		this.flag = flag;
+		this.receiveEmail = receiveEmail;
+	}
+	public NoteDTO(String sendEmail, String title, String content, int flag, String receiveEmail) {
+		this.sendEmail = sendEmail;
+		this.title = title;
+		this.content = content;
 		this.flag = flag;
 		this.receiveEmail = receiveEmail;
 	}

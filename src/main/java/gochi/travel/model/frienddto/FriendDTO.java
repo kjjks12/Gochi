@@ -13,6 +13,11 @@ public class FriendDTO implements Serializable{
 		this.email = email;
 		this.fEmail = fEmail;
 	}
+	public FriendDTO(String email, String fEmail) {
+		super();
+		this.email = email;
+		this.fEmail = fEmail;
+	}
 	public int getFriendNo() {
 		return friendNo;
 	}
