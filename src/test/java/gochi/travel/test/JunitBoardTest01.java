@@ -40,7 +40,7 @@ public class JunitBoardTest01 {
 	/**
 	 * 친구 추가 이전에 검색을 통한 친구 찾기
 	 */
-	@Test
+	//@Test
 	public void selectFriend(){
 		SqlSession session = DBUtil.getSession();
 		Map<String,String> emails = new HashMap<>();
@@ -60,14 +60,35 @@ public class JunitBoardTest01 {
 	//@Test
 	public void selectNote(){
 		SqlSession session = DBUtil.getSession();
-		List<NoteDTO> list = session.selectList("noteMapper.selectByNick","kjy73845@naver.com");
+		List<NoteDTO> list = session.selectList("noteMapper.selectMessage","kjy73845@naver.com");
 		for(NoteDTO dto:list){
 			System.out.println(dto);
 		}
 		DBUtil.closeSession(session);
 	}
-	
-	
-	
-	
+	/**
+	 * (메세지를 보낸) 회원의 쪽지에 대한 정보 검색
+	 */
+	//@Test
+	public void selectMessageBySendEmail(){
+		SqlSession session = DBUtil.getSession();
+		List<NoteDTO> list = session.selectList("noteMapper.selectMessageBySendEmail", "noloo6974@naver.com");
+		for(NoteDTO dto:list){
+			System.out.println(dto);
+		}
+		DBUtil.closeSession(session);
+	}
+	/**
+	 * 친구추가
+	 */
+	@Test
+	public void insertFriend(){
+		SqlSession session = DBUtil.getSession();
+		int maxNum=0;
+		try{
+		maxNum = session.selectOne("friendMapper.selectMaxFriend");
+		}catch(Exception e){}
+		session.insert("friendMapper.insertFriend",new FriendDTO(maxNum+1,"kjy73845@naver.com","kimjun@naver.com"));
+		DBUtil.closeSession(session);
+	}
 }

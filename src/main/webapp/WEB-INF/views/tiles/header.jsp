@@ -1,14 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-
 <jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
 <jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+function SignInCheck(){
+	
+	if(document.getElementById("nickname").value==""){
+		alert("닉네임을 입력해 주세요!");
+	}else if(document.getElementById("email-sign").value==""){
+		alert("email을 입력해 주세요!");
+	}else if(document.getElementById("password-sign").value==""){
+		alert("비밀번호를 입력해 주세요!");
+	}else if(document.getElementById("re-password-sign").value==""){
+		alert("비밀번호를 다시한번 입력해 주세요!");
+	}else if(document.getElementById("password-sign").value!=document.getElementById("re-password-sign").value){
+		alert("비밀번호가 서로 일치하지 않아요!");
+	}else{
+		document.signInForm.submit();
+	}
+	
+}
+
+function loginCheck(){
+	
+	if(document.getElementById("loginEmail").value==""){
+		alert("이메일을 입력해 주세요.");
+	}else if(document.getElementById("loginPassword").value==""){
+		alert("패스워드를 입력해 주세요.");
+	}else{
+		document.loginForm.submit();
+	}
+}
+</script>
+
 
 <style>
 .modal-backdrop {
@@ -16,14 +48,15 @@
 }
 
 .datepicker {
-	z-index: 1100 !important
+	z-index: 11000 !important
 }
 
-.travelDate{
+.travelDate {
 	margin-bottom: 20px;
 }
-#brief_story{
-resize: vertical;
+
+#brief_story {
+	resize: vertical;
 }
 </style>
 </head>
@@ -70,7 +103,9 @@ resize: vertical;
 					<ul>
 						<li class="has_submenu"><a
 							href="${pageContext.request.contextPath}">추천 컨텐츠</a></li>
-						<li class="has_submenu"><a href="${pageContext.request.contextPath}/hotdeal/hotdeal">여행 핫딜</a></li>
+						<li class="has_submenu"><a
+							href="${pageContext.request.contextPath}/hotdeal/hotdeal">여행
+								핫딜</a></li>
 						<li class="has_submenu"><a href="#">나믿따</a></li>
 						<li class="has_submenu">
 							<%-- <a href="${pageContext.request.contextPath}/traveladd/travel_add">여행일정</a> --%>
@@ -105,47 +140,53 @@ resize: vertical;
 		<div class="modal-dialog" style="z-index: 1001;">
 			<div class="modal-content" style="background-clip: border-box;">
 				<div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 					<h3 class="modal-title" id="myModalLabel">여행 일정 기본정보</h3>
 				</div>
 				<div class="modal-body">
 					<!-- Form Start -->
 					<form role="form"
-						action="${pageContext.request.contextPath}/traveladd/travel_add" method="post">
+						action="${pageContext.request.contextPath}/traveladd/travel_add"
+						method="post">
 						<div class="form-group">
-							<label for="Title">여행제목</label> 
-							<input type="text" class="form-control" placeholder="여행 제목" name="title">
+							<label for="Title">여행제목</label> <input type="text"
+								class="form-control" placeholder="여행 제목" name="title">
 						</div>
 						<div class="form-group">
 							<label for="content">간단 여행 이야기</label>
-							<textarea rows="2" class="form-control" name="briefStory" id="brief_story"></textarea>
+							<textarea rows="2" class="form-control" name="briefStory"
+								id="brief_story"></textarea>
+							<div id="login-pan" class="col-md-6 hidden-xs">
+								<c:if test="${not empty sessionScope.dto}">
+									<a href="${pageContext.request.contextPath}/member/logout"><i
+										class="icon fa fa-user user"></i>로그아웃</a>
+									<a href="#" data-toggle="modal" data-target=".user-info-modal"
+										data-section="setting"><i
+										class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
+								</c:if>
+							</div>
 						</div>
 
 						<!-- datepicker 시작 -->
 						<div class="travelDate">
 							<table>
 								<tr>
-									<th>
-									<span>시작날짜</span> 
-									<input
+									<th><span>시작날짜</span> <input
 										class="datepicker form-control" type="text" id="indate"
-										placeholder="Check-in: YYYY/MM/DD" style="width: 200px" 
-										name="travelStartDay"
-										/></th>
-									<th><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;끝 날짜</span> 
-									
-									<input
+										placeholder="Check-in: YYYY/MM/DD" style="width: 200px"
+										name="travelStartDay" /></th>
+									<th><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;끝 날짜</span> <input
 										class="datepicker form-control" type="text" id="outdate"
 										placeholder="Check-out: YYYY/MM/DD"
-										style="width: 200px; margin-left: 20px" 
-										name="travelEndDay"
-										/></th>
+										style="width: 200px; margin-left: 20px" name="travelEndDay" /></th>
 								</tr>
 							</table>
 						</div>
 						<!-- datepicker 끝 -->
-						<span> 
-						<select id="capa" name="thema">
+						<span> <select id="capa" name="thema">
 								<option value="thema">-- 테마 --</option>
 								<option value="friend">친구와 함께</option>
 								<option value="alone">나홀로여행</option>
@@ -176,10 +217,140 @@ resize: vertical;
 	</div>
 	<!-- 모달 전체 윈도우 -->
 
+<!-- 로그인/회원가입 모달!!!!!!!!!!!!!!!!! -->
+<div class="modal fade login-modal" tabindex="-1" role="dialog" aria-hidden="true">
+         <div class="modal-dialog">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+            <div class="login-button-container">
+               <a href="#" data-section="login"><i class="fa fa-user"></i></a>
+               <a href="#" data-section="sign-in"><i class="fa fa-pencil-square-o"></i></a>
+               <a href="#" data-section="recovery"><i class="fa fa-lock"></i></a>
+               <a href="#" data-section="setting"><i class="fa fa-cog"></i></a>
+            </div><!-- ./login-button-container -->
+            
+            <div class="form-container">
+               <!-- 로그인 Form 입니다. -->
+               <form action="${pageContext.request.contextPath}/member/Login" method="post" name="loginForm">
+                  <div id="login" class="box">
+                     <h2 class="title">Login in to your account</h2>
+                     <h3 class="sub-title">come to KkoChi World~!</h3>
+                     <input type="hidden" value="1" name="sep">
+                     <div class="field">
+                        <input id="loginEmail" name="user-log" class="form-control" type="email" placeholder="Email">
+                        <i class="fa fa-user user"></i>
+                     </div>
+                     <div class="field">
+                        <input id="loginPassword" name="password-log" class="form-control" type="password" placeholder="Password">
+                        <i class="fa fa-ellipsis-h"></i>
+                     </div>                  
+                     <div class="field footer-form text-right">
+                     <!-- 네이버 로그인 API 적용. -->
+                     <button class="btn btn-reverse button-form" style="background-color:#ffffff; border:none" onClick=" $('.login-modal').hide();"><div id="naver_id_login"></div></button>
+                        <script type="text/javascript">
+                                var naver_id_login = new naver_id_login("qkQPxecKnvS2x7Gphr25", "http://localhost:8000/controller/login/callback");
+                                var state = naver_id_login.getUniqState();
+                                naver_id_login.setButton("green", 2,40);
+                                naver_id_login.setDomain("http://localhost:8000/controller/");
+                                naver_id_login.setState(state);
+                                naver_id_login.setPopup();
+                                naver_id_login.init_naver_id_login();
+                        </script>
+                     <button type="reset" class="btn btn-reverse button-form">Reset</button>
+                     <button type="button" class="btn btn-default button-form" id="loginBun" onclick="loginCheck()">Login</button>
+                     </div>
+                  </div> <!-- ./login -->
+                  </form>
+                  
+               <!-- SignIn Form 시작 입니다. -->
+               <form method="post" action="${pageContext.request.contextPath}/member/SignIn" name="signInForm" id="signForm">
+                  <div id="sign-in" class="box">
+                     <h2 class="title">Sign In</h2>
+                     <h3 class="sub-title">Welcome to Gochi World~!</h3>
+                        
+                        <div class="field">
+                        <input id="nickname" name="nickname" class="form-control" type="text" placeholder="NickName">
+                        <i class="fa fa-user user"></i>
+                     </div>
+                        <div class="form-group">
+                           <input id="email-sign" class="form-control" type="email" name="email-sign" placeholder="Email">
+                           <i class="fa fa-envelope-o"></i>
+                        </div>
+                     <div class="field">
+                        <input id="password-sign" class="form-control" type="password" name="password-sign" placeholder="Password">
+                        <i class="fa fa-ellipsis-h"></i>
+                     </div>
+                     <div class="field">
+                        <input id="re-password-sign" class="form-control" type="password" name="re-password-sign" placeholder="Repeat password">
+                        <i class="fa fa-ellipsis-h"></i>
+                     </div>
+                     <div class="field footer-form text-right">
+                        <span class="remember"><input class="labelauty" type="checkbox" data-labelauty="I have read the privacy policy." checked /></span>
+                        <button type="button" class="btn btn-default button-form" id="signIn" onclick="SignInCheck()">Sign in</button>
+                     </div>
+                  </div><!-- ./sign-in -->
+               </form><!-- ./form-container -->
+            </div><!-- ./login-button-container -->
+         </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      
+      
+<!-- 사용자정보 모달!!!!!!!!!!!!!!!!!!!! -->
+<div class="modal fade user-info-modal" tabindex="-1" role="dialog" aria-hidden="true">
+         <div class="modal-dialog">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+            <div class="login-button-container">
+               <a href="#" data-section="recovery"><i class="fa fa-lock"></i></a>
+               <a href="#" data-section="setting"><i class="fa fa-cog"></i></a>
+            </div><!-- ./login-button-container -->
+            <div class="form-container">
+                  <div id="setting" class="box">
+                     <h2 class="title">Setting profile</h2>
+                     <h3 class="sub-title">Please note: You won't be able to change your name within the next 60 days. Make sure that you don't add any unusual capitalisation, punctuation, characters or random words. <a href="#">Learn more</a>.</h3>
+                     <div class="field">
+                        <input id="username-block" class="form-control" type="text" name="username-block" value="${sessionScope.dto.nickname}" disabled>
+                        <i class="fa fa-user user"></i>
+                     </div>
+                     <div class="field">
+                        <input id="email-setting" class="form-control" type="text" name="email-setting" value="${sessionScope.dto.email}" disabled>
+                        <i class="fa fa-envelope-o"></i>
+                     </div>
+                     <div class="field">
+                        <input id="update-pass" class="form-control" type="password" name="update-pass" placeholder="New password">
+                        <i class="fa fa-ellipsis-h"></i>
+                     </div>
+                     <div class="field">
+                        <input id="update-repass" class="form-control" type="password" name="update-repass" placeholder="Repeat password">
+                        <i class="fa fa-ellipsis-h"></i>
+                     </div>
+                     <div class="field footer-form text-right">
+                        <button type="button" class="btn btn-reverse button-form">Cancel</button>
+                        <button type="button" class="btn btn-default button-form">Update</button>
+                     </div>
+                  </div><!-- ./recovery -->
+                  <form>
+                  <div id="recovery" class="box">
+                     <h2 class="title">Need a new password?</h2>
+                     <h3 class="sub-title">Enter your email address, and weâ  ll email you instructions to reset your password.</h3>
+                     <div class="field">
+                        <input id="recovery-email" class="form-control" type="text" name="recovery-email" placeholder="Your email">
+                        <i class="fa fa-envelope-o"></i>
+                     </div>
+                     <div class="field footer-form text-right">
+                        <button type="button" class="btn btn-default button-form">Recovery</button>
+                     </div>
+                  </div><!-- ./recovery -->
+               </form><!-- ./form-container -->
+            </div><!-- ./login-button-container -->
+         </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
 
+
+
+
+</body><!-- BD -->
 	<!-- datepicker script -->
 	<script type="text/javascript">
-	 $.datepicker.setDefaults({
+ 	 $.datepicker.setDefaults({
 	        dateFormat: 'yy-mm-dd',
 	        prevText: '이전 달',
 	        nextText: '다음 달',
@@ -190,17 +361,12 @@ resize: vertical;
 	        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 	        showMonthAfterYear: true,
 	        yearSuffix: '년'
-	    });
+	    }); 
 
 	  $('.datepicker').datepicker({
 		 }); 
 	   
 	</script>
-
 	<!-- datepicker script  end-->
-
-
-
-</body>
 
 </html>

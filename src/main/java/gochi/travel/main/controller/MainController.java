@@ -17,10 +17,9 @@ public class MainController {
 		return "index";
 	}
 	
+	
 	@RequestMapping("*/*")
-	public void url(){
-		
-	}
+	public void url(){}
 	
 	@RequestMapping("/a")
 	public String junTest(){

@@ -518,12 +518,12 @@
 	}
 
 	var $blogList = $("#blog-list", document.body);
-	if($blogList.length){
-		$blogList.gridalicious({
-			gutter: 20,
-			width: 300
-		});
-	}
+//	if($blogList.length){
+//		$blogList.gridalicious({
+//			gutter: 20,
+//			width: 300
+//		});
+//	}
 
 	var $masonryImages = $(".masonry-images", document.body);
 	if($masonryImages.length){

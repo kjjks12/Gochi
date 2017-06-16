@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import gochi.travel.model.frienddao.FriendDAO;
 import gochi.travel.model.frienddto.FriendDTO;
+import gochi.travel.model.memberdto.MemberDTO;
 
 @Service
 public class FriendServiceImpl implements FriendService {
@@ -17,5 +18,15 @@ public class FriendServiceImpl implements FriendService {
 	public List<FriendDTO> selectFriendList(String email) {
 		return friendDAO.selectFriendList(email);
 	}
+	@Override
+	public List<MemberDTO> selectMemberList(String keyword) {
+		return friendDAO.selectMemberList(keyword);
+	}
+	@Override
+	public int insertFriend(FriendDTO friendDTO) {
+		return friendDAO.insertFriend(friendDTO);
+	}
+	
+	
 
 }

@@ -7,29 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-/* html, body {
-	padding: 0;
-	margin: 0;
-	height: 100%;
-}
-
-#header {
-	width: 100%;
-	height: 10%;
-	background-color: pink;
-}
-
-#content {
-	width: 100%;
-	height: 80%;
-	background-color: yellow;
-}
-
-#footer {
-	width: 100%;
-	height: 10%;
-	background-color: green;
-} */
 </style>
 </head>
 <body>
