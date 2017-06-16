@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-
 
 
 <!-- 달력 링크 , 부트스트랩 *준* -->

@@ -30,7 +30,6 @@
 		</div>
 	</div>
 
-	<div id="page-container">
 		
 		<section id="header-page" class="header-margin-base">
 		
