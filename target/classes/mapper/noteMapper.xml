@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noteMapper">
+
+<!-- 메세지 정보 DTO properties와 DB Column 값 일치화 작업 -->
+<resultMap type="gochi.travel.model.notedto.NoteDTO" id="resultNote">
+	<id property="noteNo" column="NOTE_NO" />
+	<result property="sendEmail" column="SEND_EMAIL"/>
+	<result property="title" column="TITLE"/>
+	<result property="content" column="CONTENT"/>
+	<result property="dDay" column="D_DAY"/>
+	<result property="flag" column="FLAG"/>
+	<result property="receiveEmail" column="EMAIL"/>
+</resultMap>
+
+<!-- 메세지 columns -->
+<sql id="noteColumns">
+	NOTE_NO,SEND_EMAIL,TITLE,CONTENT,D_DAY,FLAG,EMAIL
+</sql>
+
+<!-- (메세지를 받은) 회원의 쪽지 리스트 검색  -->
+<select id="selectMessage" parameterType="String" resultMap="resultNote">
+	select <include refid="noteColumns"/>
+	from NOTE
+	where EMAIL = #{_parameter}
+	order by NOTE_NO DESC
+</select>
+
+<!-- (메세지를 보낸) 회원의 쪽지에 대한 정보 검색 -->
+<select id="selectMessageBySendEmail" parameterType="String" resultMap="resultNote">
+	select <include refid="noteColumns"/>
+	from NOTE
+	where SEND_EMAIL = #{_parameter}
+</select>
+
+<!-- 메시지 답장 삽입  -->
+<insert id="insertReply" parameterType="gochi.travel.model.notedto.NoteDTO">
+	insert into note(<include refid="noteColumns"/>)
+	values(#{noteNo},#{sendEmail},#{title},#{content},to_char(sysdate,'YYYY-MM-DD HH24:MI:SS'),#{flag},#{receiveEmail})
+</insert>
+
+<!-- 메시지 가장 큰 수 검색 -->
+<select id="selectCountMessage" resultType="Integer">
+	select max(NOTE_NO) from note
+</select>
+
+<!-- 메시지 플래그 설정 -->
+<update id="updateFlagMessage" parameterType="map">
+	update NOTE
+	set FLAG = #{flag}
+	where NOTE_NO = #{noteNo}
+</update>
+</mapper>
