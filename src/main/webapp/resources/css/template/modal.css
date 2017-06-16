@@ -19,7 +19,7 @@
   top: 100px;
   right: auto;
   bottom: auto;
-  left: 20%;
+  left: 50%;
   z-index: 50;
   color: #777;
   width: 500px;
@@ -34,6 +34,26 @@
   /* .login-button-container */
   /* .form-container */
 }
+
+/* .modal-content {
+  position: absolute !important;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  z-index: 60;
+  color: #777;
+  width: 500px;
+  min-height: 300px;
+   margin-left: -250px; 
+  background-color: #FFF;
+  -webkit-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  .login-button-container
+  .form-container
+} */
 .modal-dialog .login-button-container {
   position: absolute !important;
   top: 0;

@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,9 @@
 
 <jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
 <jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
+
+
+
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a39e6160d10aea82c49d95d61746babb&libraries=drawing"></script>
  <style>
 .map_wrap {width: 100%;position: relative;}
@@ -30,7 +33,6 @@
 		</div>
 	</div>
 
-	<div id="page-container">
 		
 		<section id="header-page" class="header-margin-base">
 		
