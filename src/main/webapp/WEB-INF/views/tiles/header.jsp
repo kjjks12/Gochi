@@ -104,7 +104,7 @@ function loginCheck(){
 						<li class="has_submenu"><a
 							href="${pageContext.request.contextPath}">추천 컨텐츠</a></li>
 						<li class="has_submenu"><a
-							href="${pageContext.request.contextPath}/hotdeal/hotdeal">여행
+							href="${pageContext.request.contextPath}/hotdeal/hotdeal_main">여행
 								핫딜</a></li>
 						<li class="has_submenu"><a href="#">나믿따</a></li>
 						<li class="has_submenu">
