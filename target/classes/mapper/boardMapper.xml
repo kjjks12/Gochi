@@ -41,5 +41,12 @@
 	</where>
 </delete>
 
+<update id="modify" parameterType="gochi.travel.model.boarddto.BoardDTO">
+	update FREE_BOARD set content=#{content},title=#{title}
+	<where>
+		BOARD_NO=#{boardno}
+	</where>
+</update>
+
 
 </mapper>

@@ -3,6 +3,11 @@
 
 	<script	src="${pageContext.request.contextPath}/resources/script/jquery.min.js"></script>		<!-- jQuery	(necessary for Bootstrap's JavaScript plugins) -->
 	<script	src="${pageContext.request.contextPath}/resources/script/jquery-ui.min.js"></script>		<!-- jQuery	UI is a	curated	set	of user	interface interactions,	effects, widgets, and themes -->
+<script src="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datetimepicker.js"></script>
+
+	
+	
+	
 	<script	src="${pageContext.request.contextPath}/resources/script/bootstrap.min.js"></script>		<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script	src="${pageContext.request.contextPath}/resources/script/vendor/mmenu/mmenu.min.all.js"></script>					<!-- Menu Responsive -->
 	<script	src="${pageContext.request.contextPath}/resources/script/vendor/animation-wow/wow.min.js"></script>					<!-- Animate Script	-->

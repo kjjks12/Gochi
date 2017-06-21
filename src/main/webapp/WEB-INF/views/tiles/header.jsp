@@ -40,6 +40,7 @@ function loginCheck(){
 	display: none !important
 }
 
+
 .datepicker {
 	z-index: 11000 !important
 }
@@ -51,7 +52,11 @@ function loginCheck(){
 #brief_story {
 	resize: vertical;
 }
+#brief_story {
+	resize: vertical;
+}
 </style>
+
 	<header class="menu-base" id="header-container-box">
 		<div class="info">
 			<!-- info -->
@@ -81,11 +86,11 @@ function loginCheck(){
 							data-section="setting"><i
 							class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
 					</c:if>
-					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /.info -->
+	</div> <!-- /.info -->
+	
 		<div class="logo hidden-xs">
 			<a href="${pageContext.request.contextPath}"><img
 				id="logo-header"
@@ -93,6 +98,7 @@ function loginCheck(){
 				alt="Logo" /></a>
 		</div>
 		<!-- /.logo -->
+		
 		<div class="menu-navbar">
 			<div class="container" id="menu-nav">
 				<nav id="navigation">
@@ -191,14 +197,9 @@ function loginCheck(){
 							<button type="submit" class="btn btn-primary">저장 후 이동</button>
 						</div>
 						<!-- 모달 foot end-->
-
-
 					</form>
 				</div>
-
-				<!--./form 전송 끝 -->
 			</div>
-			<!-- 모달 콘텐츠 -->
 		</div>
 		<!-- 모달 다이얼로그 -->
 	</div>
@@ -330,11 +331,7 @@ function loginCheck(){
             </div><!-- ./login-button-container -->
          </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-
-
-
-
-	<!-- datepicker script -->
+      
 	<script type="text/javascript">
  	 $.datepicker.setDefaults({
 	        dateFormat: 'yy-mm-dd',
@@ -354,4 +351,3 @@ function loginCheck(){
 	   
 	</script>
 	<!-- datepicker script  end-->
-
