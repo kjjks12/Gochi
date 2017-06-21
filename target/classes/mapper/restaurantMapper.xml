@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- member 관련 xml -->
+<mapper namespace="restaurantMapper">
+	<!-- DB 와 DTO 컬럼 값 동일 하게 작업 -->
+	<resultMap type="gochi.travel.model.restaurantdto.RestaurantDTO"
+		id="restaurant">
+		<id column="RESTURANT_NO" property="restaurantNo" />
+		<result column="CLASSIFICATION" property="classification" />
+		<result column="AREA" property="area" />
+		<result column="EXPLANATION" property="explanation" />
+		<result column="RESTAURANT_NAME" property="restaurantName" />
+		<result column="OPERATING_TIME" property="operatingTime" />
+		<result column="HOLIDAY" property="holiday" />
+		<result column="PHONE" property="phone" />
+		<result column="EMAIL" property="email" />
+		<result column="WISH" property="wish" />
+		<result column="BEAN" property="bean" />
+		<result column="remark" property="remark"/>
+	</resultMap>
+
+	<sql id="replay">
+		RESTURANT_NO,CLASSIFICATION,AREA,EXPLANATION,RESTAURANT_NAME,
+		OPERATING_TIME,HOLIDAY,PHONE,EMAIL,WISH,BEAN,REMARK
+	</sql>
+
+
+
+	<insert id="insertRestaurant" parameterType="gochi.travel.model.restaurantdto.RestaurantDTO">
+		insert into
+		restaurant(RESTURANT_NO,CLASSIFICATION,RESTAURANT_NAME,AREA,OPERATING_TIME,HOLIDAY,PHONE,EXPLANATION,
+		EMAIL,REMARK)
+		values(RESTAURANT_NO.NEXTVAL,#{classification},#{restaurantName},#{area},#{operatingTime},#{holiday},#{phone},#{explanation},'noloo6974@naver.com',#{remark})
+	</insert>
+
+	<select id="selectRestaurant" parameterType="string" resultMap="restaurant">
+		select <include refid="replay"/> from restaurant
+		
+
+
+	</select>
+
+
+</mapper>

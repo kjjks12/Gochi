@@ -73,17 +73,18 @@
 							</div>
 							<div class="row">
 							<form name="modifyForm" method="post" action="${pageContext.request.contextPath}/community/modify">
+								<input type="hidden" name="boardno" value="${boardDTO.boardno}">
 								<div class="col-md-5 space-form">
 									<input id="title" class="form-control" type="text" placeholder="제목" name="title" value="${boardDTO.title}">
 								</div>
 								<div class="col-md-7 space-form">
-									<input id="address" class="form-control" type="text" placeholder="닉네임" name="nickName">
+									<input id="address" class="form-control" type="text" placeholder="닉네임">
 								</div>
 								<div class="col-md-12">
 									<textarea name="content" id="content" class="form-control description">${boardDTO.content}</textarea>
 								</div>
 									<div style="text-align: right;">
-							<button class="btn btn-default">수정하기</button>
+							<input class="btn btn-default" type="submit" value="수정하기"/>
 							<button class="btn btn-default" onclick="location.href=history.back()">취소</button>
 							</div>
 							</form>

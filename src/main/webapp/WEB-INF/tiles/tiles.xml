@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
-	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+   "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-	<!-- 니가 어떤 문서를 참고해서 틀을 만들꺼니 -->
+   <!-- 니가 어떤 문서를 참고해서 틀을 만들꺼니 -->
 
-	<!-- user/*a 인경우 -->
-	<definition name="layout" template="/WEB-INF/views/tiles/layout.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
-	</definition>
-
-
+   <!-- user/*a 인경우 -->
+   <definition name="layout" template="/WEB-INF/views/tiles/layout.jsp">
+      <put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+      <put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+   </definition>
 
 
+   <definition name="layout2" template="/WEB-INF/views/tiles/layout2.jsp">
+      <put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+      <put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+   </definition> 
 
-	<!-- Controller에서 setViewName이 */* <-앞에 뭐가와두 상관없구 뒤에도 뭐가와두 상관없어 2단계 요청이 
-		들어오면 적용해라. extends:layout <- 위에 선언한 layout 이름으로 된거 참조하겠다. -->
 
-	<definition name="*" extends="layout">
-	  <put-attribute name="content" value="/WEB-INF/views/{1}.jsp"/> </definition> 
 
-	 <definition name="*/*" extends="layout">
-	  <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/> </definition> 
+   <!-- Controller에서 setViewName이 */* <-앞에 뭐가와두 상관없구 뒤에도 뭐가와두 상관없어 2단계 요청이 
+      들어오면 적용해라. extends:layout <- 위에 선언한 layout 이름으로 된거 참조하겠다. -->
+
+   <definition name="*" extends="layout">
+     <put-attribute name="content" value="/WEB-INF/views/{1}.jsp"/> </definition> 
+
+    <definition name="*/*" extends="layout">
+     <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/> </definition> 
+     
+     <definition name="*/*/editor" extends="layout2">
+     <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/> </definition> 
 
 
 </tiles-definitions>
-

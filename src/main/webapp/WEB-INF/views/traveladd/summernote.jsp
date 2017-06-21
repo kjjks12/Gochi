@@ -28,14 +28,11 @@
         alert($('.summernote').val());
       });
     });
+    
   </script>
 </head>
 <body>
 <form action="#" novalidate>
-  <div class="form-group">
-    <label for="input">Text</label>
-    <input type="text" class="form-input" id="input" value="Title">
-  </div>
   <div class="form-group">
     <label for="contents">Contents</label>
     <textarea name="text" class="summernote" id="contents" title="Contents"></textarea>

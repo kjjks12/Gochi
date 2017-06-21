@@ -40,4 +40,10 @@ public class BoardDAOImpl implements BoardDAO {
 		return result;
 	}
 
+	@Override
+	public int modify(BoardDTO boardDTO) {
+		int result=session.update("boardMapper.modify",boardDTO);
+		return result;
+	}
+
 }
