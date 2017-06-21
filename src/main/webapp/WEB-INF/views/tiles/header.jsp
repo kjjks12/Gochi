@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <script type="text/javascript">
 function SignInCheck(){
 	
@@ -36,6 +37,9 @@ function loginCheck(){
 <style>
 .modal-backdrop {
 	display: none !important
+<<<<<<< HEAD
+}
+=======
 }
 
 .datepicker {
@@ -50,6 +54,7 @@ function loginCheck(){
 	resize: vertical;
 }
 </style>
+
 	<header class="menu-base" id="header-container-box">
 		<div class="info">
 			<!-- info -->
@@ -335,7 +340,7 @@ function loginCheck(){
 
 
 
-	<!-- datepicker script -->
+
 	<script type="text/javascript">
  	 $.datepicker.setDefaults({
 	        dateFormat: 'yy-mm-dd',
@@ -355,4 +360,5 @@ function loginCheck(){
 	   
 	</script>
 	<!-- datepicker script  end-->
+
 
