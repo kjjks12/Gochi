@@ -2,8 +2,16 @@ package gochi.travel.model.notedto;
 
 import java.io.Serializable;
 
-/**
- * 메세지 관련 DTO
+/***
+ * 메시지 관련 DTO
+ * @author 고준영
+ * @param noteNo 메시지 번호
+ * @param sendEmail 메시지 송신 ID
+ * @param title 메시지 제목
+ * @param content 메시지 내용
+ * @param dDay 메시지 작성 시각
+ * @param flag 메시지 읽음 여부
+ * @param receiveEmail 메시지 수신 ID
  */
 public class NoteDTO implements Serializable {
 	private int noteNo;
@@ -15,16 +23,14 @@ public class NoteDTO implements Serializable {
 	private String receiveEmail;
 	
 	public NoteDTO(){}
-	public NoteDTO(int noteNo, String sendEmail, String title, String content, String dDay, int flag,
-			String receiveEmail) {
-		this.noteNo = noteNo;
-		this.sendEmail = sendEmail;
-		this.title = title;
-		this.content = content;
-		this.dDay = dDay;
-		this.flag = flag;
-		this.receiveEmail = receiveEmail;
-	}
+	/**
+	 * 메시지 작성시 사용하는 constructor
+	 * @param sendEmail 작성 ID
+	 * @param title 메시지 제목
+	 * @param content 메시지 내용
+	 * @param flag 메시지 읽음 여부
+	 * @param receiveEmail 메시지 수신 ID
+	 */
 	public NoteDTO(String sendEmail, String title, String content, int flag, String receiveEmail) {
 		this.sendEmail = sendEmail;
 		this.title = title;

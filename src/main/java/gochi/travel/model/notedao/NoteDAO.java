@@ -10,4 +10,7 @@ public interface NoteDAO {
 	int insertNote(NoteDTO noteDTO);
 	int selectMaxNum();
 	int updateFlagNum(int flag,int messageNum);
+	int selectCountReadYet(String email);
+	int updateFlagFriendMessage(int noteNo);
+	int selectCountMessageFlag0or1(String email);
 }

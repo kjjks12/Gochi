@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
    #modal-contact2 { padding-left: 0; }
    #modal-contact2 .modal-dialog { 
@@ -26,6 +27,7 @@
       font-weight: bold; 
    }
    
+
    #field-category {margin-top:0px;}
    
    /* #food-start {height: 230px !important;}
@@ -35,14 +37,17 @@
         height: 50px;;
       
    } */
-   
+ 
 
 </style>
 
 
 <script>
 
-$(function() {
+
+$(function() {   
+   selectList();
+
    $('#modal-opener').click(function() {
       setTimeout(setMap2, 500);
    });
@@ -129,10 +134,12 @@ $(function() {
                   daum.maps.event.addListener(marker, 'click', function() {
                       // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다                      
                       var coord = new daum.maps.LatLng(place.latitude, place.longitude);   
-                                             
-                         infowindow.setContent('<div style="padding:5px;font-size:12px;">'+ place.title +'</div>');
-                       infowindow.open(map, marker);
-                       $('#food-name').val(place.title);
+                        
+                      //주소/위치에 선택한 정보 넣기.!!!!!!!!!!!!!!!!!!!!
+                 document.getElementById("food-location").value=place.address;
+                      infowindow.setContent('<div style="padding:5px;font-size:12px;">'+ place.title +'</div>');
+                      infowindow.open(map, marker);
+                      $('#food-name').val(place.title);
                 
                   });
                 }
@@ -159,6 +166,71 @@ $(function() {
 });
       
 </script>
+<script>
+function foodCheck() {
+   var category = document.insertForm
+   if(category.category2.value==""){
+      alert("카테고리를 선택해 주세요");
+   }else if(document.getElementById("food-name").value==""){
+      alert("맛집 이름을 확인 해 주세요!");
+   }else if(document.getElementById("food-location").value==""){
+      alert("맛집 주소를 확인 해 주세요!");
+   }else if(document.getElementById("food-remark").value==""){
+      alert("맛집 한줄평을 확인 해 주세요!");
+   }else if(document.getElementById("food-phone").value==""){
+      alert("맛집 연락처를 확인해 주세요!");
+   }else {
+      sendSubmit();
+   }
+}
+
+
+
+var testTarget = document.getElementById("category2");
+function sendSubmit() {
+   $('#food-send').submit();
+   testTarget.options[testTarget.selectedIndex].text
+}
+
+
+function selectList() {
+   $.ajax({
+      type : "post",
+      url : "${pageContext.request.contextPath}/restaurant/selectAll",
+      dataType : "json",
+      success : function(data) {
+         var divStr="";
+         $.each(data,function(index,item){
+            divStr+="<div class='item'>";
+            divStr+="<div class='blog-list masonry-post'>";
+            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail'>"+item.restaurantName+"</a></h2>";
+            divStr+="<div class='image' id='food-start'>";
+            divStr+="<a href='#'><img src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
+            divStr+="<div class='social'>";
+            divStr+="<a href='#'><span class='date'><i class='fa fa-heart-o'></i><span>654</span></span></a>";
+            divStr+="<a href='#'><i class='fa fa-eye'></i><span>92435</span></a>";
+            divStr+="</div>";
+            divStr+="</div>";
+            divStr+="<div class='text'>";
+            divStr+="<h3 class='subtitle'>"+item.remark+"</h3>"+item.explanation;
+            divStr+="</div>";
+            divStr+="</div>";
+            divStr+="</div>";
+         })
+         $("#blog-list").append(divStr);
+      },error:function(){
+         alert("에러발생!!")
+      }
+   })
+}
+
+
+
+
+
+      
+</script>
+
 
    <div id="page-container">
 
@@ -187,18 +259,19 @@ $(function() {
          <div class="container">
             <div class="row">
                <div class="col-md-9" id="blog-list">
-                  <div class="item">
+               
+   
+               <!-- /.item -->
+                 <!--   <div class="item">
                      <div class="blog-list masonry-post">
                         <h2 class="title">
-                           <a href="blog-detail.html">★담소 순댓국</a>
+                           <a href="blog-detail.html">${food.restaurantName}</a>
                         </h2>
                         <div class="image" id="food-start">
                            <a href="#"><img src="${pageContext.request.contextPath}/resources/images/sample1.jpg" width="100%" height="340px"/></a>
                            <div class="social">
-                              <span class="date">22<span>Apr</span></span> <a href="#"><i
-                                 class="fa fa-heart-o"></i><span>654</span></a> <a href="#"><i
-                                 class="fa fa-eye"></i><span>92435</span></a> <a href="#"><i
-                                 class="fa fa-comments"></i><span>69</span></a>
+                              <a href="#"><span class="date"><i class="fa fa-heart-o"></i><span>654</span></span></a>
+                              <a href="#"><i class="fa fa-eye"></i><span>92435</span></a>
                            </div>
                         </div>
                         <div class="text">
@@ -207,130 +280,15 @@ $(function() {
                            순대국으로 3끼를 다 먹을 수 있는 그날이 올때까지 
                         </div>
                      </div>
-                  </div>
+                  </div> --!>
                   <!-- /.item -->
-
-                  <div class="item">
-                     <div class="blog-list masonry-post">
-                        <h2 class="title">
-                           <a href="blog-detail.html">★담소 순댓국</a>
-                        </h2>
-                        <div class="image" id="food-start">
-                           <a href="#"><img src="${pageContext.request.contextPath}/resources/images/sample1.jpg" width="100%" height="240px"/></a>
-                           <div class="social">
-                              <span class="date">22<span>Apr</span></span> <a href="#"><i
-                                 class="fa fa-heart-o"></i><span>654</span></a> <a href="#"><i
-                                 class="fa fa-eye"></i><span>92435</span></a> <a href="#"><i
-                                 class="fa fa-comments"></i><span>69</span></a>
-                           </div>
-                        </div>
-                        <div class="text">
-                           <h3 class="subtitle">맛있는 순댓국 세상으로 오세요!</h3>
-                           소사골의 소고기 순대국, 올바름에 대해 고민하는 사람들
-                           순대국으로 3끼를 다 먹을 수 있는 그날이 올때까지 
-                        </div>
-                     </div>
-                  </div>
-                  <!-- /.item -->
-
-                  <div class="item">
-                     <div class="blog-list masonry-post">
-                        <h2 class="title">
-                           <a href="blog-detail.html">★담소 순댓국</a>
-                        </h2>
-                        <div class="image" id="food-start">
-                           <a href="#"><img src="${pageContext.request.contextPath}/resources/images/sample1.jpg" width="100%" height="240px"/></a>
-                           <div class="social">
-                              <span class="date">22<span>Apr</span></span> <a href="#"><i
-                                 class="fa fa-heart-o"></i><span>654</span></a> <a href="#"><i
-                                 class="fa fa-eye"></i><span>92435</span></a> <a href="#"><i
-                                 class="fa fa-comments"></i><span>69</span></a>
-                           </div>
-                        </div>
-                        <div class="text">
-                           <h3 class="subtitle">맛있는 순댓국 세상으로 오세요!</h3>
-                           소사골의 소고기 순대국, 올바름에 대해 고민하는 사람들
-                           순대국으로 3끼를 다 먹을 수 있는 그날이 올때까지 
-                        </div>
-                     </div>
-                  </div>
-                  <!-- /.item -->
-
-                  <div class="item">
-                     <div class="blog-list masonry-post">
-                        <h2 class="title">
-                           <a href="blog-detail.html">★담소 순댓국</a>
-                        </h2>
-                        <div class="image" id="food-start">
-                           <a href="#"><img src="${pageContext.request.contextPath}/resources/images/sample1.jpg" width="100%" height="240px"/></a>
-                           <div class="social">
-                              <span class="date">22<span>Apr</span></span> <a href="#"><i
-                                 class="fa fa-heart-o"></i><span>654</span></a> <a href="#"><i
-                                 class="fa fa-eye"></i><span>92435</span></a> <a href="#"><i
-                                 class="fa fa-comments"></i><span>69</span></a>
-                           </div>
-                        </div>
-                        <div class="text">
-                           <h3 class="subtitle">맛있는 순댓국 세상으로 오세요!</h3>
-                           소사골의 소고기 순대국, 올바름에 대해 고민하는 사람들
-                           순대국으로 3끼를 다 먹을 수 있는 그날이 올때까지 
-                        </div>
-                     </div>
-                  </div>
-                  <!-- /.item -->
-
-                  <div class="item">
-                     <div class="blog-list masonry-post">
-                        <h2 class="title">
-                           <a href="blog-detail.html">★담소 순댓국</a>
-                        </h2>
-                        <div class="image" id="food-start">
-                           <a href="#"><img src="${pageContext.request.contextPath}/resources/images/sample1.jpg" width="100%" height="240px"/></a>
-                           <div class="social">
-                              <span class="date">22<span>Apr</span></span> <a href="#"><i
-                                 class="fa fa-heart-o"></i><span>654</span></a> <a href="#"><i
-                                 class="fa fa-eye"></i><span>92435</span></a> <a href="#"><i
-                                 class="fa fa-comments"></i><span>69</span></a>
-                           </div>
-                        </div>
-                        <div class="text">
-                           <h3 class="subtitle">맛있는 순댓국 세상으로 오세요!</h3>
-                           소사골의 소고기 순대국, 올바름에 대해 고민하는 사람들
-                           순대국으로 3끼를 다 먹을 수 있는 그날이 올때까지 
-                        </div>
-                     </div>
-                  </div>
-                  <!-- /.item -->
-
-                  <div class="item">
-                     <div class="blog-list masonry-post">
-                        <h2 class="title">
-                           <a href="blog-detail.html">★담소 순댓국</a>
-                        </h2>
-                        <div class="image" id="food-start">
-                           <a href="#"><img src="${pageContext.request.contextPath}/resources/images/sample1.jpg" width="100%" height="240px"/></a>
-                           <div class="social">
-                              <span class="date">22<span>Apr</span></span> <a href="#"><i
-                                 class="fa fa-heart-o"></i><span>654</span></a> <a href="#"><i
-                                 class="fa fa-eye"></i><span>92435</span></a> <a href="#"><i
-                                 class="fa fa-comments"></i><span>69</span></a>
-                           </div>
-                        </div>
-                        <div class="text">
-                           <h3 class="subtitle">맛있는 순댓국 세상으로 오세요!</h3>
-                           소사골의 소고기 순대국, 올바름에 대해 고민하는 사람들
-                           순대국으로 3끼를 다 먹을 수 있는 그날이 올때까지 
-                        </div>
-                     </div>
-                  </div>
-                  <!-- /.item -->
-
+    
                </div>
                <!-- /.col-md-9 -->
                <div class="col-md-3">
                   <div class="section-title line-style no-margin">
                      <h3 class="title">
-                        <a href="#" id="modal-opener" data-target="#restaruant_modal" data-toggle="modal"
+                        <a href="#" id="modal-opener" data-target="#modal-contact2" data-toggle="modal"
                            class="hidden-xs"><i class="fa fa-cutlery"
                            aria-hidden="true"></i> 맛집 등록</a>
                      </h3>
@@ -341,95 +299,11 @@ $(function() {
                   </div>
                   <ul class="category-list">
                      <li><a href="#">음식점(7584)</a></li>
-                     <li class="active"><a href="#">카페(8845)</a></li>
+                     <li><a href="#">카페(8845)</a></li>
                      <li><a href="#">주점(9877)</a></li>
                      <li><a href="#">베이커리(1887)</a></li>
                      <li><a href="#">길거리음식(561)</a></li>
                   </ul>
-                  <!-- /.category-list -->
-                  <div class="section-title line-style">
-                     <h3 class="title">Post Archive</h3>
-                  </div>
-                  <ul class="category-list">
-                     <li><a href="#">Architecture</a></li>
-                     <li><a href="#">Apartments</a></li>
-                     <li><a href="#">Design</a></li>
-                     <li class="has-submenu"><a href="#">Do it yourself</a>
-                        <ul class="category-list">
-                           <li><a href="#">Housing</a></li>
-                           <li><a href="#">Agency</a></li>
-                           <li><a href="#">Apartements</a></li>
-                        </ul></li>
-                     <li><a href="#">Interior</a></li>
-                     <li><a href="#">Trends</a></li>
-                  </ul>
-                  <!-- /.category-list -->
-
-                  <div class="section-title line-style">
-                     <h3 class="title">Popular Post</h3>
-                  </div>
-
-                  <div class="recent-post">
-                     <a class="image image-fill" href="blog-detail.html"> <img
-                        alt="Image Sample"
-                        src="http://placehold.it/1280x680/bbbbbb/ffffff">
-                     </a>
-                     <!-- /.image -->
-                     <div class="body">
-                        <span class="title">Cras varius elementum</span> <span
-                           class="date">March 22, 2015 - 5 Comments</span>
-                        <div class="text">
-                           <p>Lorem ipsum dolor amet donec, collentesque ullamcorper.</p>
-                        </div>
-                        <!-- /.text -->
-                        <input type="submit"
-                           class="button-read button-read btn btn-default"
-                           value="Read now" name="submit" id="submit">
-                     </div>
-                     <!-- /.body -->
-                  </div>
-                  <!-- recent-post -->
-
-                  <div class="recent-post">
-                     <a class="image image-fill" href="blog-detail.html"> <img
-                        alt="Image Sample"
-                        src="http://placehold.it/1280x840/bbbbbb/ffffff">
-                     </a>
-                     <!-- /.image -->
-                     <div class="body">
-                        <span class="title">Ante egestas venenatis</span> <span
-                           class="date">March 19, 2015 - 2 Comments</span>
-                        <div class="text">
-                           <p>Consectetur adipiscing. Quam pellentesque ut fermentum.</p>
-                        </div>
-                        <!-- /.text -->
-                        <input type="submit"
-                           class="button-read button-read btn btn-default"
-                           value="Read now">
-                     </div>
-                     <!-- /.body -->
-                  </div>
-                  <!-- recent-post -->
-
-                  <div class="section-title line-style">
-                     <h3 class="title">Tags</h3>
-                  </div>
-                  <div id="filter-box">
-                     <a href="#" class="filter">Music <i class="fa fa-times"></i></a>
-                     <a href="#" class="filter">Recipes <i class="fa fa-times"></i></a>
-                     <a href="#" class="filter">Landscape <i class="fa fa-times"></i></a>
-                     <a href="#" class="filter">Graphic Design <i
-                        class="fa fa-times"></i></a> <a href="#" class="filter">Photography
-                        <i class="fa fa-times"></i>
-                     </a> <a href="#" class="filter">Videos <i class="fa fa-times"></i></a>
-                     <a href="#" class="filter">Wild Life <i class="fa fa-times"></i></a>
-                     <a href="#" class="filter">Scenery <i class="fa fa-times"></i></a>
-                     <a href="#" class="filter">News <i class="fa fa-times"></i></a> <a
-                        href="#" class="filter">Web Design <i class="fa fa-times"></i></a>
-                     <a href="#" class="filter">Models <i class="fa fa-times"></i></a>
-                  </div>
-                  <!-- /.filter-box -->
-
                </div>
                <!-- /.col-md-3 -->
             </div>
@@ -439,7 +313,7 @@ $(function() {
             <div class="row">
                <div class="col-md-9 text-center">
                   <ul class="pagination">
-                     <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                     <li><a href="#"><i class="fa fa-chevron-left" id="test"></i></a></li>
                      <li><a class="active" href="#">1</a></li>
                      <li><a href="#">2</a></li>
                      <li><a href="#">3</a></li>
@@ -454,7 +328,7 @@ $(function() {
       </section>
 
 
-   <div class="modal fade" id="restaruant_modal" tabindex="-1" role="dialog"
+   <div class="modal fade" id="modal-contact2" tabindex="-1" role="dialog"
       aria-hidden="true">
       <div class="modal-dialog">
          <button type="button" class="close" data-dismiss="modal"
@@ -463,15 +337,14 @@ $(function() {
          </button>
 
          <div class="form-container full-fixed">
-            <form method="post" action="${pageContext.request.contextPath}/restaurant/insert">   
+            <form method="post" action="${pageContext.request.contextPath}/restaurant/insert" id="food-send" name="insertForm">   
             <div id="form-modal-map" class="box active modal-contact">
                <h2 class="title" id="new-food">새로운 맛집 등록</h2>
                <div class="wrap-left">   
-                  
                   <div class="field" id="field-category">
                      <span class="food-insert" >카테고리
-                     <img id="star-icon" src="${pageContext.request.contextPath}/resources/images/staricon.png">   </span>
-                     <select id="food-category" class="form-control">
+                     <img id="star-icon" src="${pageContext.request.contextPath}/resources/images/staricon.png"></span>
+                     <select id="food-category" class="form-control" name="category2">
                         <option value="">선택</option>
                         <option value="음식점">음식점</option>
                         <option value="카페">카페</option>
@@ -504,14 +377,14 @@ $(function() {
                      <i class="fa fa-compass" aria-hidden="true"></i>
                   </div>
                   <div class="field">
-                     <span class="food-insert">가는방법</span>
-                     <input id="food-go" class="form-control" type="text" name="food-go">
-                     <i class="fa fa-car" aria-hidden="true"></i>
+                     <span class="food-insert">한줄평
+                     <img id="star-icon" src="${pageContext.request.contextPath}/resources/images/staricon.png"></span>
+                     <input id="food-remark" class="form-control" type="text" name="food-remark">
+                     <i class="fa fa-paint-brush" aria-hidden="true"></i>
                   </div>
                   
                   <div class="field">
-                     <span class="food-insert">영업시간
-                     <img id="star-icon" src="${pageContext.request.contextPath}/resources/images/staricon.png"></span>
+                     <span class="food-insert">영업시간</span>
                      <input id="food-time" class="form-control" type="text" name="food-time">
                      <i class="fa fa-clock-o" aria-hidden="true"></i>
                   </div>
@@ -530,24 +403,20 @@ $(function() {
                   </div>   
                   
                   <div class="field">
-                     <textarea class="form-control" name="message" id="message" placeholder="추가 정보 기입" style="resize:none"></textarea>
+                     <textarea class="form-control" name="food-info" id="message" placeholder="추가 정보 기입" style="resize:none"></textarea>
                   </div>   
                </div>
             </div>
             <div class="field footer-form text-right">
                <button type="button" class="btn btn-reverse button-form" data-dismiss="modal">Cancel</button>
-               <button type="button" class="btn btn-default button-form">저장</button>
+               <button type="button" class="btn btn-default button-form" onclick="foodCheck()">저장</button>
             </div>
             </form>
          </div>
       </div>
    </div>
+ </div>  
       <!-- /.modal-dialog -->
 
-
-
-
-
-
-
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=815544b5d2063051aa6e6316ed41e050&libraries=services"></script>
+
