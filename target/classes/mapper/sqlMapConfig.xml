@@ -21,11 +21,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 <!-- 별칭 만들기 -->
 <typeAliases>
-<package name="gochi.travel.model.mypagedto" />
-<package name="gochi.travel.model.frienddto" />
-<package name="gochi.travel.model.notedto" />
-<package name="gochi.travel.model.memberdto"/>
-<package name="gochi.travel.model.boarddto"/>
+	<package name="gochi.travel.model.mypagedto" />
+	<package name="gochi.travel.model.frienddto" />
+	<package name="gochi.travel.model.notedto" />
+	<package name="gochi.travel.model.memberdto"/>
+	<package name="gochi.travel.model.boarddto"/>
+	<package name="gochi.travel.model.restaurantdto"/>
 </typeAliases>
 
 	<environments default="development">
@@ -50,6 +51,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mapper/noteMapper.xml"/>
 		<mapper resource="mapper/memberMapper.xml"/>
 		<mapper resource="mapper/boardMapper.xml"/>
+		<mapper resource="mapper/restaurantMapper.xml"/> 
 	</mappers>
 
 </configuration>
