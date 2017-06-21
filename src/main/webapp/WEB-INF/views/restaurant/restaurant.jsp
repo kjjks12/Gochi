@@ -87,7 +87,7 @@
 						<div class="item">
 							<div class="blog-list masonry-post">
 								<h2 class="title">
-									<a href="blog-detail.html">Fusce luctus vulputate nisl
+									<a href="${pageContext.request.contextPath}/restaurant/detailRestaurant">Fusce luctus vulputate nisl
 										vitae auctor</a>
 								</h2>
 								<div class="image">
@@ -453,12 +453,12 @@
 						<h2 class="title" id="new-food">새로운 맛집 등록</h2>
 						<div class="wrap-left">	
 							<!-- 지도를 표시할 div 입니다 -->
-							<div id="map" style="width: 100%; height: 435px;"></div>
-							
 							<div class="field">
 								<input id="food-search" class="form-control" type="text" name="food-search" placeholder="키워드 맛집 검색">
 								<a href="#"><i class="fa fa-search"></i></a>
 							</div>
+							<div id="map" style="width: 100%; height: 435px;"></div>
+							
 							
 							
 							

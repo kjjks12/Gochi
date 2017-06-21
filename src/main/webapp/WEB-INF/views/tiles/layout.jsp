@@ -4,47 +4,63 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-/* html, body {
-	padding: 0;
-	margin: 0;
-	height: 100%;
-}
+<link 	href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.css" 	rel="stylesheet" /> <!-- 부트스트랩 -->
+	<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> --%>  <!-- Bootstrap -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/vendor/font-awesom/css/font-awesome.min.css">  <!-- Font Awesome -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/vendor/mmenu/jquery.mmenu.all.css" />          <!-- Menu Responsive -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/vendor/animate-wow/animate.css">               <!-- Animation WOW -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/vendor/labelauty/labelauty.css">               <!-- Checkbox form Style -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/vendor/nouislider/nouislider.min.css">         <!-- Slider Price -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/vendor/easydropdown/easydropdown.css">         <!-- Select form Style -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ui-spinner.css">                               <!-- Spinner -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">                                     <!-- Include Menu stylesheet -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">                                   <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/media-query.css">                           <!-- Media Query -->
+    
+    
+	<script src="${pageContext.request.contextPath}/resources/script/modernizr.min.js"></script> <!-- Modernizr -->
 
-#header {
-	width: 100%;
-	height: 10%;
-	background-color: pink;
-}
+	<!-- wish -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gochi/review_detail.css">                              <!-- plan view Stylesheet -->
+<%--       <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/wish/styles/plan-view-styles.css"> --%> <!-- 플랜 -->                          <!-- Media Query -->
 
-#content {
-	width: 100%;
-	height: 80%;
-	background-color: yellow;
-}
+<!-- 달력 링크 , 부트스트랩 *준* -->
+<link  rel="stylesheet"  href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datetimepicker.css" />
+<link  rel="stylesheet"  href="${pageContext.request.contextPath}/resources/fullcalendar/jquery-ui.min.css" />
 
-#footer {
-	width: 100%;
-	height: 10%;
-	background-color: green;
-} */
-</style>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+
 </head>
+
 <body>
-	<div id="header">
 		<tiles:insertAttribute name="header" />
-	</div>
 
-	<div id="content">
 		<tiles:insertAttribute name="content" />
-	</div>
 
-	<div id="footer">
 		<tiles:insertAttribute name="footer" />
-	</div>
 
 
 </body>
+	
+	<script	src="${pageContext.request.contextPath}/resources/script/jquery.min.js"></script>		<!-- jQuery	(necessary for Bootstrap's JavaScript plugins) -->
+	<script	src="${pageContext.request.contextPath}/resources/script/jquery-ui.min.js"></script>		<!-- jQuery	UI is a	curated	set	of user	interface interactions,	effects, widgets, and themes -->
+	<script src="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datetimepicker.js"></script>
+
+	
+	
+	<script	src="${pageContext.request.contextPath}/resources/script/bootstrap.min.js"></script>		<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/mmenu/mmenu.min.all.js"></script>					<!-- Menu Responsive -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/animation-wow/wow.min.js"></script>					<!-- Animate Script	-->
+	<script src="${pageContext.request.contextPath}/resources/script/vendor/labelauty/labelauty.min.js"></script>					<!-- Checkbox Script -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/parallax/parallax.min.js"></script>						<!-- Parallax Script -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/images-fill/imagesloaded.min.js"></script>			<!-- Loaded	image with ImageFill -->
+	<script src="${pageContext.request.contextPath}/resources/script/vendor/images-fill/imagefill.min.js"></script>					<!-- ImageFill Script -->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/easydropdown/jquery.easydropdown.min.js"></script>	<!-- Select	list Script	-->
+	<script	src="${pageContext.request.contextPath}/resources/script/vendor/carousel/responsiveCarousel.min.js"></script>		<!-- Carousel Script -->
+	<script	src="${pageContext.request.contextPath}/resources/script/custom.js"></script>		<!-- Custom	Script -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/upload/jquery.form.min.js"></script>
+	
 </html>
