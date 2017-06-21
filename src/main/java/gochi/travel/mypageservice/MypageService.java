@@ -9,4 +9,12 @@ public interface MypageService {
 	 * 
 	 */
 	MypageDTO selectByEmail(String email);
+	
+	int updateMyInfo(MypageDTO mypageDTO);
+	
+	MypageDTO selectDetail(String email);
+	
+	int updateMyProfileImg(String profileImg,String email);
+	
+	int updateMyBackProfileImg(String backImg,String email);
 }
