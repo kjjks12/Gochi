@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>header</title>
-<jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
-<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
 <script type="text/javascript">
 function SignInCheck(){
 	
@@ -59,9 +51,6 @@ function loginCheck(){
 	resize: vertical;
 }
 </style>
-</head>
-
-<body>
 	<header class="menu-base" id="header-container-box">
 		<div class="info">
 			<!-- info -->
@@ -175,11 +164,11 @@ function loginCheck(){
 							<table>
 								<tr>
 									<th><span>시작날짜</span> <input
-										class="datepicker form-control" type="text" id="indate"
+										class="datepicker form-control" type="text" id="travel_start_day"
 										placeholder="Check-in: YYYY/MM/DD" style="width: 200px"
 										name="travelStartDay" /></th>
 									<th><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;끝 날짜</span> <input
-										class="datepicker form-control" type="text" id="outdate"
+										class="datepicker form-control" type="text" id="travel_end_day"
 										placeholder="Check-out: YYYY/MM/DD"
 										style="width: 200px; margin-left: 20px" name="travelEndDay" /></th>
 								</tr>
@@ -347,26 +336,13 @@ function loginCheck(){
 
 
 
-</body><!-- BD -->
 	<!-- datepicker script -->
 	<script type="text/javascript">
- 	 $.datepicker.setDefaults({
-	        dateFormat: 'yy-mm-dd',
-	        prevText: '이전 달',
-	        nextText: '다음 달',
-	        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-	        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-	        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-	        showMonthAfterYear: true,
-	        yearSuffix: '년'
-	    }); 
-
-	  $('.datepicker').datepicker({
-		 }); 
-	   
+	 $( function() {
+		    $( "#travel_start_day" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		    $( "#travel_end_day" ).datepicker({ dateFormat: 'yy-mm-dd' });
+	
+	  });
 	</script>
 	<!-- datepicker script  end-->
 
-</html>

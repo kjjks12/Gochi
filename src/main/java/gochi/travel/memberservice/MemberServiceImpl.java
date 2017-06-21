@@ -3,7 +3,7 @@ package gochi.travel.memberservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import gochi.travel.member.authoritiesDAO.AuthoritiesDAO;
+import gochi.travel.member.authoritiesdao.AuthoritiesDAO;
 import gochi.travel.member.util.Constants;
 import gochi.travel.model.memberdao.MemberDAO;
 import gochi.travel.model.memberdto.Authority;

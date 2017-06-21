@@ -2,8 +2,8 @@
 <<<<<<<=HEAD
 >>>>>>>=c28267f33aa8b296b4b7b80658fd2f1bac23240e
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/editor/editor.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/ex/profile.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/hotdeal/hotdeal_main.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/login/callback.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/travel_review/review_detail3.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/traveladd/calendar.jsp=UTF-8
