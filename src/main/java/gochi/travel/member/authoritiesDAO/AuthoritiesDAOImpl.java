@@ -1,4 +1,4 @@
-package gochi.travel.member.authoritiesdao;
+package gochi.travel.member.authoritiesDAO;
 
 import java.util.List;
 

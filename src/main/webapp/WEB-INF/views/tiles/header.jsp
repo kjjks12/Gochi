@@ -448,9 +448,18 @@
 	<script type="text/javascript">
 	 $( function() {
 		    $( "#travel_start_day" ).datepicker({ dateFormat: 'yy-mm-dd' });
-		    $( "#travel_end_day" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		    $( "#travel_end_day" ).datepicker({ 
+		    	dateFormat: 'yy-mm-dd', 
+		    	beforeShowDay: noBefore
+		    });
 	
 	  });
+	// 이전 날짜들은 선택막기 
+	 function noBefore(date){ 
+	    if (date < $("#travel_start_day").datepicker( "getDate" )) 
+	        return [false]; 
+	    return [true]; 
+	 }
 	</script>
 	<!-- datepicker script  end-->
 

@@ -8,7 +8,9 @@ package gochi.travel.model.traveldto;
 public class TravelItinearyDTO {
 
 	/**여행 스토리 번호*/
-	private String travelNo;
+	private int itinearyNo;
+	/**여행 번호  FK역할*/
+	private int travelNo;
 	/**여행 방문 제목 */
 	private String travelItinearyTitle;
 	/**여행지 방문 날짜 */
@@ -18,9 +20,13 @@ public class TravelItinearyDTO {
 	/** 여행지방문 끝 시간*/
 	private String endTime;
 	/** 여행지 장소 좌표 위도*/
-	private double latitude;
+	private String latitude;
 	/** 여행지 장소 좌표 경도*/
-	private double logtitude;
+	private String logtitude;
+	/**여행지 장소에서 사용한 돈 */
+	private int money;
+	/**여행지 분류 (맛집, 여행지) */
+	private String category;
 	/** 여행지에서의 내용 img 태그도 같이 들어감*/
 	private String story;
 	
@@ -29,48 +35,64 @@ public class TravelItinearyDTO {
 	/** 기본 생성자 */
 	public TravelItinearyDTO() {}
 
-
-/**
- * @see 여행 일정 전체 받는 생성자
- * @param travelNo
- * @param day
- * @param startTime
- * @param endTime
- * @param location
- * @param story
- */
-
-
 	
-	//Getter Setter
-	public String getTravelNo() {
+
+	public TravelItinearyDTO(int itinearyNo, int travelNo, String travelItinearyTitle, String day, String startTime,
+			String endTime, String latitude, String logtitude, String story) {
+		super();
+		this.itinearyNo = itinearyNo;
+		this.travelNo = travelNo;
+		this.travelItinearyTitle = travelItinearyTitle;
+		this.day = day;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.latitude = latitude;
+		this.logtitude = logtitude;
+		this.story = story;
+	}
+
+
+
+	public TravelItinearyDTO(int itinearyNo, int travelNo, String travelItinearyTitle, String day, String startTime,
+			String endTime, String latitude, String logtitude, int money, String category, String story) {
+		super();
+		this.itinearyNo = itinearyNo;
+		this.travelNo = travelNo;
+		this.travelItinearyTitle = travelItinearyTitle;
+		this.day = day;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.latitude = latitude;
+		this.logtitude = logtitude;
+		this.money = money;
+		this.category = category;
+		this.story = story;
+	}
+
+
+
+	public int getItinearyNo() {
+		return itinearyNo;
+	}
+
+
+
+	public void setItinearyNo(int itinearyNo) {
+		this.itinearyNo = itinearyNo;
+	}
+
+
+
+	public int getTravelNo() {
 		return travelNo;
 	}
 
 
-	/**
-	 * 
-	 * @param travelNo
-	 * @param travelItinearyTitle
-	 * @param day
-	 * @param startTime
-	 * @param endTime
-	 * @param latitude
-	 * @param logtitude
-	 * @param story
-	 */
-	public TravelItinearyDTO(String travelNo, String travelItinearyTitle, String day, String startTime, String endTime,
-		long latitude, long logtitude, String story) {
-	super();
-	this.travelNo = travelNo;
-	this.travelItinearyTitle = travelItinearyTitle;
-	this.day = day;
-	this.startTime = startTime;
-	this.endTime = endTime;
-	this.latitude = latitude;
-	this.logtitude = logtitude;
-	this.story = story;
-}
+
+	public void setTravelNo(int travelNo) {
+		this.travelNo = travelNo;
+	}
+
 
 
 	public String getTravelItinearyTitle() {
@@ -78,9 +100,11 @@ public class TravelItinearyDTO {
 	}
 
 
+
 	public void setTravelItinearyTitle(String travelItinearyTitle) {
 		this.travelItinearyTitle = travelItinearyTitle;
 	}
+
 
 
 	public String getDay() {
@@ -88,9 +112,11 @@ public class TravelItinearyDTO {
 	}
 
 
+
 	public void setDay(String day) {
 		this.day = day;
 	}
+
 
 
 	public String getStartTime() {
@@ -98,9 +124,11 @@ public class TravelItinearyDTO {
 	}
 
 
+
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
+
 
 
 	public String getEndTime() {
@@ -108,29 +136,59 @@ public class TravelItinearyDTO {
 	}
 
 
+
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 
 
-	public double getLatitude() {
+
+	public String getLatitude() {
 		return latitude;
 	}
 
 
-	public void setLatitude(double latitude) {
+
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 
 
-	public double getLogtitude() {
+
+	public String getLogtitude() {
 		return logtitude;
 	}
 
 
-	public void setLogtitude(double logtitude) {
+
+	public void setLogtitude(String logtitude) {
 		this.logtitude = logtitude;
 	}
+
+
+
+	public int getMoney() {
+		return money;
+	}
+
+
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 
 
 	public String getStory() {
@@ -138,14 +196,16 @@ public class TravelItinearyDTO {
 	}
 
 
+
 	public void setStory(String story) {
 		this.story = story;
 	}
 
 
-	public void setTravelNo(String travelNo) {
-		this.travelNo = travelNo;
-	}
+
+
+
+
 
 	
 	

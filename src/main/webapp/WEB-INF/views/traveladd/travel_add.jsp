@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 
 <style>
 #detailmap {
@@ -36,6 +37,11 @@ width: 100%;
 	href='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.print.css'
 	rel='stylesheet' media='print' />
 
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/tinymce/tinymce.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/tinymce/tinymce.min.js"></script>
+
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar/moment.min.js'></script>
 
@@ -49,28 +55,37 @@ width: 100%;
 	src='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.js'></script>
 
 
-
-
 <!-- 초기 셋팅 -->
 <script>
+alert('여행번호'+${travelDTO.travelNo});
 /* $("#travel_thema2").val(${travelDTO.thema}.attr("selected", "selected")); */
 </script>
 <!-- 데이트피커-->
 	<script type="text/javascript">
 	 $( function() {
 		    $( "#travel_start_day2" ).datepicker({ dateFormat: 'yy-mm-dd' });
-		    $( "#travel_end_day2" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		    $( "#travel_end_day2" ).datepicker({ dateFormat: 'yy-mm-dd',
+		    	beforeShowDay:noBefore2
+			});
 		    $("#travel_start_day2").on("change",function (){ 
 		    	$('#calendar').fullCalendar({
-					 validRange: {
-					        start: $("travel_start_day2").val(),
-					    }
-				});
-		        $('#calendar').fullCalendar('render');
-		    	
+		    		  validRange: function(nowDate) {
+		    		        return {
+		    		        	start: $("#travel_start_day2").val(),
+		    		        	 end:   $.fullCalendar.moment($("#travel_end_day2").val()).add(1,'days')
+		    		        };
+		    		    }
+		    	});
 		   });
-	
+		    
 	  });
+	 function noBefore2(date){ 
+		    if (date < $("#travel_start_day2").datepicker( "getDate" )) 
+		        return [false]; 
+		    return [true]; 
+		 }
+	 
+	 
 	</script>
 <!-- ./데이트피커-->
 
@@ -202,6 +217,7 @@ width: 100%;
 
 <!--달력 캘린더 -->
 <script>
+var flag=0;
 	$(document).ready(function() {
 
 		/* initialize the external events
@@ -224,7 +240,7 @@ width: 100%;
 
 		});
 
-		$('#calendar').find('.fc-slats').find('[class="fc-widget-content"]').hover(
+/* 		$('#calendar').find('.fc-slats').find('[class="fc-widget-content"]').hover(
 			function() {
 				var tr = $(this).parent();
 				var time = tr.find('td.fc-axis.fc-time.fc-widget-content').find("span").text();
@@ -232,7 +248,7 @@ width: 100%;
 			},
 			function() {
 				$(this).children('.temp_cell').remove();
-			});
+			}); */
 			/* initialize the calendar
 			-----------------------------------------------------------------*/
 
@@ -243,10 +259,10 @@ width: 100%;
 				right : 'month,agendaWeek,agendaDay'
 			},
 			defaultView : 'agendaWeek',
-			  validRange: {
-			        start: $("#travel_start_day2").val(),
-			        end:  $("#travel_end_day2").val()
-			    },
+			validRange: {
+				 	start: $("#travel_start_day2").val(),
+			        end:   $.fullCalendar.moment($("#travel_end_day2").val()).add(1,'days')
+			     },
 			editable : true,
 			droppable : true, // this allows things to be dropped onto the calendar
 			drop : function(date, allDay) {
@@ -264,6 +280,8 @@ width: 100%;
 				day : "일별",
 			},
 		 	dayClick : function(date, jsEvent, view) {
+		 		flag=0;
+		 		alert("삽입:"+flag);
 					//alert(moment(date).add('m',30).utc().format());
 				  //alert('Clicked on: ' + date.format());
 				 // alert('Clicked on: ' + date.format('YYYY-MM-DD A/P HH:MM'));
@@ -272,8 +290,9 @@ width: 100%;
 			      var endTime=moment(date).add('m',30).utc().format();
 				$("#startTime").val(startTime);			
 				$("#endTime").val(endTime);			
+				itinearyInitFunc();//모달 초기화
 				$("#detailmap").modal('show');
-				setTimeout("callMap()", 500);
+			
 			}, 
 			navLinks : true,
 			navLinkDayClick : function(date, jsEvent) {
@@ -283,10 +302,11 @@ width: 100%;
 			editable : true,
 			eventLimit : true, // allow "more" link when too many events
 			events: function(start, end, timezone, callback) {
+				alert("이벤트"+flag);
 				$("#travelItineary_btn").click(function() {
-							
-							//alert(Editor.getContent());
-							$("#itinearyStory").val(Editor.getContent());
+						if(flag==0){	
+					    //alert($("#itinearyStory").val(tinymce.activeEditor.getContent()) );
+							$("#itinearyStory").val(tinymce.activeEditor.getContent());
 							var url="travelItineary";
 							 $.ajax({
 									url : url, //요청이름(이동경로)
@@ -294,10 +314,11 @@ width: 100%;
 									data: $("#travelItinearyForm").serialize(),
 									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
 									success : function(travelItinearyDTO) {
-									
+										alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
 										//alert(response+"dd5335");
 									 	 var events = [];
 											events.push({
+											id:travelItinearyDTO.itinearyNo,
 								            title: travelItinearyDTO.travelItinearyTitle,
 							                start:travelItinearyDTO.startTime,
 							              	end :travelItinearyDTO.endTime
@@ -308,12 +329,61 @@ width: 100%;
 										//alert(err + "오류발생")
 									}
 								});//Ajax 끝
-								
+						}
+						else if(flag==1){//수정하기 ajax
+							$("#itinearyStory").val(tinymce.activeEditor.getContent());
+							var url="travelItineary";
+							 $.ajax({
+									url : url, //요청이름(이동경로)
+									type : "post", //method방식(get,post)
+									data: $("#travelItinearyForm").serialize(),
+									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+									success : function(travelItinearyDTO) {
+										alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
+										//alert(response+"dd5335");
+									 	
+									},//ajax_Success
+									error : function(err) {
+										//alert(err + "오류발생")
+									}
+								});//Ajax 끝
+						}
 								 
 					$("#detailmap").modal('toggle');	
-				
 					});//btnClick 
 			},//events 끝
+			 eventClick: function(event) {//수정용
+				 flag=1;
+				 alert("수정"+flag);
+				 alert(event.id);
+				var itinearyNo="itinearyNo="+event.id;
+			 	 $.ajax({
+						url :"selectTravelItineary", //요청이름(이동경로)
+						type : "post", //method방식(get,post)
+						data: itinearyNo,
+						dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+						success : function(travelItinearyDTO) {
+							itinearyInitFunc();//여행일정모달 초기화
+							alert(travelItinearyDTO.travelItinearyTitle)						 	
+						    //1.여행타이틀 셋팅 
+							$("#travelItinearyTitle").val(travelItinearyDTO.travelItinearyTitle);
+							//2.좌표셋팅
+							var markerpos = new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude);
+							alert(markerpos);
+							var marker=addMarker(markerpos,0);
+							onePointMap.panTo(markerpos);
+							//3.내용 셋팅
+							tinymce.activeEditor.setContent(travelItinearyDTO.story);
+							//4.modal 보여주기
+							$("#detailmap").modal('toggle');
+						},//ajax_Success
+						error : function(err) {
+							alert(err + "오류발생")
+						}
+					});//Ajax 끝
+			 	
+			 	
+			},//event 클릭
 		}); /*./fullCalendar 끝*/
 		
 
@@ -702,8 +772,7 @@ width: 100%;
 				style="background-clip: border-box; margin-top: 2%; margin-right: 10%">
 				
 				<!-- 여행 일정 전송 폼 -->
-				<form method="post" id="travelItinearyForm"
-					name="onePointContent">
+				<form method="post" id="travelItinearyForm" name="onePointContent">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							id="travelitineary_modal_close_btn" aria-hidden="true">X</button>
@@ -716,11 +785,12 @@ width: 100%;
 					</div>
 
 					<div class="modal-body">
+						<input type="hidden" value="${travelDTO.travelNo}" name="travelNo">
 						<input type="hidden" value="" id="startTime" name="startTime">
 						<input type="hidden" value="" id="endTime" name="endTime">
 						<input type="hidden" value="" id="latitude" name="latitude">
 						<input type="hidden" value="" id="logtitude" name="logtitude">
-						<input type="hidden" value="" id="itinearyStory" name="story">
+					
 						<div class="map_wrap">
 							<!-- 지도 div 영역 -->
 							<div id="one_point_map"></div>
@@ -745,9 +815,8 @@ width: 100%;
 					<div class="section-title line-style">
 						<h3 class="title">일정 계획</h3>
 					</div>
-					<!-- Daum Editor 추가부분 -->
-					<jsp:include page="/WEB-INF/views/editor/editor.jsp"></jsp:include>
-
+					<textarea  id="itinearyStory" name="story" rows="50" cols="10"></textarea>
+					<input name="image" type="file" id="upload" class="hidden" hidden>
 					<!-- 모달 foot -->
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -766,30 +835,46 @@ width: 100%;
 </div>
 <!-- 모달 전체 윈도우 -->
 
+<!-- 여행장소 1개 초기화 -->
+<script>
+function itinearyInitFunc(){
+	/*1.일정 제목 초기화*/
+	$("#travelItinearyTitle").val("");
+	/*2.지도 초기화*/
+	$("#keywordInput").val("");
+	removeAllChildNods(document.getElementById('placesList'));
+	removeMarker();
+	setTimeout("callMap()", 500);
+	/*3.텍스트 영역 초기화*/
+	tinymce.activeEditor.setContent(' ');
+}
+
+</script>
 
 <!--여행 장소 1개 추가 모달 다음 지도 API-->
 <script>
+var onePointMap;
+var markers;
 	//마커를 담을 배열입니다
-	var markers = [];
+	 markers = [];
 	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 	var infowindow = new daum.maps.InfoWindow({
 		zIndex : 1
 	});
 
-	var onPointMapContainer = document.getElementById('one_point_map'), // 지도를 표시할 div 
+	 onPointMapContainer = document.getElementById('one_point_map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
 			level : 3 // 지도의 확대 레벨
 		};
 
 	// 지도를 생성합니다    
-	var onePointMap = new daum.maps.Map(onPointMapContainer, mapOption);
+	onePointMap = new daum.maps.Map(onPointMapContainer, mapOption);
 
-	function callMap() {
-		onePointMap.relayout();
-	}
 	
-
+	function callMap() {
+	onePointMap.relayout();
+	}
 
 	$(function() {
 		$("#kewordSearch").click(function() {
@@ -832,187 +917,191 @@ width: 100%;
 				}
 			}
 
-			//검색 결과 목록과 마커를 표출하는 함수입니다
-			function displayPlaces(places) {
-				var listEl = document.getElementById('placesList'),
-					menuEl = document.getElementById('menu_wrap'),
-					fragment = document.createDocumentFragment(),
-					bounds = new daum.maps.LatLngBounds(),
-					listStr = '';
-
-				// 검색 결과 목록에 추가된 항목들을 제거합니다
-				removeAllChildNods(listEl);
-
-				// 지도에 표시되고 있는 마커를 제거합니다
-				removeMarker();
-
-				for (var i = 0; i < places.length; i++) {
-
-					// 마커를 생성하고 지도에 표시합니다
-					var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
-						marker = addMarker(placePosition, i),
-						itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
-
-					// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-					// LatLngBounds 객체에 좌표를 추가합니다
-					bounds.extend(placePosition);
-
-					// 마커와 검색결과 항목에 mouseover 했을때
-					// 해당 장소에 인포윈도우에 장소명을 표시합니다
-					// mouseout 했을 때는 인포윈도우를 닫습니다
-					(function(marker, title) {
-						daum.maps.event.addListener(marker, 'mouseover', function() {
-							displayInfowindow(marker, title);
-						});
-
-						daum.maps.event.addListener(marker, 'mouseout', function() {
-							infowindow.close();
-						});
-
-						daum.maps.event.addListener(marker, 'click', function() {
-							//alert(marker.getPosition().getLat());
-							
-							$("#latitude").val(marker.getPosition().getLat());
-							$("#logtitude").val(marker.getPosition().getLng());
-							removeMarker();
-							selectMarker(marker);
-							//alert(marker.getPosition());
-						});
-
-						itemEl.onmouseover = function() {
-							displayInfowindow(marker, title);
-						};
-						itemEl.onclick = function() {
-							removeMarker();
-							selectMarker(marker);
-						};
-						itemEl.onmouseout = function() {
-							infowindow.close();
-						};
-
-
-					})(marker, places[i].title);
-
-					fragment.appendChild(itemEl);
-				}
-
-				// 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
-				listEl.appendChild(fragment);
-				menuEl.scrollTop = 0;
-
-				// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-				onePointMap.setBounds(bounds);
-			}
-
-			//검색결과 항목을 Element로 반환하는 함수입니다
-			function getListItem(index, places) {
-				var el = document.createElement('li'),
-					itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
-						'<div class="info">' +
-						'   <h5>' + places.title + '</h5>';
-
-				if (places.newAddress) {
-					itemStr += '    <span>' + places.newAddress + '</span>' +
-						'   <span class="jibun gray">' + places.address + '</span>';
-				} else {
-					itemStr += '    <span>' + places.address + '</span>';
-				}
-
-				itemStr += '  <span class="tel">' + places.phone + '</span>' +
-					'</div>';
-
-				el.innerHTML = itemStr;
-				el.className = 'item';
-
-				return el;
-			}
-
-			//마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-			function addMarker(position, idx, title) {
-				var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-					imageSize = new daum.maps.Size(36, 37), // 마커 이미지의 크기
-					imgOptions = {
-						spriteSize : new daum.maps.Size(36, 691), // 스프라이트 이미지의 크기
-						spriteOrigin : new daum.maps.Point(0, (idx * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-						offset : new daum.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-					},
-					markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-					marker = new daum.maps.Marker({
-						position : position, // 마커의 위치
-						image : markerImage
-					});
-
-				marker.setMap(onePointMap); // 지도 위에 마커를 표출합니다
-				marker.setDraggable(true); // 드래그 가능하도록 설정
-				markers.push(marker); // 배열에 생성된 마커를 추가합니다
-
-				return marker;
-			}
-
-			//지도 위에 표시되고 있는 마커를 모두 제거합니다
-			function removeMarker() {
-				for (var i = 0; i < markers.length; i++) {
-					markers[i].setMap(null);
-				}
-				markers = [];
-			}
-
-			//지도 위에 표시되고 있는 마커를 모두 제거
-			function selectMarker(marker) {
-				marker.setMap(onePointMap); // 지도 위에 마커를 표출합니다
-				markers.push(marker); // 배열에 생성된 마커를 추가합니다
-			}
-
-			//검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-			function displayPagination(pagination) {
-				var paginationEl = document.getElementById('pagination'),
-					fragment = document.createDocumentFragment(),
-					i;
-
-				// 기존에 추가된 페이지번호를 삭제합니다
-				while (paginationEl.hasChildNodes()) {
-					paginationEl.removeChild(paginationEl.lastChild);
-				}
-
-				for (i = 1; i <= pagination.last; i++) {
-					var el = document.createElement('a');
-					el.href = "#";
-					el.innerHTML = i;
-
-					if (i === pagination.current) {
-						el.className = 'on';
-					} else {
-						el.onclick = (function(i) {
-							return function() {
-								pagination.gotoPage(i);
-							}
-						})(i);
-					}
-
-					fragment.appendChild(el);
-				}
-				paginationEl.appendChild(fragment);
-			}
-
-			//검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-			//인포윈도우에 장소명을 표시합니다
-			function displayInfowindow(marker, title) {
-				var content = '<div style="padding:5px;z-index:2;">' + title + '</div>';
-
-				infowindow.setContent(content);
-				infowindow.open(onePointMap, marker);
-
-			}
-
-			// 검색결과 목록의 자식 Element를 제거하는 함수입니다
-			function removeAllChildNods(el) {
-				while (el.hasChildNodes()) {
-					el.removeChild(el.lastChild);
-				}
-			}
-
 		}) //kewordSearchClick 했을때
 	}); //Jquery  끝 */
+	
+
+	//검색 결과 목록과 마커를 표출하는 함수입니다
+	function displayPlaces(places) {
+		var listEl = document.getElementById('placesList'),
+			menuEl = document.getElementById('menu_wrap'),
+			fragment = document.createDocumentFragment(),
+			bounds = new daum.maps.LatLngBounds(),
+			listStr = '';
+
+		// 검색 결과 목록에 추가된 항목들을 제거합니다
+		removeAllChildNods(listEl);
+		
+		
+		// 지도에 표시되고 있는 마커를 제거합니다
+		removeMarker();
+
+		for (var i = 0; i < places.length; i++) {
+
+			// 마커를 생성하고 지도에 표시합니다
+			var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
+				marker = addMarker(placePosition, i),
+				itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
+
+			// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+			// LatLngBounds 객체에 좌표를 추가합니다
+			bounds.extend(placePosition);
+
+			// 마커와 검색결과 항목에 mouseover 했을때
+			// 해당 장소에 인포윈도우에 장소명을 표시합니다
+			// mouseout 했을 때는 인포윈도우를 닫습니다
+			(function(marker, title) {
+				daum.maps.event.addListener(marker, 'mouseover', function() {
+					displayInfowindow(marker, title);
+				});
+
+				daum.maps.event.addListener(marker, 'mouseout', function() {
+					infowindow.close();
+				});
+
+				daum.maps.event.addListener(marker, 'click', function() {
+					//alert(marker.getPosition().getLat());
+					
+					$("#latitude").val(marker.getPosition().getLat());
+					$("#logtitude").val(marker.getPosition().getLng());
+					removeMarker();
+					selectMarker(marker);
+					//alert(marker.getPosition());
+				});
+
+				itemEl.onmouseover = function() {
+					displayInfowindow(marker, title);
+				};
+				itemEl.onclick = function() {
+					$("#latitude").val(marker.getPosition().getLat());
+					$("#logtitude").val(marker.getPosition().getLng());
+					removeMarker();
+					selectMarker(marker);
+				};
+				itemEl.onmouseout = function() {
+					infowindow.close();
+				};
+
+
+			})(marker, places[i].title);
+
+			fragment.appendChild(itemEl);
+		}
+
+		// 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
+		listEl.appendChild(fragment);
+		menuEl.scrollTop = 0;
+
+		// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+		onePointMap.setBounds(bounds);
+	}
+
+	//검색결과 항목을 Element로 반환하는 함수입니다
+	function getListItem(index, places) {
+		var el = document.createElement('li'),
+			itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
+				'<div class="info">' +
+				'   <h5>' + places.title + '</h5>';
+
+		if (places.newAddress) {
+			itemStr += '    <span>' + places.newAddress + '</span>' +
+				'   <span class="jibun gray">' + places.address + '</span>';
+		} else {
+			itemStr += '    <span>' + places.address + '</span>';
+		}
+
+		itemStr += '  <span class="tel">' + places.phone + '</span>' +
+			'</div>';
+
+		el.innerHTML = itemStr;
+		el.className = 'item';
+
+		return el;
+	}
+
+	//마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
+	function addMarker(position, idx, title) {
+		var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+			imageSize = new daum.maps.Size(36, 37), // 마커 이미지의 크기
+			imgOptions = {
+				spriteSize : new daum.maps.Size(36, 691), // 스프라이트 이미지의 크기
+				spriteOrigin : new daum.maps.Point(0, (idx * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+				offset : new daum.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+			},
+			markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+			marker = new daum.maps.Marker({
+				position : position, // 마커의 위치
+				image : markerImage
+			});
+
+		marker.setMap(onePointMap); // 지도 위에 마커를 표출합니다
+		marker.setDraggable(true); // 드래그 가능하도록 설정
+		markers.push(marker); // 배열에 생성된 마커를 추가합니다
+
+		return marker;
+	}
+
+	//지도 위에 표시되고 있는 마커를 모두 제거합니다
+	function removeMarker() {
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(null);
+		}
+		markers = [];
+	}
+
+	//마커 올리기
+	function selectMarker(marker) {
+		marker.setMap(onePointMap); // 지도 위에 마커를 표출합니다
+		markers.push(marker); // 배열에 생성된 마커를 추가합니다
+	}
+
+	//검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+	function displayPagination(pagination) {
+		var paginationEl = document.getElementById('pagination'),
+			fragment = document.createDocumentFragment(),
+			i;
+
+		// 기존에 추가된 페이지번호를 삭제합니다
+		while (paginationEl.hasChildNodes()) {
+			paginationEl.removeChild(paginationEl.lastChild);
+		}
+
+		for (i = 1; i <= pagination.last; i++) {
+			var el = document.createElement('a');
+			el.href = "#";
+			el.innerHTML = i;
+
+			if (i === pagination.current) {
+				el.className = 'on';
+			} else {
+				el.onclick = (function(i) {
+					return function() {
+						pagination.gotoPage(i);
+					}
+				})(i);
+			}
+
+			fragment.appendChild(el);
+		}
+		paginationEl.appendChild(fragment);
+	}
+
+	//검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+	//인포윈도우에 장소명을 표시합니다
+	function displayInfowindow(marker, title) {
+		var content = '<div style="padding:5px;z-index:2;">' + title + '</div>';
+
+		infowindow.setContent(content);
+		infowindow.open(onePointMap, marker);
+
+	}
+
+	// 검색결과 목록의 자식 Element를 제거하는 함수입니다
+	function removeAllChildNods(el) {
+		while (el.hasChildNodes()) {
+			el.removeChild(el.lastChild);
+		}
+	}
 </script>
 
 
@@ -1095,91 +1184,54 @@ width: 100%;
 
 
 
-<script type="text/javascript">
-   var config = {
-      txHost: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) http://xxx.xxx.com */
-      txPath: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) /xxx/xxx/ */
-      txService: 'sample', /* 수정필요없음. */
-      txProject: 'sample', /* 수정필요없음. 프로젝트가 여러개일 경우만 수정한다. */
-      initializedId: "", /* 대부분의 경우에 빈문자열 */
-      wrapper: "tx_trex_container", /* 에디터를 둘러싸고 있는 레이어 이름(에디터 컨테이너) */
-      form: 'travelItinearyForm'+"", /* 등록하기 위한 Form 이름 */
-      txIconPath: "${pageContext.request.contextPath}/resources/daumOpenEditor/images/icon/editor/", /*에디터에 사용되는 이미지 디렉터리, 필요에 따라 수정한다. */
-      txDecoPath: "${pageContext.request.contextPath}/resources/daumOpenEditor/images/deco/contents/", /*본문에 사용되는 이미지 디렉터리, 서비스에서 사용할 때는 완성된 컨텐츠로 배포되기 위해 절대경로로 수정한다. */
-      canvas: {
-            exitEditor:{
-                /*
-                desc:'빠져 나오시려면 shift+b를 누르세요.',
-                hotKey: {
-                    shiftKey:true,
-                    keyCode:66
-                },
-                nextElement: document.getElementsByTagName('button')[0]
-                */
-            },
-         styles: {
-            color: "#123456", /* 기본 글자색 */
-            fontFamily: "굴림", /* 기본 글자체 */
-            fontSize: "10pt", /* 기본 글자크기 */
-            backgroundColor: "#fff", /*기본 배경색 */
-            lineHeight: "1.5", /*기본 줄간격 */
-            padding: "8px" /* 위지윅 영역의 여백 */
-         },
-         showGuideArea: false
-      },
-      events: {
-         preventUnload: false
-      },
-      sidebar: {
-         attachbox: {
-            show: true,
-            confirmForDeleteAll: true
-         }
-      },
-      size: {
-         contentWidth: 700 /* 지정된 본문영역의 넓이가 있을 경우에 설정 */
-      }
-   };
-   EditorJSLoader.ready(function(Editor) {
-	      var editor = new Editor(config);
-	      //alert(editor);
-	   });
-	   
-	   
-/* 	   function validForm(editor) {
-	      // Place your validation logic here
 
-	      // sample : validate that content exists
-	      //alert(editor.getContent());
-	      var validator = new Trex.Validator();
-	      var content = editor.getContent();
-	      //alert(content);
-	      if (!validator.exists(content)) {
-	         //alert('내용을 입력하세요');
-	         return false;
-	      }
-
-	      return true;
-	   }
-	   
-	   function setForm(editor) {
-	        var i, input;
-	        var form = editor.getForm();
-	        var content = editor.getContent();
-
-	        // 본문 내용을 필드를 생성하여 값을 할당하는 부분
-	        var textarea = document.createElement('textarea');
-	        textarea.name = 'story';
-	        textarea.value = content;
-	        
-	        form.createField(textarea);
-	      return true;
-	   }
-	    */
-	  // Editor.save();
-   </script>
-
-
+<script>
+$(document).ready(function() {
+		//tiymce 
+		tinymce.init({
+				selector : "#itinearyStory",
+				theme : "modern",
+				height : "300",
+				paste_data_images : true,
+				language : "ko_KR",
+				images_upload_base_path : '',
+				plugins : [
+					"advlist autolink lists link image charmap print preview hr anchor pagebreak",
+					"searchreplace wordcount visualblocks visualchars code fullscreen",
+					"insertdatetime media nonbreaking save table contextmenu directionality",
+					"emoticons template paste textcolor colorpicker textpattern" ],
+				toolbar1 : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+				toolbar2 : "print preview media | forecolor backcolor emoticons",
+				image_advtab : true,
+				file_picker_callback : function(callback, value, meta) {
+					if (meta.filetype == 'image') {
+						$('#upload').trigger('click');
+						$('#upload')
+							.on('change',function() {
+									var file = this.files[0];
+									var reader = new FileReader();
+									reader.onload = function(e) {
+										callback(
+											e.target.result,
+											{
+												alt : ''
+											});
+									};
+									reader
+										.readAsDataURL(file);
+								});
+					}
+				},
+				templates : [ {
+					title : 'Test template 1',
+					content : 'Test 1'
+				}, {
+					title : 'Test template 2',
+					content : 'Test 2'
+				} ]
+			});
+});//Jquery 끝
+</script>
 
 
 
