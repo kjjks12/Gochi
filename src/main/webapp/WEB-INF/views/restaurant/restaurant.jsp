@@ -27,15 +27,27 @@
       font-weight: bold; 
    }
    
-   #field-category {margin-top:0px;}   
+
+   #field-category {margin-top:0px;}
+   
+   /* #food-start {height: 230px !important;}
+   #food-start {width : auto;} */
+   /* #food-start {
+      width: auto;
+        height: 50px;;
+      
+   } */
+ 
 
 </style>
 
 
 <script>
 
+
 $(function() {   
    selectList();
+
    $('#modal-opener').click(function() {
       setTimeout(setMap2, 500);
    });
@@ -122,7 +134,6 @@ $(function() {
                   daum.maps.event.addListener(marker, 'click', function() {
                       // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다                      
                       var coord = new daum.maps.LatLng(place.latitude, place.longitude);   
-                
                         
                       //주소/위치에 선택한 정보 넣기.!!!!!!!!!!!!!!!!!!!!
                  document.getElementById("food-location").value=place.address;
@@ -132,7 +143,6 @@ $(function() {
                 
                   });
                 }
-            
                
             });   
    
@@ -154,7 +164,9 @@ $(function() {
     }); // 여기까지 callback 변수에 저장된 메서드
     
 });
-
+      
+</script>
+<script>
 function foodCheck() {
    var category = document.insertForm
    if(category.category2.value==""){
@@ -212,26 +224,6 @@ function selectList() {
    })
 }
 
-
-/* <div class="item">
-<div class="blog-list masonry-post">
-   <h2 class="title">
-      <a href="blog-detail.html">★담소 순댓국</a>
-   </h2>
-   <div class="image" id="food-start">
-      <a href="#"><img src="${pageContext.request.contextPath}/resources/images/sample1.jpg" width="100%" height="340px"/></a>
-      <div class="social">
-         <a href="#"><span class="date"><i class="fa fa-heart-o"></i><span>654</span></span></a>
-         <a href="#"><i class="fa fa-eye"></i><span>92435</span></a>
-      </div>
-   </div>
-   <div class="text">
-      <h3 class="subtitle">맛있는 순댓국 세상으로 오세요!</h3>
-      소사골의 소고기 순대국, 올바름에 대해 고민하는 사람들
-      순대국으로 3끼를 다 먹을 수 있는 그날이 올때까지 
-   </div>
-</div>
-</div> */
 
 
 
@@ -427,3 +419,4 @@ function selectList() {
       <!-- /.modal-dialog -->
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=815544b5d2063051aa6e6316ed41e050&libraries=services"></script>
+

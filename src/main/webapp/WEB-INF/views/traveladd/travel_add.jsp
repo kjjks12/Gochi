@@ -57,7 +57,7 @@ width: 100%;
 
 <!-- 초기 셋팅 -->
 <script>
-alert('여행번호 : ${travelDTO.travelNo}');
+alert('여행번호'+${travelDTO.travelNo});
 /* $("#travel_thema2").val(${travelDTO.thema}.attr("selected", "selected")); */
 </script>
 <!-- 데이트피커-->
@@ -152,10 +152,9 @@ alert('여행번호 : ${travelDTO.travelNo}');
 		//여행 타이틀 수정 완료 버튼 눌렀을때
 		$("#travel_title_save_btn").click(function() {
 			//원래 여행 타이틀 div에 입력받은 text값 넣음
+			//alert($("#travel_title_text").val());
 			$("#travel_title").text($("#travel_title_text").val());
-			
-			var title = ($("#travel_title_text").val()); //타이틀 수정 서블렛으로 보낼 타이틀 문자열
-			
+
 			//수정 입력폼 숨기기
 			$("#travel_title_text").hide();
 			$("#travel_title_save_btn").hide();
@@ -163,13 +162,6 @@ alert('여행번호 : ${travelDTO.travelNo}');
 			//기존 보여주는 양식 보여주기
 			$("#travel_title").show();
 			$("#travel_title_change_btn").show();
-			
-			//타이틀 수정 처리 (Ajax)
-			$.ajax({
-				type : "post",
-				url:"${pageContext.request.contextPath}/mypage/updateItinearyTitle",
-				data:"title="+title
-			})
 		})
 
 

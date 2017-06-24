@@ -63,7 +63,5 @@
    <script src="${pageContext.request.contextPath}/resources/script/vendor/images-fill/imagefill.min.js"></script>               <!-- ImageFill Script -->
    <script   src="${pageContext.request.contextPath}/resources/script/vendor/easydropdown/jquery.easydropdown.min.js"></script>   <!-- Select   list Script   -->
    <script   src="${pageContext.request.contextPath}/resources/script/vendor/carousel/responsiveCarousel.min.js"></script>      <!-- Carousel Script -->
- 
- <script   src="${pageContext.request.contextPath}/resources/script/custom.js"></script>      <!-- Custom   Script -->
- -
+ 	<script   src="${pageContext.request.contextPath}/resources/script/custom.js"></script>      <!-- Custom   Script -->
 </html>

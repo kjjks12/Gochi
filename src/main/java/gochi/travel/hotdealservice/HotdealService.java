@@ -13,6 +13,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import com.sun.org.apache.xerces.internal.util.URI;
+
 import gochi.travel.model.hotdealdto.HotdealDTO;
 
 @Service
@@ -33,7 +35,7 @@ public class HotdealService {
 			/** 위메프 */
 			String defaultQuery;
 			if (query == null) {
-				query = "국내여행";
+				query = "부산";
 			}
 			String encodeResult = URLEncoder.encode(query, "UTF-8");
 			// System.out.println(encodeResult);
