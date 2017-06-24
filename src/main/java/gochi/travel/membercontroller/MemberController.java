@@ -71,7 +71,6 @@ public class MemberController {
 			if(path.equals("/controller/")){
 				return "index";
 			}
-			
 			String rePath = path.replace("/controller/","");
 			return "redirect:/"+rePath;
 		}

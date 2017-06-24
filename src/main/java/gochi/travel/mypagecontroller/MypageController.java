@@ -27,7 +27,7 @@ import gochi.travel.mypageservice.MypageService;
 public class MypageController {
 	@Autowired
 	private MypageService mypageService;
-
+	
 	/***
 	 * 각 계정에 해당하는 프로필 페이지로 이동
 	 * 
@@ -46,11 +46,12 @@ public class MypageController {
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("dto");
 		//System.out.println("세션에서 가져온 이메일 : "+memberDTO.getEmail());
 		
-		
+		MypageDTO mypageSessionDTO = mypageService.selectByEmail(mypageDTO.getEmail());
+	
 		request.setAttribute("MYPAGEDTO", mypageDTO);
 		request.setAttribute("MYPAGEEMAIL",mypageDTO.getEmail());
 		request.setAttribute("MYEMAIL",memberDTO.getEmail());
-
+		request.setAttribute("MYPAGESESSION", mypageSessionDTO);
 		return "ex/profile";
 	}
 	@RequestMapping("/profileDetail")
@@ -74,5 +75,10 @@ public class MypageController {
 	public String gotoUpdate(String email,String phoneNumber,String selfContent){
 		mypageService.updateMyInfo(new MypageDTO(email,phoneNumber,selfContent));
 		return "redirect:/mypage/goInfo/"+email;
+	}
+	
+	@RequestMapping("/updateItinearyTitle")
+	public void updateItinearyTitle(String title){
+		//System.out.println("여행제목 : "+title);
 	}
 }

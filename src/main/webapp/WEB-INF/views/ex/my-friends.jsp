@@ -6,6 +6,7 @@
 /* 에이작스 시작 */
 $(function(){
 	$("#friends-search").keyup(function(){//멤버 찾기
+	
 		$.ajax({
 			type : "post",  
 			url:"${pageContext.request.contextPath}/searchMember",
@@ -14,15 +15,24 @@ $(function(){
 			success:function(data){
 				var str="";
 				$.each(data,function(index,item){
-					str+="<ul id='searchEmail'><h4 style='color:rgb(31, 183, 166)'>"+item.email+"</h4></ul>";
+					str+="<ul id='searchEmail'><h4 class='searchedIDs' style='color:rgb(31, 183, 166)'>"+item.email+"</h4></ul>";
 				})
+				
 			$("#searchArea").html(str);
-					
+				
 			},
 			error:function(){
-				console.log("실패");
+				var str="검색 키워드를 입력해주세요";
+				$("#searchArea").html(str);
 			}
 		})
+	})
+	$(document).on("mouseenter","[class=searchedIDs]",function(){//찾은 id에 마우스 접근시
+		$(this).animate({"font-size":"30px"},"fast");
+	})
+	
+	$(document).on("mouseleave","[class=searchedIDs]",function(){//찾은 id에서 마우스 이탈시
+		$(this).animate({"font-size":"20px"},"fast");
 	})
 	
 	$(document).on("click","#searchEmail",function(){//멤버 찾기 후 클릭시 text박스로 이동
@@ -81,6 +91,19 @@ $(function(){
 		window.location.reload(true);//리플래쉬
 	})
 	$("#columns").children().css({"text-align":"center","font-size":"25px"});//친구 테이블 css
+	
+	$("[id=aTag]").mouseenter(function(){ // 친구 아이디에 마우스를 접근할시
+		$(this).animate({"font-size":"35px"},"fast");
+	})
+	$("[id=aTag]").mouseleave(function(){ // 친구 아이디에서 마우스 커서를 이탈할시
+		$(this).animate({"font-size":"25px"},"fast");
+	})
+	$("[id=profileImg]").mouseenter(function(){// 프로필 이미지에 마우스 커서를 접근할시
+		$(this).animate({"width":"250px"},"fast");
+	})
+	$("[id=profileImg]").mouseleave(function(){// 프로필 이미지에서 마우스 커서를 이탈할시
+		$(this).animate({"width":"100px"},"fast");
+	})
 })
 </script>
 <style>
@@ -129,10 +152,6 @@ table{
 							<li><a class="faq-button"
 								href="${pageContext.request.contextPath}/mypage/goInfo/${sessionScope.myEmail}"><i
 									class="icon fa fa-user-secret"></i>프로필</a></li>
-							<%-- <li><a class="faq-button" 
-
-href="${pageContext.request.contextPath}/mypage/property"><i class="icon fa fa-pencil-square-o"></i>내가쓴글</a></li>
-							 --%>
 							<li><a class="faq-button active"
 								href="${pageContext.request.contextPath}/friends"><i
 									class="icon fa fa-pencil-square-o"></i>친구목록</a></li>
@@ -149,20 +168,42 @@ href="${pageContext.request.contextPath}/mypage/property"><i class="icon fa fa-p
 							<table class="table-striped table-hover">
 								<thead>
 									<tr id="columns">
+										<th></th>
 										<th>친구 아이디</th>
-										<th>닉네임</th>
+										<!-- <th>닉네임</th> -->
 									</tr>
 								</thead>
 								<tbody>
 									<c:if test="${FriendDTO==null }">
-										<tr>
-											<td colspan="2">친구가 없습니다</td>
+										<tr id="friendSpace">
+											<td colspan="3" style="align:center;font-size:25px;">
+												친구가 없습니다
+												<img src="${pageContext.request.contextPath}/resources/images/nunmul.png">
+												<script>
+													$("#friendSpace").css({"background-color":"white"})
+												</script>
+											</td>
 										</tr>
 									</c:if>
 									<c:forEach items="${FriendDTO}" var="i">
 										<tr id="friends">
-											<td><a href="${pageContext.request.contextPath}/mypage/goInfo/${i.email}" id="aTag">${i.email }</a></td>
-											<td>${i.nickName }</td>
+											<c:choose>
+												<c:when test="${not empty i.profileImg}">
+													<td>
+														<img style="border-radius: 70%; width: 95px;" id="profileImg"
+														src="${pageContext.request.contextPath}/resources/img/member/profile/${i.email}/${i.profileImg}">
+														${i.nickName }
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td>
+														<img style="border-radius: 70%; width: 95px; margin-left: 60px;" id="profileImg"
+														src="${pageContext.request.contextPath}/resources/images/default-user-image.png">
+													</td>
+												</c:otherwise>
+											</c:choose>	
+											<td><a href="${pageContext.request.contextPath}/mypage/goInfo/${i.email}" id="aTag">${i.email}</a></td>
+											<%-- <td>${i.nickName }</td> --%>
 										</tr>
 										<script>
 										$("[id=aTag]").css({"font-size":"25px"});
@@ -173,7 +214,7 @@ href="${pageContext.request.contextPath}/mypage/property"><i class="icon fa fa-p
 							</table>
 							<br> <br>
 							<div class="field footer-form text-right">
-								<button type="button" id="cofirmMessage"
+								<button type="button" id="x	"
 									class="btn btn-default 
 
 button-form"
@@ -220,11 +261,9 @@ button-form"
 						<div class="field footer-form text-right">
 							<button type="submit" id="friendsAdd"
 								class="btn btn-default button-form" data-dismiss="modal">확인</button>
-							<button type="button" class="btn btn-reverse button-form" data-
-								dismiss="modal">취소</button>
+							<button type="button" class="btn btn-reverse button-form" data-dismiss="modal">취소</button>
 							<div id="dupliSpace"></div>
 						</div>
-
 					</div>
 				</form>
 			</div>
