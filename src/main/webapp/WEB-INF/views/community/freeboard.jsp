@@ -1,42 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <title>PROHOME - Responsive Real Estate Template</title>
     
+ 	<script src="${pageContext.request.contextPath}/resources/script/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/sweetalert.css">
     
-    <jsp:include page="/WEB-INF/views/include/include_top_css.jsp"/>
-    
-	<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
-	<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
-	<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
-	<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png" />
-	<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png" />
-	<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png" />
-	<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png" />
-	<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png" />
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-
-  </head>
-  
-  
-  <body class="fixed-header">
-
 	<div id="page-container">
 		
 		<section id="header-page" class="header-margin-base">
@@ -69,18 +37,18 @@
 				<div class="col-sm-3 col-md-3" id="block-menu-content">
 						<ul class="block-menu" data-spy="affix" data-offset-top="500" data-offset-bottom="400">
 							<li><a class="faq-button" href="faq"><i class="icon fa fa-check-square-o"></i>월간 베스트</a></li>
-							<li><a class="faq-button active" href="select"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
-							<li><a class="faq-button" href=""><i class="icon fa fa-picture-o"></i> Q&A</a></li>
+							<li><a class="faq-button active" href="pagination?lastNum=1"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
+							<li><a class="faq-button" href="qapagination?lastNum=1"><i class="icon fa fa-picture-o"></i> Q&A</a></li>
 						</ul>
 					</div>
 				
 					<!-- 이미지 사진 및 사이드바 -->
 					<div class="col-sm-9 col-md-9" >
-					
 						<div class="section-title line-style no-margin">
 							<h3 class="title">자유 게시판</h3>
 							<div style="text-align: right;">
-								<button type="button" class="btn btn-default" id="insert" name="insert" onclick="location.href='insert_freeboard'">글쓰기</button>
+								<input type="hidden" id="data_email" value="${sessionScope.dto.email}">
+								<button type="button" class="btn btn-default" id="insert" name="insert"> 글쓰기 </button>
 							</div>
 						</div>
 						
@@ -90,7 +58,7 @@
 								<tr>
 									<th>글번호</th>
 									<th>제목</th>
-									<th class="hidden-xs">Type</th>
+									<th class="hidden-xs">작성자</th>
 									<th class="hidden-xs hidden-sm">작성일</th>
 									<th class="hidden-xs">View</th>
 									<th>Status</th>
@@ -98,23 +66,41 @@
 								</tr>
 							  </thead>
 							  <tbody id="plus" name="plus">
-								<c:forEach items="${list}" var="i">
+								<c:forEach items="${list}" var="i" varStatus="status">
 									<tr>
-										<td style="text-align: center;">${i.boardno}</td>
+										<td id="boardno" style="text-align: center;" >${i.rnum}</td>
 										<td><a href="detail/${i.boardno}">${i.title}</a></td>
-										<td class="hidden-xs">Apartement</td>
+										<td class="hidden-xs" id="email">${i.email}</td>
 										<td class="hidden-xs hidden-sm">${i.dDay}</td>
 										<td class="hidden-xs">${i.hits}</td>
-										<td><span class="label label-success">Active</span></td>
+										<td>
+										<c:choose>
+											<c:when test="${i.sel=='질문'}">
+												<span class="label label-success">${i.sel}</span>
+											</c:when>
+											<c:when test="${i.sel=='메모'}">
+												<span class="label label-danger">${i.sel}</span>
+											</c:when>
+											<c:when test="${i.sel=='여행기'}">
+												<span class="label label-info">${i.sel}</span>
+											</c:when>
+											<c:when test="${i.sel=='리뷰'}">
+												<span class="label label-warning">${i.sel}</span>
+											</c:when>
+											<c:otherwise>
+												<span class="label label-primary">${i.sel}</span>
+											</c:otherwise>
+										</c:choose>
+										</td>
 										<td id="aa">
 												<a href="#" id="defaultA">
 													<i id="default_btn" class="icon fa fa-cog" ></i>
 												</a>
-											<span id="modify_delete_dis" style="width:100%; height:100%; display: none">
-												<a href="modify_freeboard?modifyNum=${i.boardno}">
+											<span id="modify_delete_dis" style="width:100%; height:100%; display:none">
+												<a href="#" id="modify_update_a" name="${i.boardno}">
 													<i id="modify_btn" class="icon fa fa-wrench"></i>
-<!-- 아이디 들어오면 권한 비교하는거 해야되 -->	</a>
-												<a href="delete/${i.boardno}">
+												</a>
+<!-- 아이디 들어오면 권한 비교하는거 해야되 -->	<a href="#" id="modify_delete_a" name="${i.boardno}">
 													<i id="delete_btn" class="icon fa fa-times"></i>
 												</a>	
 											</span>
@@ -122,20 +108,18 @@
 										</td>
 								</tr>
 								</c:forEach>
-						
-								
 							  </tbody>
 							</table>
 						</div><!-- /.table-responsive -->
-						<div class="pagination-content">
+						<div class="pagination-content" id="pagination">
 							<ul class="pagination">
-							<li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-							<li><a class="active" href="#">1</a></li>
+							<li><a href="#"><i class="fa fa-chevron-left" id="left"></i></a></li>
+							<li><a href="#">1</a></li>
 							<li><a href="#">2</a></li>
 							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
 							<li><a class="no-active">...</a></li>
-							<li><a href="#">9</a></li>
-							<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+							<li><a href="#"><i class="fa fa-chevron-right" id="right"></i></a></li>
 							</ul><!-- /.pagination -->
 						</div><!-- /.pagination-content -->
 					</div>
@@ -143,56 +127,18 @@
 			</div>
 		</section>
 
-
-		<div class="modal fade" id="modal-contact" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
-
-				<div class="form-container full-fixed">
-					<form method="post" action="#">
-						<div id="form-modal-contact" class="box active modal-contact">
-							<h2 class="title">How can we help?</h2>
-							<h3 class="sub-title">Please send us your thoughts by filling out the below form. Comments are solely for internal use. Your address will not be shared with outside parties or used for any other purpose than to respond to your comments.</h3>
-							<ul class="object-contact">
-								<li><a href="#"><i class="fa fa-code"></i>Suggestion</a></li>
-								<li><a href="#"><i class="fa fa-question"></i>Question</a></li>
-								<li><a href="#" class="active"><i class="fa fa-bug"></i>Problems</a></li>
-								<li><a href="#"><i class="fa fa-comment-o"></i>Feedback</a></li>
-							</ul>
-							<div class="field">
-								<textarea class="form-control" name="message" id="message" placeholder="Your message"></textarea>
-							</div>
-							<div class="field">
-								<input id="short-summary" class="form-control" type="text" name="short-summary" placeholder="Short summary">
-								<i class="fa fa-tag"></i>
-							</div>
-							<div class="field">
-								<input id="email-help" class="form-control" type="text" name="email-help" placeholder="Your email">
-								<i class="fa fa-envelope-o"></i>
-							</div>
-							<div class="field footer-form text-right">
-								<button type="button" class="btn btn-reverse button-form">Cancel</button>
-								<button type="button" class="btn btn-default button-form">Send</button>
-							</div>
-
-						</div>
-					</form>
-				</div>
-
-
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+		
 	</div><!-- /#page-container -->
 <!-- footer ë£ì´ì¼ë -->
 
-  </body>
-  <jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp"/>
+  
 
 <script type="text/javascript">
 
 "use strict";
 // ACCORDION
 $(document).ready(function() {
+	var login_id = $("#data_email").val();
 	var $title, $content;
 	var $selector = $('.accordion').selector;
 	var $title    = $($selector + ' .title');
@@ -227,26 +173,108 @@ $(document).ready(function() {
 		
 	});
 	
-	
-	 /* $(document).on("mouseover","#default_btn", function(){
-		//$(this).show();
-		//$(this).parent().next().css("display","none");
-		//$(this).parent().next().hide();
-		
-		$(this).show();
-		$(this).parent().next().css("display","none");
-	}) */
-	
-	/* on("mouseleave","#modify_delete_dis",function(){
-		alert(1);
-		$(this).hide();
-		/* $(this).children().next().css("display","none");
-		$("#default_btn").css("display","block");
-	}); */
-		
-});
+ 	$("#insert").click(function(){
+ 		if(login_id==""){
+ 			swal({
+ 				title:"로그인이 필요합니다.",
+ 				imageUrl: "${pageContext.request.contextPath}/resources/images/thumbs-up.jpg",
+ 				showLoaderOnConfirm: true,
+ 			},
+ 			function(){
+ 				  setTimeout(function(){
+ 					 $('#login_btn').trigger('click');
+ 				  });
+ 			});
+ 			
+ 		}else{
+ 			location.href="insert_freeboard/editor";
+ 		}
+	});
+ 	
+ 	 $("#pagination ul li a").click(function(){
+		alert($(this).text()); 	//해당 번호로 넘어온다
+		var num = $(this).text();
+		var boo=$(this).hasClass("active");
+		alert(boo);
+		$(this).attr("class","active");
+		location.href="pagination?lastNum="+num;
+ 	});
+ 	
+ 	/* $(document).on("click","#page", function(){
+ 		 var num=$(this).text();
+ 		location.href="pagination?lastNum="+num;
+ 		  $.ajax({
+ 			url:"pagination",
+ 			type:"post",
+ 			dataType:"josn",
+ 			data: "lastnum="+$(this).text(),
+ 			success:function(result){
+ 				
+ 			}
+ 		})
+ 	}) */
+ 	
+ 	
+ 	$(document).on("click","#modify_update_a", function(){
+ 		$.ajax({
+ 			url: "confirm",//서버요청 이름(주소
+ 			type: "post",
+ 			dataType:"json",
+ 			data: "updateIcon="+$(this).attr("name"),
+ 			/* data:"updateIcon=${sessionScope.dto.email}", */
+ 			success: function(result){
+ 				if(result.confirm=="false"){
+ 					swal({
+ 						  title: "권한이 없습니다.",
+ 						  type: "warning",
+ 						  text: "I will close in 1 seconds.",
+ 						  timer: 1000,
+ 						  showConfirmButton: false
+ 						});
+ 				}else{
+ 					location.href="modify_freeboard?modifyNum="+result.updateIcon;
+ 				}
+ 				/* alert(result.updateIcon);
+ 				alert(result.confirm); */
+ 				
+ 			},
+ 			error: function(err){
+ 				alert("오류발생 : "+ err);
+ 			}
+ 		})
+ 	})// 수정 버튼 end
+ 	
+ 	$(document).on("click","#modify_delete_a", function(){
+ 		$.ajax({
+ 			url: "confirm",//서버요청 이름(주소
+ 			type: "post",
+ 			dataType:"json",
+ 			data: "updateIcon="+$(this).attr("name"),
+ 			/* data:"updateIcon=${sessionScope.dto.email}", */
+ 			success: function(result){
+ 				if(result.confirm=="false"){
+ 					swal({
+ 						  title: "권한이 없습니다.",
+ 						  type: "warning",
+ 						  text: "I will close in 1 seconds.",
+ 						  timer: 1000,
+ 						  showConfirmButton: false
+ 						});
+ 				}else{
+ 					location.href="delete/"+result.updateIcon;
+ 				}
+ 				/* alert(result.updateIcon);
+ 				alert(result.confirm); */
+ 				
+ 			},
+ 			error: function(err){
+ 				alert("오류발생 : "+ err);
+ 			}
+ 		})
+ 	})// 삭제 버튼 end
+ 	
+ 	
+});//jQuery end
 
+ 
 </script>
-
-
-</html>
