@@ -191,7 +191,7 @@ function selectList() {
          $.each(data,function(index,item){
             divStr+="<div class='item'>";
             divStr+="<div class='blog-list masonry-post'>";
-            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail'>"+item.restaurantName+"</a></h2>";
+            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"'>"+item.restaurantName+"</a></h2>";
             divStr+="<div class='image' id='food-start'>";
             divStr+="<a href='#'><img src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
             divStr+="<div class='social'>";
@@ -212,31 +212,6 @@ function selectList() {
    })
 }
 
-
-/* <div class="item">
-<div class="blog-list masonry-post">
-   <h2 class="title">
-      <a href="blog-detail.html">★담소 순댓국</a>
-   </h2>
-   <div class="image" id="food-start">
-      <a href="#"><img src="${pageContext.request.contextPath}/resources/images/sample1.jpg" width="100%" height="340px"/></a>
-      <div class="social">
-         <a href="#"><span class="date"><i class="fa fa-heart-o"></i><span>654</span></span></a>
-         <a href="#"><i class="fa fa-eye"></i><span>92435</span></a>
-      </div>
-   </div>
-   <div class="text">
-      <h3 class="subtitle">맛있는 순댓국 세상으로 오세요!</h3>
-      소사골의 소고기 순대국, 올바름에 대해 고민하는 사람들
-      순대국으로 3끼를 다 먹을 수 있는 그날이 올때까지 
-   </div>
-</div>
-</div> */
-
-
-
-
-      
 </script>
 
 
@@ -297,7 +272,7 @@ function selectList() {
                   <div class="section-title line-style no-margin">
                      <h3 class="title">
                         <a href="#" id="modal-opener" data-target="#modal-contact2" data-toggle="modal"
-                           class="hidden-xs"><i class="fa fa-cutlery"
+                           class="hidden-xs" onclick="checkLogin()"><i class="fa fa-cutlery"
                            aria-hidden="true"></i> 맛집 등록</a>
                      </h3>
 

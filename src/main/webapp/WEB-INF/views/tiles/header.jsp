@@ -1,40 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
-<script type="text/javascript">
-function SignInCheck(){
-	
-	if(document.getElementById("nickname").value==""){
-		alert("닉네임을 입력해 주세요!");
-	}else if(document.getElementById("email-sign").value==""){
-		alert("email을 입력해 주세요!");
-	}else if(document.getElementById("password-sign").value==""){
-		alert("비밀번호를 입력해 주세요!");
-	}else if(document.getElementById("re-password-sign").value==""){
-		alert("비밀번호를 다시한번 입력해 주세요!");
-	}else if(document.getElementById("password-sign").value!=document.getElementById("re-password-sign").value){
-		alert("비밀번호가 서로 일치하지 않아요!");
-	}else{
-		document.signInForm.submit();
-	}
-	
-}
-
-function loginCheck(){
-	if(document.getElementById("loginEmail").value==""){
-		alert("이메일을 입력해 주세요.");
-	}else if(document.getElementById("loginPassword").value==""){
-		alert("패스워드를 입력해 주세요.");
-	}else{
-		var path = window.location.pathname;
-		document.getElementById("path").value=path;
-		document.loginForm.submit();
-	}
-}
-</script>
-
-
 <style>
 .modal-backdrop {
 	display: none !important
@@ -77,7 +42,7 @@ function loginCheck(){
 					<div id="login-pan" class="col-md-6 hidden-xs">
 					<c:if test="${empty sessionScope.dto}">
 						<a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
-						<a href="#" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
+						<a href="#"  id="login_btn" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
 					</c:if>
 					<c:if test="${not empty sessionScope.dto}">
 						<a href="${pageContext.request.contextPath}/member/logout"><i
@@ -212,8 +177,6 @@ function loginCheck(){
             <div class="login-button-container">
                <a href="#" data-section="login"><i class="fa fa-user"></i></a>
                <a href="#" data-section="sign-in"><i class="fa fa-pencil-square-o"></i></a>
-               <a href="#" data-section="recovery"><i class="fa fa-lock"></i></a>
-               <a href="#" data-section="setting"><i class="fa fa-cog"></i></a>
             </div><!-- ./login-button-container -->
             
             <div class="form-container">
@@ -223,7 +186,7 @@ function loginCheck(){
                      <h2 class="title">Login in to your account</h2>
                      <h3 class="sub-title">come to KkoChi World~!</h3>
                      <div class="field">
-                     	<input type="hidden" name="path" value="">
+                     	<input type="hidden" name="locationPath" value="" id="locationPath">
                         <input id="loginEmail" name="user-log" class="form-control" type="email" placeholder="Email">
                         <i class="fa fa-user user"></i>
                      </div>
@@ -351,3 +314,34 @@ function loginCheck(){
 	   
 	</script>
 	<!-- datepicker script  end-->
+	<script type="text/javascript">
+function SignInCheck(){
+	
+	if(document.getElementById("nickname").value==""){
+		alert("닉네임을 입력해 주세요!");
+	}else if(document.getElementById("email-sign").value==""){
+		alert("email을 입력해 주세요!");
+	}else if(document.getElementById("password-sign").value==""){
+		alert("비밀번호를 입력해 주세요!");
+	}else if(document.getElementById("re-password-sign").value==""){
+		alert("비밀번호를 다시한번 입력해 주세요!");
+	}else if(document.getElementById("password-sign").value!=document.getElementById("re-password-sign").value){
+		alert("비밀번호가 서로 일치하지 않아요!");
+	}else{
+		document.signInForm.submit();
+	}
+	
+}
+
+function loginCheck(){
+	if(document.getElementById("loginEmail").value==""){
+		alert("이메일을 입력해 주세요.");
+	}else if(document.getElementById("loginPassword").value==""){
+		alert("패스워드를 입력해 주세요.");
+	}else{
+		var path = window.location.pathname;
+		document.getElementById("locationPath").value=path;
+		document.loginForm.submit();
+	}
+}
+</script>

@@ -62,6 +62,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager"/>	
+	<tx:annotation-driven transaction-manager="transactionManager" order="1"/>
+	
 		
 </beans>
