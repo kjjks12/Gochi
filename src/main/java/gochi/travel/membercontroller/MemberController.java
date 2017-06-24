@@ -65,11 +65,22 @@ public class MemberController {
 		}else if(dto.getPassword().equals(password)){
 			request.getSession().setAttribute("dto", dto);
 			System.out.println("로그인성공");
+			String path = request.getParameter("path");
+			System.out.println("경로는"+path);
+			if(path.equals("/controller/")){
+				return "index";
+			}
+			
+			String rePath = path.replace("/controller/","");
+			return "redirect:/"+rePath;
 		}
 		
 		return "index";
 	}
 	
+	/**
+	 * 로그아웃
+	 * */
 	@RequestMapping("/member/logout")
 	public String logout(HttpServletRequest request){
 		request.getSession().removeAttribute("dto");

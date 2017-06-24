@@ -4,6 +4,9 @@
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">  <!-- Bootstrap -->
 	
+
+	<link 	href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap.css" 	rel="stylesheet" /> <!-- 부트스트랩 -->
+	<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> --%>  <!-- Bootstrap -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/vendor/font-awesom/css/font-awesome.min.css">  <!-- Font Awesome -->
     
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/vendor/mmenu/jquery.mmenu.all.css" />          <!-- Menu Responsive -->
@@ -30,12 +33,12 @@
 
 	<!-- wish -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gochi/review_detail.css">                              <!-- plan view Stylesheet -->
+<<<<<<< HEAD
+=======
+<%--       <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/wish/styles/plan-view-styles.css"> --%> <!-- 플랜 -->                          <!-- Media Query -->
 
+<!-- 달력 링크 , 부트스트랩 *준* -->
+<link  rel="stylesheet"  href="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datetimepicker.css" />
+<link  rel="stylesheet"  href="${pageContext.request.contextPath}/resources/fullcalendar/jquery-ui.min.css" />
+>>>>>>> 1df1be3f296441fe39f16a28913f4b44c6e28780
 
-
-</head>
-<body>
-
-
-</body>
-</html>

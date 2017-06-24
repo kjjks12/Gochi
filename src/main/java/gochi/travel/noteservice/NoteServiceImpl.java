@@ -34,4 +34,18 @@ public class NoteServiceImpl implements NoteService {
 	public int updateFlagNum(int flag, int messageNum) {
 		return noteDAO.updateFlagNum(flag, messageNum);
 	}
+	@Override
+	public int selectCountReadYet(String email) {
+		return noteDAO.selectCountReadYet(email);
+	}
+	@Override
+	public int updateFlagFriendMessage(int noteNo) {
+		return noteDAO.updateFlagFriendMessage(noteNo);
+	}
+	@Override
+	public int selectCountMessageFlag0or1(String email) {
+		return noteDAO.selectCountMessageFlag0or1(email);
+	}
+	
+	
 }

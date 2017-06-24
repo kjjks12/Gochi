@@ -19,10 +19,38 @@
 	EMAIL,PASSWORD,NICKNAME,PHONE_NUMBER,PROFILE_IMG,BACK_IMG,SELF_CONTENT
 </sql>
 
-<!-- 회원의 정보 검색 -->
+<!-- 회원의 정보 검색 해당 유저의 마이페이지에 접근시 사용 -->
 <select id="selectByEmail" parameterType="String" resultMap="resultMypageDTO">
 	select <include refid="memberColumns"/>
 	from MEMBER
-	where EMAIL = #{_parameter}
+	where EMAIL like #{email}||'%'
 </select>
+
+<!-- 회원의 정보 검색 -->
+<select id ="selectDetail" parameterType="String" resultMap="resultMypageDTO">
+	select <include refid="memberColumns"/>
+	from MEMBER
+	where EMAIL = #{email}
+</select>
+
+<!-- 이미지 파일을 제외한 회원정보 수정 -->
+<update id="updateMyInfo" parameterType="gochi.travel.model.mypagedto.MypageDTO">
+	update MEMBER
+	set PHONE_NUMBER = #{phoneNumber}, SELF_CONTENT = #{selfContent}
+	where EMAIL = #{email}
+</update>
+
+<!-- 프로필 이미지 수정 -->
+<update id ="updateMyProfileImg" parameterType="Map">
+	update MEMBER
+	set PROFILE_IMG = #{profileImg}
+	where EMAIL = #{email}
+</update>
+
+<!-- 프로필 배경 이미지 수정 -->
+<update id ="updateMyBackProfileImg" parameterType="Map">
+	update MEMBER
+	set BACK_IMG =#{backImg}
+	where EMAIL = #{email}
+</update>
 </mapper>
