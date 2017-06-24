@@ -1,37 +1,6 @@
-<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <title>PROHOME - Responsive Real Estate Template</title>
-    <jsp:include page="/WEB-INF/views/include/include_top_css.jsp"/>
-
-	<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
-	<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
-	<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
-	<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png" />
-	<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png" />
-	<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png" />
-	<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png" />
-	<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png" />
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-  </head>
-  <body class="fixed-header*">
-
 	<div id="page-container">
-		
 		<section id="header-page" class="header-margin-base">
 			<div class="skyline">
 				<div data-offset="50" class="p1 parallax"></div>
@@ -62,7 +31,7 @@
 				<div class="col-sm-3 col-md-3" id="block-menu-content">
 						<ul class="block-menu" data-spy="affix" data-offset-top="500" data-offset-bottom="400">
 							<li><a class="faq-button" href="faq"><i class="icon fa fa-check-square-o"></i>월간 베스트</a></li>
-							<li><a class="faq-button active" href="freeboard"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
+							<li><a class="faq-button active" href="${pageContext.request.contextPath}/community/pagination?lastNum=1"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
 							<li><a class="faq-button" href=""><i class="icon fa fa-picture-o"></i> Q&A</a></li>
 							
 						</ul>
@@ -74,23 +43,38 @@
 								<h3 class="title">게시글 작성</h3>
 							</div>
 							<div class="row">
-							<form name="inserForm" method="post" action="${pageContext.request.contextPath}/community/insert">
+						<form id="insertForm" name="insertForm" method="post" action="${pageContext.request.contextPath}/community/insert">
+								
+								<div class="col-md-2 space-form">
+									<select class="dropdown" data-settings='{"cutOff": 5}' id="sel" name="sel">
+										<option value="질문">질문</option>
+										<option value="메모">메모</option>
+										<option value="여행기">여행기</option>
+										<option value="리뷰">리뷰</option>
+										<option value="잡담">잡담</option>
+									</select>
+								</div>
+								<input id="email" name="email" type="hidden" value="${sessionScope.dto.email}">
 								<div class="col-md-5 space-form">
 									<input id="title" class="form-control" type="text" placeholder="제목" name="title">
 								</div>
-								<div class="col-md-7 space-form">
-									<input id="address" class="form-control" type="text" placeholder="닉네임" name="nickName">
+								<div class="col-md-5 space-form">
+									<input id="address" class="form-control" type="text" name="nickName" value="${sessionScope.dto.nickname}">
 								</div>
 								<div class="col-md-12">
-									<textarea name="content" id="content" class="form-control description"></textarea>
+									<!-- <textarea name="content" id="content" class="form-control description"></textarea> -->
+									<!-- <div name="content"  class="form-control description"></div> -->
+									<jsp:include page="/WEB-INF/views/community/editor_frame.jsp"></jsp:include>
+							
 								</div>
-									<div style="text-align: right;">
-							<button class="btn btn-default">작성하기</button>
-							<button class="btn btn-default" onclick="location.href=history.back()">취소</button>
-							</div>
+							
 							</form>
-							
-							
+							<!-- 여기서부터 새로운 코드 입력 -->
+		
+							</div>
+							<div style="text-align: right;">
+								<button class="btn btn-default" onclick="Editor.save();">작성하기</button>
+								<button class="btn btn-default" onclick="page()">취소</button>
 							</div>
 						</div>
 						
@@ -144,12 +128,104 @@
 					</form>
 				</div>
 
-
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 	</div><!-- /#page-container -->
+  <script type="text/javascript">
+	var config = {
+		txHost: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) http://xxx.xxx.com */
+		txPath: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) /xxx/xxx/ */
+		txService: 'sample', /* 수정필요없음. */
+		txProject: 'sample', /* 수정필요없음. 프로젝트가 여러개일 경우만 수정한다. */
+		initializedId: "", /* 대부분의 경우에 빈문자열 */
+		wrapper: "tx_trex_container", /* 에디터를 둘러싸고 있는 레이어 이름(에디터 컨테이너) */
+		form: 'insertForm'+"", /* 등록하기 위한 Form 이름 */
+		txIconPath: "${pageContext.request.contextPath}/resources/daumOpenEditor/images/icon/editor/", /*에디터에 사용되는 이미지 디렉터리, 필요에 따라 수정한다. */
+		txDecoPath: "${pageContext.request.contextPath}/resources/daumOpenEditor/images/deco/contents/", /*본문에 사용되는 이미지 디렉터리, 서비스에서 사용할 때는 완성된 컨텐츠로 배포되기 위해 절대경로로 수정한다. */
+		canvas: {
+            exitEditor:{
+                /*
+                desc:'빠져 나오시려면 shift+b를 누르세요.',
+                hotKey: {
+                    shiftKey:true,
+                    keyCode:66
+                },
+                nextElement: document.getElementsByTagName('button')[0]
+                */
+            },
+			styles: {
+				color: "#123456", /* 기본 글자색 */
+				fontFamily: "굴림", /* 기본 글자체 */
+				fontSize: "10pt", /* 기본 글자크기 */
+				backgroundColor: "#fff", /*기본 배경색 */
+				lineHeight: "1.5", /*기본 줄간격 */
+				padding: "8px" /* 위지윅 영역의 여백 */
+			},
+			showGuideArea: false
+		},
+		events: {
+			preventUnload: false
+		},
+		sidebar: {
+			attachbox: {
+				show: true,
+				confirmForDeleteAll: true
+			},
+			attacher:{
+				image:{ 
+					features:{left:250,top:65,width:400,height:190,scrollbars:0}, //팝업창 사이즈 
+					popPageUrl:'${pageContext.request.contextPath}/community/imagePopup/pop' //팝업창 주소 
+				}
+			},
+			
+			caparcity: {
+				maximum:5*1024*1024 // 최대 첨부 용량 (5MB)
+			}
+		},
+		size: {
+			contentWidth: 700 /* 지정된 본문영역의 넓이가 있을 경우에 설정 */
+		}
+	};
 
+	EditorJSLoader.ready(function(Editor) {
+		var editor = new Editor(config);
+		alert(editor);
+	});
 	
+	
+	function validForm(editor) { //값이 할당된것 확인
+		// Place your validation logic here
 
-  </body>
-</html>
+		// sample : validate that content exists
+		//alert(editor.getContent()); 이코드 이요해서 들어온값이 어떤것인지 확인 할수있따.ㄴ
+		var validator = new Trex.Validator();
+		var content = editor.getContent();
+		if (!validator.exists(content)) {
+			alert('내용을 입력하세요');
+			return false;
+		}
+
+		return true;
+	}
+	
+	function setForm(editor) {
+        var i, input;
+        var form = editor.getForm();
+        var content = editor.getContent();
+
+        // 본문 내용을 필드를 생성하여 값을 할당하는 부분
+        var textarea = document.createElement('textarea');
+        textarea.name = 'content';
+        textarea.value = content;
+        form.createField(textarea);
+		return true;
+	}
+	
+	Editor.save();
+	
+</script>
+<script type="text/javascript">
+function page() {
+	location.href="${pageContext.request.contextPath}/community/pagination?lastNum=1";
+}
+</script>

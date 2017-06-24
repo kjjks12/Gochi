@@ -1,51 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
 .modal-backdrop {
-	display: none !important
+   display: none !important
 }
 
 .datepicker {
-	z-index: 11000 !important
+   z-index: 11000 !important
 }
 
 .travelDate {
-	margin-bottom: 20px;
+   margin-bottom: 20px;
 }
 
 #brief_story {
-	resize: vertical;
+   resize: vertical;
 }
 </style>
 <header class="menu-base" id="header-container-box">
-	<div class="info">
-		<!-- info -->
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<a href="#mobile-menu" id="mobile-menu-button" class="visible-xs"><i
-						class="fa fa-bars"></i></a> <a href="call:1-800-555-1234"
-						class="hidden-xs"><i class="icon fa fa-phone"></i>
-						(011)-8800-555</a> <a href="#" data-section="modal-contact"
-						data-target="#modal-contact" data-toggle="modal" class="hidden-xs"><i
-						class="icon fa fa-envelope-o"></i> Info</a> <a
-						href="${pageContext.request.contextPath}/mypage/goInfo"
-						class="hidden-xs"><i class="icon fa fa-envelope-o"></i>
-						myPageUpdate TEST</a>
-				</div>
+   <div class="info">
+      <!-- info -->
+      <div class="container">
+         <div class="row">
+            <div class="col-md-6">
+               <a href="#mobile-menu" id="mobile-menu-button" class="visible-xs"><i
+                  class="fa fa-bars"></i></a> <a href="call:1-800-555-1234"
+                  class="hidden-xs"><i class="icon fa fa-phone"></i>
+                  (011)-8800-555</a> <a href="#" data-section="modal-contact"
+                  data-target="#modal-contact" data-toggle="modal" class="hidden-xs"><i
+                  class="icon fa fa-envelope-o"></i> Info</a> <a
+                  href="${pageContext.request.contextPath}/mypage/goInfo"
+                  class="hidden-xs"><i class="icon fa fa-envelope-o"></i>
+                  myPageUpdate TEST</a>
+            </div>
 
 				<div id="login-pan" class="col-md-6 hidden-xs">
 					<c:if test="${empty sessionScope.dto}">
-<<<<<<< HEAD
 						<a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
 						<a href="#"  id="login_btn" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
-=======
-						<a href="#" data-toggle="modal" data-target=".login-modal"
-							data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
-						<a href="#" data-toggle="modal" data-target=".login-modal"
-							data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
->>>>>>> 1df1be3f296441fe39f16a28913f4b44c6e28780
 					</c:if>
 					<c:if test="${not empty sessionScope.dto}">
 						<a href="${pageContext.request.contextPath}/member/logout"><i
@@ -98,89 +91,88 @@
 	<a href="#" class="hidden-xs fixed-button email" data-toggle="modal"
 		data-target="#modal-contact" data-section="modal-contact"><i
 		class="fa fa-envelope-o"></i></a>
-
 </header>
 
 
 <!--여행일정 모달  Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1000">
-	<div class="modal-dialog" style="z-index: 1001;">
-		<div class="modal-content" style="background-clip: border-box;">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h3 class="modal-title" id="myModalLabel">여행 일정 기본정보</h3>
-			</div>
-			<div class="modal-body">
-				<!-- Form Start -->
-				<form role="form"
-					action="${pageContext.request.contextPath}/traveladd/travel_add"
-					method="post">
-					<div class="form-group">
-						<label for="Title">여행제목</label> <input type="text"
-							class="form-control" placeholder="여행 제목" name="title">
-					</div>
-					<div class="form-group">
-						<label for="content">간단 여행 이야기</label>
-						<textarea rows="2" class="form-control" name="briefStory"
-							id="brief_story"></textarea>
-						<div id="login-pan" class="col-md-6 hidden-xs">
-							<c:if test="${not empty sessionScope.dto}">
-								<a href="${pageContext.request.contextPath}/member/logout"><i
-									class="icon fa fa-user user"></i>로그아웃</a>
-								<a href="#" data-toggle="modal" data-target=".user-info-modal"
-									data-section="setting"><i
-									class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
-							</c:if>
-						</div>
-					</div>
+   aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1000">
+   <div class="modal-dialog" style="z-index: 1001;">
+      <div class="modal-content" style="background-clip: border-box;">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+            <h3 class="modal-title" id="myModalLabel">여행 일정 기본정보</h3>
+         </div>
+         <div class="modal-body">
+            <!-- Form Start -->
+            <form role="form"
+               action="${pageContext.request.contextPath}/traveladd/travel_add"
+               method="post">
+               <div class="form-group">
+                  <label for="Title">여행제목</label> <input type="text"
+                     class="form-control" placeholder="여행 제목" name="title">
+               </div>
+               <div class="form-group">
+                  <label for="content">간단 여행 이야기</label>
+                  <textarea rows="2" class="form-control" name="briefStory"
+                     id="brief_story"></textarea>
+                  <div id="login-pan" class="col-md-6 hidden-xs">
+                     <c:if test="${not empty sessionScope.dto}">
+                        <a href="${pageContext.request.contextPath}/member/logout"><i
+                           class="icon fa fa-user user"></i>로그아웃</a>
+                        <a href="#" data-toggle="modal" data-target=".user-info-modal"
+                           data-section="setting"><i
+                           class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
+                     </c:if>
+                  </div>
+               </div>
 
-						<!-- datepicker 시작 -->
-						<div class="travelDate">
-							<table>
-								<tr>
-									<th><span>시작날짜</span> <input
-										class="datepicker form-control" type="text" id="travel_start_day"
-										placeholder="Check-in: YYYY/MM/DD" style="width: 200px"
-										name="travelStartDay" /></th>
-									<th><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;끝 날짜</span> <input
-										class="datepicker form-control" type="text" id="travel_end_day"
-										placeholder="Check-out: YYYY/MM/DD"
-										style="width: 200px; margin-left: 20px" name="travelEndDay" /></th>
-								</tr>
-							</table>
-						</div>
-						<!-- datepicker 끝 -->
-						<span> <select id="capa" name="thema">
-								<option value="thema">-- 테마 --</option>
-								<option value="friend">친구와 함께</option>
-								<option value="alone">나홀로여행</option>
-								<option value="family">가족과 함께</option>
-								<option value="group">단체여행</option>
-								<option value="package">패키지여행</option>
-								<option value="couple">커플</option>
-						</select>
-						</span>
+                  <!-- datepicker 시작 -->
+                  <div class="travelDate">
+                     <table>
+                        <tr>
+                           <th><span>시작날짜</span> <input
+                              class="datepicker form-control" type="text" id="travel_start_day"
+                              placeholder="Check-in: YYYY/MM/DD" style="width: 200px"
+                              name="travelStartDay" /></th>
+                           <th><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;끝 날짜</span> <input
+                              class="datepicker form-control" type="text" id="travel_end_day"
+                              placeholder="Check-out: YYYY/MM/DD"
+                              style="width: 200px; margin-left: 20px" name="travelEndDay" /></th>
+                        </tr>
+                     </table>
+                  </div>
+                  <!-- datepicker 끝 -->
+                  <span> <select id="capa" name="thema">
+                        <option value="thema">-- 테마 --</option>
+                        <option value="friend">친구와 함께</option>
+                        <option value="alone">나홀로여행</option>
+                        <option value="family">가족과 함께</option>
+                        <option value="group">단체여행</option>
+                        <option value="package">패키지여행</option>
+                        <option value="couple">커플</option>
+                  </select>
+                  </span>
 
-						<!-- 모달 foot -->
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">닫기</button>
-							<button type="submit" class="btn btn-primary">저장 후 이동</button>
-						</div>
-						<!-- 모달 foot end-->
+                  <!-- 모달 foot -->
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-default"
+                        data-dismiss="modal">닫기</button>
+                     <button type="submit" class="btn btn-primary">저장 후 이동</button>
+                  </div>
+                  <!-- 모달 foot end-->
 
-				</form>
-			</div>
+            </form>
+         </div>
 
-			<!--./form 전송 끝 -->
-		</div>
-		<!-- 모달 콘텐츠 -->
-	</div>
-	<!-- 모달 다이얼로그 -->
+         <!--./form 전송 끝 -->
+      </div>
+      <!-- 모달 콘텐츠 -->
+   </div>
+   <!-- 모달 다이얼로그 -->
 </div>
 <!-- 모달 전체 윈도우 -->
 
@@ -258,6 +250,7 @@
          </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
  
+
 <!-- 사용자정보 모달!!!!!!!!!!!!!!!!!!!! -->
 <div class="modal fade user-info-modal" tabindex="-1" role="dialog" aria-hidden="true">
          <div class="modal-dialog">
@@ -308,72 +301,72 @@
          </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
 <div class="modal fade user-info-modal" tabindex="-1" role="dialog"
-	aria-hidden="true">
-	<div class="modal-dialog">
-		<button type="button" class="close" data-dismiss="modal"
-			aria-hidden="true">
-			<i class="fa fa-close"></i>
-		</button>
-		<div class="login-button-container">
-			<a href="#" data-section="recovery"><i class="fa fa-lock"></i></a> <a
-				href="#" data-section="setting"><i class="fa fa-cog"></i></a>
-		</div>
-		<!-- ./login-button-container -->
-		<div class="form-container">
-			<div id="setting" class="box">
-				<h2 class="title">Setting profile</h2>
-				<h3 class="sub-title">
-					Please note: You won't be able to change your name within the next
-					60 days. Make sure that you don't add any unusual capitalisation,
-					punctuation, characters or random words. <a href="#">Learn more</a>.
-				</h3>
-				<div class="field">
-					<input id="username-block" class="form-control" type="text"
-						name="username-block" value="${sessionScope.dto.nickname}"
-						disabled> <i class="fa fa-user user"></i>
-				</div>
-				<div class="field">
-					<input id="email-setting" class="form-control" type="text"
-						name="email-setting" value="${sessionScope.dto.email}" disabled>
-					<i class="fa fa-envelope-o"></i>
-				</div>
-				<div class="field">
-					<input id="update-pass" class="form-control" type="password"
-						name="update-pass" placeholder="New password"> <i
-						class="fa fa-ellipsis-h"></i>
-				</div>
-				<div class="field">
-					<input id="update-repass" class="form-control" type="password"
-						name="update-repass" placeholder="Repeat password"> <i
-						class="fa fa-ellipsis-h"></i>
-				</div>
-				<div class="field footer-form text-right">
-					<button type="button" class="btn btn-reverse button-form">Cancel</button>
-					<button type="button" class="btn btn-default button-form">Update</button>
-				</div>
-			</div>
-			<!-- ./recovery -->
-			<form>
-				<div id="recovery" class="box">
-					<h2 class="title">Need a new password?</h2>
-					<h3 class="sub-title">Enter your email address, and weâ ll
-						email you instructions to reset your password.</h3>
-					<div class="field">
-						<input id="recovery-email" class="form-control" type="text"
-							name="recovery-email" placeholder="Your email"> <i
-							class="fa fa-envelope-o"></i>
-					</div>
-					<div class="field footer-form text-right">
-						<button type="button" class="btn btn-default button-form">Recovery</button>
-					</div>
-				</div>
-				<!-- ./recovery -->
-			</form>
-			<!-- ./form-container -->
-		</div>
-		<!-- ./login-button-container -->
-	</div>
-	<!-- /.modal-dialog -->
+   aria-hidden="true">
+   <div class="modal-dialog">
+      <button type="button" class="close" data-dismiss="modal"
+         aria-hidden="true">
+         <i class="fa fa-close"></i>
+      </button>
+      <div class="login-button-container">
+         <a href="#" data-section="recovery"><i class="fa fa-lock"></i></a> <a
+            href="#" data-section="setting"><i class="fa fa-cog"></i></a>
+      </div>
+      <!-- ./login-button-container -->
+      <div class="form-container">
+         <div id="setting" class="box">
+            <h2 class="title">Setting profile</h2>
+            <h3 class="sub-title">
+               Please note: You won't be able to change your name within the next
+               60 days. Make sure that you don't add any unusual capitalisation,
+               punctuation, characters or random words. <a href="#">Learn more</a>.
+            </h3>
+            <div class="field">
+               <input id="username-block" class="form-control" type="text"
+                  name="username-block" value="${sessionScope.dto.nickname}"
+                  disabled> <i class="fa fa-user user"></i>
+            </div>
+            <div class="field">
+               <input id="email-setting" class="form-control" type="text"
+                  name="email-setting" value="${sessionScope.dto.email}" disabled>
+               <i class="fa fa-envelope-o"></i>
+            </div>
+            <div class="field">
+               <input id="update-pass" class="form-control" type="password"
+                  name="update-pass" placeholder="New password"> <i
+                  class="fa fa-ellipsis-h"></i>
+            </div>
+            <div class="field">
+               <input id="update-repass" class="form-control" type="password"
+                  name="update-repass" placeholder="Repeat password"> <i
+                  class="fa fa-ellipsis-h"></i>
+            </div>
+            <div class="field footer-form text-right">
+               <button type="button" class="btn btn-reverse button-form">Cancel</button>
+               <button type="button" class="btn btn-default button-form">Update</button>
+            </div>
+         </div>
+         <!-- ./recovery -->
+         <form>
+            <div id="recovery" class="box">
+               <h2 class="title">Need a new password?</h2>
+               <h3 class="sub-title">Enter your email address, and weâ ll
+                  email you instructions to reset your password.</h3>
+               <div class="field">
+                  <input id="recovery-email" class="form-control" type="text"
+                     name="recovery-email" placeholder="Your email"> <i
+                     class="fa fa-envelope-o"></i>
+               </div>
+               <div class="field footer-form text-right">
+                  <button type="button" class="btn btn-default button-form">Recovery</button>
+               </div>
+            </div>
+            <!-- ./recovery -->
+         </form>
+         <!-- ./form-container -->
+      </div>
+      <!-- ./login-button-container -->
+   </div>
+   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
 

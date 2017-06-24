@@ -32,10 +32,9 @@ public class MemberController {
 		String email = request.getParameter("email");
 		String nickname = request.getParameter("nickname");
 		int result = service.naverLogin(email,nickname);
-		
 		if(result>0){
-			MemberDTO dto = service.login(email, "");
-			request.getSession().setAttribute("dto", dto);
+			MemberDTO dto = service.login(email,"");
+			request.getSession().setAttribute("dto",dto);
 		}
 		return "index";
 	}
