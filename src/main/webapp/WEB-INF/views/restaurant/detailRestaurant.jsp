@@ -7,8 +7,8 @@
 .sdivde {
 	overflow: hidden;
 	position: relative;
-	height: 302px;
-	width: 802px;
+	height: 500px;
+	width: 100%;
 }
 
 .sdivde .image_list {
@@ -35,7 +35,10 @@
 .wrap-right {
 	height: 340px;
 }
-
+.restaurant_front_img{
+width: 100%;
+height: 100%;
+}
 </style>
 <script>
 function post(){
@@ -124,8 +127,8 @@ function post(){
 	        var reader = new FileReader();
 			
 	        reader.onload = function (e) {
-				$(".image_list").prepend("<div class='images'> <img src="+e.target.result+" style='height:302px; width:802px;'/></div>");
-	        }
+				$(".image_list").prepend("<div class='restaurant_front_img' style='display:block'> <img src="+e.target.result+" style='height:500px; width:802px;'/></div>");
+	  	        }
 	        reader.readAsDataURL(input.files[0]);
 	
 	    }
@@ -133,8 +136,8 @@ function post(){
 	}
 </script>
 
-					<!-- ajax를 이용한 파일업로드 부분입니다. -->
-					<script type="text/javascript">
+<!-- ajax를 이용한 파일업로드 부분입니다. -->
+<script type="text/javascript">
 function fileUpload(){
 	var formData = new FormData($("#fileForm")[0]);
     $.ajax({
@@ -266,10 +269,7 @@ function fileUpload(){
 					</c:if>
 				</div><!-- 다른사람의 포스트 보기 마지막 부분입니다. -->
 			</div><!-- 블로그 부분 끝 -->
-			
 		</section>
-		
-		
 	</div>
 
 	<%-- <jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" /> --%>
@@ -368,4 +368,3 @@ function fileUpload(){
 			$("#login_btn").click()
 		})
 	</script>
-

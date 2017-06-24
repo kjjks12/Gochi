@@ -8,6 +8,7 @@
 	<id property="friendNo" column="FRIEND_NO"/>
 	<result property="email" column="EMAIL"/>
 	<result property="fEmail" column="F_EMAIL"/>
+	<result property="auth" column="AUTH"/>
 </resultMap>
 
 <resultMap type="MemberDTO" id="memberDTO">
@@ -22,7 +23,7 @@
 
 <!-- 친구 리스트 columns -->
 <sql id="friendColumns">
-	FRIEND_NO,EMAIL,F_EMAIL
+	FRIEND_NO,EMAIL,F_EMAIL,AUTH
 </sql>
 
 <!-- 멤버 리스트 columns -->
@@ -34,23 +35,53 @@
 	select <include refid="friendColumns"/>
 	from Friend
 	where EMAIL =#{_parameter}
+	and AUTH = 1
 </select>
 
-<!-- 친구 추가 이전에 검색을 통한 친구 찾기 -->
+<!-- 검색을 통한 멤버 찾기 -->
 <select id="selectMember" parameterType="String" resultMap="memberDTO">
 	select <include refid="memberColumns"/>
 	from MEMBER
 	where EMAIL like '%'||#{keyword}||'%'
 </select>
 
+<!-- 검색을 통한 친구 중복 처리 방지 -->
+<select id="selectFriendDuplicate" parameterType="Map" resultType="boolean">
+	select <include refid="friendColumns"/>
+	from Friend
+	where EMAIL=#{email}
+	and F_EMAIL=#{keyword}
+</select>
+
 <!-- 친구 추가 하기 -->
 <insert id="insertFriend" parameterType="gochi.travel.model.frienddto.FriendDTO">
 	insert into FRIEND(<include refid="friendColumns"/>)
-	values(#{friendNo},#{email},#{fEmail})
+	values(#{friendNo},#{email},#{fEmail},#{auth})
 </insert>
 
 <!-- 친구 최고 번호 검색 -->
 <select id="selectMaxFriend" resultType="Integer">
 	select max(FRIEND_NO) from FRIEND
 </select>
+
+<!-- 친구 요청 수락시 auth의 값을 1로 변경 -->
+<update id="updateFriendAuth" parameterType="Integer">
+	update FRIEND
+	set auth = 1
+	where FRIEND_NO = #{friendNo}
+</update>
+
+<!-- 친구 요청 거절시 친구관련 레코드 삭제 -->
+<delete id="deleteFriendRequest" parameterType="Integer">
+	delete from FRIEND
+	where FRIEND_NO = #{friendNo}
+</delete>
+
+<!-- 자기 자신과 친구 맺을때 처리 -->
+<select id="selectMineFriend" parameterType="String" resultType="memberDTO">
+  select <include refid="memberColumns"/> 
+  from MEMBER
+  where EMAIL = #{email}
+</select>
+
 </mapper>

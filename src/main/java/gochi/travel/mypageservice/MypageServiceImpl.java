@@ -17,4 +17,24 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDAO.selectByEmail(email);
 	}
 
+	@Override
+	public int updateMyInfo(MypageDTO mypageDTO) {
+		return mypageDAO.updateMyInfo(mypageDTO);
+	}
+
+	@Override
+	public MypageDTO selectDetail(String email) {
+		return mypageDAO.selectDetail(email);
+	}
+
+	@Override
+	public int updateMyProfileImg(String profileImg, String email) {
+		return mypageDAO.updateMyProfileImg(profileImg, email);
+	}
+
+	@Override
+	public int updateMyBackProfileImg(String backImg, String email) {
+		return mypageDAO.updateMyBackProfileImg(backImg, email);
+	}
+	
 }

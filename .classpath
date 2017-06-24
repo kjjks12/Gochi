@@ -26,5 +26,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/MyFactoryFrameWork01"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/springContext"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

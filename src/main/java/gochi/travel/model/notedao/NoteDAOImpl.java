@@ -62,4 +62,21 @@ public class NoteDAOImpl implements NoteDAO {
 		return sqlSession.update("noteMapper.updateFlagMessage", map);
 	}
 
+	@Override
+	public int selectCountReadYet(String email) {
+		return sqlSession.selectOne("noteMapper.selectCountReadYet", email);
+	}
+
+	@Override
+	public int updateFlagFriendMessage(int noteNo) {
+		return sqlSession.update("noteMapper.updateFlagFriendMessage",noteNo);
+	}
+
+	@Override
+	public int selectCountMessageFlag0or1(String email) {
+		return sqlSession.selectOne("noteMapper.selectCountMessageFlag0or1",email);
+	}
+	
+	
+
 }
