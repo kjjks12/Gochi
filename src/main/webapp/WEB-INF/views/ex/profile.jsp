@@ -40,18 +40,14 @@ $(function(){
 	function profileImageDetail(){//프로필 이미지 출력 함수
 		var str="";
 		str+='<img style="border-radius: 70%; width: 190px; margin-left: 60px;" id="profileImg"';
-		str+='src="${pageContext.request.contextPath}/resources/profileImg/';
-		str+='${requestScope.MYPAGEDTO.email}/${requestScope.MYPAGEDTO.profileImg}">';
+		str+='src="${pageContext.request.contextPath}/resources/img/member/profile/${requestScope.MYPAGEDTO.email}/${requestScope.MYPAGEDTO.profileImg}">';
 		$("#profileCover").append(str);
 	}
 	
 	function coverImageDetail(){//배경 이미지 출력 함수
 		var str="";
-		str+='<img alt="detail_back_cover"';
-		str+='id="review_detail_back_cover_img"';
-		str+='src="${pageContext.request.contextPath}/resources/uploadBackImg/';
-		str+='${requestScope.MYPAGEDTO.email}/';
-		str+='${requestScope.MYPAGEDTO.backImg}">';
+		str+='<img alt="detail_back_cover" id="review_detail_back_cover_img"';
+		str+='src="${pageContext.request.contextPath}/resources/img/member/cover/${requestScope.MYPAGEDTO.email}/${requestScope.MYPAGEDTO.backImg}">';
 		$("#detailCover").append(str);
 	}
 	
@@ -59,7 +55,7 @@ $(function(){
 		$("#profileImgForm").submit();//자동으로 submit
 	});
 	
-	$(document).on("mouseenter","#profileImg",function(){//프로필 이미지에 마우스 커서 접근시
+	$(document).on("mouseenter","[id=profileImg]",function(){//프로필 이미지에 마우스 커서 접근시
 		//console.log('프로필 이미지 접근');
 		$("#profileDiv").show();
 		var str='';
@@ -78,7 +74,6 @@ $(function(){
 		$("#profileDiv").hide();
 	})
 	
-	
 	$(document).on("mouseenter","#profileDiv",function(){//프로필 file 태그에 마우스 커서 접근시
 		//console.log('파일 태그 접근');
 		$("#profileDiv").show();
@@ -89,7 +84,8 @@ $(function(){
 	});
 	
 	$(document).on("mouseenter","#review_detail_back_cover_img",function(){//배경 이미지에 마우스 커서 접근시
-		$("#backImgUpdate").show();
+		$("#backImgForm").show();
+		//alert("배경이미지 나타내기");
 		var str='';
 		str+='<div class="filebox">';
 		str+='<form method="post" action="${pageContext.request.contextPath}/uploadBackImg/${requestScope.MYPAGEDTO.email}" enctype="multipart/form-data" id="backImgForm">';
@@ -102,15 +98,12 @@ $(function(){
 		$("#backImgUpdate").html(str);
 		$("#backImgUpdate").css("text-align","center");
 	})
-	
-	$(document).on("mouseleave","#backImgUpdate",function(){//배경 이미지에서 마우스 커서 이탈시
-		$("#backImgUpdate").hide();
-	})
-	$(document).on("mouseenter","#backImgUpdate",function(){//배경 file 태그에 마우스 커서 접근시
-		$("#backImgUpdate").show();
+	$(document).on("mouseleave","[id=backImgForm]",function(){
+		//alert("배경 이미지 감추기!!");
+		$("#backImgForm").hide();
 	})
 	
-	function profileDetail(){//상세 프로필 뿌리기 
+	function profileDetail(){//상세 프로필 뿌리기(닉네임, 자기소개, ID, 핸드폰번호) 
 		$.ajax({
 			type : "post",
 			url:"${pageContext.request.contextPath}/mypage/profileDetail",
@@ -131,7 +124,7 @@ $(function(){
 					$(document).on("mouseenter","#profileImg",function(){//프로필 이미지에서 마우스 커서 이동시
 						$("#profileDiv").hide();	
 					})
-					$(document).on("mouseenter","#review_detail_back_cover_img",function(){//배경 이미지에 마우스 커서 이동시
+					$(document).on("mouseenter","#review_detail_back_cover_img",function(){//배경 이미지에 마우스 커서 이동시 감추기
 						$("#backImgUpdate").hide();
 					})
 					$(document).on("change","#ex_file",function(){//다른 유저가 커버 수정 선택시
@@ -153,9 +146,19 @@ $(function(){
 </script>
 		<section id="header-page" class="header-margin-base">
 			<div class="skyline">
-					<span class="cover" id="detailCover">
-					</span>
-					<div class="container header-text" style="padding-top: 50px;">
+				<c:choose>
+					<c:when test="${not empty MYPAGESESSION.backImg }">
+						<span class="cover" id="detailCover"></span>
+					</c:when>
+					<c:otherwise>
+						<span class="cover" id="detailCover">
+							<img alt="detail_back_cover" id="review_detail_back_cover_img" 
+							src="${pageContext.request.contextPath}/resources/images/parallax
+							/parallax-header1.png">
+						</span>
+					</c:otherwise>
+				</c:choose>
+					<div class="container header-text" style="padding-top: 15px;">
 						<c:if test="${MYPAGEEMAIL eq MYEMAIL}">
 							<div style="float:right;">
 								<a href="#" data-toggle="modal" data-target="#profile-modal" id="updateForm">	
@@ -163,7 +166,20 @@ $(function(){
 								</a>
 							</div>
 						</c:if>
-					<div align="center" id="profileCover"></div>
+			<c:choose>
+				<c:when test="${not empty MYPAGESESSION.profileImg }">
+				   <div align="center" id="profileCover"></div>
+			    </c:when>
+				<c:otherwise>	
+					 <div align="center">
+						<img style="border-radius: 70%; width: 190px; margin-left: 60px;" id="profileImg"
+						src="${pageContext.request.contextPath}/resources/images/default-user-image.png">		
+					 </div>
+					 <script>
+						//$("[class=container header-text]").removeAttr("style");
+					 </script>
+				</c:otherwise>
+			</c:choose>		
 						<p id="profileDiv">
 					<div>
 						<h1 align="center" id="nickName" style="font-weight:bold"></h1>
@@ -201,11 +217,10 @@ $(function(){
 							<c:if test="${MYPAGEEMAIL eq MYEMAIL}">
 								 <li><a class="faq-button" href="${pageContext.request.contextPath}/friends"><i class="icon fa fa-pencil-square-o"></i>친구목록</a></li>
 								 <li><a class="faq-button" href="${pageContext.request.contextPath}/note"><i class="icon fa fa-envelope-o"></i>받은쪽지함</a></li>
+								 <li><a class="faq-button" href="${pageContext.request.contextPath}/itineary"><i class="icon fa fa-envelope-o"></i>나의 여행 일정</a></li>
 							</c:if>
-						
 						</ul>
 					</div>
-					
 					<div class="col-sm-8 col-md-9">
 						<div class="row">
 							<div class="col-md-7">
@@ -225,7 +240,7 @@ $(function(){
 												<h2 id="phoneNumber"></h2>
 											</c:when>
 											<c:otherwise>
-												핸드폰 번호를 등록해 주세요
+												<h2>핸드폰 번호를 등록해 주세요</h2>
 											</c:otherwise>
 										</c:choose>
 									</li>

@@ -1,5 +1,6 @@
 package gochi.travel.travelcontroller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import gochi.travel.model.memberdto.MemberDTO;
@@ -36,7 +39,9 @@ public class TravelController {
       travelAddDao.initTravelInfoSave(travelDTO);
       System.out.println("테마:"+travelDTO.getThema());
       ModelAndView mv= new ModelAndView();
+
       mv.setViewName("traveladd/travel_add/editor");
+
       mv.addObject("travelDTO", travelDTO);
       System.out.println("여행번호"+travelDTO.getTravelNo());
       return mv;
@@ -62,6 +67,7 @@ public class TravelController {
    public TravelItinearyDTO travelItineary(TravelItinearyDTO travelItinearyDTO){
       
       System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
+
       System.out.println("여행 일정번호 :"+travelItinearyDTO.getTravelNo());
       System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
       System.out.println("내용:"+travelItinearyDTO.getStory());
@@ -86,8 +92,23 @@ public class TravelController {
    }   
 
 
+@RequestMapping("traveladd/travelItinearyUpdate")
+   @ResponseBody
+   public TravelItinearyDTO travelItinearyUpdate(TravelItinearyDTO travelItinearyDTO){
+      System.out.println("========수정된 정보============");
+      System.out.println("여행 일정번호 :"+travelItinearyDTO.getItinearyNo());
+      System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
+      System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
+      System.out.println("내용:"+travelItinearyDTO.getStory());
+      System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
+      System.out.println("시작시간:"+travelItinearyDTO.getEndTime());
+      System.out.println("위도:"+travelItinearyDTO.getLatitude());
+      System.out.println("경도:"+travelItinearyDTO.getLogtitude());
+      
+      //travelAddDao.travelItinearyUpdate(travelItinearyDTO);
+      return travelItinearyDTO;
+   }   
    
-
    /*체크리스트*/
    @RequestMapping("traveladd/checkList")
    @ResponseBody
@@ -141,8 +162,43 @@ public class TravelController {
       return selectCheckList;
    }
    
+
+   @RequestMapping("/updateItinearyTitle")
+	public String updateItinearyTitle(String title,int travelNo){
+	   System.out.println("여행제목 : "+title);
+	   System.out.println("글번호 : "+travelNo);
+	   travelAddDao.updateItinearyTitle(title, travelNo);
+	  return "index";//IOexception발생 방지하기위한 것(임의의 jsp주소를 작성)
+	}
    
-   
-   
-   
+  @RequestMapping(value="/updateTravelCover/{travelNo}")
+	public String updateTravelCover(@RequestParam MultipartFile travelCoverImgFile,HttpSession session,TravelDTO dto, @PathVariable String travelNo){
+	 System.out.println("수정하고자 하는 글번호 : "+travelNo);
+	   travelCoverImgFile = dto.getTravelCoverImgFile();
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("dto");
+		String path = session.getServletContext().getRealPath("/resources/img/travel/travelCover/"+travelNo);
+		
+		System.out.println("경로 : "+path);
+		
+		if(travelCoverImgFile != null){
+			String fileName = travelCoverImgFile.getOriginalFilename();
+			dto.setTravelCoverImgFile(travelCoverImgFile);
+		try{
+			//travelCoverImgFile.transferTo(new File(path+"/"+memberDTO.getEmail()+"/"+travelCoverImgFile.getOriginalFilename()));
+			File file = new File(path+"/"+memberDTO.getEmail()+"/"+fileName);
+			if(!file.exists()){
+				file.mkdirs();
+			}
+			travelCoverImgFile.transferTo(file);
+			
+			//System.out.println("여행일정 커버 이미지 수정 쿼리문 이전");
+			//myPageService.updateMyProfileImg(fileName, memberDTO.getEmail());
+			travelAddDao.updateTravelCover(fileName, memberDTO.getEmail(),travelNo);
+			}catch(Exception e){}
+		}
+		//return "redirect:/mypage/goInfo/"+memberDTO.getEmail();
+		//return memberDTO.getEmail();
+		return "index";
+	}
 }

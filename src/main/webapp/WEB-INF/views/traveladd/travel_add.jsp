@@ -53,11 +53,10 @@ width: 100%;
 
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.js'></script>
-
-
+<script src="http://malsup.github.com/jquery.form.js"></script>
 <!-- 초기 셋팅 -->
 <script>
-alert('여행번호'+${travelDTO.travelNo});
+/* alert('여행번호'+${travelDTO.travelNo}); */
 /* $("#travel_thema2").val(${travelDTO.thema}.attr("selected", "selected")); */
 </script>
 <!-- 데이트피커-->
@@ -68,14 +67,7 @@ alert('여행번호'+${travelDTO.travelNo});
 		    	beforeShowDay:noBefore2
 			});
 		    $("#travel_start_day2").on("change",function (){ 
-		    	$('#calendar').fullCalendar({
-		    		  validRange: function(nowDate) {
-		    		        return {
-		    		        	start: $("#travel_start_day2").val(),
-		    		        	 end:   $.fullCalendar.moment($("#travel_end_day2").val()).add(1,'days')
-		    		        };
-		    		    }
-		    	});
+
 		   });
 		    
 	  });
@@ -143,7 +135,7 @@ alert('여행번호'+${travelDTO.travelNo});
 
 		//여행 타이틀 수정하기 아이콘을 눌렀을때
 		$("#user_back_icon").click(function() {
-			//alert($("#travel_title").text());
+			//var title = ($("#travel_title").text());
 			//수정 입력폼 보여주기
 			$("#travel_title_text").show();
 			$("#travel_title_save_btn").show();
@@ -154,12 +146,18 @@ alert('여행번호'+${travelDTO.travelNo});
 			//기존 보여주는 양식 숨기기
 			$("#travel_title").hide();
 			$("#travel_title_change_btn").hide();
+			/* $.ajax({
+				type : "post",
+				url : "title="+title+"&travelNo=${travelDTO.travelNo}";
+			}) */
 		});
 
 		//여행 타이틀 수정 완료 버튼 눌렀을때
 		$("#travel_title_save_btn").click(function() {
 			//원래 여행 타이틀 div에 입력받은 text값 넣음
-			//alert($("#travel_title_text").val());
+			//var title = ($("#travel_title_text").val());
+			var travelTitle = $("#travel_title_text").val();
+			alert(travelTitle);
 			$("#travel_title").text($("#travel_title_text").val());
 
 			//수정 입력폼 숨기기
@@ -169,6 +167,13 @@ alert('여행번호'+${travelDTO.travelNo});
 			//기존 보여주는 양식 보여주기
 			$("#travel_title").show();
 			$("#travel_title_change_btn").show();
+			
+			$.ajax({
+			type : "post",
+			url : "${pageContext.request.contextPath}/updateItinearyTitle",
+			data :"title="+travelTitle+"&travelNo=${travelDTO.travelNo}"
+			
+			}) 
 		})
 
 
@@ -181,6 +186,7 @@ alert('여행번호'+${travelDTO.travelNo});
 
 		//이미지 변경 됬으면
 		$("#user_backcover_filebtn").change(function() {
+			
 			var file = this.files[0];
 			var reader = new FileReader();
 			reader.onloadend = function() {
@@ -198,6 +204,16 @@ alert('여행번호'+${travelDTO.travelNo});
 				reader.readAsDataURL(file);
 			} else {
 			}
+			//alert("chnage실행")
+			$("#updateTravelCover").ajaxForm({
+				type:"post",
+				url:"${pageContext.request.contextPath}/updateTravelCover/${travelDTO.travelNo}",
+				enctype:"multipart/form-data",
+				success:function(){
+					alert("성공!!");
+				}
+			})
+			$("#updateTravelCover").submit();
 
 		});
 
@@ -259,10 +275,12 @@ var flag=0;
 				right : 'month,agendaWeek,agendaDay'
 			},
 			defaultView : 'agendaWeek',
-			validRange: {
-				 	start: $("#travel_start_day2").val(),
+			validRange: function aaa(){
+				return{
+					start: $("#travel_start_day2").val(),
 			        end:   $.fullCalendar.moment($("#travel_end_day2").val()).add(1,'days')
-			     },
+				}
+			},
 			editable : true,
 			droppable : true, // this allows things to be dropped onto the calendar
 			drop : function(date, allDay) {
@@ -292,6 +310,7 @@ var flag=0;
 				$("#endTime").val(endTime);			
 				itinearyInitFunc();//모달 초기화
 				$("#detailmap").modal('show');
+				
 			
 			}, 
 			navLinks : true,
@@ -302,7 +321,7 @@ var flag=0;
 			editable : true,
 			eventLimit : true, // allow "more" link when too many events
 			events: function(start, end, timezone, callback) {
-				alert("이벤트"+flag);
+				/* alert("이벤트"+flag); */
 				$("#travelItineary_btn").click(function() {
 						if(flag==0){	
 					    //alert($("#itinearyStory").val(tinymce.activeEditor.getContent()) );
@@ -330,32 +349,14 @@ var flag=0;
 									}
 								});//Ajax 끝
 						}
-						else if(flag==1){//수정하기 ajax
-							$("#itinearyStory").val(tinymce.activeEditor.getContent());
-							var url="travelItineary";
-							 $.ajax({
-									url : url, //요청이름(이동경로)
-									type : "post", //method방식(get,post)
-									data: $("#travelItinearyForm").serialize(),
-									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
-									success : function(travelItinearyDTO) {
-										alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
-										//alert(response+"dd5335");
-									 	
-									},//ajax_Success
-									error : function(err) {
-										//alert(err + "오류발생")
-									}
-								});//Ajax 끝
-						}
 								 
-					$("#detailmap").modal('toggle');	
+					$("#detailmap").modal('hide');	
 					});//btnClick 
 			},//events 끝
 			 eventClick: function(event) {//수정용
 				 flag=1;
-				 alert("수정"+flag);
-				 alert(event.id);
+				 //alert("수정"+flag);
+				 alert("수정할 이벤트 여행일정 번호"+event.id);
 				var itinearyNo="itinearyNo="+event.id;
 			 	 $.ajax({
 						url :"selectTravelItineary", //요청이름(이동경로)
@@ -375,13 +376,34 @@ var flag=0;
 							//3.내용 셋팅
 							tinymce.activeEditor.setContent(travelItinearyDTO.story);
 							//4.modal 보여주기
-							$("#detailmap").modal('toggle');
+							$("#detailmap").modal('show');
 						},//ajax_Success
 						error : function(err) {
 							alert(err + "오류발생")
 						}
 					});//Ajax 끝
-			 	
+					$("#travelItineary_btn").click(function() {
+						if(flag==1){//수정하기 ajax
+							$("#itinearyNo").val(itinearyNo);
+							$("#itinearyStory").val(tinymce.activeEditor.getContent());
+							 $.ajax({
+									url : "travelItinearyUpdate", //요청이름(이동경로)
+									type : "post", //method방식(get,post)
+									data: $("#travelItinearyForm").serialize(),
+									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+									success : function(travelItinearyDTO) {
+										alert('수정완료 '+travelItinearyDTO.itinearyNo);
+										event.title=travelItinearyDTO.travelItinearyTitle;
+										$('#calendar').fullCalendar('updateEvent', event);
+										
+									},//ajax_Success
+									error : function(err) {
+										//alert(err + "오류발생")
+									}
+								});//Ajax 끝
+						}
+						$("#detailmap").modal('hide');
+					})//수정하기 버튼
 			 	
 			},//event 클릭
 		}); /*./fullCalendar 끝*/
@@ -443,13 +465,14 @@ var flag=0;
 						</h2>
 					</div>
 				</div>
-				<div class="profile_cover_div">
-					<button type="button" class="btn btn-default btn-sm"
-						id="user_backcover_changebtn">커버 바꾸기</button>
-					<input type="file" id="user_backcover_filebtn"
-						onchange="previewImage(this,'user_backcover_div')" />
-				</div>
-
+				<form id="updateTravelCover">
+					<div class="profile_cover_div">
+						<button type="button" class="btn btn-default btn-sm"
+							id="user_backcover_changebtn">커버 바꾸기</button>
+						<input type="file" id="user_backcover_filebtn" onchange="previewImage(this,'user_backcover_div')"
+						name="travelCoverImgFile"/>
+					</div>
+				</form>
 			</div>
 		</div>
 
@@ -798,6 +821,7 @@ var flag=0;
 
 					<div class="modal-body">
 						<input type="hidden" value="${travelDTO.travelNo}" name="travelNo">
+						<input type="hidden" value="0" name="itinearyNo" id="itinearyNo">
 						<input type="hidden" value="" id="startTime" name="startTime">
 						<input type="hidden" value="" id="endTime" name="endTime">
 						<input type="hidden" value="" id="latitude" name="latitude">

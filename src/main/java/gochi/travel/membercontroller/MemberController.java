@@ -80,7 +80,6 @@ public class MemberController {
 				String resultPath = rePath+"?index="+index;
 				return "redirect:/"+resultPath;
 			}
-			
 		}
 		
 		return "index";

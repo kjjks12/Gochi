@@ -17,6 +17,11 @@ public interface TravelDao {
 	/**달력 클릭시 해당 여행 정보 모달로 보여주기 */
 	TravelItinearyDTO selectTravelItineary(int travelNo) ;
 	
+	/**여행 일정에서 타이틀 수정 */
+	int updateItinearyTitle(String title,int travelNo);
+	
+	/**여행 일정에서 커버 이미지 수정 */
+	int updateTravelCover(String fileName,String email,String travelNo);
 	
 	/* 체크리스트 삽입, 삭제*/
 	int CeckList(CheckListDTO checklist);
@@ -26,4 +31,6 @@ public interface TravelDao {
 	
 	/* 체크리스트 중복체크*/
 	String overLapCheck(CheckListDTO overLapCheck); 
+	
+	
 }

@@ -29,12 +29,8 @@
                   class="hidden-xs"><i class="icon fa fa-phone"></i>
                   (011)-8800-555</a> <a href="#" data-section="modal-contact"
                   data-target="#modal-contact" data-toggle="modal" class="hidden-xs"><i
-                  class="icon fa fa-envelope-o"></i> Info</a> <a
-                  href="${pageContext.request.contextPath}/mypage/goInfo"
-                  class="hidden-xs"><i class="icon fa fa-envelope-o"></i>
-                  myPageUpdate TEST</a>
+                  class="icon fa fa-envelope-o"></i> Info</a>
             </div>
-
 				<div id="login-pan" class="col-md-6 hidden-xs">
 					<c:if test="${empty sessionScope.dto}">
 						<a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
@@ -131,7 +127,6 @@
                      </c:if>
                   </div>
                </div>
-
                   <!-- datepicker 시작 -->
                   <div class="travelDate">
                      <table>
@@ -179,33 +174,47 @@
 <!-- 모달 전체 윈도우 -->
 
 <!-- 로그인/회원가입 모달!!!!!!!!!!!!!!!!! -->
-<div class="modal fade login-modal" tabindex="-1" role="dialog" aria-hidden="true">
-         <div class="modal-dialog">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
-            <div class="login-button-container">
-               <a href="#" data-section="login"><i class="fa fa-user"></i></a>
-               <a href="#" data-section="sign-in"><i class="fa fa-pencil-square-o"></i></a>
-            </div><!-- ./login-button-container -->
-            
-            <div class="form-container">
-               <!-- 로그인 Form 입니다. -->
-               <form action="${pageContext.request.contextPath}/member/Login" method="post" name="loginForm">
-                  <div id="login" class="box">
-                     <h2 class="title">Login in to your account</h2>
-                     <h3 class="sub-title">come to KkoChi World~!</h3>
-                     <div class="field">
-                     	<input type="hidden" name="locationPath" value="" id="locationPath">
-                        <input id="loginEmail" name="user-log" class="form-control" type="email" placeholder="Email">
-                        <i class="fa fa-user user"></i>
-                     </div>
-                     <div class="field">
-                        <input id="loginPassword" name="password-log" class="form-control" type="password" placeholder="Password">
-                        <i class="fa fa-ellipsis-h"></i>
-                     </div>                  
-                     <div class="field footer-form text-right">
-                     <!-- 네이버 로그인 API 적용. -->
-                     <button class="btn btn-reverse button-form" style="background-color:#ffffff; border:none" onClick=" $('.login-modal').hide();"><div id="naver_id_login"></div></button>
-                        <script type="text/javascript">
+<div class="modal fade login-modal" tabindex="-1" role="dialog"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">
+			<i class="fa fa-close"></i>
+		</button>
+		<div class="login-button-container">
+			<a href="#" data-section="login"><i class="fa fa-user"></i></a> <a
+				href="#" data-section="sign-in"><i class="fa fa-pencil-square-o"></i></a>
+			<a href="#" data-section="recovery"><i class="fa fa-lock"></i></a> <a
+				href="#" data-section="setting"><i class="fa fa-cog"></i></a>
+		</div>
+		<!-- ./login-button-container -->
+
+		<div class="form-container">
+			<!-- 로그인 Form 입니다. -->
+			<form action="${pageContext.request.contextPath}/member/Login"
+				method="post" name="loginForm">
+				<div id="login" class="box">
+					<h2 class="title">Login in to your account</h2>
+					<h3 class="sub-title">come to KkoChi World~!</h3>
+					<div class="field">
+						<input type="hidden" name="locationPath" value=""
+							id="locationPath"> <input id="loginEmail" name="user-log"
+							class="form-control" type="email" placeholder="Email"> <i
+							class="fa fa-user user"></i>
+					</div>
+					<div class="field">
+						<input id="loginPassword" name="password-log" class="form-control"
+							type="password" placeholder="Password"> <i
+							class="fa fa-ellipsis-h"></i>
+					</div>
+					<div class="field footer-form text-right">
+						<!-- 네이버 로그인 API 적용. -->
+						<button class="btn btn-reverse button-form"
+							style="background-color: #ffffff; border: none"
+							onClick=" $('.login-modal').hide();">
+							<div id="naver_id_login"></div>
+						</button>
+						<script type="text/javascript">
                                 var naver_id_login = new naver_id_login("qkQPxecKnvS2x7Gphr25", "http://localhost:8000/controller/login/callback");
                                 var state = naver_id_login.getUniqState();
                                 naver_id_login.setButton("green", 2,40);
@@ -214,44 +223,56 @@
                                 naver_id_login.setPopup();
                                 naver_id_login.init_naver_id_login();
                         </script>
-                     <button type="reset" class="btn btn-reverse button-form">Reset</button>
-                     <button type="button" class="btn btn-default button-form" id="loginBun" onclick="loginCheck()">Login</button>
-                     </div>
-                  </div> <!-- ./login -->
-                  </form>
-                  
-               <!-- SignIn Form 시작 입니다. -->
-               <form method="post" action="${pageContext.request.contextPath}/member/SignIn" name="signInForm" id="signForm">
-                  <div id="sign-in" class="box">
-                     <h2 class="title">Sign In</h2>
-                     <h3 class="sub-title">Welcome to Gochi World~!</h3>
-                        
-                        <div class="field">
-                        <input id="nickname" name="nickname" class="form-control" type="text" placeholder="NickName">
-                        <i class="fa fa-user user"></i>
-                     </div>
-                        <div class="form-group">
-                           <input id="email-sign" class="form-control" type="email" name="email-sign" placeholder="Email">
-                           <i class="fa fa-envelope-o"></i>
-                        </div>
-                     <div class="field">
-                        <input id="password-sign" class="form-control" type="password" name="password-sign" placeholder="Password">
-                        <i class="fa fa-ellipsis-h"></i>
-                     </div>
-                     <div class="field">
-                        <input id="re-password-sign" class="form-control" type="password" name="re-password-sign" placeholder="Repeat password">
-                        <i class="fa fa-ellipsis-h"></i>
-                     </div>
-                     <div class="field footer-form text-right">
-                        <span class="remember"><input class="labelauty" type="checkbox" data-labelauty="I have read the privacy policy." checked /></span>
-                        <button type="button" class="btn btn-default button-form" id="signIn" onclick="SignInCheck()">Sign in</button>
-                     </div>
-                  </div><!-- ./sign-in -->
-               </form><!-- ./form-container -->
-            </div><!-- ./login-button-container -->
-         </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
- 
+						<button type="reset" class="btn btn-reverse button-form">Reset</button>
+						<button type="button" class="btn btn-default button-form"
+							id="loginBun" onclick="loginCheck()">Login</button>
+					</div>
+				</div>
+				<!-- ./login -->
+			</form>
+
+			<!-- SignIn Form 시작 입니다. -->
+			<form method="post"
+				action="${pageContext.request.contextPath}/member/SignIn"
+				name="signInForm" id="signForm">
+				<div id="sign-in" class="box">
+					<h2 class="title">Sign In</h2>
+					<h3 class="sub-title">Welcome to Gochi World~!</h3>
+
+					<div class="field">
+						<input id="nickname" name="nickname" class="form-control"
+							type="text" placeholder="NickName"> <i
+							class="fa fa-user user"></i>
+					</div>
+					<div class="form-group">
+						<input id="email-sign" class="form-control" type="email"
+							name="email-sign" placeholder="Email"> <i
+							class="fa fa-envelope-o"></i>
+					</div>
+					<div class="field">
+						<input id="password-sign" class="form-control" type="password"
+							name="password-sign" placeholder="Password"> <i
+							class="fa fa-ellipsis-h"></i>
+					</div>
+					<div class="field">
+						<input id="re-password-sign" class="form-control" type="password"
+							name="re-password-sign" placeholder="Repeat password"> <i
+							class="fa fa-ellipsis-h"></i>
+					</div>
+					<div class="field footer-form text-right">
+						<span class="remember"><input class="labelauty"
+							type="checkbox" data-labelauty="I have read the privacy policy."
+							checked /></span>
+						<button type="button" class="btn btn-default button-form"
+							id="signIn" onclick="SignInCheck()">Sign in</button>
+					</div>
+				</div>
+				<!-- ./sign-in -->
+			</form>
+			<!-- ./form-container -->
+		</div>
+	</div>
+</div>
 
 <!-- 사용자정보 모달!!!!!!!!!!!!!!!!!!!! -->
 <div class="modal fade user-info-modal" tabindex="-1" role="dialog" aria-hidden="true">
