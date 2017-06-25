@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import gochi.travel.model.memberdto.MemberDTO;
-import gochi.travel.model.mypagedto.MypageDTO;
 import gochi.travel.model.traveldao.TravelDao;
 import gochi.travel.model.traveldto.CheckListDTO;
 import gochi.travel.model.traveldto.TravelDTO;
@@ -40,7 +39,9 @@ public class TravelController {
       travelAddDao.initTravelInfoSave(travelDTO);
       System.out.println("테마:"+travelDTO.getThema());
       ModelAndView mv= new ModelAndView();
-      mv.setViewName("traveladd/travel_add");
+
+      mv.setViewName("traveladd/travel_add/editor");
+
       mv.addObject("travelDTO", travelDTO);
       System.out.println("여행번호"+travelDTO.getTravelNo());
       return mv;
@@ -66,7 +67,8 @@ public class TravelController {
    public TravelItinearyDTO travelItineary(TravelItinearyDTO travelItinearyDTO){
       
       System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
-      System.out.println("여행 일정번호 :"+travelItinearyDTO.getItinearyNo());
+
+      System.out.println("여행 일정번호 :"+travelItinearyDTO.getTravelNo());
       System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
       System.out.println("내용:"+travelItinearyDTO.getStory());
       System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
@@ -89,6 +91,7 @@ public class TravelController {
       return    travelAddDao.selectTravelItineary(itinearyNo);
    }   
 
+
 @RequestMapping("traveladd/travelItinearyUpdate")
    @ResponseBody
    public TravelItinearyDTO travelItinearyUpdate(TravelItinearyDTO travelItinearyDTO){
@@ -106,8 +109,6 @@ public class TravelController {
       return travelItinearyDTO;
    }   
    
-   
-
    /*체크리스트*/
    @RequestMapping("traveladd/checkList")
    @ResponseBody
@@ -161,6 +162,7 @@ public class TravelController {
       return selectCheckList;
    }
    
+
    @RequestMapping("/updateItinearyTitle")
 	public String updateItinearyTitle(String title,int travelNo){
 	   System.out.println("여행제목 : "+title);
@@ -199,7 +201,4 @@ public class TravelController {
 		//return memberDTO.getEmail();
 		return "index";
 	}
-   
-   
-   
 }

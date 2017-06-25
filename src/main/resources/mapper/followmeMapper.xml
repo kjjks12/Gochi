@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- member 관련 xml -->
+<mapper namespace="followmeMapper">
+
+<resultMap type="gochi.travel.model.travelreviewdto.TravelReviewDto" id="travelReviewMap">
+	<id property="travel_no" column="travel_no"/>
+	<result property="title" column="TITLE"/>
+	<result property="email" column="EMAIL"/>
+	<result property="thema" column="THEMA"/>
+	<result property="start_day" column="TRAVEL_START_DAY"/>
+	<result property="end_day" column="TRAVEL_END_DAY"/>
+	<result property="brief_story" column="BRIEF_STORY"/>
+	<result property="favor" column="FAVOR"/>
+	<result property="img" column="TRAVEL_COVER_IMG"/>
+</resultMap>
+
+
+<!-- 후기 최신글 검색 -->
+<select id="newTrvelReview" parameterType="string" resultMap="travelReviewMap">
+	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
+		from TRAVEL_REVIEW 
+		<where>
+			<if test="_parameter!=null">
+				THEMA = #{_parameter}
+			</if>
+		</where>
+		order by travel_no DESC
+</select>
+<!-- 후기 좋아요순 검색 -->
+<select id="goodTravelReview" parameterType="string"  resultMap="travelReviewMap">
+	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
+		from TRAVEL_REVIEW 
+		<where>
+			<if test="_parameter!=null">
+				THEMA = #{_parameter}
+			</if>
+		</where>
+		order by favor DESC
+</select>
+
+<!-- 나믿따 insert 하기 -->
+<insert id="insertFollowme" parameterType="FollowemeDto">
+	insert into FRIEND(TRAVEL_NO,EMAIL,TRAVEL_START_DAY,TRAVEL_END_DAY,THEMA,LOCATION,DISTANCE,CARTIME,WALKTIME,BYCICLETIME,COST,STORY)
+	values(#{travel_no},#{email},#{follow_start_day},#{follow_end_day},#{thema},#{location},#{distance},#{carTime},#{walkTime},#{bycicleTime},#{cost},#{story})
+</insert>
+
+
+</mapper>

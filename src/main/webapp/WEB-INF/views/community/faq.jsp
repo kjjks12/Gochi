@@ -1,74 +1,6 @@
-<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <title>PROHOME - Responsive Real Estate Template</title>
     
-    <jsp:include page="/WEB-INF/views/include/include_top_css.jsp"/>
-    <jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp"/>
-
-	<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
-	<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
-	<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
-	<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png" />
-	<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png" />
-	<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png" />
-	<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png" />
-	<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png" />
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
-    
-    
-	<script type="text/javascript">
-
-		"use strict";
-		// ACCORDION
-		$(document).ready(function() {
-			var $title, $content;
-			var $selector = $('.accordion').selector;
-			var $title    = $($selector + ' .title');
-			var $content  = $($selector + ' .text-container');
-			var $close = function(){
-				$title.removeClass('active');
-				$content.slideUp(500).removeClass('open');			
-			}
-			$($selector).find('.title').on('click', function(e) {
-				var $idTarget = $(this).data('target');
-				var currentAttrValue = $(this).attr('href');
-				if($(e.target).is('.active')) {
-					$($idTarget).css({'display':'block'});
-					$close();
-				}else {
-					$($idTarget).css({'display':'none'});
-					$close();
-					$(this).addClass('active');
-					$($idTarget).slideDown(400).addClass('open'); 
-				}
-				e.preventDefault();
-			});
-		});
-
-	</script>
-	
-
-	
-	
-	
-  </head>
-  <body class="fixed-header">
-
 	<div id="page-container">
 		
 		<section id="header-page" class="header-margin-base">
@@ -99,7 +31,7 @@
 
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-3" id="block-menu-content">
+					<div class="col-xs-3 col-md-2 col-lg-2" id="block-menu-content">
 						<div class="section-title line-style no-margin">
 							<h3 class="title">Menu Faq list</h3>
 						</div>
@@ -181,7 +113,7 @@
 
 						<div>
 						<div style="float: left;"><h2>자유게시판</h2></div>
-						<div style="float: none; text-align: right;"><h4><a href="select">[자세히보기]</a></h4></div>
+						<div style="float: none; text-align: right;"><h4><a href="pagination?lastNum=1">[자세히보기]</a></h4></div>
 						</div>
 						<div class="faq-container accordion" id="account">
 							<div class="accordion-box">
@@ -246,7 +178,7 @@
 						
 						<div>
 						<div style="float: left;"><h2>Q&A</h2></div>
-						<div style="float: none; text-align: right;"><h4><a href="#">[자세히보기]</a></h4></div>
+						<div style="float: none; text-align: right;"><h4><a href="qapagination?lastNum=1">[자세히보기]</a></h4></div>
 						</div>
 						<div class="faq-container accordion" id="property">
 							<div class="accordion-box">
@@ -356,6 +288,33 @@
 		</div><!-- /.modal -->
 	</div><!-- /#page-container -->
 	<!--  추가된 부분 -->
-	 </body>
+	<script type="text/javascript">
 
-</html>
+		"use strict";
+		// ACCORDION
+		$(document).ready(function() {
+			var $title, $content;
+			var $selector = $('.accordion').selector;
+			var $title    = $($selector + ' .title');
+			var $content  = $($selector + ' .text-container');
+			var $close = function(){
+				$title.removeClass('active');
+				$content.slideUp(500).removeClass('open');			
+			}
+			$($selector).find('.title').on('click', function(e) {
+				var $idTarget = $(this).data('target');
+				var currentAttrValue = $(this).attr('href');
+				if($(e.target).is('.active')) {
+					$($idTarget).css({'display':'block'});
+					$close();
+				}else {
+					$($idTarget).css({'display':'none'});
+					$close();
+					$(this).addClass('active');
+					$($idTarget).slideDown(400).addClass('open'); 
+				}
+				e.preventDefault();
+			});
+		});
+
+	</script>

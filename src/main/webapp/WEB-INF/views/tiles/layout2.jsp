@@ -11,7 +11,7 @@
    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script> <!-- NAVER LOGIN -->
    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/daumOpenEditor/css/editor.css" type="text/css" charset="utf-8"/> 
-	<script src="${pageContext.request.contextPath}/resources/daumOpenEditor/js/editor_loader.js" type="text/javascript" charset="utf-8"></script>
+   <script src="${pageContext.request.contextPath}/resources/daumOpenEditor/js/editor_loader.js" type="text/javascript" charset="utf-8"></script>
     <script   src="${pageContext.request.contextPath}/resources/script/jquery.min.js"></script>      <!-- jQuery   (necessary for Bootstrap's JavaScript plugins) -->
    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/datepicker/jquery-ui.css"> <!-- Bootstrap -->

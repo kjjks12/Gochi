@@ -203,7 +203,7 @@ function selectList() {
          $.each(data,function(index,item){
             divStr+="<div class='item'>";
             divStr+="<div class='blog-list masonry-post'>";
-            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail'>"+item.restaurantName+"</a></h2>";
+            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"'>"+item.restaurantName+"</a></h2>";
             divStr+="<div class='image' id='food-start'>";
             divStr+="<a href='#'><img src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
             divStr+="<div class='social'>";
@@ -223,12 +223,6 @@ function selectList() {
       }
    })
 }
-
-
-
-
-
-      
 </script>
 
 
@@ -289,7 +283,7 @@ function selectList() {
                   <div class="section-title line-style no-margin">
                      <h3 class="title">
                         <a href="#" id="modal-opener" data-target="#modal-contact2" data-toggle="modal"
-                           class="hidden-xs"><i class="fa fa-cutlery"
+                           class="hidden-xs" onclick="checkLogin()"><i class="fa fa-cutlery"
                            aria-hidden="true"></i> 맛집 등록</a>
                      </h3>
 
