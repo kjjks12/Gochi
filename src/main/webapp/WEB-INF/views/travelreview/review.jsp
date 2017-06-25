@@ -72,7 +72,7 @@
 							<h3 class="title">추천순</h3>
 		</div>
  <c:choose>
-         <c:when test="${reviewList.size()==0}">
+         <c:when test="${empty reviewList}">
                <span colspan="6" align="center"><h2>여행후기가 없습니다...</h2></span>   
          </c:when>
    <c:otherwise>
@@ -89,7 +89,7 @@
 			<a href="${pageContext.request.contextPath}/travel_review/review_detail">
 			<div class="image image-fill">
 			<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample" />
-			</div>
+			</div>   
 			<h3 class="subtitle">${list.brief_story}</h3>
 			<div class="text">${list.email}</div>
 			</a>
