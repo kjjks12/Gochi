@@ -53,11 +53,10 @@ width: 100%;
 
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.js'></script>
-
-
+<script src="http://malsup.github.com/jquery.form.js"></script>
 <!-- 초기 셋팅 -->
 <script>
-alert('여행번호'+${travelDTO.travelNo});
+/* alert('여행번호'+${travelDTO.travelNo}); */
 /* $("#travel_thema2").val(${travelDTO.thema}.attr("selected", "selected")); */
 </script>
 <!-- 데이트피커-->
@@ -136,7 +135,7 @@ alert('여행번호'+${travelDTO.travelNo});
 
 		//여행 타이틀 수정하기 아이콘을 눌렀을때
 		$("#user_back_icon").click(function() {
-			//alert($("#travel_title").text());
+			//var title = ($("#travel_title").text());
 			//수정 입력폼 보여주기
 			$("#travel_title_text").show();
 			$("#travel_title_save_btn").show();
@@ -147,12 +146,18 @@ alert('여행번호'+${travelDTO.travelNo});
 			//기존 보여주는 양식 숨기기
 			$("#travel_title").hide();
 			$("#travel_title_change_btn").hide();
+			/* $.ajax({
+				type : "post",
+				url : "title="+title+"&travelNo=${travelDTO.travelNo}";
+			}) */
 		});
 
 		//여행 타이틀 수정 완료 버튼 눌렀을때
 		$("#travel_title_save_btn").click(function() {
 			//원래 여행 타이틀 div에 입력받은 text값 넣음
-			//alert($("#travel_title_text").val());
+			//var title = ($("#travel_title_text").val());
+			var travelTitle = $("#travel_title_text").val();
+			alert(travelTitle);
 			$("#travel_title").text($("#travel_title_text").val());
 
 			//수정 입력폼 숨기기
@@ -162,6 +167,13 @@ alert('여행번호'+${travelDTO.travelNo});
 			//기존 보여주는 양식 보여주기
 			$("#travel_title").show();
 			$("#travel_title_change_btn").show();
+			
+			$.ajax({
+			type : "post",
+			url : "${pageContext.request.contextPath}/updateItinearyTitle",
+			data :"title="+travelTitle+"&travelNo=${travelDTO.travelNo}"
+			
+			}) 
 		})
 
 
@@ -174,6 +186,7 @@ alert('여행번호'+${travelDTO.travelNo});
 
 		//이미지 변경 됬으면
 		$("#user_backcover_filebtn").change(function() {
+			
 			var file = this.files[0];
 			var reader = new FileReader();
 			reader.onloadend = function() {
@@ -191,6 +204,16 @@ alert('여행번호'+${travelDTO.travelNo});
 				reader.readAsDataURL(file);
 			} else {
 			}
+			//alert("chnage실행")
+			$("#updateTravelCover").ajaxForm({
+				type:"post",
+				url:"${pageContext.request.contextPath}/updateTravelCover/${travelDTO.travelNo}",
+				enctype:"multipart/form-data",
+				success:function(){
+					alert("성공!!");
+				}
+			})
+			$("#updateTravelCover").submit();
 
 		});
 
@@ -298,7 +321,7 @@ var flag=0;
 			editable : true,
 			eventLimit : true, // allow "more" link when too many events
 			events: function(start, end, timezone, callback) {
-				alert("이벤트"+flag);
+				/* alert("이벤트"+flag); */
 				$("#travelItineary_btn").click(function() {
 						if(flag==0){	
 					    //alert($("#itinearyStory").val(tinymce.activeEditor.getContent()) );
@@ -442,13 +465,14 @@ var flag=0;
 						</h2>
 					</div>
 				</div>
-				<div class="profile_cover_div">
-					<button type="button" class="btn btn-default btn-sm"
-						id="user_backcover_changebtn">커버 바꾸기</button>
-					<input type="file" id="user_backcover_filebtn"
-						onchange="previewImage(this,'user_backcover_div')" />
-				</div>
-
+				<form id="updateTravelCover">
+					<div class="profile_cover_div">
+						<button type="button" class="btn btn-default btn-sm"
+							id="user_backcover_changebtn">커버 바꾸기</button>
+						<input type="file" id="user_backcover_filebtn" onchange="previewImage(this,'user_backcover_div')"
+						name="travelCoverImgFile"/>
+					</div>
+				</form>
 			</div>
 		</div>
 

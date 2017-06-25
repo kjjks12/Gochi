@@ -77,8 +77,5 @@ public class MypageController {
 		return "redirect:/mypage/goInfo/"+email;
 	}
 	
-	@RequestMapping("/updateItinearyTitle")
-	public void updateItinearyTitle(String title){
-		//System.out.println("여행제목 : "+title);
-	}
+	
 }

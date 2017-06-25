@@ -17,6 +17,4 @@ public interface MypageService {
 	int updateMyProfileImg(String profileImg,String email);
 	
 	int updateMyBackProfileImg(String backImg,String email);
-	
-	int updateItinearyTitle(String title,int travelNo);
 }
