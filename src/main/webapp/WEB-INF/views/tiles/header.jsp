@@ -117,15 +117,6 @@
                   <label for="content">간단 여행 이야기</label>
                   <textarea rows="2" class="form-control" name="briefStory"
                      id="brief_story"></textarea>
-                  <div id="login-pan" class="col-md-6 hidden-xs">
-                     <c:if test="${not empty sessionScope.dto}">
-                        <a href="${pageContext.request.contextPath}/member/logout"><i
-                           class="icon fa fa-user user"></i>로그아웃</a>
-                        <a href="#" data-toggle="modal" data-target=".user-info-modal"
-                           data-section="setting"><i
-                           class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
-                     </c:if>
-                  </div>
                </div>
                   <!-- datepicker 시작 -->
                   <div class="travelDate">
