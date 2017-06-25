@@ -1,6 +1,8 @@
 package gochi.travel.model.commentdao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,23 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public int commentDelete(String sessionEmail, String boardEmail, int board_no) {
-		CommentDTO deleteComment = new CommentDTO(board_no, sessionEmail);
-		return session.delete("commentMapper.deleteComment", deleteComment);
+	public int commentDelete(String sessionEmail, String boardEmail, int board_no, String content) {
+
+			Map<String, Object> map = new HashMap<>();
+			
+				map.put("email", sessionEmail);
+				map.put("board_no", board_no);
+				map.put("content", content);
+				
+		System.out.println(content +"2CONTET ??");
+		System.out.println(sessionEmail);
+		System.out.println(boardEmail);
+		System.out.println(board_no);
+	   System.out.println("delete 도착");
+	   
+	   int result = session.delete("commentMapper.deleteComment", map);
+		System.out.println("delete mapper 다녀옴  "+result);
+		return result;
 	}
 
 }

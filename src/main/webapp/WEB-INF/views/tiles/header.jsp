@@ -69,14 +69,16 @@
 					<li class="has_submenu"><a
 						href="${pageContext.request.contextPath}/hotdeal/hotdeal_main">여행
 							핫딜</a></li>
-					<li class="has_submenu"><a href="#">나믿따</a></li>
+					<li class="has_submenu">
+					<a href="${pageContext.request.contextPath}/followme/followmeMain">나믿따</a>
+					</li>
 					<li class="has_submenu">
 						<%-- <a href="${pageContext.request.contextPath}/traveladd/travel_add">여행일정</a> --%>
 						<a data-toggle="modal" data-target="#myModal">일정만들기</a> <!-- 일정만들기 모달   -->
 					</li>
 					<li class="has_submenu"><a
-						href="${pageContext.request.contextPath}/travel_review/review">여행후기</a>
-					</li>
+						href="${pageContext.request.contextPath}/travelreview/travelreview_main">여행후기</a>
+					</li> 
 					<li class="has_submenu"><a
 						href="${pageContext.request.contextPath}/restaurant/restaurant">맛집</a>
 					</li>
