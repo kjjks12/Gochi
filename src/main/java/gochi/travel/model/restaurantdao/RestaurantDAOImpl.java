@@ -28,6 +28,30 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 		List<RestaurantDTO> list =  sqlsession.selectList("restaurantMapper.selectRestaurant");
 		return list;
 	}
+
+	@Override
+	public List<RestaurantDTO> categorySelect(String classification) {
+		System.out.println(classification);
+		List<RestaurantDTO> list = sqlsession.selectList("restaurantMapper.selectRestaurant", classification);
+		return list;
+	}
+
+	@Override
+	public int readNum(int restaurantNo) {
+		int result = sqlsession.update("restaurantMapper.readNumUpdate", restaurantNo);
+		return result;
+	}
+
+	@Override
+	public int heart(String restaurantNo) {
+		
+		return sqlsession.update("restaurantMapper.heartUpdate",Integer.parseInt(restaurantNo));
+	}
+
+	@Override
+	public RestaurantDTO selectByRestaurantNo(String restaurantNo) {
+		return sqlsession.selectOne("restaurantMapper.foodSelectNu",restaurantNo);
+	}
 	
 	/**
 	 * 맛집 디테일 페이지 : 포스트 올리기
@@ -60,7 +84,7 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	 * 롤링 이미지 가져오기
 	 * */
 	@Override
-	public List<RestaurantImgDTO> selectImg(int restaurantNo) {
+	public List<RestaurantImgDTO> selectImg(int restaurantNo){
 		List<RestaurantImgDTO> imgList = sqlsession.selectList("restaurantMapper.selectImg", restaurantNo);
 		return imgList;
 	}	

@@ -31,6 +31,31 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return list;
 	}
 
+	@Override
+	public List<RestaurantDTO> categorySelect(String classification) {
+		List<RestaurantDTO> list = restaurantDAO.categorySelect(classification);
+		return list;
+	}
+
+	@Override
+	public int readNum(int restaurantNo) {
+		int result  = restaurantDAO.readNum(restaurantNo);	
+		System.out.println("서비스 결과 값 :" + result);
+		return result;
+
+	}
+
+	@Override
+	public RestaurantDTO heart(String restaurantNo, boolean state)throws Exception {
+		if(state) {
+			int result = restaurantDAO.heart(restaurantNo);
+			if(result == 0 ) {
+				throw new Exception("좋아요 증가 실패 입니다.");
+			}
+		}
+		return restaurantDAO.selectByRestaurantNo(restaurantNo);
+	}
+
 	/**
 	 * 맛집 디테일 페이지 : 포스트 올리기
 	 * */

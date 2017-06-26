@@ -57,9 +57,25 @@ public class BoardDAOImpl implements BoardDAO {
 		List<BoardDTO> list=session.selectList("boardMapper.pagination",map);
 		return list;
 	}
+	
+	@Override
+	public int favor(int boardno) {
+		int result = session.update("boardMapper.favor",boardno);
+		return result;
+	}
+	
+	@Override
+	public BoardDTO favorNum(int boardno) {
+		BoardDTO boardDTO = session.selectOne("boardMapper.favorNum",boardno);
+		return boardDTO;
+	}
+	
+	@Override
+	public List<QaBoardDTO> faq() {
+		List<QaBoardDTO> list=session.selectList("boardMapper.faq");
+		return list;
+	}
 
-	
-	
 	/////////////////////////////q&a dao
 	@Override
 	public List<QaBoardDTO> qapagination(Map<String, Integer> map) {
@@ -95,6 +111,11 @@ public class BoardDAOImpl implements BoardDAO {
 		int result=session.update("boardMapper.qamodify",qaboardDTO);
 		return result;
 	}
+
+	
+
+	
+	
 	
 
 }

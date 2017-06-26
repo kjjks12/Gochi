@@ -1,10 +1,14 @@
 package gochi.travel.restaurantcontroller;
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -15,6 +19,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
+import gochi.travel.model.memberdto.MemberDTO;
 import gochi.travel.model.restaurantdto.RestaurantDTO;
 import gochi.travel.model.restaurantdto.RestaurantDetailDTO;
 import gochi.travel.model.restaurantdto.RestaurantImgDTO;
@@ -28,8 +34,7 @@ public class RestaurantController {
 	RestaurantService restaurantService;
 
 	@RequestMapping("/insert")
-	public String insert(HttpServletRequest request) {
-		System.out.println("등록부분들어옴?");
+	public String insert(HttpServletRequest request,  RestaurantDTO dto) {
 		String classification = request.getParameter("category2");
 		String restaurantName = request.getParameter("food-name");
 		String area = request.getParameter("food-location");
@@ -37,22 +42,29 @@ public class RestaurantController {
 		String holiday = request.getParameter("food-holiday");
 		String phone = request.getParameter("food-phone");
 		String explanation = request.getParameter("food-info");
-		String remark = request.getParameter("food-remark");
-		System.out.println(remark);
+		String remark = request.getParameter("food-remark");		
+		MemberDTO email = (MemberDTO)request.getSession().getAttribute("dto");
 		int result = restaurantService.insertRestaurant(
-				new RestaurantDTO(classification, area, explanation, restaurantName, operatingTime, holiday, phone,remark));
-		System.out.println("결과 값 :" +result);
+				new RestaurantDTO(classification, area, explanation, restaurantName, operatingTime, holiday, phone, email.getEmail() ,remark));
+		
 		return "redirect:/restaurant/restaurant";
 	}
 	
 	@RequestMapping("/selectAll")
 	@ResponseBody
 	public List<RestaurantDTO> select(HttpServletRequest request) {
-		System.out.println("들어오나?");
 		List<RestaurantDTO> list = restaurantService.select();
 		request.getSession().setAttribute("list", list);
 		return list;
 	}
+	
+	@RequestMapping("/categorySelect")
+	@ResponseBody
+	public List<RestaurantDTO> categorySelect(HttpServletRequest request, String classification) {
+		System.out.println("들어오기 실패인가?");
+		List<RestaurantDTO> list = restaurantService.categorySelect(classification);
+		return list;
+	}	
 	
 	@RequestMapping("/restaurant/imageSave")
 	@ResponseBody
@@ -108,11 +120,14 @@ public class RestaurantController {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
-
 		return "index";
+	}
+	@RequestMapping("/heart")
+	@ResponseBody
+	public RestaurantDTO heart(HttpServletRequest request, String restaurantNo)throws Exception {
+		RestaurantDTO dto = restaurantService.heart(restaurantNo, true);	
+		return dto;
+		
 	}
 	
 	/**
@@ -120,12 +135,20 @@ public class RestaurantController {
 	 * */
 	@RequestMapping("/detail")
 	public String detailView(HttpServletRequest request){
+		
+		String readNu = request.getParameter("restaurantNo");
+		System.out.println(readNu);
+		restaurantService.readNum(Integer.parseInt(readNu));
+		
+
 		List<RestaurantDTO> list = (List<RestaurantDTO>) request.getSession().getAttribute("list");
-		String index = request.getParameter("index");
+		String index = request.getParameter("index");		
 		//세션에 index값 저장!
 		request.getSession().setAttribute("index", index);
 		int num = Integer.parseInt(index);
 		System.out.println(num);
+		restaurantService.readNum(num);
+		
 		request.getSession().setAttribute("restaurantInfo", list.get(Integer.parseInt(index)));
 		
 		//해당 게시물에 등록된 post 가져오기.

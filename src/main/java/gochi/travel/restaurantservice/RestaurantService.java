@@ -8,8 +8,29 @@ import gochi.travel.model.restaurantdto.RestaurantImgDTO;
 
 public interface RestaurantService {
 	
+	/**
+	 * 맛집 list 뿌려주기
+	 */
 	int insertRestaurant(RestaurantDTO restaurantDTO);
+	
+	/**
+	 * 카테고리 별 list 뿌려주기
+	 */
 	List<RestaurantDTO> select();
+	
+	/**
+	 * 맛집 등록 하기
+	 */
+	List<RestaurantDTO> categorySelect(String classification);
+	
+	/**
+	 * 해당 맛집에 대한 조회수 올리기
+	 */
+	int readNum(int restaurantNo);
+	
+	
+	RestaurantDTO heart(String restaurantNo, boolean state)throws Exception;
+
 	
 	/**
 	 * 맛집 디테일 페이지 포스트 올리기
@@ -26,8 +47,12 @@ public interface RestaurantService {
 	 * */
 	int insertImg(RestaurantImgDTO imgDTO);
 	
+	
 	/**
 	 * 롤링 이미지 정보 가져오기
 	 * */
 	List<RestaurantImgDTO> selectImg(int restaurantNo);
+	
+
 }
+ 

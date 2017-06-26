@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <script type="text/javascript"
+   src="${pageContext.request.contextPath}/resources/tinymce/tinymce.js"></script>
+<script type="text/javascript"
+   src="${pageContext.request.contextPath}/resources/tinymce/tinymce.min.js">
+   </script>
+   
 	<div id="page-container">
 		<section id="header-page" class="header-margin-base">
 			<div class="skyline">
@@ -64,18 +70,19 @@
 								<div class="col-md-12">
 									<!-- <textarea name="content" id="content" class="form-control description"></textarea> -->
 									<!-- <div name="content"  class="form-control description"></div> -->
-									<jsp:include page="/WEB-INF/views/community/editor_frame.jsp"></jsp:include>
+									<textarea  id="qaContent" name="qaContent" rows="50" cols="10"></textarea>
 							
+								</div>
+								<div style="text-align: right;">
+									<button class="btn btn-default">작성하기</button>
+									<button class="btn btn-default" onclick="page()">취소</button>
 								</div>
 							
 							</form>
 							<!-- 여기서부터 새로운 코드 입력 -->
 		
 							</div>
-							<div style="text-align: right;">
-								<button class="btn btn-default" onclick="Editor.save();">작성하기</button>
-								<button class="btn btn-default" onclick="page()">취소</button>
-							</div>
+							
 						</div>
 						
 						<div class="info-block" id="images">
@@ -131,98 +138,52 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 	</div><!-- /#page-container -->
-  <script type="text/javascript">
-	var config = {
-		txHost: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) http://xxx.xxx.com */
-		txPath: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) /xxx/xxx/ */
-		txService: 'sample', /* 수정필요없음. */
-		txProject: 'sample', /* 수정필요없음. 프로젝트가 여러개일 경우만 수정한다. */
-		initializedId: "", /* 대부분의 경우에 빈문자열 */
-		wrapper: "tx_trex_container", /* 에디터를 둘러싸고 있는 레이어 이름(에디터 컨테이너) */
-		form: 'insertForm'+"", /* 등록하기 위한 Form 이름 */
-		txIconPath: "${pageContext.request.contextPath}/resources/daumOpenEditor/images/icon/editor/", /*에디터에 사용되는 이미지 디렉터리, 필요에 따라 수정한다. */
-		txDecoPath: "${pageContext.request.contextPath}/resources/daumOpenEditor/images/deco/contents/", /*본문에 사용되는 이미지 디렉터리, 서비스에서 사용할 때는 완성된 컨텐츠로 배포되기 위해 절대경로로 수정한다. */
-		canvas: {
-            exitEditor:{
-                /*
-                desc:'빠져 나오시려면 shift+b를 누르세요.',
-                hotKey: {
-                    shiftKey:true,
-                    keyCode:66
-                },
-                nextElement: document.getElementsByTagName('button')[0]
-                */
+ <script>
+$(document).ready(function() {
+      //tiymce 
+      tinymce.init({
+            selector : "#qaContent",
+            theme : "modern",
+            height : "300",
+            paste_data_images : true,
+            language : "ko_KR",
+            images_upload_base_path : '',
+            plugins : [
+               "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+               "searchreplace wordcount visualblocks visualchars code fullscreen",
+               "insertdatetime media nonbreaking save table contextmenu directionality",
+               "emoticons template paste textcolor colorpicker textpattern" ],
+            toolbar1 : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            toolbar2 : "print preview media | forecolor backcolor emoticons",
+            image_advtab : true,
+            file_picker_callback : function(callback, value, meta) {
+               if (meta.filetype == 'image') {
+                  $('#upload').trigger('click');
+                  $('#upload')
+                     .on('change',function() {
+                           var file = this.files[0];
+                           var reader = new FileReader();
+                           reader.onload = function(e) {
+                              callback(
+                                 e.target.result,
+                                 {
+                                    alt : ''
+                                 });
+                           };
+                           reader
+                              .readAsDataURL(file);
+                        });
+               }
             },
-			styles: {
-				color: "#123456", /* 기본 글자색 */
-				fontFamily: "굴림", /* 기본 글자체 */
-				fontSize: "10pt", /* 기본 글자크기 */
-				backgroundColor: "#fff", /*기본 배경색 */
-				lineHeight: "1.5", /*기본 줄간격 */
-				padding: "8px" /* 위지윅 영역의 여백 */
-			},
-			showGuideArea: false
-		},
-		events: {
-			preventUnload: false
-		},
-		sidebar: {
-			attachbox: {
-				show: true,
-				confirmForDeleteAll: true
-			},
-			attacher:{
-				image:{ 
-					features:{left:250,top:65,width:400,height:190,scrollbars:0}, //팝업창 사이즈 
-					popPageUrl:'${pageContext.request.contextPath}/community/imagePopup/pop' //팝업창 주소 
-				}
-			},
-			
-			caparcity: {
-				maximum:5*1024*1024 // 최대 첨부 용량 (5MB)
-			}
-		},
-		size: {
-			contentWidth: 700 /* 지정된 본문영역의 넓이가 있을 경우에 설정 */
-		}
-	};
-
-	EditorJSLoader.ready(function(Editor) {
-		var editor = new Editor(config);
-		alert(editor);
-	});
-	
-	
-	function validForm(editor) { //값이 할당된것 확인
-		// Place your validation logic here
-
-		// sample : validate that content exists
-		//alert(editor.getContent()); 이코드 이요해서 들어온값이 어떤것인지 확인 할수있따.ㄴ
-		var validator = new Trex.Validator();
-		var content = editor.getContent();
-		if (!validator.exists(content)) {
-			alert('내용을 입력하세요');
-			return false;
-		}
-
-		return true;
-	}
-	
-	function setForm(editor) {
-        var i, input;
-        var form = editor.getForm();
-        var content = editor.getContent();
-
-        // 본문 내용을 필드를 생성하여 값을 할당하는 부분
-        var textarea = document.createElement('textarea');
-        textarea.name = 'qaContent';
-        textarea.value = content;
-        form.createField(textarea);
-		return true;
-	}
-	
-	Editor.save();
-	
+            templates : [ {
+               title : 'Test template 1',
+               content : 'Test 1'
+            }, {
+               title : 'Test template 2',
+               content : 'Test 2'
+            } ]
+         });
+});//Jquery 끝
 </script>
 <script type="text/javascript">
 function page() {
