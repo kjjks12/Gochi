@@ -195,7 +195,7 @@ $(function(){
 				<span class="cover"></span>
 				<div class="container header-text">
 					<div>
-						<h1 class="title">My Property</h1>
+						<h1 class="title">My Messages</h1>
 					</div>
 					<div>
 						<h2 class="sub-title">LOREM IPSUM DOLOR SISCING ELIT JUSTO</h2>
@@ -233,7 +233,7 @@ $(function(){
 							href="${pageContext.request.contextPath}/note"><i
 								class="icon fa fa-envelope-o"></i>받은쪽지함</a></li>
 						<li><a class="faq-button"
-							href="${pageContext.request.contextPath}/selectMyTravelList/${MYEMAIL}"><i
+							href="${pageContext.request.contextPath}/selectMyTravelList/${MyEmail}"><i
 								class="icon fa fa-calendar" aria-hidden="true"></i>나의 일정</a></li>
 						
 							<li><span class="fa fa-envelope-open"></span></li>
