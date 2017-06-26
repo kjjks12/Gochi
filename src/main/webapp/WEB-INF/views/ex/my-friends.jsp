@@ -160,6 +160,9 @@ table{
 							<li><a class="faq-button"
 								href="${pageContext.request.contextPath}/note"><i
 									class="icon fa fa-envelope-o"></i>받은쪽지함</a></li>
+									<li><a class="faq-button"
+							href="${pageContext.request.contextPath}/selectMyTravelList/${MYEMAIL}"><i
+								class="icon fa fa-calendar" aria-hidden="true"></i>나의 일정</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-9 col-md-9">

@@ -88,7 +88,7 @@
                      </div>
                      <div class="social" style="float: right;">
                         <span class="date">${qaboardDTO.qaDate.substring(3,5)}<span>${qaboardDTO.qaDate.substring(6,8)}</span></span>
-                        <a href="#"><i class="fa fa-heart-o"></i><span>${qaboardDTO.qaFavor}</span></a>
+                        <a href="javascript:" id="favor"><i class="fa fa-heart-o" id="favorIcon"></i><span id="favorNum">${qaboardDTO.qaFavor}</span></a>
                         <a href="#"><i class="fa fa-eye"></i><span>${qaboardDTO.qaHits}</span></a>
                         <a href="#"><i class="fa fa-comments"></i><span>69</span></a>
                      </div>
@@ -256,7 +256,28 @@ $(document).ready(function() {
                }
             })
            
-        })
+        })//삭제 마무리
+        
+        $("#favor").click(function() {
+        	if($("#favorIcon").attr('class')=="fa fa-heart-o"){
+        	$.ajax({
+        		url:"${pageContext.request.contextPath}/community/favor",
+        		type:"post",
+        		dataType:"json", //클릭해는지 상태확인
+        		data: "boardno=${boardDTO.boardno}",
+        		success:function(result){
+        			//alert($("#favorIcon").attr('class'));
+        			$("#favorNum").text(result.favor);
+        			$("#favorIcon").attr("class","fa fa-heart");
+        		},
+        		error:function(err){
+        			alert("오류발생 :"+err);
+        		}
+        	});
+        	}else{
+        		swal("좋아요를 신청하였습니다.")
+        	}
+		});
 })
 </script>
 <script type="text/javascript">

@@ -1,6 +1,12 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <script type="text/javascript"
+   src="${pageContext.request.contextPath}/resources/tinymce/tinymce.js"></script>
+<script type="text/javascript"
+   src="${pageContext.request.contextPath}/resources/tinymce/tinymce.min.js">
+   </script>
 
 	<div id="page-container">
 		
@@ -53,13 +59,14 @@
 									<input id="nickName" class="form-control" type="text" value="${sessionScope.dto.nickname}"/>
 								</div>
 								<div class="col-md-12">
-									<textarea name="content" id="content" class="form-control description">${boardDTO.content}</textarea>
+									<textarea  id="content" name="content" rows="50" cols="10">${boardDTO.content}</textarea>
 								</div>
-							</form>
-							<div style="text-align: right;">
+								<div style="text-align: right;">
 									<button class="btn btn-default">수정하기</button>
 									<button class="btn btn-default" onclick="page()">취소</button>
 								</div>
+							</form>
+							
 							</div>
 						</div>
 						
@@ -215,4 +222,51 @@
 function page() {
 	location.href="${pageContext.request.contextPath}/community/pagination?lastNum=1";
 }
+</script>
+<script>
+$(document).ready(function() {
+      //tiymce 
+      tinymce.init({
+            selector : "#content",
+            theme : "modern",
+            height : "300",
+            paste_data_images : true,
+            language : "ko_KR",
+            images_upload_base_path : '',
+            plugins : [
+               "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+               "searchreplace wordcount visualblocks visualchars code fullscreen",
+               "insertdatetime media nonbreaking save table contextmenu directionality",
+               "emoticons template paste textcolor colorpicker textpattern" ],
+            toolbar1 : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            toolbar2 : "print preview media | forecolor backcolor emoticons",
+            image_advtab : true,
+            file_picker_callback : function(callback, value, meta) {
+               if (meta.filetype == 'image') {
+                  $('#upload').trigger('click');
+                  $('#upload')
+                     .on('change',function() {
+                           var file = this.files[0];
+                           var reader = new FileReader();
+                           reader.onload = function(e) {
+                              callback(
+                                 e.target.result,
+                                 {
+                                    alt : ''
+                                 });
+                           };
+                           reader
+                              .readAsDataURL(file);
+                        });
+               }
+            },
+            templates : [ {
+               title : 'Test template 1',
+               content : 'Test 1'
+            }, {
+               title : 'Test template 2',
+               content : 'Test 2'
+            } ]
+         });
+});//Jquery 끝
 </script>

@@ -58,68 +58,75 @@ public class TravelController {
       return mv;
    }
 
-/*   
-   @RequestMapping("traveladd/travel_add")
-   public ModelAndView travelAdd(TravelDTO travelDTO){
-      System.out.println("ggg");
-      System.out.println("traveladd:"+travelDTO.getThema());
-      ModelAndView mv= new ModelAndView();
-      mv.setViewName("traveladd/travel_add/editor");
-      mv.addObject("travelDTO", travelDTO);
-      return mv;
-   }
 
-*/
-   
-   
+	@RequestMapping("traveladd/travelitinearySelectAll")
+	@ResponseBody
+	public List<TravelItinearyDTO> travelitinearySelectAll(@RequestParam(value="travelNo", defaultValue="0")int travelNo){
 
-   @RequestMapping("traveladd/travelItineary")
-   @ResponseBody
-   public TravelItinearyDTO travelItineary(TravelItinearyDTO travelItinearyDTO){
-      
-      System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
+		
+		return 	travelAddDao.travelitinearySelectAll(travelNo);
+	}
+	
+	
+	
 
-      System.out.println("여행 일정번호 :"+travelItinearyDTO.getTravelNo());
-      System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
-      System.out.println("내용:"+travelItinearyDTO.getStory());
-      System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
-      System.out.println("시작시간:"+travelItinearyDTO.getEndTime());
-      System.out.println("위도:"+travelItinearyDTO.getLatitude());
-      System.out.println("경도:"+travelItinearyDTO.getLogtitude());
-      
-      travelAddDao.travelItinearySave(travelItinearyDTO);
-      return travelItinearyDTO;
-   }   
-   
-   @RequestMapping("traveladd/selectTravelItineary")
-   @ResponseBody
-   public TravelItinearyDTO selectTravelItineary(@RequestParam(value="itinearyNo")int itinearyNo){
-      System.out.println("========수정할 정보============");
-      System.out.println("여행일정 번호:"+itinearyNo);
-      //TravelItinearyDTO travelItinearyDTO=travelAddDao.selectTravelItineary(itinearyNo);
-      
-      
-      return    travelAddDao.selectTravelItineary(itinearyNo);
-   }   
-
+	@RequestMapping("traveladd/travelItineary")
+	@ResponseBody
+	public TravelItinearyDTO travelItineary(TravelItinearyDTO travelItinearyDTO){
+		
+		System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
+		System.out.println("여행 일정번호 :"+travelItinearyDTO.getItinearyNo());
+		System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
+		System.out.println("내용:"+travelItinearyDTO.getStory());
+		System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
+		System.out.println("시작시간:"+travelItinearyDTO.getEndTime());
+		System.out.println("위도:"+travelItinearyDTO.getLatitude());
+		System.out.println("경도:"+travelItinearyDTO.getLogtitude());
+		
+		travelAddDao.travelItinearySave(travelItinearyDTO);
+		return travelItinearyDTO;
+	}	
+	
+	@RequestMapping("traveladd/selectTravelItineary")
+	@ResponseBody
+	public TravelItinearyDTO selectTravelItineary(@RequestParam(value="itinearyNo", defaultValue="0")int itinearyNo){
+		System.out.println("========수정할 정보============");
+		System.out.println("여행일정 번호:"+itinearyNo);
+		TravelItinearyDTO travelItinearyDTO=travelAddDao.selectTravelItineary(itinearyNo);
+		System.out.println("여행일정 제목:"+travelItinearyDTO.getTravelItinearyTitle());
+		System.out.println("여행시작시간:"+travelItinearyDTO.getStartTime());
+		System.out.println("여행끝시간:"+travelItinearyDTO.getEndTime());
+		
+		return 	travelAddDao.selectTravelItineary(itinearyNo);
+	}	
 
 @RequestMapping("traveladd/travelItinearyUpdate")
-   @ResponseBody
-   public TravelItinearyDTO travelItinearyUpdate(TravelItinearyDTO travelItinearyDTO){
-      System.out.println("========수정된 정보============");
-      System.out.println("여행 일정번호 :"+travelItinearyDTO.getItinearyNo());
-      System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
-      System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
-      System.out.println("내용:"+travelItinearyDTO.getStory());
-      System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
-      System.out.println("시작시간:"+travelItinearyDTO.getEndTime());
-      System.out.println("위도:"+travelItinearyDTO.getLatitude());
-      System.out.println("경도:"+travelItinearyDTO.getLogtitude());
-      
-      //travelAddDao.travelItinearyUpdate(travelItinearyDTO);
-      return travelItinearyDTO;
-   }   
-   
+	@ResponseBody
+	public TravelItinearyDTO travelItinearyUpdate(TravelItinearyDTO travelItinearyDTO){
+		System.out.println("========수정된 정보============");
+		System.out.println("여행 일정번호 :"+travelItinearyDTO.getItinearyNo());
+		System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
+		System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
+		System.out.println("내용:"+travelItinearyDTO.getStory());
+		System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
+		System.out.println("시작시간:"+travelItinearyDTO.getEndTime());
+		System.out.println("위도:"+travelItinearyDTO.getLatitude());
+		System.out.println("경도:"+travelItinearyDTO.getLogtitude());
+		
+		travelAddDao.travelItinearyUpdate(travelItinearyDTO);
+		return travelItinearyDTO;
+	}	
+	
+@RequestMapping("traveladd/travelItinearyDelete")
+@ResponseBody
+public int travelItinearyDelete( @RequestParam(value="itinearyNo", defaultValue="0")int itinearyNo){
+	
+	return travelAddDao.travelItinearyDelete(itinearyNo);
+}	
+
+
+
+
    /*체크리스트*/
    @RequestMapping("traveladd/checkList")
    @ResponseBody
@@ -155,7 +162,7 @@ public class TravelController {
          return selectCheckList;
    }
    
-   @RequestMapping("/deleteIcon")
+   @RequestMapping("traveladd/deleteIcon")
    @ResponseBody
    public List<String> deleteIcon(HttpServletRequest request,String check, String item,int travel_no){
       HttpSession session = request.getSession();
@@ -173,7 +180,9 @@ public class TravelController {
       return selectCheckList;
    }
    
-
+ 
+   
+   
    @RequestMapping("/updateItinearyTitle")
 	public String updateItinearyTitle(String title,int travelNo){
 	   System.out.println("여행제목 : "+title);
@@ -212,6 +221,7 @@ public class TravelController {
 		//return memberDTO.getEmail();
 		return "index";
 	}
+
   @RequestMapping(value="/selectMyTravelList/{email}")
   public String selectMyTravelList(HttpSession session,@PathVariable String email,HttpServletRequest request){
 	  MemberDTO memberSessionDTO = (MemberDTO)session.getAttribute("dto");
@@ -226,4 +236,5 @@ public class TravelController {
 		  }
 	  return "traveladd/travel_list";
   }
+
 }

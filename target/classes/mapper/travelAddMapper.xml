@@ -3,8 +3,6 @@
 <!-- member 관련 xml -->
 <mapper namespace="traveladdMapper">
 
-
-
 <!-- 회원의 권한 검색하기 -->
 <!-- <select id="selectAuthorityByUserName" parameterType="string" resultType="authority">
 	select USERNAME, ROLE
@@ -73,6 +71,12 @@
 </insert>
  
 
+<select id="travelitinearySelectAll" parameterType="Integer" resultMap="TravelItinearyDTOResultMap">
+select * from TRAVEL_ITINEARY 
+where TRAVEL_NO=#{_parameter}
+
+</select>
+
 <!-- 여행일정 1개 번호 가지고 여행DTO 로 가져감 --> 
 <select id="selectTravelItineary" parameterType="Integer" resultType="TravelItinearyDTO" resultMap="TravelItinearyDTOResultMap">
 select * from TRAVEL_ITINEARY
@@ -101,6 +105,25 @@ where TRAVEL_NO =#{travelNo}
 	where EMAIL = #{email}
 	order by TRAVEL_NO desc
 </select>
+
+<!-- 여행 일정 1개 업데이트  -->
+<update id="updateTravelItineary" parameterType="TravelItinearyDTO">
+update TRAVEL_ITINEARY
+set 
+TRAVEL_ITINEARY_TITLE=#{travelItinearyTitle},
+START_TIME=#{startTime},
+END_TIME=#{endTime},
+LATITUDE=#{latitude},
+LONGTITUDE=#{logtitude},
+STORY=#{story}
+where ITINEARY_NO=#{itinearyNo}
+</update>
+
+<delete id="travelItinearyDelete" parameterType="integer">
+DELETE 
+FROM TRAVEL_ITINEARY
+WHERE ITINEARY_NO=#{_parameter}
+</delete>
 
 <!-- 체크리스트 검색 -->
 <select id="selectCheckList" parameterType="integer" resultType="String">

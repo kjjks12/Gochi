@@ -31,64 +31,65 @@
                   data-target="#modal-contact" data-toggle="modal" class="hidden-xs"><i
                   class="icon fa fa-envelope-o"></i> Info</a>
             </div>
-				<div id="login-pan" class="col-md-6 hidden-xs">
-					<c:if test="${empty sessionScope.dto}">
-						<a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
-						<a href="#"  id="login_btn" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
-					</c:if>
-					<c:if test="${not empty sessionScope.dto}">
-						<a href="${pageContext.request.contextPath}/member/logout"><i
-							class="icon fa fa-user user"></i>로그아웃</a>
-						<a href="#" data-toggle="modal" data-target=".user-info-modal"
-							data-section="setting"><i class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
-						<a
-							href="${pageContext.request.contextPath}/mypage/goInfo/${sessionScope.dto.email}"
-							class="hidden-xs"><i class="icon fa fa-envelope-o"></i> 마이페이지</a>
-					</c:if>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /.info -->
-	<div class="logo hidden-xs">
-		<a href="${pageContext.request.contextPath}"><img id="logo-header"
-			src="${pageContext.request.contextPath}/resources/images/logo.png"
-			alt="Logo" /></a>
-	</div>
-	<!-- /.logo -->
-	<div class="menu-navbar">
-		<div class="container" id="menu-nav">
-			<nav id="navigation">
-				<ul>
-					<li class="has_submenu"><a
-						href="${pageContext.request.contextPath}">추천 컨텐츠</a></li>
-					<li class="has_submenu"><a
-						href="${pageContext.request.contextPath}/hotdeal/hotdeal_main">여행
-							핫딜</a></li>
-					<li class="has_submenu">
-					<a href="${pageContext.request.contextPath}/followme/followmeMain">나믿따</a>
-					</li>
-					<li class="has_submenu">
-						<%-- <a href="${pageContext.request.contextPath}/traveladd/travel_add">여행일정</a> --%>
-						<a data-toggle="modal" data-target="#myModal">일정만들기</a> <!-- 일정만들기 모달   -->
-					</li>
-					<li class="has_submenu"><a
-						href="${pageContext.request.contextPath}/travelreview/travelreview_main">여행후기</a>
-					</li> 
-					<li class="has_submenu"><a
-						href="${pageContext.request.contextPath}/restaurant/restaurant">맛집</a>
-					</li>
-					<li class="has_submenu"><a
-						href="${pageContext.request.contextPath}/community/faq">커뮤니티</a></li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-	<!-- /.menu -->
-	<a href="#" class="fixed-button top"><i class="fa fa-chevron-up"></i></a>
-	<a href="#" class="hidden-xs fixed-button email" data-toggle="modal"
-		data-target="#modal-contact" data-section="modal-contact"><i
-		class="fa fa-envelope-o"></i></a>
+            <div id="login-pan" class="col-md-6 hidden-xs">
+               <c:if test="${empty sessionScope.dto}">
+                  <a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
+                  <a href="#"  id="login_btn" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
+               </c:if>
+               <c:if test="${not empty sessionScope.dto}">
+                  <a href="${pageContext.request.contextPath}/member/logout"><i
+                     class="icon fa fa-user user"></i>로그아웃</a>
+                  <a href="#" data-toggle="modal" data-target=".user-info-modal"
+                     data-section="setting"><i class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
+                  <a
+                     href="${pageContext.request.contextPath}/mypage/goInfo/${sessionScope.dto.email}"
+                     class="hidden-xs"><i class="icon fa fa-envelope-o"></i> 마이페이지</a>
+               </c:if>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- /.info -->
+   <div class="logo hidden-xs">
+      <a href="${pageContext.request.contextPath}"><img id="logo-header"
+         src="${pageContext.request.contextPath}/resources/images/logo.png"
+         alt="Logo" /></a>
+   </div>
+   <!-- /.logo -->
+   <div class="menu-navbar">
+      <div class="container" id="menu-nav">
+         <nav id="navigation">
+            <ul>
+               <li class="has_submenu"><a
+                  href="${pageContext.request.contextPath}">추천 컨텐츠</a></li>
+               <li class="has_submenu"><a
+                  href="${pageContext.request.contextPath}/hotdeal/hotdeal_main">여행
+                     핫딜</a></li>
+               <li class="has_submenu">
+               <a href="${pageContext.request.contextPath}/followme/followmeMain">나믿따</a>
+               </li>
+                <c:if test="${not empty sessionScope.dto}">
+               <li class="has_submenu">
+                  <a data-toggle="modal" data-target="#myModal">일정만들기</a> <!-- 일정만들기 모달   -->
+               </li>
+               </c:if>
+               <li class="has_submenu"><a
+                  href="${pageContext.request.contextPath}/travelreview/travelreview_main?data=전체">일정후기</a>
+               </li> 
+               <li class="has_submenu"><a
+                  href="${pageContext.request.contextPath}/restaurant/restaurant">맛집</a>
+               </li>
+               <li class="has_submenu"><a
+                  href="${pageContext.request.contextPath}/community/faq">커뮤니티</a></li>
+            </ul>
+         </nav>
+      </div>
+   </div>
+   <!-- /.menu -->
+   <a href="#" class="fixed-button top"><i class="fa fa-chevron-up"></i></a>
+   <a href="#" class="hidden-xs fixed-button email" data-toggle="modal"
+      data-target="#modal-contact" data-section="modal-contact"><i
+      class="fa fa-envelope-o"></i></a>
 </header>
 
 
@@ -106,26 +107,17 @@
          </div>
          <div class="modal-body">
             <!-- Form Start -->
-            <form role="form"
+            <form role="form" id="travelSubmitForm"
                action="${pageContext.request.contextPath}/traveladd/travel_add"
                method="post">
                <div class="form-group">
-                  <label for="Title">여행제목</label> <input type="text"
+                  <label for="Title">여행제목</label> <input type="text" id="title"
                      class="form-control" placeholder="여행 제목" name="title">
                </div>
                <div class="form-group">
                   <label for="content">간단 여행 이야기</label>
                   <textarea rows="2" class="form-control" name="briefStory"
                      id="brief_story"></textarea>
-                  <div id="login-pan" class="col-md-6 hidden-xs">
-                     <c:if test="${not empty sessionScope.dto}">
-                        <a href="${pageContext.request.contextPath}/member/logout"><i
-                           class="icon fa fa-user user"></i>로그아웃</a>
-                        <a href="#" data-toggle="modal" data-target=".user-info-modal"
-                           data-section="setting"><i
-                           class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
-                     </c:if>
-                  </div>
                </div>
                   <!-- datepicker 시작 -->
                   <div class="travelDate">
@@ -158,7 +150,7 @@
                   <div class="modal-footer">
                      <button type="button" class="btn btn-default"
                         data-dismiss="modal">닫기</button>
-                     <button type="submit" class="btn btn-primary">저장 후 이동</button>
+                     <button type="button"  id="travelSubmitBtn" class="btn btn-primary">저장 후 이동</button>
                   </div>
                   <!-- 모달 foot end-->
 
@@ -175,46 +167,46 @@
 
 <!-- 로그인/회원가입 모달!!!!!!!!!!!!!!!!! -->
 <div class="modal fade login-modal" tabindex="-1" role="dialog"
-	aria-hidden="true">
-	<div class="modal-dialog">
-		<button type="button" class="close" data-dismiss="modal"
-			aria-hidden="true">
-			<i class="fa fa-close"></i>
-		</button>
-		<div class="login-button-container">
-			<a href="#" data-section="login"><i class="fa fa-user"></i></a> <a
-				href="#" data-section="sign-in"><i class="fa fa-pencil-square-o"></i></a>
-			<a href="#" data-section="recovery"><i class="fa fa-lock"></i></a> <a
-				href="#" data-section="setting"><i class="fa fa-cog"></i></a>
-		</div>
-		<!-- ./login-button-container -->
+   aria-hidden="true">
+   <div class="modal-dialog">
+      <button type="button" class="close" data-dismiss="modal"
+         aria-hidden="true">
+         <i class="fa fa-close"></i>
+      </button>
+      <div class="login-button-container">
+         <a href="#" data-section="login"><i class="fa fa-user"></i></a> <a
+            href="#" data-section="sign-in"><i class="fa fa-pencil-square-o"></i></a>
+         <a href="#" data-section="recovery"><i class="fa fa-lock"></i></a> <a
+            href="#" data-section="setting"><i class="fa fa-cog"></i></a>
+      </div>
+      <!-- ./login-button-container -->
 
-		<div class="form-container">
-			<!-- 로그인 Form 입니다. -->
-			<form action="${pageContext.request.contextPath}/member/Login"
-				method="post" name="loginForm">
-				<div id="login" class="box">
-					<h2 class="title">Login in to your account</h2>
-					<h3 class="sub-title">come to KkoChi World~!</h3>
-					<div class="field">
-						<input type="hidden" name="locationPath" value=""
-							id="locationPath"> <input id="loginEmail" name="user-log"
-							class="form-control" type="email" placeholder="Email"> <i
-							class="fa fa-user user"></i>
-					</div>
-					<div class="field">
-						<input id="loginPassword" name="password-log" class="form-control"
-							type="password" placeholder="Password"> <i
-							class="fa fa-ellipsis-h"></i>
-					</div>
-					<div class="field footer-form text-right">
-						<!-- 네이버 로그인 API 적용. -->
-						<button class="btn btn-reverse button-form"
-							style="background-color: #ffffff; border: none"
-							onClick=" $('.login-modal').hide();">
-							<div id="naver_id_login"></div>
-						</button>
-						<script type="text/javascript">
+      <div class="form-container">
+         <!-- 로그인 Form 입니다. -->
+         <form action="${pageContext.request.contextPath}/member/Login"
+            method="post" name="loginForm">
+            <div id="login" class="box">
+               <h2 class="title">Login in to your account</h2>
+               <h3 class="sub-title">come to KkoChi World~!</h3>
+               <div class="field">
+                  <input type="hidden" name="locationPath" value=""
+                     id="locationPath"> <input id="loginEmail" name="user-log"
+                     class="form-control" type="email" placeholder="Email"> <i
+                     class="fa fa-user user"></i>
+               </div>
+               <div class="field">
+                  <input id="loginPassword" name="password-log" class="form-control"
+                     type="password" placeholder="Password"> <i
+                     class="fa fa-ellipsis-h"></i>
+               </div>
+               <div class="field footer-form text-right">
+                  <!-- 네이버 로그인 API 적용. -->
+                  <button class="btn btn-reverse button-form"
+                     style="background-color: #ffffff; border: none"
+                     onClick=" $('.login-modal').hide();">
+                     <div id="naver_id_login"></div>
+                  </button>
+                  <script type="text/javascript">
                                 var naver_id_login = new naver_id_login("qkQPxecKnvS2x7Gphr25", "http://localhost:8000/controller/login/callback");
                                 var state = naver_id_login.getUniqState();
                                 naver_id_login.setButton("green", 2,40);
@@ -223,55 +215,55 @@
                                 naver_id_login.setPopup();
                                 naver_id_login.init_naver_id_login();
                         </script>
-						<button type="reset" class="btn btn-reverse button-form">Reset</button>
-						<button type="button" class="btn btn-default button-form"
-							id="loginBun" onclick="loginCheck()">Login</button>
-					</div>
-				</div>
-				<!-- ./login -->
-			</form>
+                  <button type="reset" class="btn btn-reverse button-form">Reset</button>
+                  <button type="button" class="btn btn-default button-form"
+                     id="loginBun" onclick="loginCheck()">Login</button>
+               </div>
+            </div>
+            <!-- ./login -->
+         </form>
 
-			<!-- SignIn Form 시작 입니다. -->
-			<form method="post"
-				action="${pageContext.request.contextPath}/member/SignIn"
-				name="signInForm" id="signForm">
-				<div id="sign-in" class="box">
-					<h2 class="title">Sign In</h2>
-					<h3 class="sub-title">Welcome to Gochi World~!</h3>
+         <!-- SignIn Form 시작 입니다. -->
+         <form method="post"
+            action="${pageContext.request.contextPath}/member/SignIn"
+            name="signInForm" id="signForm">
+            <div id="sign-in" class="box">
+               <h2 class="title">Sign In</h2>
+               <h3 class="sub-title">Welcome to Gochi World~!</h3>
 
-					<div class="field">
-						<input id="nickname" name="nickname" class="form-control"
-							type="text" placeholder="NickName"> <i
-							class="fa fa-user user"></i>
-					</div>
-					<div class="form-group">
-						<input id="email-sign" class="form-control" type="email"
-							name="email-sign" placeholder="Email"> <i
-							class="fa fa-envelope-o"></i>
-					</div>
-					<div class="field">
-						<input id="password-sign" class="form-control" type="password"
-							name="password-sign" placeholder="Password"> <i
-							class="fa fa-ellipsis-h"></i>
-					</div>
-					<div class="field">
-						<input id="re-password-sign" class="form-control" type="password"
-							name="re-password-sign" placeholder="Repeat password"> <i
-							class="fa fa-ellipsis-h"></i>
-					</div>
-					<div class="field footer-form text-right">
-						<span class="remember"><input class="labelauty"
-							type="checkbox" data-labelauty="I have read the privacy policy."
-							checked /></span>
-						<button type="button" class="btn btn-default button-form"
-							id="signIn" onclick="SignInCheck()">Sign in</button>
-					</div>
-				</div>
-				<!-- ./sign-in -->
-			</form>
-			<!-- ./form-container -->
-		</div>
-	</div>
+               <div class="field">
+                  <input id="nickname" name="nickname" class="form-control"
+                     type="text" placeholder="NickName"> <i
+                     class="fa fa-user user"></i>
+               </div>
+               <div class="form-group">
+                  <input id="email-sign" class="form-control" type="email"
+                     name="email-sign" placeholder="Email"> <i
+                     class="fa fa-envelope-o"></i>
+               </div>
+               <div class="field">
+                  <input id="password-sign" class="form-control" type="password"
+                     name="password-sign" placeholder="Password"> <i
+                     class="fa fa-ellipsis-h"></i>
+               </div>
+               <div class="field">
+                  <input id="re-password-sign" class="form-control" type="password"
+                     name="re-password-sign" placeholder="Repeat password"> <i
+                     class="fa fa-ellipsis-h"></i>
+               </div>
+               <div class="field footer-form text-right">
+                  <span class="remember"><input class="labelauty"
+                     type="checkbox" data-labelauty="I have read the privacy policy."
+                     checked /></span>
+                  <button type="button" class="btn btn-default button-form"
+                     id="signIn" onclick="SignInCheck()">Sign in</button>
+               </div>
+            </div>
+            <!-- ./sign-in -->
+         </form>
+         <!-- ./form-container -->
+      </div>
+   </div>
 </div>
 
 <!-- 사용자정보 모달!!!!!!!!!!!!!!!!!!!! -->
@@ -396,53 +388,81 @@
 
 
 
-	<!-- datepicker script -->
-	<script type="text/javascript">
-	 $( function() {
-		    $( "#travel_start_day" ).datepicker({ dateFormat: 'yy-mm-dd' });
-		    $( "#travel_end_day" ).datepicker({ 
-		    	dateFormat: 'yy-mm-dd', 
-		    	beforeShowDay: noBefore
-		    });
-	
-	  });
-	// 이전 날짜들은 선택막기 
-	 function noBefore(date){ 
-	    if (date < $("#travel_start_day").datepicker( "getDate" )) 
-	        return [false]; 
-	    return [true]; 
-	 }
-	</script>
-	<!-- datepicker script  end-->
+   <!-- datepicker script -->
+   <script type="text/javascript">
+    $( function() {
+          $( "#travel_start_day" ).datepicker({ dateFormat: 'yy-mm-dd' });
+          $( "#travel_end_day" ).datepicker({ 
+             dateFormat: 'yy-mm-dd', 
+             beforeShowDay: noBefore
+          });
+   
+     });
+   // 이전 날짜들은 선택막기 
+    function noBefore(date){ 
+       if (date < $("#travel_start_day").datepicker( "getDate" )) 
+           return [false]; 
+       return [true]; 
+    }
+   </script>
+   <!-- datepicker script  end-->
 
-	<script type="text/javascript">
+   <script type="text/javascript">
 function SignInCheck(){
-	
-	if(document.getElementById("nickname").value==""){
-		alert("닉네임을 입력해 주세요!");
-	}else if(document.getElementById("email-sign").value==""){
-		alert("email을 입력해 주세요!");
-	}else if(document.getElementById("password-sign").value==""){
-		alert("비밀번호를 입력해 주세요!");
-	}else if(document.getElementById("re-password-sign").value==""){
-		alert("비밀번호를 다시한번 입력해 주세요!");
-	}else if(document.getElementById("password-sign").value!=document.getElementById("re-password-sign").value){
-		alert("비밀번호가 서로 일치하지 않아요!");
-	}else{
-		document.signInForm.submit();
-	}
-	
+   
+   if(document.getElementById("nickname").value==""){
+      alert("닉네임을 입력해 주세요!");
+   }else if(document.getElementById("email-sign").value==""){
+      alert("email을 입력해 주세요!");
+   }else if(document.getElementById("password-sign").value==""){
+      alert("비밀번호를 입력해 주세요!");
+   }else if(document.getElementById("re-password-sign").value==""){
+      alert("비밀번호를 다시한번 입력해 주세요!");
+   }else if(document.getElementById("password-sign").value!=document.getElementById("re-password-sign").value){
+      alert("비밀번호가 서로 일치하지 않아요!");
+   }else{
+      document.signInForm.submit();
+   }
+   
 }
 
 function loginCheck(){
-	if(document.getElementById("loginEmail").value==""){
-		alert("이메일을 입력해 주세요.");
-	}else if(document.getElementById("loginPassword").value==""){
-		alert("패스워드를 입력해 주세요.");
-	}else{
-		var path = window.location.pathname;
-		document.getElementById("locationPath").value=path;
-		document.loginForm.submit();
-	}
+   if(document.getElementById("loginEmail").value==""){
+      alert("이메일을 입력해 주세요.");
+   }else if(document.getElementById("loginPassword").value==""){
+      alert("패스워드를 입력해 주세요.");
+   }else{
+      var path = window.location.pathname;
+      document.getElementById("locationPath").value=path;
+      document.loginForm.submit();
+   }
 }
+
+$(function(){
+	$("#travelSubmitBtn").click(function(){
+		if($("#title").val()==""){
+			alert('여행 제목을 입력해주세요')
+		}
+		else if($("#brief_story").val()==""){
+			alert('여행 이야기를 입력해주세요')
+		}
+		else if($("#travel_start_day").val()==""){
+			alert('여행 시작 날짜를 입력해주세요')
+		}
+		else if($("#travel_end_day").val()==""){
+			alert('여행 끝 날짜를 입력해주세요')
+		}
+		else if($("#capa").val()=="thema"){
+			alert('테마를 선택해주세요')
+		}
+		
+		else{
+			$("#travelSubmitForm").submit();
+		}	
+		
+		
+		
+	})
+	
+})
 </script>

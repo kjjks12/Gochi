@@ -23,10 +23,10 @@
                data-image="${pageContext.request.contextPath}/resources/main_img/travel_main2.jpg">
                <div class="container slider-box">
                   <div class="content">
-                     <h2>여행 일정도 후기 공유도</h2>
+                     <h2>여행 준비와 후기도</h2>
                   </div>
                   <div class="content">
-                     <h1>여행꼬치에서</h1>
+                     <h1 style="background: olive;">여행꼬치에서</h1>
                   </div>
                </div>
             </figure>
@@ -34,10 +34,10 @@
                data-image="${pageContext.request.contextPath}/resources/main_img/travel_main3.jpg">
                <div class="container slider-box">
                   <div class="content">
-                     <h2>나만의 패키지를 만들어</h2>
+                     <h2>혼행족 탈출은?</h2>
                   </div>
                   <div class="content">
-                     <h1>여행갈 친구를 만들어보세요</h1>
+                     <h1>여행꼬치</h1>
                   </div>
                </div>
             </figure>
@@ -81,7 +81,7 @@
                      src="http://placehold.it/1240x745/bbbbbb/ffffff">
                      <h3 class="title">59 Paterson Ave</h3>
                   </a>
-                  <!-- /.hover-effect -->
+                  <!-- /.hover-effect  --> 
                   <span class="price">$ 536.500,00</span> <span class="address"><i
                      class="fa fa-map-marker"></i> Hoboken, NJ 07030</span> <span
                      class="description">There are many variations of passages

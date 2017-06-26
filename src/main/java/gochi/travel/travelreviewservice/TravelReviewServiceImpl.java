@@ -5,7 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gochi.travel.model.memberdto.MemberDTO;
+import gochi.travel.model.traveldto.CheckListDTO;
+import gochi.travel.model.traveldto.TravelDTO;
+import gochi.travel.model.traveldto.TravelItinearyDTO;
 import gochi.travel.model.travelreviewdao.TravelReviewDao;
+import gochi.travel.model.travelreviewdto.TravelReviewCommentDTO;
 import gochi.travel.model.travelreviewdto.TravelReviewDto;
 
 
@@ -16,49 +21,48 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 		private TravelReviewDao travelReviewDao;
 		
 	@Override
-	public List<TravelReviewDto> newTrvelReview(String data) {
-		List<TravelReviewDto> newReview= null;
-		if(data != null){
-			if(data.equals("전체")){
-				newReview= travelReviewDao.newTrvelReview(null);
-				 
-			}else{
-				newReview= travelReviewDao.newTrvelReview(data);
-				if(newReview==null){
-					return null;
-				}
-			}
-		}else{
-				newReview= travelReviewDao.newTrvelReview(data);
-				if(newReview==null){
-					return null;
-				}
-			}
-		
-		return newReview;
+	public List<TravelDTO> newTrvelReview(String data) {
+		return travelReviewDao.newTrvelReview(data);
 	}
 	
 	@Override
-	public List<TravelReviewDto> goodTravelReview(String data) {
-		List<TravelReviewDto> goodReview= null;
-		if(data != null){
-			if(data.equals("전체")){
-				goodReview= travelReviewDao.goodTravelReview(null);
-				 
-			}else{
-				goodReview= travelReviewDao.goodTravelReview(data);
-				if(goodReview==null){
-					return null;
-				}
-			}
-		}else{
-			goodReview= travelReviewDao.goodTravelReview(data);
-				if(goodReview==null){
-					return null;
-				}
-			}
+	public List<TravelDTO> goodTravelReview(String data) {
 		
-		return goodReview;
+		return travelReviewDao.goodTravelReview(data);
+	}
+	
+	//후기 페이지 : 기본정보 가져오기
+	@Override
+	public TravelDTO selectTravelInfo(String index) {
+		TravelDTO travelInfo = travelReviewDao.selectTravelInfo(index);
+		return travelInfo;
+	}
+
+	//후기 페이지 : 상세정보 가져오기
+	@Override
+	public List<TravelItinearyDTO> selectTravelDetailInfo(String index) {
+		
+		return travelReviewDao.selectTravelDetailInfo(index);
+	}
+	
+	//후기 페이지 : 글쓴이 정보 가져오기
+	@Override
+	public MemberDTO writerInfo(String id) {
+		
+		return travelReviewDao.writerInfo(id);
+	}
+
+	@Override
+	public List<CheckListDTO> checkList(String index) {
+	
+		return travelReviewDao.checkList(index);
+	}
+
+	//후기 댓글달기
+	@Override
+	public int insertComment(TravelReviewCommentDTO commentDTO) {
+		
+		return travelReviewDao.insertComment(commentDTO);
 	}
 		
 }
