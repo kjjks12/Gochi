@@ -3,24 +3,41 @@
 <mapper namespace="boardMapper">
 
 <resultMap type="gochi.travel.model.boarddto.BoardDTO" id="board">
-	<id property="boardno" column="BOARD_No" />
+	<id property="boardno" column="BOARD_NO" />
 	<result property="email" column="EMAIL"/>
 	<result property="title" column="TITLE"/>
 	<result property="favor" column="FAVOR"/>
 	<result property="content" column="CONTENT"/>
 	<result property="dDay" column="D_DAY"/>
 	<result property="hits" column="HITS"/>
+	<result property="sel" column="SEL"/>
+</resultMap>
+
+<resultMap type="gochi.travel.model.boarddto.QaBoardDTO" id="qaboard">
+	<id property="qaBoardNo" column="QABOARD_NO" />
+	<result property="email" column="EMAIL"/>
+	<result property="qaTitle" column="QATITLE"/>
+	<result property="qaFavor" column="QAFAVOR"/>
+	<result property="qaContent" column="QACONTENT"/>
+	<result property="qaDate" column="QAD_DAY"/>
+	<result property="qaHits" column="QAHITS"/>
 </resultMap>
 
 <sql id="replay">
-	BOARD_NO, EMAIL, TITLE, FAVOR, CONTENT, D_DAY, HITS
+	BOARD_NO, EMAIL, TITLE, FAVOR, CONTENT, D_DAY, HITS, SEL
+</sql>
+
+<sql id="qareplay">
+	QABOARD_NO, EMAIL, QATITLE, QAFAVOR, QACONTENT, QAD_DAY, QAHITS
 </sql>
 
 
 
 <insert id="insert" parameterType="gochi.travel.model.boarddto.BoardDTO">
-	insert into FREE_BOARD(BOARD_NO, EMAIL, TITLE, FAVOR, CONTENT, D_DAY, HITS) values (FREE_BOARD_NO.NEXTVAL,'noloo6974@naver.com',#{title},0,#{content},sysdate,0)
+	insert into FREE_BOARD(BOARD_NO, EMAIL, TITLE, FAVOR, CONTENT, D_DAY, HITS, SEL) values (FREE_BOARD_NO.NEXTVAL,#{email},#{title},0,#{content},sysdate,0,#{sel})
 </insert>
+
+
 
 <select id="select" parameterType="int" resultMap="board">
 	select <include refid="replay"/> from FREE_BOARD
@@ -31,6 +48,46 @@
 	</where>
 	order by BOARD_NO desc
 </select>
+
+
+
+<select id="pagination" parameterType="map" resultMap="board">
+	select rnum,<include refid="replay"/> from (select rownum rnum,Board_No,Email,Title,Favor,CONTENT, D_DAY, HITS, SEL from Free_Board order by Board_no desc)
+	<where>
+		<if test="startNum!=null">
+			rnum between ${startNum} and ${lastNum}
+		</if>
+	</where> 
+</select>
+
+<update id="hits" parameterType="int">
+	update FREE_BOARD set hits=hits+1
+		<where>
+			<if test="_parameter!=null">
+				Board_no=#{_parameter}
+			</if>
+			
+		</where>
+</update>
+
+<update id="favor" parameterType="int">
+	update FREE_BOARD set favor=favor+1
+	<where>
+		<if test="_parameter!=null">
+			Board_no=#{_parameter}
+		</if>
+	</where>
+</update>
+
+<select id="favorNum" parameterType="int" resultMap="board">
+	select <include refid="replay"/> from FREE_BOARD
+	<where>
+		<if test="_parameter!=null">
+			BOARD_NO=#{_parameter}
+		</if>
+	</where>
+</select>
+
 
 <delete id="delete" parameterType="int">
 	delete from FREE_BOARD
@@ -47,6 +104,74 @@
 		BOARD_NO=#{boardno}
 	</where>
 </update>
+
+
+<!-- FAG.JSP 전체 출력 코딩 -->
+<select id="faq" resultMap="qaboard">
+select rownum,QABoard_No,EMAIL,QATITLE,QAFAVOR,QACONTENT, QAD_DAY from (select QABoard_No,EMAIL,QATITLE,QAFAVOR,QACONTENT, QAD_DAY from QA_BOARD union all 
+   select Board_No,Email,Title,Favor,CONTENT, D_DAY from FREE_BOARD order by qafavor desc) 
+   <where>
+    rownum between 1 and 5
+   </where>
+</select>
+
+
+<!-- Q&A BOARD MAPPER -->
+<select id="qapagination" parameterType="map" resultMap="qaboard">
+	select rnum,<include refid="qareplay"/> from (select rownum rnum,QABoard_No,Email,QATitle,QAFavor,QACONTENT, QAD_DAY, QAHITS
+from QA_BOARD order by QABOARD_NO desc)
+	<where>
+		<if test="startNum!=null">
+			rnum between ${startNum} and ${lastNum}
+		</if>
+	</where> 
+</select>
+
+<insert id="qainsert" parameterType="gochi.travel.model.boarddto.QaBoardDTO">
+	insert into QA_BOARD(QABOARD_NO, EMAIL, QATITLE, QAFAVOR, QACONTENT, QAD_DAY, QAHITS) values (QA_BOARD_NO.NEXTVAL,#{email},#{qaTitle},0,#{qaContent},sysdate,0)
+</insert>
+
+<delete id="qadelete" parameterType="int">
+	delete from QA_BOARD
+	<where>
+		<if test="_parameter!=null">
+			QABOARD_NO=#{_parameter}
+		</if>
+	</where>
+</delete>
+
+<update id="qahits" parameterType="int">
+	update QA_BOARD set qahits=qahits+1
+		<where>
+			<if test="_parameter!=null">
+				qaBoard_no=#{_parameter}
+			</if>
+			
+		</where>
+</update>
+
+<select id="qaselect" parameterType="int" resultMap="qaboard">
+	select <include refid="qareplay"/> from QA_BOARD
+	<where>
+		<if test="_parameter!=null">
+			QABOARD_NO=#{_parameter}
+		</if>
+	</where>
+	order by QABOARD_NO desc
+</select>
+
+<update id="qamodify" parameterType="gochi.travel.model.boarddto.QaBoardDTO">
+	update QA_BOARD set QACONTENT=#{qaContent},QATITLE=#{qaTitle}
+	<where>
+		QABOARD_NO=#{qaBoardNo}
+	</where>
+</update>
+
+
+
+
+
+
 
 
 </mapper>

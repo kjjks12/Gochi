@@ -16,29 +16,91 @@
 		<result column="EMAIL" property="email" />
 		<result column="WISH" property="wish" />
 		<result column="BEAN" property="bean" />
-		<result column="remark" property="remark"/>
+		<result column="remark" property="remark" />
+	</resultMap>
+	
+	<!-- 맛집 디테일 resultMap 입니다. -->
+	<resultMap type="gochi.travel.model.restaurantdto.RestaurantDetailDTO" id="detail">
+		<id column="POST_NO" property="postNo"/>
+		<result column="RESTAURANT_NO" property="restaurantNo"/>
+		<result column="EMAIL" property="email"/>
+		<result column="SUBJECT" property="subject"/>
+		<result column="TEXT" property="text"/>
+		<result column="IMG" property="img"/>
+	</resultMap>
+	
+	<!-- 이미지 정보 resultMap 입니다. -->
+	<resultMap type="RestaurantImgDTO" id="restaurantImg">
+		<id column="IMG_NO" property="imgNo"/>
+		<result column="RESTAURANT_NO" property="restaurantNo"/>
+		<result column="IMG" property="img"/>
 	</resultMap>
 
 	<sql id="replay">
 		RESTURANT_NO,CLASSIFICATION,AREA,EXPLANATION,RESTAURANT_NAME,
 		OPERATING_TIME,HOLIDAY,PHONE,EMAIL,WISH,BEAN,REMARK
 	</sql>
-
-
-
+	
 	<insert id="insertRestaurant" parameterType="gochi.travel.model.restaurantdto.RestaurantDTO">
 		insert into
-		restaurant(RESTURANT_NO,CLASSIFICATION,RESTAURANT_NAME,AREA,OPERATING_TIME,HOLIDAY,PHONE,EXPLANATION,
-		EMAIL,REMARK)
-		values(RESTAURANT_NO.NEXTVAL,#{classification},#{restaurantName},#{area},#{operatingTime},#{holiday},#{phone},#{explanation},'noloo6974@naver.com',#{remark})
+		restaurant(RESTURANT_NO,CLASSIFICATION,RESTAURANT_NAME,AREA,OPERATING_TIME,HOLIDAY,PHONE,EXPLANATION,EMAIL,REMARK)
+		values(RESTAURANT_NO.NEXTVAL,#{classification},#{restaurantName},#{area},#{operatingTime},#{holiday},#{phone},#{explanation},#{email},#{remark})
 	</insert>
 
 	<select id="selectRestaurant" parameterType="string" resultMap="restaurant">
-		select <include refid="replay"/> from restaurant
-		
-
-
+		select
+		<include refid="replay" />
+		from restaurant
+		<where>
+			<if test="_parameter!=null">
+				CLASSIFICATION=#{_parameter}
+			</if>
+		</where>
+		order by RESTURANT_NO desc
 	</select>
+	
+	<select id="foodSelectNu" parameterType="string" resultMap="restaurant">
+		select
+		<include refid="replay"/>
+		from restaurant
+		<where>
+			<if test="_parameter!=null">
+				RESTURANT_NO=#{restaurantNo}
+			</if>
+		</where>
+	
+	</select>
+	
+	
+	<!-- 조회수 증가 -->
+	<update id="readNumUpdate" parameterType="string">
+		update restaurant set BEAN=bean+1 where RESTURANT_NO=#{value}
+	</update>
+	
+	<!-- wish 증가 -->
+	<update id="heartUpdate" parameterType="int">
+		update restaurant set WISH=wish+1 where RESTURANT_NO=#{value}
+	</update>
+	
 
+	<!-- 맛집 디테일 페이지 : 포스트 등록하기 -->
+	<insert id="postInsert" parameterType="RestaurantDetailDTO">
+		insert into RESTAURANT_POST(POST_NO, EMAIL, SUBJECT, TEXT, RESTAURANT_NO,IMG) VALUES (POST_NO.NEXTVAL,#{email},#{subject},#{text},#{restaurantNo},#{img})
+	</insert>
+	
+	<!-- 맛집 디테일 페이지 : 해당 게시물 포스트 가져오기 -->
+	<select id="selectPost" parameterType="int" resultMap="detail">
+		select POST_NO, SUBJECT, TEXT, EMAIL, RESTAURANT_NO, IMG from RESTAURANT_POST where RESTAURANT_NO = ${_parameter}
+	</select>
+	
+	<!-- 맛집 디테일 페이지 : 업로드된 이미지 정보 저장하기 -->
+	<insert id="insertImg" parameterType="RestaurantImgDTO">
+		insert into RESTAURANT_IMG(IMG_NO, RESTAURANT_NO, IMG) VALUES (IMG_NO.NEXTVAL, #{restaurantNo}, #{img})
+	</insert>
+	
+	<!-- 맛집 디테일 페이지 : 롤링 이미지 목록 가져오기 -->
+	<select id="selectImg" parameterType="int" resultMap="restaurantImg">
+		select RESTAURANT_NO, IMG_NO, IMG from RESTAURANT_IMG where RESTAURANT_NO = #{_parameter}	
+	</select>
 
 </mapper>

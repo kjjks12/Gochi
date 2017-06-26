@@ -108,12 +108,14 @@ $(function(){
 			success:function(data){
 				var str="";
 				$.each(data,function(index,item){
-					str+="<ul id='searchEmail'><h3 style='color:rgb(31, 183, 166)'>"+item.email+"</h3></ul>";
+					str+="<ul id='searchEmail'><h3 class='searchedIDs' style='color:rgb(31, 183, 166)'>"+item.email+"</h3></ul>";
 				})
 				$("#searchArea").html(str);
 			},
 			error:function(){
-				console.log("실패");
+				//console.log("실패");
+				var str="메시지를 수신할 ID를 입력해주세요.";
+				$("#searchArea").html(str);
 			}
 		})
 	})
@@ -144,6 +146,34 @@ $(function(){
 	
 	$("#columns").children().css({"font-size":"25px","text-align":"center"});//테이블 css
 	
+	$("[id=updateNote]").click(function(){//각 메시지의 x버튼 클릭시
+		var messageNum = $(this).parent().children("td:first").text();
+		$.ajax({
+			type : "post",  
+			url:"${pageContext.request.contextPath}/updateFlag",
+			data:"flag="+2+"&messageNum="+messageNum+"&title=",
+			success:function(){
+				window.location.reload(true);
+			}
+		})
+	})
+	
+	$(document).on("mouseenter","[id=aTag]",function(){//id=aTag에 마우스 접촉시
+		//console.log("a");
+		$(this).animate({"font-size":"40px"},"fast");
+	})
+	
+	$(document).on("mouseleave","[id=aTag]",function(){//id=aTag에 마우스 이탈시
+		$(this).animate({"font-size":"25px"},"fast");
+	})
+	
+	$(document).on("mouseenter","[class=searchedIDs]",function(){//찾은 id에 마우스 접근시
+		$(this).animate({"font-size":"30px"},"fast");
+	})
+	
+	$(document).on("mouseleave","[class=searchedIDs]",function(){//찾은 id에서 마우스 이탈시
+		$(this).animate({"font-size":"20px"},"fast");
+	})
 })
 </script>
 <style>
@@ -213,22 +243,37 @@ $(function(){
 								<thead>
 									<tr id="columns">
 										<th hidden="true">인덱스</th>
+										<th>#</th>
+										<!-- <th class="hidden-xs">&nbsp;</th> -->
 										<th>보낸사람</th>
 										<th>닉네임</th>
 										<th>제목</th>
 										<th>작성시간</th>
+										
+										<!-- <th>읽음여부</th> -->
 									</tr>
 								</thead>
 								<tbody>
 									<%-- <c:if test="${senderDTO==null }"> --%>
 									<c:if test="${flagCount==0 }">
-										<tr>
-											<td colspan="5" align="center">받은 쪽지가 없습니다.</td>
+										<tr id="noteSpace">
+											<td colspan="5" style="align:center;font-size:25px;">
+												받은 쪽지가 없습니다.
+												<img src="${pageContext.request.contextPath}/resources/images/nunmul.png">
+												<script>
+													$("#noteSpace").css({"background-color":"white"})
+												</script>
+											</td>
 										</tr>
 									</c:if>
 										<c:forEach items="${senderDTO}" var="i" varStatus="status">
 											<tr>
 												<td hidden="true">${noteDTO[status.count-1].noteNo }</td>
+												<!-- <th class="hidden-xs">
+													<input class="labelauty" type="checkbox" id="labelauty-106430" style="display: none;">
+													<label for="labelauty-106430"></label>
+												</th> -->
+												<td id="updateNote"> <i class="fa fa-times" aria-hidden="true" ></i></td>
 												<td><a href="${pageContext.request.contextPath}/mypage/goInfo/${i.email}" id="aTag">${i.email }</a></td>
 											    <td>${i.nickName }</td>
 											    <td><a href="#" data-target="#modal-contact2" data-toggle="modal"
@@ -237,19 +282,21 @@ $(function(){
 											    <td hidden="true">${noteDTO[status.count-1].content }</td>
 											   	<c:choose>
 											   		<c:when test="${noteDTO[status.count-1].flag==0 }">
-														<td id="readYet" hidden="true">읽지않음</td>
+														<td id="readYet"  hidden="true">읽지않음</td>
 												  		<script>
-														$("[id='readYet']").parent().children().css({"color":"rgb(0,0,0)","font-size":"25px"});//읽지 않은 레코드 css 처리
-														$("[id='aTag']").css({"color":"rgb(0,0,0)","font-size":"25px"});// 0,0,0 - 검정색
+															$("[id=readYet]").parent().css({"font-size":"25px","color":"rgb(0,0,0)"});
+															//$("[id=aTag]").css({"font-size":"25px","color":"rgb(0,0,0)"});
+															$("[id=readYet]").parent().find("[id=aTag]").css({"font-size":"25px","color":"rgb(0,0,0)"});
 														</script>
 													</c:when>
 													
 													<c:when test="${noteDTO[status.count-1].flag==1 }">
 														<td id="alreadyRead" hidden="true">읽음</td>
 														<script>
-														$("[id='alreadyRead']").parent().children().css({"color":"rgb(170,170,170)","font-size":"25px"});//읽은 레코드 css 처리
-														$("[id='aTag']").css({"color":"rgb(170,170,170)","font-size":"25px"});//170,170,170 - 회색
-														</script>
+															$("[id=alreadyRead]").parent().css({"font-size":"25px","color":"rgb(170,170,170)"});
+															//$("[id=aTag]").css({"font-size":"25px","color":"rgb(170,170,170)"});
+															$("[id=alreadyRead]").parent().find("[id=aTag]").css({"font-size":"25px","color":"rgb(170,170,170)"});
+															</script>
 													</c:when>
 													
 													<c:when test="${noteDTO[status.count-1].flag==2 }">
@@ -258,10 +305,11 @@ $(function(){
 														$("[id='friendComplete']").parent().children().css("color","rgb(170,170,170)");
 														//$("[id='friendComplete']").parent().children("td:first").next().next().next().children().remove();
 														$("[id='friendComplete']").parent().remove();
-														$("[id='aTag']").css("color","rgb(170,170,170)");
+														$("[id='aTag']").css({"color":"rgb(170,170,170)","font-size":"25px"});
 														</script>
 													</c:when>
 												</c:choose>
+												
 											</tr>
 										</c:forEach>
 								</tbody>

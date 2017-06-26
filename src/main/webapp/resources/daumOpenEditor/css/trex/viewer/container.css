@@ -1,4 +1,5 @@
 /*==== container ====*/
+	.tx-content-container img { max-width: 100%; }
 	.tx-content-container { word-break: break-all; }
 	.tx-content-container em { font-style: italic; }
 	.tx-content-container ol { padding-left:35px; margin-left:0; }

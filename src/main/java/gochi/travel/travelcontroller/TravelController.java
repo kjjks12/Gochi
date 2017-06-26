@@ -1,5 +1,6 @@
 package gochi.travel.travelcontroller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import gochi.travel.model.memberdto.MemberDTO;
@@ -24,8 +27,8 @@ import gochi.travel.model.traveldto.TravelItinearyDTO;
 @Controller
 public class TravelController {
 
-	@Autowired
-	private TravelDao travelAddDao;
+   @Autowired
+   private TravelDao travelAddDao;
 
 	@RequestMapping("traveladd/travel_add")
 	public ModelAndView travel(HttpSession session,TravelDTO travelDTO){
@@ -42,18 +45,7 @@ public class TravelController {
 		return mv;
 	}
 
-/*	
-	@RequestMapping("traveladd/travel_add")
-	public ModelAndView travelAdd(TravelDTO travelDTO){
-		System.out.println("ggg");
-		System.out.println("traveladd:"+travelDTO.getThema());
-		ModelAndView mv= new ModelAndView();
-		mv.setViewName("traveladd/travel_add/editor");
-		mv.addObject("travelDTO", travelDTO);
-		return mv;
-	}
 
-*/
 	@RequestMapping("traveladd/travelitinearySelectAll")
 	@ResponseBody
 	public List<TravelItinearyDTO> travelitinearySelectAll(@RequestParam(value="travelNo", defaultValue="0")int travelNo){
@@ -121,62 +113,103 @@ public int travelItinearyDelete( @RequestParam(value="itinearyNo", defaultValue=
 
 
 
-	/*체크리스트*/
-	@RequestMapping("traveladd/checkList")
-	@ResponseBody
-	public List<String> travelAddDelteCeckList(HttpServletRequest request,String check, String item,int travel_no,String category){
-		HttpSession session = request.getSession();
-			/*System.out.println(check);
-			System.out.println(item); 넘어옴!*/
-			
-		
-		/*서비스를 가지않고 dao 로 바로이동 로직이 딱히 필요없기에!*/
-		
-			CheckListDTO checkList = new CheckListDTO(travel_no, category, item, check);
-			List<String> selectCheckList;
-			CheckListDTO overlapCheckDTO = new CheckListDTO(travel_no, item);
-			
-			if(check.equals("false")){
-				travelAddDao.CeckList(checkList);
-				selectCheckList = travelAddDao.selectCheckList(travel_no);
-			}else{
-		
-			String overlap = travelAddDao.overLapCheck(overlapCheckDTO);
-					if(overlap != null){
-						selectCheckList = travelAddDao.selectCheckList(travel_no);
-					}
-					
-					else{
-					travelAddDao.CeckList(checkList); 
-						selectCheckList = travelAddDao.selectCheckList(travel_no);
-						
-					}
-					
-			}
-			return selectCheckList;
-	}
-	
-	@RequestMapping("/deleteIcon")
-	@ResponseBody
-	public List<String> deleteIcon(HttpServletRequest request,String check, String item,int travel_no){
-		HttpSession session = request.getSession();
-		
-		System.out.println( "item=" + item);
-		System.out.println();
-			CheckListDTO deleteCheckBox = new CheckListDTO(travel_no, "null", item, "false");// 강제적으로 false넣어줌
-			int result = travelAddDao.CeckList(deleteCheckBox); 
-				System.out.println(result +"삭제됬나???/");
-			List<String> selectCheckList = travelAddDao.selectCheckList(travel_no);
-			System.out.println("리스트의 길이"+selectCheckList.size());
-			
-			session.setAttribute("selectCheckList", selectCheckList);
-				
-		return selectCheckList;
-	}
-	
-	
-	
-	
-	
-}
 
+   /*체크리스트*/
+   @RequestMapping("traveladd/checkList")
+   @ResponseBody
+   public List<String> travelAddDelteCeckList(HttpServletRequest request,String check, String item,int travel_no,String category){
+      HttpSession session = request.getSession();
+         /*System.out.println(check);
+         System.out.println(item); 넘어옴!*/
+         
+      
+      /*서비스를 가지않고 dao 로 바로이동 로직이 딱히 필요없기에!*/
+      
+         CheckListDTO checkList = new CheckListDTO(travel_no, category, item, check);
+         List<String> selectCheckList;
+         CheckListDTO overlapCheckDTO = new CheckListDTO(travel_no, item);
+         
+         if(check.equals("false")){
+            travelAddDao.CeckList(checkList);
+            selectCheckList = travelAddDao.selectCheckList(travel_no);
+         }else{
+      
+         String overlap = travelAddDao.overLapCheck(overlapCheckDTO);
+               if(overlap != null){
+                  selectCheckList = travelAddDao.selectCheckList(travel_no);
+               }
+               
+               else{
+               travelAddDao.CeckList(checkList); 
+                  selectCheckList = travelAddDao.selectCheckList(travel_no);
+                  
+               }
+               
+         }
+         return selectCheckList;
+   }
+   
+   @RequestMapping("traveladd/deleteIcon")
+   @ResponseBody
+   public List<String> deleteIcon(HttpServletRequest request,String check, String item,int travel_no){
+      HttpSession session = request.getSession();
+      
+      System.out.println( "item=" + item);
+      System.out.println();
+         CheckListDTO deleteCheckBox = new CheckListDTO(travel_no, "null", item, "false");// 강제적으로 false넣어줌
+         int result = travelAddDao.CeckList(deleteCheckBox); 
+            System.out.println(result +"삭제됬나???/");
+         List<String> selectCheckList = travelAddDao.selectCheckList(travel_no);
+         System.out.println("리스트의 길이"+selectCheckList.size());
+         
+         session.setAttribute("selectCheckList", selectCheckList);
+            
+      return selectCheckList;
+   }
+   
+ 
+   
+   
+   @RequestMapping("/updateItinearyTitle")
+	public String updateItinearyTitle(String title,int travelNo){
+	   System.out.println("여행제목 : "+title);
+	   System.out.println("글번호 : "+travelNo);
+	   travelAddDao.updateItinearyTitle(title, travelNo);
+	  return "index";//IOexception발생 방지하기위한 것(임의의 jsp주소를 작성)
+	}
+   
+  @RequestMapping(value="/updateTravelCover/{travelNo}")
+	public String updateTravelCover(@RequestParam MultipartFile travelCoverImgFile,HttpSession session,TravelDTO dto, @PathVariable String travelNo){
+	 System.out.println("수정하고자 하는 글번호 : "+travelNo);
+	   travelCoverImgFile = dto.getTravelCoverImgFile();
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("dto");
+		String path = session.getServletContext().getRealPath("/resources/img/travel/travelCover/"+travelNo);
+		
+		System.out.println("경로 : "+path);
+		
+		if(travelCoverImgFile != null){
+			String fileName = travelCoverImgFile.getOriginalFilename();
+			dto.setTravelCoverImgFile(travelCoverImgFile);
+		try{
+			//travelCoverImgFile.transferTo(new File(path+"/"+memberDTO.getEmail()+"/"+travelCoverImgFile.getOriginalFilename()));
+			File file = new File(path+"/"+memberDTO.getEmail()+"/"+fileName);
+			if(!file.exists()){
+				file.mkdirs();
+			}
+			travelCoverImgFile.transferTo(file);
+			
+			//System.out.println("여행일정 커버 이미지 수정 쿼리문 이전");
+			//myPageService.updateMyProfileImg(fileName, memberDTO.getEmail());
+			travelAddDao.updateTravelCover(fileName, memberDTO.getEmail(),travelNo);
+			}catch(Exception e){}
+		}
+		//return "redirect:/mypage/goInfo/"+memberDTO.getEmail();
+		//return memberDTO.getEmail();
+		return "index";
+	}
+  
+  
+  
+   
+}

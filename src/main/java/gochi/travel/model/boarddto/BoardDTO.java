@@ -1,6 +1,7 @@
 package gochi.travel.model.boarddto;
 
 public class BoardDTO {
+	private int rnum;
 	private int boardno;
 	private String email;
 	private String title;
@@ -8,6 +9,7 @@ public class BoardDTO {
 	private String content;
 	private String dDay;
 	private String hits;
+	private String sel;
 	
 	public BoardDTO(){}
 	
@@ -16,9 +18,11 @@ public class BoardDTO {
 		this.title = title;
 		this.content = content;
 	}
-
-	public BoardDTO(int boardno, String email, String title, int favor, String content, String dDay, String hits) {
+	
+	public BoardDTO(int rnum, int boardno, String email, String title, int favor, String content, String dDay,
+			String hits, String sel) {
 		super();
+		this.rnum = rnum;
 		this.boardno = boardno;
 		this.email = email;
 		this.title = title;
@@ -26,11 +30,13 @@ public class BoardDTO {
 		this.content = content;
 		this.dDay = dDay;
 		this.hits = hits;
+		this.sel = sel;
 	}
+
 	public int getBoardno() {
 		return boardno;
 	}
-	public void setBoard_no(int boardno) {
+	public void setBoardno(int boardno) {
 		this.boardno = boardno;
 	}
 	public String getEmail() {
@@ -69,6 +75,24 @@ public class BoardDTO {
 	public void setHits(String hits) {
 		this.hits = hits;
 	}
+
+	public String getSel() {
+		return sel;
+	}
+
+	public void setSel(String sel) {
+		this.sel = sel;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+	
+	
 	
 	
 	

@@ -76,7 +76,11 @@ public class FriendController {
 	@RequestMapping("/searchMember")
 	@ResponseBody
 	public List<MemberDTO> searchMember(String keyword,String email) {
-		List<MemberDTO> list = friendService.selectMemberList(keyword);
+		List<MemberDTO> list=null;
+		if(keyword==null||keyword.equals(""))
+			return list;
+		else
+		list = friendService.selectMemberList(keyword);
 		return list;
 	}
 	/**

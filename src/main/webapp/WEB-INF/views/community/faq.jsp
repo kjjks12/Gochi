@@ -1,74 +1,7 @@
-<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <title>PROHOME - Responsive Real Estate Template</title>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
-    <jsp:include page="/WEB-INF/views/include/include_top_css.jsp"/>
-    <jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp"/>
-
-	<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
-	<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
-	<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
-	<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png" />
-	<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png" />
-	<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png" />
-	<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png" />
-	<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png" />
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
-    
-    
-	<script type="text/javascript">
-
-		"use strict";
-		// ACCORDION
-		$(document).ready(function() {
-			var $title, $content;
-			var $selector = $('.accordion').selector;
-			var $title    = $($selector + ' .title');
-			var $content  = $($selector + ' .text-container');
-			var $close = function(){
-				$title.removeClass('active');
-				$content.slideUp(500).removeClass('open');			
-			}
-			$($selector).find('.title').on('click', function(e) {
-				var $idTarget = $(this).data('target');
-				var currentAttrValue = $(this).attr('href');
-				if($(e.target).is('.active')) {
-					$($idTarget).css({'display':'block'});
-					$close();
-				}else {
-					$($idTarget).css({'display':'none'});
-					$close();
-					$(this).addClass('active');
-					$($idTarget).slideDown(400).addClass('open'); 
-				}
-				e.preventDefault();
-			});
-		});
-
-	</script>
-	
-
-	
-	
-	
-  </head>
-  <body class="fixed-header">
-
 	<div id="page-container">
 		
 		<section id="header-page" class="header-margin-base">
@@ -99,7 +32,7 @@
 
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-3" id="block-menu-content">
+					<div class="col-xs-3 col-md-2 col-lg-2" id="block-menu-content">
 						<div class="section-title line-style no-margin">
 							<h3 class="title">Menu Faq list</h3>
 						</div>
@@ -113,201 +46,87 @@
 
 						<h2>월간 베스트</h2>
 						<div class="faq-container accordion" id="basic">
-
-							<div class="accordion-box">
-								<a data-target="#acc-1" href="#" class="title">Donec feugiat magna justo. Sed dignissim at metus vel commodo?</a>
-								<div class="text-container" id="acc-1">
-								<div style="float: left;">
-								<img src="http://placehold.it/512/bbbbbb/ffffff" alt="50" width="110" height="180" style="float: left;"/>
+							<c:forEach items="${list}" var="i" varStatus="status">
+								<div class="accordion-box">
+									<a data-target="#acc-${status.count}" href="#" class="title">${i.qaTitle}</a>
+									<div class="text-container" id="acc-${status.count}">
+										<!-- <div style="float: left;">
+										<img src="http://placehold.it/512/bbbbbb/ffffff" alt="50" width="110" height="180" style="float: left;"/>
+										</div> -->
+										<div style="float: left; width:10px; height: 180px;">&nbsp;</div>
+										<div style="float:none; ">
+										<p>${sessionScope.dto.nickname} ${i.qaDate}</p>
+											<p>${i.qaContent}</p>
+											<span class="footer">
+												Was this answer helpful? 
+												<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
+												<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+											</span>
+										</div>
+									</div>
 								</div>
-								<div style="float: left; width:10px; height: 180px;">&nbsp;</div>
-								<div style="float:none; ">
-								<p>닉네임 : 노충환 2017/06/09</p>
-									<p>Donec feugiat magna justo. Sed dignissim at metus vel commodo. Vivamus vehicula eget urna a mattis. Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris iaculis nec. Mauris tristique massa vel metus sollicitudin, ac porta nisi tempus. Nullam id aliquam urna. Proin a lorem dignissim, sollicitudin tortor nec, accumsan lectus.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsdasdsdsdzzz</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-								</div>
+							
+							</c:forEach>
 							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-2" href="#" class="title active">Curabitur pulvinar luctus tristique?</a>
-								<div class="text-container open" id="acc-2">
-									<p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integerut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sitamet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo utodio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate. Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integerut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sitamet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo utodio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-3" href="#" class="title">Mauris tristique massa vel metus sollicitudin?</a>
-								<div class="text-container" id="acc-3">
-									<p>Cras dictum. Pellosuere cubilia Curae; Aenean laciniamauris vel est.</p>
-									<p>Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-4" href="#" class="title">Donec feugiat magna justo. Sed dignissim at metus vel commodo?</a>
-								<div class="text-container" id="acc-4">
-									<p>Donec feugiat magna justo. Sed dignissim at metus vel commodo. Vivamus vehicula eget urna a mattis. Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris iaculis nec. Mauris tristique massa vel metus sollicitudin, ac porta nisi tempus. Nullam id aliquam urna. Proin a lorem dignissim, sollicitudin tortor nec, accumsan lectus.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-5" href="#" class="title">Curabitur pulvinar luctus tristique?</a>
-								<div class="text-container" id="acc-5">
-									<p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integerut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sitamet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo utodio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate. Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integerut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sitamet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo utodio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-						</div>
-
 						<div>
 						<div style="float: left;"><h2>자유게시판</h2></div>
-						<div style="float: none; text-align: right;"><h4><a href="select">[자세히보기]</a></h4></div>
+						<div style="float: none; text-align: right;"><h4><a href="pagination?lastNum=1">[자세히보기]</a></h4></div>
 						</div>
 						<div class="faq-container accordion" id="account">
-							<div class="accordion-box">
-								<a data-target="#acc-6" href="#" class="title">Donec feugiat magna justo. Sed dignissim at metus vel commodo?</a>
-								<div class="text-container" id="acc-6">
-									<p>Donec feugiat magna justo. Sed dignissim at metus vel commodo. Vivamus vehicula eget urna a mattis. Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris iaculis nec. Mauris tristique massa vel metus sollicitudin, ac porta nisi tempus. Nullam id aliquam urna. Proin a lorem dignissim, sollicitudin tortor nec, accumsan lectus.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
+						
+						<c:forEach var="i" items="${blist}" varStatus="status">
+								<div class="accordion-box">
+									<a data-target="#acc-${status.index+6}" href="#" class="title">${i.title}</a>
+									<div class="text-container" id="acc-${status.index+6}">
+										<!-- <div style="float: left;">
+										<img src="http://placehold.it/512/bbbbbb/ffffff" alt="50" width="110" height="180" style="float: left;"/>
+										</div> -->
+										<div style="float: left; width:10px; height: 180px;">&nbsp;</div>
+										<div style="float:none; ">
+										<p>${sessionScope.dto.nickname} ${i.dDay}</p>
+											<p>${i.content}</p>
+											<span class="footer">
+												Was this answer helpful? 
+												<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
+												<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+											</span>
+										</div>
+									</div>
 								</div>
+							
+							</c:forEach>
 							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-7" href="#" class="title">Curabitur pulvinar luctus tristique?</a>
-								<div class="text-container" id="acc-7">
-									<p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integerut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sitamet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo utodio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate. Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integerut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sitamet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo utodio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-8" href="#" class="title">Mauris tristique massa vel metus sollicitudin?</a>
-								<div class="text-container" id="acc-8">
-									<p>Cras dictum. Pellosuere cubilia Curae; Aenean laciniamauris vel est.</p>
-									<p>Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-9" href="#" class="title">Mauris tristique massa vel metus sollicitudin?</a>
-								<div class="text-container" id="acc-9">
-									<p>Cras dictum. Pellosuere cubilia Curae; Aenean laciniamauris vel est.</p>
-									<p>Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-10" href="#" class="title">Mauris tristique massa vel metus sollicitudin?</a>
-								<div class="text-container" id="acc-10">
-									<p>Cras dictum. Pellosuere cubilia Curae; Aenean laciniamauris vel est.</p>
-									<p>Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-						</div>
 						
 						<div>
 						<div style="float: left;"><h2>Q&A</h2></div>
-						<div style="float: none; text-align: right;"><h4><a href="#">[자세히보기]</a></h4></div>
+						<div style="float: none; text-align: right;"><h4><a href="qapagination?lastNum=1">[자세히보기]</a></h4></div>
 						</div>
 						<div class="faq-container accordion" id="property">
-							<div class="accordion-box">
-								<a data-target="#acc-11" href="#" class="title">Donec feugiat magna justo. Sed dignissim at metus vel commodo?</a>
-								<div class="text-container" id="acc-11">
-									<p>Donec feugiat magna justo. Sed dignissim at metus vel commodo. Vivamus vehicula eget urna a mattis. Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris iaculis nec. Mauris tristique massa vel metus sollicitudin, ac porta nisi tempus. Nullam id aliquam urna. Proin a lorem dignissim, sollicitudin tortor nec, accumsan lectus.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
+						
+						<c:forEach var="i" items="${qlist}" varStatus="status">
+								<div class="accordion-box">
+									<a data-target="#acc-${status.index+11}" href="#" class="title">${i.qaTitle}</a>
+									<div class="text-container" id="acc-${status.index+11}">
+										<!-- <div style="float: left;">
+										<img src="http://placehold.it/512/bbbbbb/ffffff" alt="50" width="110" height="180" style="float: left;"/>
+										</div> -->
+										<div style="float: left; width:10px; height: 180px;">&nbsp;</div>
+										<div style="float:none; ">
+										<p>${sessionScope.dto.nickname} ${i.qaDate}</p>
+											<p>${i.qaContent}</p>
+											<span class="footer">
+												Was this answer helpful? 
+												<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
+												<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
+											</span>
+										</div>
+									</div>
 								</div>
+							
+							</c:forEach>
+							
+						
 							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-12" href="#" class="title">Curabitur pulvinar luctus tristique?</a>
-								<div class="text-container" id="acc-12">
-									<p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integerut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sitamet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo utodio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate. Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integerut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sitamet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo utodio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-13" href="#" class="title">Mauris tristique massa vel metus sollicitudin?</a>
-								<div class="text-container" id="acc-13">
-									<p>Cras dictum. Pellosuere cubilia Curae; Aenean laciniamauris vel est.</p>
-									<p>Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-14" href="#" class="title">Mauris tristique massa vel metus sollicitudin?</a>
-								<div class="text-container" id="acc-14">
-									<p>Cras dictum. Pellosuere cubilia Curae; Aenean laciniamauris vel est.</p>
-									<p>Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-							<div class="accordion-box">
-								<a data-target="#acc-15" href="#" class="title">Mauris tristique massa vel metus sollicitudin?</a>
-								<div class="text-container" id="acc-15">
-									<p>Cras dictum. Pellosuere cubilia Curae; Aenean laciniamauris vel est.</p>
-									<p>Donec ac ornare ipsum. Nullam sagittis sem dolor, id lobortis sapien iaculis at. Curabitur risus erat, blandit quis diam ut, pharetra convallis tortor. Curabitur pulvinar luctus tristique. Fusce sagittis ligula ac mattis elementum. Sed at elit ante. Integer odio nunc, ultricies gravida imperdiet ac, viverra iaculis lorem. Donec scelerisque magna mauris, id rutrum mauris.</p>
-									<span class="footer">
-										Was this answer helpful? 
-										<a href="#"><i class="fa fa-thumbs-o-up"></i></a> 
-										<a href="#"><i class="fa fa-thumbs-o-down"></i></a>
-									</span>
-								</div>
-							</div>
-						</div>
 						
 						
 					</div>
@@ -356,6 +175,33 @@
 		</div><!-- /.modal -->
 	</div><!-- /#page-container -->
 	<!--  추가된 부분 -->
-	 </body>
+	<script type="text/javascript">
 
-</html>
+		"use strict";
+		// ACCORDION
+		$(document).ready(function() {
+			var $title, $content;
+			var $selector = $('.accordion').selector;
+			var $title    = $($selector + ' .title');
+			var $content  = $($selector + ' .text-container');
+			var $close = function(){
+				$title.removeClass('active');
+				$content.slideUp(500).removeClass('open');			
+			}
+			$($selector).find('.title').on('click', function(e) {
+				var $idTarget = $(this).data('target');
+				var currentAttrValue = $(this).attr('href');
+				if($(e.target).is('.active')) {
+					$($idTarget).css({'display':'block'});
+					$close();
+				}else {
+					$($idTarget).css({'display':'none'});
+					$close();
+					$(this).addClass('active');
+					$($idTarget).slideDown(400).addClass('open'); 
+				}
+				e.preventDefault();
+			});
+		});
+
+	</script>

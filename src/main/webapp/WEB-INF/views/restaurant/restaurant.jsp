@@ -28,16 +28,7 @@
    }
    
 
-   #field-category {margin-top:0px;}
-   
-   /* #food-start {height: 230px !important;}
-   #food-start {width : auto;} */
-   /* #food-start {
-      width: auto;
-        height: 50px;;
-      
-   } */
- 
+   #field-category {margin-top:0px;} 
 
 </style>
 
@@ -45,11 +36,16 @@
 <script>
 
 
-$(function() {   
-   selectList();
-
+var email ="${sessionScope.dto.email}";
+$(function() {
+   selectList();   
    $('#modal-opener').click(function() {
-      setTimeout(setMap2, 500);
+ 	  if(email=="") {
+	      $('#login_btn').trigger('click');
+	      return false;
+	  } else {
+    	  setTimeout(setMap2, 500); 
+	  }
    });
    // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
    var isBindedMap = false; 
@@ -72,14 +68,10 @@ $(function() {
    $(function(){
       var callback1 = function(){
          var keyWord = $("#food-search").val();
-         
-         /* var koreaKeyWord = encodeURIComponent(keyWord); */
-            // keyword JSON데이터에 접근하기 위한 주소
+             // keyword JSON데이터에 접근하기 위한 주소
          var url = "https://apis.daum.net/local/v1/search/keyword.json?apikey=815544b5d2063051aa6e6316ed41e050&query="+keyWord;                             
          
-         
          var geocoder = new daum.maps.services.Geocoder();
-         
          
          var infowindow = new daum.maps.InfoWindow({zIndex:1});
       
@@ -192,7 +184,6 @@ function sendSubmit() {
    testTarget.options[testTarget.selectedIndex].text
 }
 
-
 function selectList() {
    $.ajax({
       type : "post",
@@ -203,12 +194,12 @@ function selectList() {
          $.each(data,function(index,item){
             divStr+="<div class='item'>";
             divStr+="<div class='blog-list masonry-post'>";
-            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail'>"+item.restaurantName+"</a></h2>";
+            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'>"+item.restaurantName+"</a></h2>";
             divStr+="<div class='image' id='food-start'>";
-            divStr+="<a href='#'><img src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
+            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
             divStr+="<div class='social'>";
-            divStr+="<a href='#'><span class='date'><i class='fa fa-heart-o'></i><span>654</span></span></a>";
-            divStr+="<a href='#'><i class='fa fa-eye'></i><span>92435</span></a>";
+            divStr+="<a class='heart' href='javascript:;'><span class='date'><i id='favorIcon"+item.restaurantNo+"' class='fa fa-heart-o'></i><span id="+item.restaurantNo+">"+item.wish+"</span></span></a>";
+            divStr+="<a href='javascript:;'><i class='fa fa-eye'></i><span>"+item.bean+"</span></a>";
             divStr+="</div>";
             divStr+="</div>";
             divStr+="<div class='text'>";
@@ -225,15 +216,68 @@ function selectList() {
 }
 
 
+$(function(){
+	$('.category-foodList').click(function(){
+		$.ajax({
+			type:"post",
+			data : "classification="+$(this).text(),
+			url : "${pageContext.request.contextPath}/restaurant/categorySelect",
+			dataType : "json",
+			success : function(data) {
+				$("#blog-list").empty();
+				var divStr="";
+				$.each(data,function(index,item){
+					divStr+="<div class='item'>";
+		            divStr+="<div class='blog-list masonry-post'>";
+		            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'>"+item.restaurantName+"</a></h2>";
+		            divStr+="<div class='image' id='food-start'>";
+		            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
+		            divStr+="<div class='social'>";
+		            divStr+="<a class='heart' href='javascript:;'><span class='date'><i id='favorIcon' class='fa fa-heart-o'></i><span id="+item.restaurantNo+">"+item.wish+"</span></span></a>";
+		            divStr+="<a href='javascript:;'><i class='fa fa-eye'></i><span>"+item.bean+"</span></a>";
+		            divStr+="</div>";
+		            divStr+="</div>";
+		            divStr+="<div class='text'>";
+		            divStr+="<h3 class='subtitle'>"+item.remark+"</h3>"+item.explanation;
+		            divStr+="</div>";
+		            divStr+="</div>";
+		            divStr+="</div>";
+				});
+				$("#blog-list").append(divStr);
+			},error:function(){
+		         alert("에러발생!!")
+		    }
+		})
+		
+	})
+})
 
+$(function() {
+	$(document).on("click","[class='heart']",function() {
+		var eat = $(this).parent().parent().find("h5").text();	
+		//alert("찍은 글번호 : "+eat);
+		if(email=="") {
+	    	$('#login_btn').trigger('click');
+	     	return false;
+	    } else {
+	    	$.ajax({
+	    		type:"post",
+	    		data:"restaurantNo="+eat,
+	    		url:"${pageContext.request.contextPath}/restaurant/heart",
+	    		datType:"json",
+	    		success:function(result) {
+	    			$("#"+result.restaurantNo).text(result.wish);
+	    			$("#favorIcon"+result.restaurantNo).attr("class","fa fa-heart");
+	    		}
+	    	});
 
+	    }
+	 
+	});
+});
 
-      
 </script>
-
-
    <div id="page-container">
-
       <section id="header-page" class="header-margin-base">
          <div class="skyline">
             <div data-offset="50" class="p1 parallax"></div>
@@ -258,51 +302,29 @@ function selectList() {
       <section id="blog">
          <div class="container">
             <div class="row">
-               <div class="col-md-9" id="blog-list">
-               
-   
+               <div class="col-md-9" id="blog-list">             
                <!-- /.item -->
-                 <!--   <div class="item">
-                     <div class="blog-list masonry-post">
-                        <h2 class="title">
-                           <a href="blog-detail.html">${food.restaurantName}</a>
-                        </h2>
-                        <div class="image" id="food-start">
-                           <a href="#"><img src="${pageContext.request.contextPath}/resources/images/sample1.jpg" width="100%" height="340px"/></a>
-                           <div class="social">
-                              <a href="#"><span class="date"><i class="fa fa-heart-o"></i><span>654</span></span></a>
-                              <a href="#"><i class="fa fa-eye"></i><span>92435</span></a>
-                           </div>
-                        </div>
-                        <div class="text">
-                           <h3 class="subtitle">맛있는 순댓국 세상으로 오세요!</h3>
-                           소사골의 소고기 순대국, 올바름에 대해 고민하는 사람들
-                           순대국으로 3끼를 다 먹을 수 있는 그날이 올때까지 
-                        </div>
-                     </div>
-                  </div> --!>
-                  <!-- /.item -->
-    
+            
+                  <!-- /.item -->    
                </div>
                <!-- /.col-md-9 -->
                <div class="col-md-3">
                   <div class="section-title line-style no-margin">
                      <h3 class="title">
                         <a href="#" id="modal-opener" data-target="#modal-contact2" data-toggle="modal"
-                           class="hidden-xs"><i class="fa fa-cutlery"
+                           class="hidden-xs" onclick="checkLogin()"><i class="fa fa-cutlery"
                            aria-hidden="true"></i> 맛집 등록</a>
                      </h3>
-
                   </div>
                   <div class="section-title line-style">
                      <h3 class="title">맛집 카테고리</h3>
                   </div>
                   <ul class="category-list">
-                     <li><a href="#">음식점(7584)</a></li>
-                     <li><a href="#">카페(8845)</a></li>
-                     <li><a href="#">주점(9877)</a></li>
-                     <li><a href="#">베이커리(1887)</a></li>
-                     <li><a href="#">길거리음식(561)</a></li>
+                     <li class="category-foodList"><a href="#" id="category-foodList">음식점</a></li>
+                     <li class="category-foodList"><a href="#" >카페</a></li>
+                     <li class="category-foodList"><a href="#" >주점</a></li>
+                     <li class="category-foodList"><a href="#" >베이커리</a></li>
+                     <li class="category-foodList"><a href="#" >길거리음식</a></li>
                   </ul>
                </div>
                <!-- /.col-md-3 -->
@@ -312,7 +334,7 @@ function selectList() {
          <div class="container" id="pagination">
             <div class="row">
                <div class="col-md-9 text-center">
-                  <ul class="pagination">
+                  <ul class="pagination" id="fuckyou">
                      <li><a href="#"><i class="fa fa-chevron-left" id="test"></i></a></li>
                      <li><a class="active" href="#">1</a></li>
                      <li><a href="#">2</a></li>
@@ -408,7 +430,7 @@ function selectList() {
                </div>
             </div>
             <div class="field footer-form text-right">
-               <button type="button" class="btn btn-reverse button-form" data-dismiss="modal">Cancel</button>
+               <button type="button" class="btn btn-reverse button-form" data-dismiss="modal">취소</button>
                <button type="button" class="btn btn-default button-form" onclick="foodCheck()">저장</button>
             </div>
             </form>

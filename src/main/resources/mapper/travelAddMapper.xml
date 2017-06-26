@@ -68,6 +68,20 @@ select * from TRAVEL_ITINEARY
 where ITINEARY_NO=#{_parameter}
 </select>
 
+<!-- 여행 일정에서 타이틀 수정  -->
+<update id="updateItinearyTitle" parameterType="Map">
+update TRAVEL
+set TITLE =#{title}
+where TRAVEL_NO =#{travelNo}
+</update>
+
+<!-- 여행 일정에서 커버 이미지 수정 -->
+<update id ="updateTravelCover" parameterType="Map">
+	update TRAVEL
+	set TRAVEL_COVER_IMG =#{travelCoverImg}
+	where EMAIL = #{email}
+	and TRAVEL_NO =#{travelNo}
+</update>
 
 <!-- 여행 일정 1개 업데이트  -->
 <update id="updateTravelItineary" parameterType="TravelItinearyDTO">
