@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+       <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,17 +10,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <title>PROHOME - Responsive Real Estate Template</title>
 
-	 <jsp:include page="/WEB-INF/views/include/include_top_css.jsp"/>
-	<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
-	<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
-	<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
-	<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png" />
-	<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png" />
-	<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png" />
-	<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png" />
-	<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png" />
+    <jsp:include page="/WEB-INF/views/include/include_top_css.jsp"/>
+   <!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
+   <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
+   <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
+   <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png" />
+   <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png" />
+   <link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png" />
+   <link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png" />
+   <link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png" />
+   <link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png" />
+   <link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,154 +29,133 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+
+
   </head>
   
   <body class="fixed-header">
 
-	<div id="page-container">
+   <div id="page-container">
 
-		
-		<section id="header-page" class="header-margin-base">
-			<div class="skyline">
-				<div data-offset="50" class="p1 parallax"></div>
-				<div data-offset="25" class="p2 parallax"></div>
-				<div data-offset="15" class="p3 parallax"></div>
-				<div data-offset="8"  class="p4 parallax"></div>
-				<span class="cover"></span>
-				<div class="container header-text">
-					<div><h1 class="title">Article fullpage</h1></div>
-					<div><h2 class="sub-title">Lorem ipsum dolors adipiscing elit justo</h2></div>
-				</div>
-			</div>
-			<div id="breadcrumb">
-				<div class="container">
-					<ol class="breadcrumb">
-						<li><a href="#"><i class="fa fa-home"></i></a></li>
-						<li><a href="#">Pages</a></li>
-						<li class="active">Article fullpage</li>
-					</ol>
-				</div>
-			</div><!-- /#breadcrumb -->
-			<span class="cover"></span>
-		</section><!-- /#header -->
+      
+      <section id="header-page" class="header-margin-base">
+         <div class="skyline">
+            <div data-offset="50" class="p1 parallax"></div>
+            <div data-offset="25" class="p2 parallax"></div>
+            <div data-offset="15" class="p3 parallax"></div>
+            <div data-offset="8"  class="p4 parallax"></div>
+            <span class="cover"></span>
+            <div class="container header-text">
+               <div><h1 class="title">Article fullpage</h1></div>
+               <div><h2 class="sub-title">Lorem ipsum dolors adipiscing elit justo</h2></div>
+            </div>
+         </div>
+         <div id="breadcrumb">
+            <div class="container">
+               <ol class="breadcrumb">
+                  <li><a href="#"><i class="fa fa-home"></i></a></li>
+                  <li><a href="#">Pages</a></li>
+                  <li class="active">Article fullpage</li>
+               </ol>
+            </div>
+         </div><!-- /#breadcrumb -->
+         <span class="cover"></span>
+      </section><!-- /#header -->
 
-		<section id="blog">
+      <section id="blog">
 <%-- ${pageContext.request.contextPath} --%>
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-3 col-md-3" id="block-menu-content">
-						<ul class="block-menu" data-spy="affix" data-offset-top="500" data-offset-bottom="400">
-							<li><a class="faq-button" href="faq"><i class="icon fa fa-check-square-o"></i>월간 베스트</a></li>
-							<li><a class="faq-button active" href="${pageContext.request.contextPath}/community/select"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
-							<li><a class="faq-button" href=""><i class="icon fa fa-picture-o"></i> Q&A</a></li>
-						</ul>
-					</div>
-					<div class="col-md-9">
-						<div class="blog-list blog-detail">
-							<h2 class="title"><a href="#"></a></h2>
-							<div class="social">
-								<span class="date">${boardDTO.dDay.substring(3,5)}<span>${boardDTO.dDay.substring(6,8)}</span></span>
-								<a href="#"><i class="fa fa-heart-o"></i><span>${boardDTO.favor}</span></a>
-								<a href="#"><i class="fa fa-eye"></i><span>${boardDTO.hits}</span></a>
-								<a href="#"><i class="fa fa-comments"></i><span>69</span></a>
-							</div>
-							<div class="image">
-								<img src="http://placehold.it/1280x680/bbbbbb/ffffff" alt="Image Sample" class="img-responsive" />
-							</div>
-							<h3 class="subtitle">${boardDTO.title}</h3>
-							<div class="text">
-								${boardDTO.content}<br /><br />
-							</div>
-						</div><!-- /.blog-list -->
-
+         <div class="container">
+            <div class="row">
+               <div class="col-sm-3 col-md-3" id="block-menu-content">
+                  <ul class="block-menu" data-spy="affix" data-offset-top="500" data-offset-bottom="400">
+                     <li><a class="faq-button" href="faq"><i class="icon fa fa-check-square-o"></i>월간 베스트</a></li>
+                     <li><a class="faq-button active" href="${pageContext.request.contextPath}/community/pagination?lastNum=1"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
+                     <li><a class="faq-button" href=""><i class="icon fa fa-picture-o"></i> Q&A</a></li>
+                  </ul>
+               </div>
+               <div class="col-md-9">
+                  <div class="blog-list blog-detail">
+                     <h2 class="title"><a href="#"></a></h2>
+                      <div class="col-md-10">
+	                     <c:if test="${boardDTO.content!=null}">
+		                     <h3 class="subtitle">${boardDTO.title}</h3>
+		                     <div class="text">
+		                        ${boardDTO.content}<br /><br />
+		                     </div>
+	                     </c:if>
+                     </div>
+                     <div class="social" style="float: right;">
+                        <span class="date">${boardDTO.dDay.substring(3,5)}<span>${boardDTO.dDay.substring(6,8)}</span></span>
+                        <a href="#"><i class="fa fa-heart-o"></i><span>${boardDTO.favor}</span></a>
+                        <a href="#"><i class="fa fa-eye"></i><span>${boardDTO.hits}</span></a>
+                        <a href="#"><i class="fa fa-comments"></i><span>69</span></a>
+                     </div>
+                     <!-- <div class="image">
+                        <img src="http://placehold.it/1280x680/bbbbbb/ffffff" alt="Image Sample" class="img-responsive" />
+                     </div> -->
+                  </div><!-- /.blog-list -->
+                  
+                  
+                  	<!-- comment start -->
 						<div id="comments">
 							<h2 class="title-comment">Comments <span class="total-comment">4</span></h2>
-							<div class="medialist">
+							<!-- 댓글 리스트 출력 -->
+							<div class="medialist" id="commentList">
 								<div class="media">
-									<div class="media-left">
-										<a href="#">
-											<img class="media-object" src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" />
-										</a>
-									</div>
-									<div class="media-body">
-										<div class="comment-line">
-											<h4 class="media-heading">
-												Manuel Lawrence
-												<span class="date-comment">1 February at 22:03</span> 
-												<button class="reply"><i class="fa fa-share-square-o"></i></button>
-											</h4>
-											<b>Lorem ipsum dolor sit amet, consectetur adipiscing elit</b>
-											Aliquam at maximus nibh. Nunc odio dolor, cursus rutrum lorem vel, rutrum faucibus risus. Duis id imperdiet mauris, eget lobortis urna. Donec efficitur, tellus sed dapibus consequat, nulla sapien accumsan ligula, sollicitudin congue est magna non dui. Sed malesuada convallis est, et laoreet sem accumsan at. Ut vestibulum eleifend urna, nec sodales lorem rhoncus quis. Nulla imperdiet mattis nisl sit amet cursus. Nullam malesuada, lorem ac commodo finibus, ipsum eros fermentumet euismod ultricies.
-										</div>
-									</div>
-									</div>
-									<div class="media">
+									<c:choose>
+									<c:when test="${requestScope.commentList.size()==0}">
+										첫번째 댓글을 달아주세용~! (찡끗)
+									</c:when>
+									</c:choose>
+									<c:choose>
+									<c:when test="${requestScope.commentList.size()>0}">
+									  <c:forEach items="${requestScope.commentList}" var="commentList" varStatus="state">
 										<div class="media-left">
 											<a href="#">
-												<img class="media-object" src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" />
-											</a>
-										</div>
-										<div class="media-body">
-											<div class="comment-line">
-												<h4 class="media-heading">
-													Ruth Stone
-													<span class="date-comment">2 February at 22:36</span> 
-													<button class="reply"><i class="fa fa-share-square-o"></i></button>
-												</h4>
-												<b>Morbi mattis neque eu justo fringilla</b>
-												Scelerisque ut facilisis risus. Proin imperdiet erat tellus, non viverra dui condimentum eget. Nullam at enim id elit semper scelerisque. Etiam lorem ex, semper sed magna sed, molestie interdum ante. Donec blandit nisl mauris, nec placerat ante sodales quis.
-											</div>
-											<div class="media">
-												<div class="media-left">
-													<a href="#"><img class="media-object" src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" /></a>
-												</div>
-												<div class="media-body nested">
-													<div class="comment-line">
-														<h4 class="media-heading">
-															Jean Medina
-															<span class="date-comment">8 February at 22:40</span> 
-														</h4>
-														Mauris eu ipsum porta, rhoncus mi eget, vehicula est. Nulla condimentum condimentum dapibus. Nullam at enim id elit semper scelerisque. Etiam lorem ex, semper sed magna sed, molestie interdum ante. Donec blandit nisl mauris, nec placerat ante sodales quis.
-													</div>
-												</div>
-											</div>
-									</div>
-								</div>
-								<div class="media">
-									<div class="media-left">
-										<a href="#">
-											<img class="media-object" src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" />
+											<img class="media-object" src="${pageContext.request.contextPath}/resources/profileImg/" alt="Image sample" />
 										</a>
 									</div>
 									<div class="media-body">
 										<div class="comment-line">
 											<h4 class="media-heading">
-												Margaret Smith
-												<span class="date-comment">4 February at 16:52</span> 
-												<button class="reply"><i class="fa fa-share-square-o"></i></button>
+												${commentList.email}
+												<span class="date-comment">${commentList.d_day}</span>
+												 
+												<button class="reply" id="deleteComment" name="${commentList.email}"><h5> X </h5></button>
+												
 											</h4>
-											Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.							
+											<span id="contentAera"> ${commentList.content}</span>
 										</div>
 									</div>
+									<br>
+									</c:forEach>
+									</c:when>
+									</c:choose>
+									
 								</div>
 							</div>
+
+                   		<!-- commnet 글쓰기 -->
+							<div id="comments">
 							<h3 class="title-form"><i class="icon fa fa-comment"></i> Leave a Comment</h3>
 							<form class="form-large grey-color" action="#" method="post">
 								<div class="row">
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										<label for="name">Name</label>
-										<input type="text" placeholder="Name .." name="name" id="name" class="margin-bottom form-control">
+										<label for="name">NicName</label>
+										<input type="text" placeholder="Name .." name="name" id="name"  value="${dto.nickname}" class="margin-bottom form-control">
 									</div>
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										<label for="email">Email</label>
-										<input type="text" placeholder="Email .." name="email" id="email" class="margin-bottom form-control">
+										<label for="email">E-mail</label>
+										<input type="text" placeholder="Email .." name="email" id="email" value="${dto.email}" 
+													class="margin-bottom form-control" >
 									</div>
 									<div class="col-md-12">
 										<label for="text-message">Message</label>
-										<textarea name="text-message" id="text-message" rows="4" class="margin-bottom form-control"></textarea>
+										<textarea name="text-message" id="text-messageArea" rows="4" class="margin-bottom form-control"></textarea>
 									</div>
 								</div>
-								<input type="submit" class="btn btn-default" value="Send Comment">
+								<input  class="btn btn-default" value="Send Comment" id="commentAdd">
 							</form>
 							<div style="text-align: right;">
 								<button type="button" class="btn btn-default" id="back" name="back" onclick="history.back()">확인</button>
@@ -228,6 +209,88 @@
 	</div><!-- /#page-container -->
 	
 	<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp"/>
-	
+
   </body>
+  
+  <!-- comment 등록 스크립트 -->
+<script type="text/javascript">
+$(document).ready(function() {
+		
+
+		 $("#commentAdd").click(function() {
+				//alert($("#text-messageArea").val())
+		 
+			 $.ajax({
+					url: "${pageContext.request.contextPath}/comment/commentAdd", //서보요청이름(주소)
+					type: "post", // method방식(get , post)
+					dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+					data: "content="+$("#text-messageArea").val()+"&board_no=${requestScope.boardDTO.boardno}", 
+					success: function(result) {   // 성공결과
+						var str = "";
+						
+						 $.each(result,function(index,item){
+						//	 alert(item.email)
+		            		 str+='<div class="media-left">';
+		            		 str+='<a href="#">';
+		            		 str+='<img class="media-object" src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" />';
+							 str+='</a> </div>';
+							 str+='<div class="media-body"><div class="comment-line"><h4 class="media-heading">'+item.email;
+		            	 	 str+='<span class="date-comment">'+item.d_day+'</span>';
+						 	 str+='<button class="reply" id="deleteComment" name="'+item.email+'"><h5> X </h5></button>';
+						 	 str+='</h4><span id="contentAera">'+ item.content+'</span></div></div>'
+						 	str+='<br>';
+						 })
+		            	  	
+						 $("#commentList").html(str);	
+					
+					},
+					error :  function(err) {
+						alert("오류발생 : "+ err);
+					}
+				})
+		})
+		
+		
+		  $(document).on("click",'#deleteComment' , function() { 
+			//alert( $(this).parent().parent().children().next().text())
+			//alert(${sessionScope.dto.email}+"?????????????")
+			  $.ajax({
+					url: "${pageContext.request.contextPath}/comment/commentDelete", //서보요청이름(주소)
+					type: "post", // method방식(get , post)
+					dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+					data: "sessionEmail=${sessionScope.dto.email}&board_no=${requestScope.boardDTO.boardno}&boardEmail="
+							+$(this).attr("name")+"&content="+ $(this).parent().parent().children().next().text(), 
+					success: function(result) {   // 성공결과
+							var str = "";
+					
+							 $.each(result,function(index,item){
+								// alert(item.email)
+			            		 str+='<div class="media-left">';
+			            		 str+='<a href="#">';
+			            		 str+='<img class="media-object" src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" />';
+								 str+='</a> </div>';
+								 str+='<div class="media-body"><div class="comment-line"><h4 class="media-heading">'+item.email;
+			            	 	 str+='<span class="date-comment">'+item.d_day+'</span>';
+							 	 str+='<button class="reply" id="deleteComment" name="'+item.email+'"><h5> X </h5></button>';
+							 	 str+='</h4><span id="contentAera">'+ item.content+'</span></div></div>'
+							 	str+='<br>';
+							 })
+			            	  	
+							 $("#commentList").html(str);	
+								
+							
+					},
+					error :  function(err) {
+						alert("본인이 작성한 댓글이 아닙니다...");
+					}
+				})
+			  
+		  })
+})
+</script>
+<script type="text/javascript">
+function page() {
+	location.href="${pageContext.request.contextPath}/community/pagination?lastNum=1";
+}
+</script>
 </html>

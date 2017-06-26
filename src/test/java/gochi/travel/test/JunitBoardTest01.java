@@ -78,17 +78,18 @@ public class JunitBoardTest01 {
 		}
 		DBUtil.closeSession(session);
 	}
-	/**
-	 * 친구추가
+	/***
+	 * 자기자신과 친구 맺고자할때 조회 처리
 	 */
 	@Test
-	public void insertFriend(){
+	public void selectMineFriend(){
+	
 		SqlSession session = DBUtil.getSession();
-		int maxNum=0;
-		try{
-		maxNum = session.selectOne("friendMapper.selectMaxFriend");
-		}catch(Exception e){}
-		session.insert("friendMapper.insertFriend",new FriendDTO(maxNum+1,"kjy73845@naver.com","kimjun@naver.com"));
+		Map<String,String> map = new HashMap<>();
+		map.put("email", "kjy73845@naver.com");
+		map.put("fEmail", "kjy73845@naver.com");
+		session.selectList("friendMapper.selectMineFriend", map);
 		DBUtil.closeSession(session);
 	}
+	
 }

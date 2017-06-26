@@ -2,6 +2,23 @@ package gochi.travel.model.mypagedto;
 
 import java.io.Serializable;
 
+import org.springframework.web.multipart.MultipartFile;
+
+/***
+ * 마이페이지 - 프로필 관련 DTO
+ * @author 고준영
+ * @param email 계정 id
+ * @param password 계정 비밀번호
+ * @param nickName 닉네임
+ * @param phoneNumber 핸드폰 번호
+ * @param profileImg 프로필 이미지
+ * @param backImg 프로필 뒷배경 이미지
+ * @param selfContent 자기소개
+ * 
+ * @param profileImgFile 프로필이미지 업로드 다운로드 관련
+ * @param backImgFile 프로필 커버 이미지 업로드 다운로드 관련
+ * 
+ */
 public class MypageDTO implements Serializable{
 	private String email;
 	private String password;
@@ -11,17 +28,23 @@ public class MypageDTO implements Serializable{
 	private String backImg;
 	private String selfContent;
 	
+	private MultipartFile profileImgFile;
+	private MultipartFile backImgFile;
+	
 	public MypageDTO(){}
-	public MypageDTO(String email, String password, String nickName, String phoneNumber, String profileImg,
-			String backImg, String selfContent) {
+
+	/**
+	 * 수정 아이콘 클릭시 <br>email 기준으로 phoneNumber와 selfContent를 수정할때 사용
+	 * @param email
+	 * @param phoneNumber
+	 * @param selfContent
+	 */
+	public MypageDTO(String email, String phoneNumber, String selfContent) {
 		this.email = email;
-		this.password = password;
-		this.nickName = nickName;
 		this.phoneNumber = phoneNumber;
-		this.profileImg = profileImg;
-		this.backImg = backImg;
 		this.selfContent = selfContent;
 	}
+
 
 	public String getEmail() {
 		return email;
@@ -65,10 +88,20 @@ public class MypageDTO implements Serializable{
 	public void setSelfContent(String selfContent) {
 		this.selfContent = selfContent;
 	}
-	@Override
-	public String toString() {
-		return "MypageDTO [email=" + email + ", password=" + password + ", nickName=" + nickName + ", phoneNumber="
-				+ phoneNumber + ", profileImg=" + profileImg + ", backImg=" + backImg + ", selfContent=" + selfContent
-				+ "]";
+
+	public MultipartFile getProfileImgFile() {
+		return profileImgFile;
+	}
+
+	public void setProfileImgFile(MultipartFile profileImgFile) {
+		this.profileImgFile = profileImgFile;
+	}
+
+	public MultipartFile getBackImgFile() {
+		return backImgFile;
+	}
+
+	public void setBackImgFile(MultipartFile backImgFile) {
+		this.backImgFile = backImgFile;
 	}
 }

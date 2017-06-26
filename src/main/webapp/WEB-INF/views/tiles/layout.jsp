@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script> <!-- NAVER LOGIN -->
     <script   src="${pageContext.request.contextPath}/resources/script/jquery.min.js"></script>      <!-- jQuery   (necessary for Bootstrap's JavaScript plugins) -->
    
@@ -16,7 +15,8 @@
     <script   src="${pageContext.request.contextPath}/resources/script/jquery-ui.min.js"></script>      <!-- jQuery   UI is a   curated   set   of user   interface interactions,   effects, widgets, and themes -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/datepicker/jquery-ui.theme.css"> <!-- Bootstrap -->
    <script src="${pageContext.request.contextPath}/resources/fullcalendar/bootstrap-datetimepicker.js"></script>
-
+	
+	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.form.min.js"></script>
 
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> <!-- Bootstrap -->
@@ -36,7 +36,7 @@
    <!-- wish -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gochi/review_detail.css">                              <!-- plan view Stylesheet -->
    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/wish/styles/plan-view-styles.css"> --%> <!-- 플랜 -->                          <!-- Media Query -->
-
+ <script src="${pageContext.request.contextPath}/resources/script/modernizr.min.js"></script> <!-- Modernizr -->
 
 
 
@@ -54,9 +54,7 @@
 </body>
 
    
-   
-   
-   <script src="${pageContext.request.contextPath}/resources/script/modernizr.min.js"></script> <!-- Modernizr -->
+  
    
    <script   src="${pageContext.request.contextPath}/resources/script/bootstrap.min.js"></script>      <!-- Include all compiled plugins (below), or include individual files as needed -->
    <script   src="${pageContext.request.contextPath}/resources/script/vendor/mmenu/mmenu.min.all.js"></script>               <!-- Menu Responsive -->
@@ -67,6 +65,5 @@
    <script src="${pageContext.request.contextPath}/resources/script/vendor/images-fill/imagefill.min.js"></script>               <!-- ImageFill Script -->
    <script   src="${pageContext.request.contextPath}/resources/script/vendor/easydropdown/jquery.easydropdown.min.js"></script>   <!-- Select   list Script   -->
    <script   src="${pageContext.request.contextPath}/resources/script/vendor/carousel/responsiveCarousel.min.js"></script>      <!-- Carousel Script -->
-   <script   src="${pageContext.request.contextPath}/resources/script/custom.js"></script>      <!-- Custom   Script -->
-
+    <script   src="${pageContext.request.contextPath}/resources/script/custom.js"></script>      <!-- Custom   Script -->
 </html>

@@ -1,11 +1,17 @@
 package gochi.travel.friendservice;
 
 import java.util.List;
+import java.util.Map;
+
 import gochi.travel.model.frienddto.FriendDTO;
 import gochi.travel.model.memberdto.MemberDTO;
 
 public interface FriendService {
 	List<FriendDTO> selectFriendList(String email);
 	List<MemberDTO> selectMemberList(String keyword);
-	int insertFriend(FriendDTO friendDTO);
+	Map<String,String> insertFriend(FriendDTO friendDTO);
+	int updateFriendAuth(int friendNo);
+	int deleteFriendRequest(int friendNo);
+	boolean selectFriendDuplicate(String email,String keyword);
+	MemberDTO selectMineFriend(String email);
 }

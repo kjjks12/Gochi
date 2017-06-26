@@ -22,7 +22,13 @@ public class MemberDTO {
 		this.selfContent = selfContent;
 	}
 
-
+	public MemberDTO(String email) {
+		this.email = email;
+	}
+	/**
+	 * @author 고준영
+	 * @return 멤버 찾기 중복 유효성 검사로 메세지를 넣어줄때 사용
+	 */
 	public String getEmail() {
 		return email;
 	}

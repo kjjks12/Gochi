@@ -27,12 +27,14 @@
       font-weight: bold; 
    }
    
-   #field-category {margin-top:0px;}   
+
+   #field-category {margin-top:0px;} 
 
 </style>
 
 
 <script>
+
 
 var email ="${sessionScope.dto.email}";
 $(function() {
@@ -66,14 +68,10 @@ $(function() {
    $(function(){
       var callback1 = function(){
          var keyWord = $("#food-search").val();
-         
-         /* var koreaKeyWord = encodeURIComponent(keyWord); */
-            // keyword JSON데이터에 접근하기 위한 주소
+             // keyword JSON데이터에 접근하기 위한 주소
          var url = "https://apis.daum.net/local/v1/search/keyword.json?apikey=815544b5d2063051aa6e6316ed41e050&query="+keyWord;                             
          
-         
          var geocoder = new daum.maps.services.Geocoder();
-         
          
          var infowindow = new daum.maps.InfoWindow({zIndex:1});
       
@@ -128,7 +126,6 @@ $(function() {
                   daum.maps.event.addListener(marker, 'click', function() {
                       // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다                      
                       var coord = new daum.maps.LatLng(place.latitude, place.longitude);   
-                
                         
                       //주소/위치에 선택한 정보 넣기.!!!!!!!!!!!!!!!!!!!!
                  document.getElementById("food-location").value=place.address;
@@ -138,7 +135,6 @@ $(function() {
                 
                   });
                 }
-            
                
             });   
    
@@ -160,7 +156,9 @@ $(function() {
     }); // 여기까지 callback 변수에 저장된 메서드
     
 });
-
+      
+</script>
+<script>
 function foodCheck() {
    var category = document.insertForm
    if(category.category2.value==""){
@@ -196,9 +194,9 @@ function selectList() {
          $.each(data,function(index,item){
             divStr+="<div class='item'>";
             divStr+="<div class='blog-list masonry-post'>";
-            divStr+="<h2><a href='${pageContext.request.contextPath}/restaurant/detail?index="+item.restaurantNo+"'>"+item.restaurantName+"</a></h2>";
+            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'>"+item.restaurantName+"</a></h2>";
             divStr+="<div class='image' id='food-start'>";
-            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detailRestaurant?index="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
+            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
             divStr+="<div class='social'>";
             divStr+="<a class='heart' href='javascript:;'><span class='date'><i id='favorIcon"+item.restaurantNo+"' class='fa fa-heart-o'></i><span id="+item.restaurantNo+">"+item.wish+"</span></span></a>";
             divStr+="<a href='javascript:;'><i class='fa fa-eye'></i><span>"+item.bean+"</span></a>";
@@ -217,6 +215,7 @@ function selectList() {
    })
 }
 
+
 $(function(){
 	$('.category-foodList').click(function(){
 		$.ajax({
@@ -230,9 +229,9 @@ $(function(){
 				$.each(data,function(index,item){
 					divStr+="<div class='item'>";
 		            divStr+="<div class='blog-list masonry-post'>";
-		            divStr+="<h2><a href='${pageContext.request.contextPath}/restaurant/detail?index="+item.restaurantNo+"'>"+item.restaurantName+"</a></h2>";
+		            divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'>"+item.restaurantName+"</a></h2>";
 		            divStr+="<div class='image' id='food-start'>";
-		            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detailRestaurant?index="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
+		            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
 		            divStr+="<div class='social'>";
 		            divStr+="<a class='heart' href='javascript:;'><span class='date'><i id='favorIcon' class='fa fa-heart-o'></i><span id="+item.restaurantNo+">"+item.wish+"</span></span></a>";
 		            divStr+="<a href='javascript:;'><i class='fa fa-eye'></i><span>"+item.bean+"</span></a>";
@@ -252,18 +251,6 @@ $(function(){
 		
 	})
 })
-
-$(function() {
-	$(document).on("click", "[class='title2']", function() {
-		$.ajax({
-			type:"post",
-			url: "${pageContext.request.contextPath}/restaurant/detail?index="+$(this).text()		
-		});
-	});
-});
-
-
-
 
 $(function() {
 	$(document).on("click","[class='heart']",function() {
@@ -289,12 +276,7 @@ $(function() {
 	});
 });
 
-
-
-
-
 </script>
-
    <div id="page-container">
       <section id="header-page" class="header-margin-base">
          <div class="skyline">
@@ -330,7 +312,7 @@ $(function() {
                   <div class="section-title line-style no-margin">
                      <h3 class="title">
                         <a href="#" id="modal-opener" data-target="#modal-contact2" data-toggle="modal"
-                           class="hidden-xs"><i class="fa fa-cutlery"
+                           class="hidden-xs" onclick="checkLogin()"><i class="fa fa-cutlery"
                            aria-hidden="true"></i> 맛집 등록</a>
                      </h3>
                   </div>
@@ -459,3 +441,4 @@ $(function() {
       <!-- /.modal-dialog -->
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=815544b5d2063051aa6e6316ed41e050&libraries=services"></script>
+

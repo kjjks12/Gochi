@@ -32,10 +32,9 @@ public class MemberController {
 		String email = request.getParameter("email");
 		String nickname = request.getParameter("nickname");
 		int result = service.naverLogin(email,nickname);
-		
 		if(result>0){
-			MemberDTO dto = service.login(email, "");
-			request.getSession().setAttribute("dto", dto);
+			MemberDTO dto = service.login(email,"");
+			request.getSession().setAttribute("dto",dto);
 		}
 		return "index";
 	}
@@ -57,23 +56,30 @@ public class MemberController {
 	 * 일반회원 로그인
 	 * */
 	@RequestMapping("/member/Login")
-	public String login(HttpServletRequest request,HttpServletResponse response){
+	public String login(HttpServletRequest request, HttpServletResponse response){
 		String email = request.getParameter("user-log");
 		String password = request.getParameter("password-log");
 		MemberDTO dto = service.login(email, password);
+		
 		if(dto==null){
 			return "index"; //로그인이 되지 않았을 때 이동경로 바꾸면 다른곳으로 이동 가능함. 
 		}else if(dto.getPassword().equals(password)){
 			request.getSession().setAttribute("dto", dto);
 			System.out.println("로그인성공");
-			String path = request.getParameter("path");
+			String path = request.getParameter("locationPath");
 			System.out.println("경로는"+path);
 			if(path.equals("/controller/")){
 				return "index";
+			}else if(request.getSession().getAttribute("index")==null){ //index가 필요없는 페이지 일때
+				String rePath = path.replace("/controller/","");
+				System.out.println(rePath);
+				return "redirect:/"+rePath;
+			}else if(request.getSession().getAttribute("index")!=null){ //index가 필요있는 페이지 일때
+				String index = (String) request.getSession().getAttribute("index");
+				String rePath = path.replace("/controller/","");
+				String resultPath = rePath+"?index="+index;
+				return "redirect:/"+resultPath;
 			}
-			
-			String rePath = path.replace("/controller/","");
-			return "redirect:/"+rePath;
 		}
 		
 		return "index";

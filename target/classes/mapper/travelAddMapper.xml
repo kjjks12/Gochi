@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- member 관련 xml -->
+<mapper namespace="traveladdMapper">
+
+
+
+<!-- 회원의 권한 검색하기 -->
+<!-- <select id="selectAuthorityByUserName" parameterType="string" resultType="authority">
+	select USERNAME, ROLE
+	from AUTHORITIES
+	where email=#{_parameter}
+</select>
+ -->
+ 
+ <resultMap type="gochi.travel.model.traveldto.TravelDTO" id="travelDTOResultMap">
+ <id property="travelNo" column="TRAVEL_NO"/>
+ <result property="title" column="TITLE"/>
+ <result property="email" column="EMAIL"/>
+ <result property="thema" column="THEMA"/>
+ <result property="travelStartDay" column="TRAVEL_START_DAY"/>
+ <result property="travelEndDay" column="TRAVEL_END_DAY"/>
+ <result property="briefStory" column="BRIEF_STORY"/>
+ <result property="favor" column="FAVOR"/>
+ <result property="travelCoverImg" column="TRAVEL_COVER_IMG"/>
+ </resultMap>
+
+
+ <!-- 여행 일정 기본 정보 등록 -->
+ <insert id="insertInitTravelInfo" parameterType="gochi.travel.model.traveldto.TravelDTO" >
+ insert into TRAVEL 
+ VALUES (TRAVEL_NO.NEXTVAL,#{title},#{email},#{thema},#{travelStartDay},#{travelEndDay},#{briefStory},0,NULL)
+ <selectKey keyProperty="travelNo" resultType="Integer" order="AFTER">select TRAVEL_NO.currval from dual</selectKey>
+</insert>
+
+
+ <resultMap type="TravelItinearyDTO" id="TravelItinearyDTOResultMap">
+ <id property="itinearyNo" column="ITINEARY_NO"/>
+ <result property="travelNo" column="TRAVEL_NO"/>
+ <result property="travelItinearyTitle" column="TRAVEL_ITINEARY_TITLE"/>
+ <result property="day" column="D_DAY"/>
+ <result property="startTime" column="START_TIME"/>
+ <result property="endTime" column="END_TIME"/>
+ <result property="latitude" column="LATITUDE"/>
+ <result property="logtitude" column="LONGTITUDE"/>
+ <result property="money" column="MONEY"/>
+ <result property="category" column="CATEGORY_CLASSIFICATION"/>
+ <result property="story" column="STORY"/>
+ </resultMap>
+
+<!-- 여행일정 1개 일정표 등록 -->
+ <insert id="insertTravelItineary" parameterType="TravelItinearyDTO" >
+ insert into TRAVEL_ITINEARY 
+ VALUES (ITINEARY_NO.NEXTVAL,#{travelNo},#{travelItinearyTitle},#{day},#{startTime},#{endTime},#{latitude},#{logtitude},#{money},#{category},#{story})
+ <selectKey keyProperty="itinearyNo" resultType="Integer" order="AFTER">select ITINEARY_NO.currval from dual</selectKey>
+</insert>
+ 
+
+<!-- 여행일정 1개 번호 가지고 여행DTO 로 가져감 --> 
+<select id="selectTravelItineary" parameterType="Integer" resultType="TravelItinearyDTO" resultMap="TravelItinearyDTOResultMap">
+select * from TRAVEL_ITINEARY
+where ITINEARY_NO=#{_parameter}
+</select>
+
+<!-- 여행 일정에서 타이틀 수정  -->
+<update id="updateItinearyTitle" parameterType="Map">
+update TRAVEL
+set TITLE =#{title}
+where TRAVEL_NO =#{travelNo}
+</update>
+
+<!-- 여행 일정에서 커버 이미지 수정 -->
+<update id ="updateTravelCover" parameterType="Map">
+	update TRAVEL
+	set TRAVEL_COVER_IMG =#{travelCoverImg}
+	where EMAIL = #{email}
+	and TRAVEL_NO =#{travelNo}
+</update>
+
+<!-- 체크리스트 검색 -->
+<select id="selectCheckList" parameterType="integer" resultType="String">
+	select item from TRAVEL_CHECK_LIST where travel_no=#{_parameter}
+</select>
+<!-- 체크리스트 중복검색 -->
+<select id="overLapCheckList" parameterType="gochi.travel.model.traveldto.CheckListDTO" resultType="String">
+	select item from TRAVEL_CHECK_LIST where travel_no=#{travel_no} and item=#{item}
+</select>
+<!-- 체크리스트 삽입 -->
+<insert id="insertCheckList" parameterType="gochi.travel.model.traveldto.CheckListDTO">
+	
+	insert into TRAVEL_CHECK_LIST values(TRAVEL_CHECK_LIST_SEQ.NEXTVAL, #{category}, #{item}, #{travel_no}, #{check})
+</insert>
+<!-- 체크리스트 삭제 -->
+<delete id="deleteCheckList" parameterType="gochi.travel.model.traveldto.CheckListDTO">
+	delete from TRAVEL_CHECK_LIST where item=#{item} and travel_no=#{travel_no}
+</delete>
+
+
+</mapper>

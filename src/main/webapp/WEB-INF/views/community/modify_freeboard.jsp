@@ -1,34 +1,6 @@
-<!DOCTYPE html>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <title>PROHOME - Responsive Real Estate Template</title>
-    <jsp:include page="/WEB-INF/views/include/include_top_css.jsp"/>
-
-	<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
-	<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
-	<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
-	<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png" />
-	<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png" />
-	<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png" />
-	<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png" />
-	<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png" />
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-  </head>
-  <body class="fixed-header*">
 
 	<div id="page-container">
 		
@@ -62,7 +34,7 @@
 				<div class="col-sm-3 col-md-3" id="block-menu-content">
 						<ul class="block-menu" data-spy="affix" data-offset-top="500" data-offset-bottom="400">
 							<li><a class="faq-button" href="faq"><i class="icon fa fa-check-square-o"></i>월간 베스트</a></li>
-							<li><a class="faq-button active" href="freeboard"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
+							<li><a class="faq-button active" href="${pageContext.request.contextPath}/community/pagination?lastNum=1"><i class="icon fa fa-th-list"></i> 자유 게시판</a></li>
 							<li><a class="faq-button" href=""><i class="icon fa fa-picture-o"></i> Q&A</a></li>
 						</ul>
 					</div>
@@ -73,23 +45,21 @@
 							</div>
 							<div class="row">
 							<form name="modifyForm" method="post" action="${pageContext.request.contextPath}/community/modify">
-								<input type="hidden" name="boardno" value="${boardDTO.boardno}">
+									<input id=boardno type="hidden" name="boardno" value="${boardDTO.boardno}">
 								<div class="col-md-5 space-form">
 									<input id="title" class="form-control" type="text" placeholder="제목" name="title" value="${boardDTO.title}">
 								</div>
 								<div class="col-md-7 space-form">
-									<input id="address" class="form-control" type="text" placeholder="닉네임">
+									<input id="nickName" class="form-control" type="text" value="${sessionScope.dto.nickname}"/>
 								</div>
 								<div class="col-md-12">
 									<textarea name="content" id="content" class="form-control description">${boardDTO.content}</textarea>
 								</div>
-									<div style="text-align: right;">
-							<input class="btn btn-default" type="submit" value="수정하기"/>
-							<button class="btn btn-default" onclick="location.href=history.back()">취소</button>
-							</div>
 							</form>
-							
-							
+							<div style="text-align: right;">
+									<button class="btn btn-default">수정하기</button>
+									<button class="btn btn-default" onclick="page()">취소</button>
+								</div>
 							</div>
 						</div>
 						
@@ -188,7 +158,7 @@
 						</div><!-- ./recovery -->
 						<div id="recovery" class="box">
 							<h2 class="title">Need a new password?</h2>
-							<h3 class="sub-title">Enter your email address, and weâll email you instructions to reset your password.</h3>
+							<h3 class="sub-title">Enter your email address, and well email you instructions to reset your password.</h3>
 							<div class="field">
 								<input id="recovery-email" class="form-control" type="text" name="recovery-email" placeholder="Your email">
 								<i class="fa fa-envelope-o"></i>
@@ -241,8 +211,8 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 	</div><!-- /#page-container -->
-
-	
-
-  </body>
-</html>
+	<script type="text/javascript">
+function page() {
+	location.href="${pageContext.request.contextPath}/community/pagination?lastNum=1";
+}
+</script>
