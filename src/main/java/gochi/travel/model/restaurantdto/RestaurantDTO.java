@@ -11,6 +11,7 @@ public class RestaurantDTO {
 	private String phone;
 	private String email;
 	private String remark;
+
 	
 	private int wish;
 	private int bean;
