@@ -38,16 +38,15 @@ public class TravelDaoImpl implements TravelDao{
 
 	@Override
 	public TravelItinearyDTO travelItinearySave(TravelItinearyDTO travelItinearyDTO) {
-		travelItinearyDTO.setDay("1");
 		travelItinearyDTO.setCategory("여행지");
-		System.out.println("DAO----------------------");
+/*		System.out.println("DAO----------------------");
 		System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
 		System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
 		System.out.println("내용:"+travelItinearyDTO.getStory());
 		System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
 		System.out.println("시작시간:"+travelItinearyDTO.getEndTime());
 		System.out.println("위도:"+travelItinearyDTO.getLatitude());
-		System.out.println("경도:"+travelItinearyDTO.getLogtitude());
+		System.out.println("경도:"+travelItinearyDTO.getLogtitude());*/
 		
 		int result = sqlsession.insert("traveladdMapper.insertTravelItineary",travelItinearyDTO);
 		if(result!=0)
@@ -57,10 +56,45 @@ public class TravelDaoImpl implements TravelDao{
 		
 	}
 	
+
+	
+	@Override
+	public List<TravelItinearyDTO> travelitinearySelectAll(int travelNo) {
+		return sqlsession.selectList("traveladdMapper.travelitinearySelectAll", travelNo);
+	}
+
+
+
+	/**여행 일정 업데이트 */
+	@Override
+	public TravelItinearyDTO travelItinearyUpdate(TravelItinearyDTO travelItinearyDTO) {
+
+		System.out.println("DAO update----------------------");
+		System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
+		System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
+		System.out.println("내용:"+travelItinearyDTO.getStory());
+		System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
+		System.out.println("시작시간:"+travelItinearyDTO.getEndTime());
+		System.out.println("위도:"+travelItinearyDTO.getLatitude());
+		System.out.println("경도:"+travelItinearyDTO.getLogtitude());
+		
+		int result = sqlsession.update("traveladdMapper.updateTravelItineary",travelItinearyDTO);
+		if(result!=0)
+			return travelItinearyDTO;
+		return null;
+	}
 	
 
 
-	
+	@Override
+	public int travelItinearyDelete(int travelNo) {
+		
+		
+		return sqlsession.delete("traveladdMapper.travelItinearyDelete", travelNo);
+	}
+
+
+
 	@Override
 	public TravelItinearyDTO selectTravelItineary(int travelNo) {
 		
