@@ -68,12 +68,13 @@
                <li class="has_submenu">
                <a href="${pageContext.request.contextPath}/followme/followmeMain">나믿따</a>
                </li>
+                <c:if test="${not empty sessionScope.dto}">
                <li class="has_submenu">
-                  <%-- <a href="${pageContext.request.contextPath}/traveladd/travel_add">여행일정</a> --%>
                   <a data-toggle="modal" data-target="#myModal">일정만들기</a> <!-- 일정만들기 모달   -->
                </li>
+               </c:if>
                <li class="has_submenu"><a
-                  href="${pageContext.request.contextPath}/travelreview/travelreview_main?data=전체">여행후기</a>
+                  href="${pageContext.request.contextPath}/travelreview/travelreview_main?data=전체">일정후기</a>
                </li> 
                <li class="has_submenu"><a
                   href="${pageContext.request.contextPath}/restaurant/restaurant">맛집</a>
@@ -106,11 +107,11 @@
          </div>
          <div class="modal-body">
             <!-- Form Start -->
-            <form role="form"
+            <form role="form" id="travelSubmitForm"
                action="${pageContext.request.contextPath}/traveladd/travel_add"
                method="post">
                <div class="form-group">
-                  <label for="Title">여행제목</label> <input type="text"
+                  <label for="Title">여행제목</label> <input type="text" id="title"
                      class="form-control" placeholder="여행 제목" name="title">
                </div>
                <div class="form-group">
@@ -149,7 +150,7 @@
                   <div class="modal-footer">
                      <button type="button" class="btn btn-default"
                         data-dismiss="modal">닫기</button>
-                     <button type="submit" class="btn btn-primary">저장 후 이동</button>
+                     <button type="button"  id="travelSubmitBtn" class="btn btn-primary">저장 후 이동</button>
                   </div>
                   <!-- 모달 foot end-->
 
@@ -436,4 +437,32 @@ function loginCheck(){
       document.loginForm.submit();
    }
 }
+
+$(function(){
+	$("#travelSubmitBtn").click(function(){
+		if($("#title").val()==""){
+			alert('여행 제목을 입력해주세요')
+		}
+		else if($("#brief_story").val()==""){
+			alert('여행 이야기를 입력해주세요')
+		}
+		else if($("#travel_start_day").val()==""){
+			alert('여행 시작 날짜를 입력해주세요')
+		}
+		else if($("#travel_end_day").val()==""){
+			alert('여행 끝 날짜를 입력해주세요')
+		}
+		else if($("#capa").val()=="thema"){
+			alert('테마를 선택해주세요')
+		}
+		
+		else{
+			$("#travelSubmitForm").submit();
+		}	
+		
+		
+		
+	})
+	
+})
 </script>

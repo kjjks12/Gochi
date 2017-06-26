@@ -21,7 +21,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 		
 		System.out.println("서비스 접속");
 		int result = restaurantDAO.insertRestaurant(restaurantDTO);
-		System.out.println("서비스 결과 " + result);
 		return result;
 	}
 
@@ -40,7 +39,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public int readNum(int restaurantNo) {
 		int result  = restaurantDAO.readNum(restaurantNo);	
-		System.out.println("서비스 결과 값 :" + result);
 		return result;
 
 	}

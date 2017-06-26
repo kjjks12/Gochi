@@ -158,9 +158,9 @@ $(function(){
 		})
 	})
 	
-	$(document).on("mouseenter","[id=aTag]",function(){//id=aTag에 마우스 접촉시
+	/* $(document).on("mouseenter","[id=aTag]",function(){//id=aTag에 마우스 접촉시
 		//console.log("a");
-		$(this).animate({"font-size":"40px"},"fast");
+		$(this).delay(300).animate({"font-size":"40px"},"fast");
 	})
 	
 	$(document).on("mouseleave","[id=aTag]",function(){//id=aTag에 마우스 이탈시
@@ -168,12 +168,12 @@ $(function(){
 	})
 	
 	$(document).on("mouseenter","[class=searchedIDs]",function(){//찾은 id에 마우스 접근시
-		$(this).animate({"font-size":"30px"},"fast");
+		$(this).delay(300).animate({"font-size":"30px"},"fast");
 	})
 	
 	$(document).on("mouseleave","[class=searchedIDs]",function(){//찾은 id에서 마우스 이탈시
 		$(this).animate({"font-size":"20px"},"fast");
-	})
+	}) */
 })
 </script>
 <style>
@@ -223,10 +223,18 @@ $(function(){
 				<div class="row">
 					<div class="col-sm-4 col-md-3">
 						<ul class="block-menu">
-							<li><a class="faq-button" href="${pageContext.request.contextPath}/mypage/goInfo/${sessionScope.MyEmail}"><i class="icon fa fa-user-secret"></i>프로필</a></li>
-							<%-- <li><a class="faq-button" href="${pageContext.request.contextPath}/mypage/property"><i class="icon fa fa-pencil-square-o"></i>내가쓴글</a></li>
-							 --%><li><a class="faq-button" href="${pageContext.request.contextPath}/friends"><i class="icon fa fa-pencil-square-o"></i>친구목록</a></li>
-							<li><a class="faq-button active" href="${pageContext.request.contextPath}/note"><i class="icon fa fa-envelope-o"></i>받은쪽지함</a></li>
+							<li><a class="faq-button"
+							href="${pageContext.request.contextPath}/mypage/goInfo/${sessionScope.myEmail}"><i
+								class="icon fa fa-user-secret"></i>프로필</a></li>
+						<li><a class="faq-button"
+							href="${pageContext.request.contextPath}/friends"><i
+								class="icon fa fa-pencil-square-o"></i>친구목록</a></li>
+						<li><a class="faq-button  active"
+							href="${pageContext.request.contextPath}/note"><i
+								class="icon fa fa-envelope-o"></i>받은쪽지함</a></li>
+						<li><a class="faq-button"
+							href="${pageContext.request.contextPath}/selectMyTravelList/${MYEMAIL}"><i
+								class="icon fa fa-calendar" aria-hidden="true"></i>나의 일정</a></li>
 						
 							<li><span class="fa fa-envelope-open"></span></li>
 						</ul>

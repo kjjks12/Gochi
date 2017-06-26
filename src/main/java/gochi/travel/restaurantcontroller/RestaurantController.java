@@ -53,9 +53,12 @@ public class RestaurantController {
 	@RequestMapping("/selectAll")
 	@ResponseBody
 	public List<RestaurantDTO> select(HttpServletRequest request) {
-		List<RestaurantDTO> list = restaurantService.select();
+		List<RestaurantDTO> list = restaurantService.select();		
 		request.getSession().setAttribute("list", list);
+		
+		
 		return list;
+		
 	}
 	
 	@RequestMapping("/categorySelect")
@@ -142,6 +145,7 @@ public class RestaurantController {
 		
 
 		List<RestaurantDTO> list = (List<RestaurantDTO>) request.getSession().getAttribute("list");
+		System.out.println("list : " + list);
 		String index = request.getParameter("index");		
 		//세션에 index값 저장!
 		request.getSession().setAttribute("index", index);

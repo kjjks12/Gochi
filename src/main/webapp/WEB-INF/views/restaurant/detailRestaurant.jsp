@@ -2,9 +2,11 @@
    pageEncoding="UTF-8"%>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 
+
 <!-- 롤링 스타일 -->
 <style>
 .sdivde {
+
    overflow: hidden;
    position: relative;
    height: 500px;
@@ -39,10 +41,26 @@
 width: 100%;
 height: 100%;
 }
+
 .restaurant_front_img{
 width: 100%;
 height: 100%;
 }
+#message {
+	margin-bottom: 8px;
+}
+.modal-dialog .form-container .field textarea {
+	height : 260px;
+}
+#modal-contact3 { padding-left: 0; }
+#modal-contact3 .modal-dialog { 
+	width: 700px !important; left: calc(50% - 365px); margin-left: 0;
+}
+
+#fileUpLoad {
+	padding-left: 0px;
+}
+
 
 </style>
 <script>
@@ -77,7 +95,6 @@ function post(){
 
 
 </head>
-
    <div id="page-container">
       <section id="header-page" class="header-margin-base">
          <div class="skyline">
@@ -124,7 +141,50 @@ function post(){
 
 <!-- 이미지 출력 스크립트입니다. -->
 <script type="text/javascript">
-
+<<<<<<< HEAD
+	<div id="page-container">
+		<section id="header-page" class="header-margin-base">
+			<div class="skyline">
+				<div data-offset="50" class="p1 parallax"></div>
+				<div data-offset="25" class="p2 parallax"></div>
+				<div data-offset="15" class="p3 parallax"></div>
+				<div data-offset="8" class="p4 parallax"></div>
+				<span class="cover"></span>
+				<div class="container header-text">
+					<div>
+						<h1 class="title">맛집 추천</h1>
+					</div>
+					<div>
+						<h2 class="sub-title">숨은 맛집을 찾아나서자!</h2>
+					</div>
+				</div>
+			</div>
+			<div id="breadcrumb">
+				<div class="container">
+					<ol class="breadcrumb">
+						<li><a href="#"><i class="fa fa-home"></i></a></li>
+						<li><a href="#">Pages</a></li>
+						<li class="active">Detail View</li>
+					</ol>
+				</div>
+			</div>
+			<!-- /#breadcrumb -->
+			<span class="cover"></span>
+		</section>
+		<!-- /#header -->
+		<section id="blog">
+			<div class="container">
+				<div class="row">
+				<div class="col-md-9" id="blog-list">
+					<div class="view-icon">
+						<a href="#"><i class="fa fa-heart-o"></i><span></span></a> <a
+							href="#"><i class="fa fa-eye"></i><span></span></a> <a href="#"><i
+							class="fa fa-comments"></i><span></span></a>
+					</div>
+					<div class="blog-list masonry-post">
+						<a href="#" style="font-size: 50px"><i
+							class="fa fa-bookmark-o"></i>${sessionScope.restaurantInfo.restaurantName}</a>
+					</div>
    function readURL(input) {
    
        if (input.files && input.files[0]) {
@@ -139,6 +199,62 @@ function post(){
    
    }
 </script>
+
+                  <!-- 롤링 -->
+                  <div class="sdivde">
+                     <div class="image_list" id="image_list_1">
+                        <div class="images" style="display: block">
+                           <img
+                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram1.jpg"
+                              style="height: 500px; width: 802px" />
+                        </div>
+                        <div class="images">
+                           <img
+                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram2.jpg"
+                              style="height: 500px; width: 802px" />
+                        </div>
+                        <div class="images">
+                           <img
+                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram3.jpg"
+                              style="height: 500px; width: 802px" />
+                        </div>
+                        <div class="images">
+                           <img
+                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram4.jpg"
+                              style="height: 500px; width: 802px" />
+                        </div>
+                        <div class="images">
+                           <img
+                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram5.jpg"
+                              style="height: 500px; width: 802px" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="test-tab">
+                        <!-- 이미지 출력업로드 버튼 입니다. -->
+                        <form method="post"  enctype="multipart/form-data" id="upLoadForm">
+                        <input type='file' onchange="readURL(this);" /><input type="button" id="uploadBtn" value="업로드하기"/>
+                        </form>
+                                             
+                     
+                  </div>
+               </div>
+               <!-- /롤링 끝 -->
+               <script>
+	function readURL(input) {
+	
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+			
+	        reader.onload = function (e) {
+				$(".image_list").prepend("<div class='restaurant_front_img' style='display:block'> <img src="+e.target.result+" style='height:500px; width:802px;'/></div>");
+	  	        }
+	        reader.readAsDataURL(input.files[0]);
+	
+	    }
+	
+	}
+
 
 <!-- ajax를 이용한 파일업로드 부분입니다. -->
 <script type="text/javascript">
@@ -163,7 +279,6 @@ function fileUpload(){
     //ajax 끝
 }
 </script>
-
                <!-- 롤링 -->
                <div class="sdivde">
                   <div class="image_list" id="image_list_1">
@@ -338,37 +453,41 @@ function fileUpload(){
             <i class="fa fa-close"></i>
          </button>
 
-         <div class="form-container full-fixed">
-            <form method="post" action="post" id="postForm" enctype="multipart/form-data">
-               <div id="form-modal-map" class="box active modal-contact">
-                  <h2 class="title" id="new-food"><i class="fa fa-pencil"></i> 포스팅 하기</h2>
-                  <div class="wrap-right">
-                     <div class="field">
-                        <span class="food-insert" ></span>
-                        <input type="hidden" value="${sessionScope.dto.email}" name="email">
-                        <input id="food-name" class="form-control" type="text" name="food-name" placeholder="제목">
-                        <i class="fa fa-home" aria-hidden="true"></i>
-                     </div>
-                     <div class="field">
-                     <textarea class="form-control" name="message" id="message" placeholder="내용을 적어주세요"></textarea>
-                     </div>
-                     <!-- 포스팅 사진 추가 -->
-                     <input type="file" name="file" multiple>
-                  </div>
-               </div>
-               <div class="field footer-form text-right">
-                  <button type="reset" class="btn btn-reverse button-form" data-dismiss="modal">Reset</button>
-                  <button type="button" class="btn btn-default button-form" onclick="post()">Send</button>
-               </div>
-            </form>
-         </div>
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   
-   <!-- 로그인 되지않은 사용자 로그인 모달 띄우기 -->
-   <script>
-      $("#abc").click(function() {
-         $("#login_btn").click()
-      })
-   </script>
+
+			<div class="form-container full-fixed">
+				<form method="post" action="post" id="postForm" enctype="multipart/form-data">
+					<div id="form-modal-map" class="box active modal-contact">
+						<h2 class="title" id="new-food"><i class="fa fa-pencil"></i> 포스팅 하기</h2>
+						<div class="wrap-right">
+							<div class="field">
+								<span class="food-insert" ></span>
+								<input type="hidden" value="${sessionScope.dto.email}" name="email">
+								<input id="food-name" class="form-control" type="text" name="food-name" placeholder="제목">
+								<i class="fa fa-home" aria-hidden="true"></i>
+							</div>
+							<div class="field">
+							<textarea class="form-control" name="message" id="message" placeholder="내용을 적어주세요"></textarea>
+							</div>
+							<!-- 포스팅 사진 추가 -->
+							<div>
+								<input type="file" name="file" multiple id="fileUpLoad">
+							</div>
+						</div>
+					</div>
+					<div class="field footer-form text-right">
+						<button type="reset" class="btn btn-reverse button-form" data-dismiss="modal">Reset</button>
+						<button type="button" class="btn btn-default button-form" onclick="post()">Send</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<!-- 로그인 되지않은 사용자 로그인 모달 띄우기 -->
+	<script>
+		$("#abc").click(function() {
+			$("#login_btn").click()
+		})
+	</script>
+

@@ -17,11 +17,22 @@ public interface TravelDao {
 	/**달력 클릭시 해당 여행 정보 모달로 보여주기 */
 	TravelItinearyDTO selectTravelItineary(int travelNo) ;
 	
+	/**여행일정 전체 계속 가져오기 */
+	List<TravelItinearyDTO> travelitinearySelectAll(int travelNo);	
+
+	/**여행일정 업데이트 */
+	TravelItinearyDTO travelItinearyUpdate(TravelItinearyDTO travelItinearyDTO);
+	
+	/**여행 일정 삭제 */
+	int travelItinearyDelete (int travelNo);
 	/**여행 일정에서 타이틀 수정 */
 	int updateItinearyTitle(String title,int travelNo);
 	
 	/**여행 일정에서 커버 이미지 수정 */
 	int updateTravelCover(String fileName,String email,String travelNo);
+	
+	/**내가 쓴 여행 일정리스트 조회 */
+	List<TravelDTO> selectMyTravelList (String email);
 	
 	/* 체크리스트 삽입, 삭제*/
 	int CeckList(CheckListDTO checklist);

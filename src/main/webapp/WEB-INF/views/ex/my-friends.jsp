@@ -28,7 +28,7 @@ $(function(){
 		})
 	})
 	$(document).on("mouseenter","[class=searchedIDs]",function(){//찾은 id에 마우스 접근시
-		$(this).animate({"font-size":"30px"},"fast");
+		$(this).delay(300).animate({"font-size":"30px"},"fast");
 	})
 	
 	$(document).on("mouseleave","[class=searchedIDs]",function(){//찾은 id에서 마우스 이탈시
@@ -92,18 +92,20 @@ $(function(){
 	})
 	$("#columns").children().css({"text-align":"center","font-size":"25px"});//친구 테이블 css
 	
-	$("[id=aTag]").mouseenter(function(){ // 친구 아이디에 마우스를 접근할시
-		$(this).animate({"font-size":"35px"},"fast");
+	/* $("[id=aTag]").mouseenter(function(){ // 친구 아이디에 마우스를 접근할시
+		$(this).delay(300).animate({"font-size":"35px"},"fast");
 	})
 	$("[id=aTag]").mouseleave(function(){ // 친구 아이디에서 마우스 커서를 이탈할시
 		$(this).animate({"font-size":"25px"},"fast");
 	})
+	
 	$("[id=profileImg]").mouseenter(function(){// 프로필 이미지에 마우스 커서를 접근할시
-		$(this).animate({"width":"250px"},"fast");
+		$(this).delay(300).animate({"width":"250px"},"fast");
 	})
 	$("[id=profileImg]").mouseleave(function(){// 프로필 이미지에서 마우스 커서를 이탈할시
 		$(this).animate({"width":"100px"},"fast");
-	})
+		
+	}) */
 })
 </script>
 <style>
@@ -158,6 +160,9 @@ table{
 							<li><a class="faq-button"
 								href="${pageContext.request.contextPath}/note"><i
 									class="icon fa fa-envelope-o"></i>받은쪽지함</a></li>
+									<li><a class="faq-button"
+							href="${pageContext.request.contextPath}/selectMyTravelList/${MYEMAIL}"><i
+								class="icon fa fa-calendar" aria-hidden="true"></i>나의 일정</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-9 col-md-9">
