@@ -196,7 +196,7 @@ function selectList() {
             divStr+="<div class='blog-list masonry-post'>";
             divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'>"+item.restaurantName+"</a></h2>";
             divStr+="<div class='image' id='food-start'>";
-            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='${pageContext.request.contextPath}/resources/img/restaurant/' width='100%' height='340px'/></a>";
+            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='' width='100%' height='340px'/></a>";
             divStr+="<div class='social'>";
             divStr+="<a class='heart' href='javascript:;'><span class='date'><i id='favorIcon"+item.restaurantNo+"' class='fa fa-heart-o'></i><span id="+item.restaurantNo+">"+item.wish+"</span></span></a>";
             divStr+="<a href='javascript:;'><i class='fa fa-eye'></i><span>"+item.bean+"</span></a>";

@@ -703,5 +703,5 @@
       <!-- /.modal-dialog -->
    </div>
    <!-- /.modal -->
-</div>
+
 <!-- /#page-container -->

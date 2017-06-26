@@ -95,53 +95,9 @@ function post(){
 
 
 </head>
-   <div id="page-container">
-      <section id="header-page" class="header-margin-base">
-         <div class="skyline">
-            <div data-offset="50" class="p1 parallax"></div>
-            <div data-offset="25" class="p2 parallax"></div>
-            <div data-offset="15" class="p3 parallax"></div>
-            <div data-offset="8" class="p4 parallax"></div>
-            <span class="cover"></span>
-            <div class="container header-text">
-               <div>
-                  <h1 class="title">맛집 추천</h1>
-               </div>
-               <div>
-                  <h2 class="sub-title">숨은 맛집을 찾아나서자!</h2>
-               </div>
-            </div>
-         </div>
-         <div id="breadcrumb">
-            <div class="container">
-               <ol class="breadcrumb">
-                  <li><a href="#"><i class="fa fa-home"></i></a></li>
-                  <li><a href="#">Pages</a></li>
-                  <li class="active">Detail View</li>
-               </ol>
-            </div>
-         </div>
-         <!-- /#breadcrumb -->
-         <span class="cover"></span>
-      </section>
-      <!-- /#header -->
-      <section id="blog">
-         <div class="container">
-            <div class="row">
-            <div class="col-md-9" id="blog-list">
-               <div class="view-icon">
-                  <a href="#"><i class="fa fa-heart-o"></i><span></span></a> <a
-                     href="#"><i class="fa fa-eye"></i><span></span></a> <a href="#"><i
-                     class="fa fa-comments"></i><span></span></a>
-               </div>
-               <div class="blog-list masonry-post">
-                  <a href="#" style="font-size: 50px"><i
-                     class="fa fa-bookmark-o"></i>${sessionScope.restaurantInfo.restaurantName}</a>
-               </div>
+
 
 <!-- 이미지 출력 스크립트입니다. -->
-<script type="text/javascript">
-<<<<<<< HEAD
 	<div id="page-container">
 		<section id="header-page" class="header-margin-base">
 			<div class="skyline">
@@ -185,6 +141,7 @@ function post(){
 						<a href="#" style="font-size: 50px"><i
 							class="fa fa-bookmark-o"></i>${sessionScope.restaurantInfo.restaurantName}</a>
 					</div>
+	<script>				
    function readURL(input) {
    
        if (input.files && input.files[0]) {
@@ -205,119 +162,56 @@ function post(){
                      <div class="image_list" id="image_list_1">
                         <div class="images" style="display: block">
                            <img
-                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram1.jpg"
+                              src="${pageContext.request.contextPath}/resources/img/restaurant/${sessionScope.restaurantInfo.restaurantNo}/${sessionScope.imgList[0].imgNo}/${sessionScope.imgList[0].img}"
                               style="height: 500px; width: 802px" />
                         </div>
                         <div class="images">
                            <img
-                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram2.jpg"
+                              src="${pageContext.request.contextPath}/resources/img/restaurant/${sessionScope.restaurantInfo.restaurantNo}/${sessionScope.imgList[1].imgNo}/${sessionScope.imgList[1].img}"
+                             style="height: 500px; width: 802px" />
+                        </div>
+                        <div class="images">
+                           <img
+                               src="${pageContext.request.contextPath}/resources/img/restaurant/${sessionScope.restaurantInfo.restaurantNo}/${sessionScope.imgList[2].imgNo}/${sessionScope.imgList[2].img}"
                               style="height: 500px; width: 802px" />
                         </div>
                         <div class="images">
                            <img
-                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram3.jpg"
+                             src="${pageContext.request.contextPath}/resources/img/restaurant/${sessionScope.restaurantInfo.restaurantNo}/${sessionScope.imgList[3].imgNo}/${sessionScope.imgList[3].img}"
                               style="height: 500px; width: 802px" />
                         </div>
                         <div class="images">
                            <img
-                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram4.jpg"
-                              style="height: 500px; width: 802px" />
-                        </div>
-                        <div class="images">
-                           <img
-                              src="${pageContext.request.contextPath}/resources/detailRestaurantImg/baram5.jpg"
+                              src="${pageContext.request.contextPath}/resources/img/restaurant/${sessionScope.restaurantInfo.restaurantNo}/${sessionScope.imgList[4].imgNo}/${sessionScope.imgList[4].img}"
                               style="height: 500px; width: 802px" />
                         </div>
                      </div>
                   </div>
                   <div class="test-tab">
                         <!-- 이미지 출력업로드 버튼 입니다. -->
-                        <form method="post"  enctype="multipart/form-data" id="upLoadForm">
-                        <input type='file' onchange="readURL(this);" /><input type="button" id="uploadBtn" value="업로드하기"/>
+                        <form method="post" enctype="multipart/form-data" id="upLoadForm">
+                        <input type='file' name="imgFile" onchange="readURL(this);" />
+                        <input type="button" id="uploadBtn" value="업로드하기"/>
                         </form>
-                                             
-                     
                   </div>
                </div>
                <!-- /롤링 끝 -->
                <script>
-	function readURL(input) {
-	
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-			
-	        reader.onload = function (e) {
-				$(".image_list").prepend("<div class='restaurant_front_img' style='display:block'> <img src="+e.target.result+" style='height:500px; width:802px;'/></div>");
-	  	        }
-	        reader.readAsDataURL(input.files[0]);
-	
-	    }
-	
-	}
-
-
-<!-- ajax를 이용한 파일업로드 부분입니다. -->
-<script type="text/javascript">
-function fileUpload(){
-   var formData = new FormData($("#fileForm")[0]);
-    $.ajax({
-        type : 'post',
-        url : 'upload',
-        data : formData,
-        processData : false,
-        contentType : false,
-        success : function(html) {
-            alert("파일 업로드하였습니다.");
-            window.location.reload();
-        },
-        error : function(error) {
-            alert("파일 업로드에 실패하였습니다.");
-            console.log(error);
-            console.log(error.status);
-        }
-    });
-    //ajax 끝
-}
-</script>
-               <!-- 롤링 -->
-               <div class="sdivde">
-                  <div class="image_list" id="image_list_1">
-                  <c:if test="${empty sessionScope.imgList}">
-                     <div class="images" style="display: block">
-                        <img
-                           src="${pageContext.request.contextPath}/resources/detailRestaurantImg/restaurant.png"
-                           style="height: 302px; width: 800px" />
-                     </div>
-                     <div class="images">
-                        <img src="${pageContext.request.contextPath}/resources/detailRestaurantImg/restaurant.png"
-                           style="height: 302px; width: 800px">
-                     </div>
-                  </c:if>
-                  <c:if test="${not empty sessionScope.imgList}">
-                     <div class="images" style="display: block">
-                        <img src="${pageContext.request.contextPath}/resources/detailRestaurantImg/gochi.png"
-                           style="height: 302px; width: 800px" />
-                     </div>
-                     <c:forEach items="${sessionScope.imgList}" var="imgList" varStatus="state">
-                        <div class="images">
-                           <img src="${pageContext.request.contextPath}/resources/img/restaurant/${imgList.img}"
-                              style="height: 302px; width: 800px" />
-                        </div>
-                     </c:forEach>
-                  </c:if>
-                  </div>
-               </div>
-               
-            <div class="test-tab">
-               <!-- 이미지 출력업로드 버튼 입니다. -->
-               <form method="post"  enctype="multipart/form-data" id="fileForm" action="upload">
-               <input type='file' name="file" onchange="readURL(this);"/>
-               <input type="button" id="uploadBtn" value="업로드하기" onclick="fileUpload();"/>
-               </form>   
-         </div>
-      </div>
-      <!-- /롤링 끝 -->
-
+               $("#upLoadForm").change(function(){
+            	  // alert("11");
+            	  // $("#upLoadForm").submit();
+            	  $("#upLoadForm").ajaxForm({
+            		  type:"post",
+            		  url:"${pageContext.request.contextPath}/restaurant/imageSave/${sessionScope.restaurantInfo.restaurantNo}",
+            		  enctype:"multipart/form-data",
+            		  success:function(){
+            			  alert("성공!!");
+            		  }
+            	  })
+            	  $("#upLoadForm").submit();
+            	  
+               })
+			</script>
                <div class="col-md-3">
                   <div class="section-title line-style">
                      <h3 class="title">

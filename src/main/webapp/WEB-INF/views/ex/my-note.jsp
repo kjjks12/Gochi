@@ -13,7 +13,7 @@ $(function(){
 	var messageNum="";
 	
 	$(".hidden-xs").click(function(){//메시지 제목을 클릭하여 메시지 상세로 이동 & 친구요청글이면 보여주는 버튼을 달리 처리함
-		memberId = $(this).parent().parent().children("td:first").next().text();
+		memberId = $(this).parent().parent().children("td:first").next().next().text();
 		memberNick = $(this).parent().parent().children("td:first").next().next().text();
 		messageNum += $(this).parent().parent().children("td:first").text();
 		//console.log("메시지 번호:"+messageNum);
@@ -25,7 +25,7 @@ $(function(){
 		var sessionTitle = $("#restaurant-help").val();
 		senderEmail += $(".senderEmail").text();
 		//console.log("타이틀 : "+$("#restaurant-help").val());
-	
+		//alert("memberId : "+memberId)
 		$.ajax({
 			type : "post",  
 			url:"${pageContext.request.contextPath}/updateFlag",

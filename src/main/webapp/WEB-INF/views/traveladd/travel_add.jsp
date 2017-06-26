@@ -243,7 +243,7 @@ $(function() {
             url:"${pageContext.request.contextPath}/updateTravelCover/${travelDTO.travelNo}",
             enctype:"multipart/form-data",
             success:function(){
-               alert("성공!!");
+               alert("이미지 데이터 삽입 완료!!");
             }
          })
          $("#updateTravelCover").submit();

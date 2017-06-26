@@ -90,5 +90,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 		List<RestaurantImgDTO> imgList = restaurantDAO.selectImg(restaurantNo);
 		return imgList;
 	}
+
+	@Override
+	public int selectMaxImgNo() {
+		return restaurantDAO.selectMaxImgNo();
+	}
+	
+	
 	
 }
