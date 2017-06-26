@@ -76,9 +76,10 @@ function loginCheck(){
 					</div>
 					<div id="login-pan" class="col-md-6 hidden-xs">
 					<c:if test="${empty sessionScope.dto}">
-						<a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
-						<a href="#" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
-					</c:if>
+						<a href="#" data-toggle="modal" data-target="
+" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
+						<a href="#" id="login_btn" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
+					</c:if> 
 					<c:if test="${not empty sessionScope.dto}">
 						<a href="${pageContext.request.contextPath}/member/logout"><i
 							class="icon fa fa-user user"></i>로그아웃</a>

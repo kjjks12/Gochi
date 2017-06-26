@@ -8,4 +8,8 @@ public interface RestaurantService {
 	
 	int insertRestaurant(RestaurantDTO restaurantDTO);
 	List<RestaurantDTO> select();
+	List<RestaurantDTO> categorySelect(String classification);
+	int readNum(int restaurantNo);
+	RestaurantDTO heart(String restaurantNo, boolean state)throws Exception;
 }
+ 
