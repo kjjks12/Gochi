@@ -6,6 +6,7 @@ import gochi.travel.model.memberdto.MemberDTO;
 import gochi.travel.model.traveldto.CheckListDTO;
 import gochi.travel.model.traveldto.TravelDTO;
 import gochi.travel.model.traveldto.TravelItinearyDTO;
+import gochi.travel.model.travelreviewdto.TravelReviewCommentDTO;
 import gochi.travel.model.travelreviewdto.TravelReviewDto;
 
 public interface TravelReviewService {
@@ -25,4 +26,7 @@ public interface TravelReviewService {
 		
 		//후기 디테일 페이지 : 체크리스트 가져오기
 		List<CheckListDTO> checkList(String index);
+		
+		//후기 디테일 페이지 : 댓글 달기
+		int insertComment(TravelReviewCommentDTO commentDTO);
 }

@@ -16,6 +16,7 @@ import gochi.travel.model.memberdto.MemberDTO;
 import gochi.travel.model.traveldto.CheckListDTO;
 import gochi.travel.model.traveldto.TravelDTO;
 import gochi.travel.model.traveldto.TravelItinearyDTO;
+import gochi.travel.model.travelreviewdto.TravelReviewCommentDTO;
 import gochi.travel.model.travelreviewdto.TravelReviewDto;
 import gochi.travel.travelreviewservice.TravelReviewService;
 
@@ -115,5 +116,6 @@ public class TravelReviewController {
 		
 		return "travelreview/review_detail";
 	}
+	
 	
 }
