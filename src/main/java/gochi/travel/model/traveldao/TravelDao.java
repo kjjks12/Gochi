@@ -43,5 +43,8 @@ public interface TravelDao {
 	/* 체크리스트 중복체크*/
 	String overLapCheck(CheckListDTO overLapCheck); 
 	
+	/* index에서 사용할 */
+	List<TravelDTO> list();
+	
 	
 }

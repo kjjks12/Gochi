@@ -155,9 +155,17 @@ public class TravelDaoImpl implements TravelDao{
 
 
 
+// index 페이지 에서 사용할 1~3등 가져오기
+	@Override
+	public List<TravelDTO> list() {
+		List<TravelDTO> list=sqlsession.selectList("traveladdMapper.travelCheck");
+		return list;
+	}
+
 	@Override
 	public List<TravelDTO> selectMyTravelList(String email) {
 		return sqlsession.selectList("traveladdMapper.selectMyTravelList", email);
+
 	}
 	
 	
