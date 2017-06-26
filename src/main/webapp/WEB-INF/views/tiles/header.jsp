@@ -75,7 +75,7 @@
                   <a href="#" data-toggle="modal" data-target=".login-modal"
                      data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
                   <a href="#" data-toggle="modal" data-target=".login-modal"
-                     data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
+                     data-section="login" id="login_btn"><i class="icon fa fa-user user"></i> 로그인</a>
                </c:if>
                <c:if test="${not empty sessionScope.dto}">
                   <a href="${pageContext.request.contextPath}/member/logout"><i

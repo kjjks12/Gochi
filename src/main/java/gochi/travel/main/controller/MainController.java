@@ -2,6 +2,7 @@ package gochi.travel.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
 	@RequestMapping("/")
-	public String index() {
-		return "index";
+	public ModelAndView index() {
+		ModelAndView mv = new ModelAndView();
+		
+		return mv;
 	}
 	
 	

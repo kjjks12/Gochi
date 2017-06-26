@@ -1,26 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+       
     
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <title>PROHOME - Responsive Real Estate Template</title>
 
-    <jsp:include page="/WEB-INF/views/include/include_top_css.jsp"/>
-   <!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
-   <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon" />
-   <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
-   <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png" />
-   <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png" />
-   <link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png" />
-   <link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png" />
-   <link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png" />
-   <link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png" />
-   <link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png" />
+   <script src="${pageContext.request.contextPath}/resources/script/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/sweetalert.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -84,21 +69,9 @@
 		                        ${boardDTO.content}<br /><br />
 		                     </div>
 	                     </c:if>
-                     </div>
-                     <div class="social" style="float: right;">
-                        <span class="date">${boardDTO.dDay.substring(3,5)}<span>${boardDTO.dDay.substring(6,8)}</span></span>
-                        <a href="#"><i class="fa fa-heart-o"></i><span>${boardDTO.favor}</span></a>
-                        <a href="#"><i class="fa fa-eye"></i><span>${boardDTO.hits}</span></a>
-                        <a href="#"><i class="fa fa-comments"></i><span>69</span></a>
-                     </div>
-                     <!-- <div class="image">
-                        <img src="http://placehold.it/1280x680/bbbbbb/ffffff" alt="Image Sample" class="img-responsive" />
-                     </div> -->
-                  </div><!-- /.blog-list -->
-
-                     <!-- comment start -->
-                  <div id="comments">
-                     <h2 class="title-comment" style="margin-top: 200px;">Comments<span class="total-comment">4</span></h2>
+                              	<!-- comment start -->
+                  <div id="comments" class="col-md-12">
+                     <h2 class="title-comment">Comments<span class="total-comment">4</span></h2>
                      <!-- 댓글 리스트 출력 -->
                      <div class="medialist">
                         <div class="media">
@@ -136,9 +109,9 @@
                      </div>
                      
                      <!-- commnet 글쓰기 -->
-                     <div id="comments">
+                     <div id="comments" class="col-md-14">
                      <h3 class="title-form"><i class="icon fa fa-comment"></i> Leave a Comment</h3>
-                     <form class="form-large grey-color" action="#" method="post">
+                     <form class="form-large grey-color" action="#" method="post" style="width: 521px;">
                         <div class="row">
                            <div class="col-md-6 col-sm-6 col-xs-12">
                               <label for="name">NicName</label>
@@ -156,13 +129,31 @@
                         </div>
                         <input type="submit" class="btn btn-default" value="Send Comment" id="commentAdd">
                      </form>
-                     <div style="text-align: right;">
-                        <button type="button" class="btn btn-default" id="back" name="back" onclick="page()">확인</button>
-                     </div>   
+                        
                   </div><!-- /. end-comment -->
                </div>
-               
+              		 <div style="text-align: right;">
+                        <button type="button" class="btn btn-default" id="back" name="back" onclick="page()">확인</button>
+                     </div>
+                     </div>
+                     
+                     <!-- comment들어가는구간 -->
+                     
+                     <div class="social" style="float: right;">
+                        <span class="date">${boardDTO.dDay.substring(3,5)}<span>${boardDTO.dDay.substring(6,8)}</span></span>
+                        <c:if test="${sessionScope.dto.email!=null}">
+                        <a href="javascript:" id="favor"><i class="fa fa-heart-o" id="favorIcon"></i><span id="favorNum">${boardDTO.favor}</span></a>
+                        </c:if>
+                        <a href="#"><i class="fa fa-eye"></i><span>${boardDTO.hits}</span></a>
+                        <a href="#"><i class="fa fa-comments"></i><span>69</span></a>
+                     </div>
+                     <!-- <div class="image">
+                        <img src="http://placehold.it/1280x680/bbbbbb/ffffff" alt="Image Sample" class="img-responsive" />
+                     </div> -->
+                  </div><!-- /.blog-list -->
             </div>
+            
+               
             
          </div>
          </div>
@@ -226,7 +217,6 @@ $(document).ready(function() {
                dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
                data: "content="+$("#text-messageArea").val()+"&board_no=${requestScope.boardDTO.boardno}", 
                success: function(result) {   // 성공결과
-                   alert(1234)
                },
                error :  function(err) {
                   alert("오류발생 : "+ err);
@@ -249,7 +239,34 @@ $(document).ready(function() {
                }
             })
            
-        })
+        })//삭제 끝
+        
+        $("#favor").click(function() {
+	        	if($("#favorIcon").attr('class')=="fa fa-heart-o"){
+	        	$.ajax({
+	        		url:"${pageContext.request.contextPath}/community/favor",
+	        		type:"post",
+	        		dataType:"json", //클릭해는지 상태확인
+	        		data: "boardno=${boardDTO.boardno}",
+	        		success:function(result){
+	        			//alert($("#favorIcon").attr('class'));
+	        			$("#favorNum").text(result.favor);
+	        			$("#favorIcon").attr("class","fa fa-heart");
+	        		},
+	        		error:function(err){
+	        			alert("오류발생 :"+err);
+	        		}
+	        	});
+	        	}else{
+	        		swal("좋아요를 신청하였습니다.")
+	        	}
+		});
+        
+        
+        
+        
+        
+        
 })
 </script>
 <script type="text/javascript">

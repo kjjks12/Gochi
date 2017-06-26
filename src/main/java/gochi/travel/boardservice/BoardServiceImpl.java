@@ -58,6 +58,28 @@ public class BoardServiceImpl implements BoardService {
 		List<BoardDTO> list=boardDao.pagination(map);
 		return list;
 	}
+	
+	@Override
+	public int favor(int boardno) {
+		int result=boardDao.favor(boardno);
+		return result;
+	}
+	
+	@Override
+	public BoardDTO favorNum(int boardno) {
+		return boardDao.favorNum(boardno);
+	}
+	
+	
+	
+	@Override
+	public List<QaBoardDTO> faq() {
+		return boardDao.faq();
+	}
+
+	
+	
+	
 ///Q&A BOARD Service
 	@Override
 	public List<QaBoardDTO> qapagination(int startNum, int lastNum) {
@@ -94,6 +116,10 @@ public class BoardServiceImpl implements BoardService {
 		int result=boardDao.qamodify(qaboardDTO);
 		return result;
 	}
+
+	
+	
+
 	
 	
 	

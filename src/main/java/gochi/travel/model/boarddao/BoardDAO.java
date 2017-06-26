@@ -14,6 +14,12 @@ public interface BoardDAO {
 	int delete(int deleteNum);
 	int modify(BoardDTO boardDTO);
 	List<BoardDTO> pagination(Map<String, Integer> map);
+	int favor(int boardno);
+	BoardDTO favorNum(int boardno);
+	
+	//fag.jsp
+	List<QaBoardDTO> faq();
+	
 	
 	//Q&A BOARD DAO
 	List<QaBoardDTO> qapagination(Map<String, Integer>map);
