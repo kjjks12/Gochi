@@ -3,23 +3,44 @@
 <!-- member 관련 xml -->
 <mapper namespace="travelReviewMapper">
 
-<resultMap type="gochi.travel.model.travelreviewdto.TravelReviewDto" id="travelReviewMap">
-	<id property="travel_no" column="travel_no"/>
+<resultMap type="TravelDTO" id="travelReviewMap">
+	<id property="travelNo" column="travel_no"/>
 	<result property="title" column="TITLE"/>
 	<result property="email" column="EMAIL"/>
 	<result property="thema" column="THEMA"/>
-	<result property="start_day" column="TRAVEL_START_DAY"/>
-	<result property="end_day" column="TRAVEL_END_DAY"/>
-	<result property="brief_story" column="BRIEF_STORY"/>
+	<result property="travelStartDay" column="TRAVEL_START_DAY"/>
+	<result property="travelEndDay" column="TRAVEL_END_DAY"/>
+	<result property="briefStory" column="BRIEF_STORY"/>
 	<result property="favor" column="FAVOR"/>
-	<result property="img" column="TRAVEL_COVER_IMG"/>
+	<result property="travelCoverImg" column="TRAVEL_COVER_IMG"/>
 </resultMap>
 
+<!-- TravelItinearyDTO -->
+<resultMap type="TravelItinearyDTO" id="itinearyDTO">
+	<id property="itinearyNo" column="ITINEARY_NO"/>
+	<result property="travelNo" column="TRAVEL_NO"/>
+	<result property="travelItinearyTitle" column="TRAVEL_ITINEARY_TITLE"/>
+	<result property="day" column="D_DAY"/>
+	<result property="startTime" column="START_TIME"/>
+	<result property="endTime" column="END_TIME"/>
+	<result property="latitude" column="LATITUDE"/>
+	<result property="logtitude" column="LONGTITUDE"/>
+	<result property="money" column="MONEY"/>
+	<result property="category" column="CATEGORY_CLASSIFICATION"/>
+	<result property="story" column="STORY"/>
+</resultMap>
+
+<!-- CheckListDTO -->
+<resultMap type="CheckListDTO" id="checkList">
+	<result property="travel_no" column="TRAVEL_NO"/>
+	<result property="category" column="CHECK_CATEGORY"/>
+	<result property="item" column="ITEM"/>
+</resultMap>
 
 <!-- 후기 최신글 검색 -->
 <select id="newTrvelReview" parameterType="string" resultMap="travelReviewMap">
 	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
-		from TRAVEL_REVIEW 
+		from TRAVEL
 		<where>
 			<if test="_parameter!=null">
 				THEMA = #{_parameter}
@@ -27,10 +48,11 @@
 		</where>
 		order by travel_no DESC
 </select>
+
 <!-- 후기 좋아요순 검색 -->
 <select id="goodTravelReview" parameterType="string"  resultMap="travelReviewMap">
 	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
-		from TRAVEL_REVIEW 
+		from TRAVEL
 		<where>
 			<if test="_parameter!=null">
 				THEMA = #{_parameter}
@@ -39,6 +61,21 @@
 		order by favor DESC
 </select>
 
+<!-- 선택된 게시물 정보 가져오기! -->
+<select id="TravelInfo" parameterType="int" resultMap="travelReviewMap">
+	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
+	from TRAVEL where travel_no = #{_parameter}
+</select>
 
+<!-- 선택된 게시물 상세정보 가져오기 -->
+<select id="TravelDetailInfo" parameterType="int" resultMap="itinearyDTO">
+	select ITINEARY_NO, TRAVEL_NO, TRAVEL_ITINEARY_TITLE, D_DAY, START_TIME, END_TIME, LATITUDE, LONGTITUDE, MONEY, CATEGORY_CLASSIFICATION, STORY
+	from travel_itineary where travel_no = #{_parameter} order by start_time
+</select>
+
+<!-- 선택된 게시물의 체크리스트 가져오기! -->
+<select id="selectCheckList" parameterType="int" resultMap="checkList">
+	SELECT TRAVEL_NO, CHECK_CATEGORY, ITEM FROM TRAVEL_CHECK_LIST WHERE TRAVEL_NO=#{_parameter}
+</select>
 
 </mapper>

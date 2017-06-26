@@ -234,201 +234,161 @@ width: 100%;
 <!--달력 캘린더 -->
 <script>
 var flag=0;
-	$(document).ready(function() {
 
-		/* initialize the external events
-		-----------------------------------------------------------------*/
+$(document).ready(function() {
+var calendar =    $('#calendar').fullCalendar({
+      header : {
+         left : 'prev,next today',
+         center : 'title',
+         right : 'month,agendaWeek,agendaDay'
+      },
+       selectable: true,
+      editable : true,
+       firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+      defaultView : 'agendaWeek',
+      validRange: function aaa(){
+         return{
+            start: $("#travel_start_day2").val(),
+              end:   $.fullCalendar.moment($("#travel_end_day2").val()).add(1,'days')
+         }
+      },
 
-		$('#external-events .fc-event').each(function() {
-
-			// store data so the calendar knows to render an event upon drop
-			$(this).data('event', {
-				title : $.trim($(this).text()), // use the element's text as the event title
-				stick : true // maintain when user navigates (see docs on the renderEvent method)
-			});
-
-			// make the event draggable using jQuery UI
-			$(this).draggable({
-				zIndex : 999,
-				revert : true, // will cause the event to go back to its
-				revertDuration : 0 //  original position after the drag
-			});
-
-		});
-
-/* 		$('#calendar').find('.fc-slats').find('[class="fc-widget-content"]').hover(
-			function() {
-				var tr = $(this).parent();
-				var time = tr.find('td.fc-axis.fc-time.fc-widget-content').find("span").text();
-				$(this).append('<td class="temp_cell" style="border: 0px; width:5px;">' + time + '</td>');
-			},
-			function() {
-				$(this).children('.temp_cell').remove();
-			}); */
-			/* initialize the calendar
-			-----------------------------------------------------------------*/
-
-		$('#calendar').fullCalendar({
-			header : {
-				left : 'prev,next today',
-				center : 'title',
-				right : 'month,agendaWeek,agendaDay'
-			},
-			defaultView : 'agendaWeek',
-			validRange: function aaa(){
-				return{
-					start: $("#travel_start_day2").val(),
-			        end:   $.fullCalendar.moment($("#travel_end_day2").val()).add(1,'days')
-				}
-			},
-			editable : true,
-			droppable : true, // this allows things to be dropped onto the calendar
-			drop : function(date, allDay) {
-				//alert(date)
-				//alert(allDay)
-			},
-			monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-			monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-			dayNames : [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
-			dayNamesShort : [ "일", "월", "화", "수", "목", "금", "토" ],
-			buttonText : {
-				today : "오늘",
-				month : "월별",
-				week : "주별",
-				day : "일별",
-			},
-		 	dayClick : function(date, jsEvent, view) {
-		 		flag=0;
-		 		alert("삽입:"+flag);
-					//alert(moment(date).add('m',30).utc().format());
-				  //alert('Clicked on: ' + date.format());
-				 // alert('Clicked on: ' + date.format('YYYY-MM-DD A/P HH:MM'));
-				  //alert('Clicked on: ' + new Date(Date.parse(date)+1000*60*30).format('YYYY-MM-DD HH:MM'));
-				  var startTime= date.format('YYYY-MM-DD HH:MM');
-			      var endTime=moment(date).add('m',30).utc().format();
-				$("#startTime").val(startTime);			
-				$("#endTime").val(endTime);			
-				itinearyInitFunc();//모달 초기화
-				$("#detailmap").modal('show');
-				
-			
-			}, 
-			navLinks : true,
-			navLinkDayClick : function(date, jsEvent) {
-				console.log('day', date.format()); // date is a moment
-				console.log('coords', jsEvent.pageX, jsEvent.pageY);
-			},
-			editable : true,
-			eventLimit : true, // allow "more" link when too many events
-			events: function(start, end, timezone, callback) {
-				/* alert("이벤트"+flag); */
-				$("#travelItineary_btn").click(function() {
-						if(flag==0){	
-					    //alert($("#itinearyStory").val(tinymce.activeEditor.getContent()) );
-							$("#itinearyStory").val(tinymce.activeEditor.getContent());
-							var url="travelItineary";
-							 $.ajax({
-									url : url, //요청이름(이동경로)
-									type : "post", //method방식(get,post)
-									data: $("#travelItinearyForm").serialize(),
-									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
-									success : function(travelItinearyDTO) {
-										alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
-										//alert(response+"dd5335");
-									 	 var events = [];
-											events.push({
-											id:travelItinearyDTO.itinearyNo,
-								            title: travelItinearyDTO.travelItinearyTitle,
-							                start:travelItinearyDTO.startTime,
-							              	end :travelItinearyDTO.endTime
-								           }); 
-										callback(events);
-									},//ajax_Success
-									error : function(err) {
-										//alert(err + "오류발생")
-									}
-								});//Ajax 끝
-						}
-								 
-					$("#detailmap").modal('hide');	
-					});//btnClick 
-			},//events 끝
-			 eventClick: function(event) {//수정용
-				 flag=1;
-				 //alert("수정"+flag);
-				 alert("수정할 이벤트 여행일정 번호"+event.id);
-				var itinearyNo="itinearyNo="+event.id;
-			 	 $.ajax({
-						url :"selectTravelItineary", //요청이름(이동경로)
-						type : "post", //method방식(get,post)
-						data: itinearyNo,
-						dataType : "json", //요청결과정보의 타입(text, html, xml, json)
-						success : function(travelItinearyDTO) {
-							itinearyInitFunc();//여행일정모달 초기화
-							alert(travelItinearyDTO.travelItinearyTitle)						 	
-						    //1.여행타이틀 셋팅 
-							$("#travelItinearyTitle").val(travelItinearyDTO.travelItinearyTitle);
-							//2.좌표셋팅
-							var markerpos = new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude);
-							alert(markerpos);
-							var marker=addMarker(markerpos,0);
-							onePointMap.panTo(markerpos);
-							//3.내용 셋팅
-							tinymce.activeEditor.setContent(travelItinearyDTO.story);
-							//4.modal 보여주기
-							$("#detailmap").modal('show');
-						},//ajax_Success
-						error : function(err) {
-							alert(err + "오류발생")
-						}
-					});//Ajax 끝
-					$("#travelItineary_btn").click(function() {
-						if(flag==1){//수정하기 ajax
-							$("#itinearyNo").val(itinearyNo);
-							$("#itinearyStory").val(tinymce.activeEditor.getContent());
-							 $.ajax({
-									url : "travelItinearyUpdate", //요청이름(이동경로)
-									type : "post", //method방식(get,post)
-									data: $("#travelItinearyForm").serialize(),
-									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
-									success : function(travelItinearyDTO) {
-										alert('수정완료 '+travelItinearyDTO.itinearyNo);
-										event.title=travelItinearyDTO.travelItinearyTitle;
-										$('#calendar').fullCalendar('updateEvent', event);
-										
-									},//ajax_Success
-									error : function(err) {
-										//alert(err + "오류발생")
-									}
-								});//Ajax 끝
-						}
-						$("#detailmap").modal('hide');
-					})//수정하기 버튼
-			 	
-			},//event 클릭
-		}); /*./fullCalendar 끝*/
-		
-
-		$('.fc-widget-content').hover(function() {
-			if (!$(this).html()) {
-				for (i = 0; i < 7; i++) {
-					$(this).append('<td class="temp-cell" style="border: 0px; width:' + (Number($('.fc-day').width()) + 3) + 'px"></td>');
-				}
-
-				$(this).children('td').each(function() {
-					$(this).hover(function() {
-						//$(this).html('<div class=current-time-cell  data-toggle="modal" id="detailModal" data-target="#detailmap"  aria-hidden="true" style="z-index:100"><i class="fa fa-plus-circle"></i></div>');
-						$(this).html('<div class=current-time-cell id="detailModal"  id="detailModal" aria-hidden="true" style="z-index:100"><i class="fa fa-plus-circle"></i></div>');
-
-					}, function() {
-						$(this).html('');
-					});
-				});
-			}
-		}, function() {
-			$(this).children('.temp-cell').remove();
-		});
-	});
+      droppable : true, // this allows things to be dropped onto the calendar
+      drop : function(date, allDay) {
+         //alert(date)
+         //alert(allDay)
+      },
+      monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+      monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+      dayNames : [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
+      dayNamesShort : [ "일", "월", "화", "수", "목", "금", "토" ],
+      buttonText : {
+         today : "오늘",
+         month : "월별",
+         week : "주별",
+         day : "일별",
+      },
+         selectHelper: true,
+      select: function(start, end, allDay) {
+          flag=0;
+             alert("삽입:"+flag);
+               //alert(moment(date).add('m',30).utc().format());
+              //alert('Clicked on: ' + date.format());
+             // alert('Clicked on: ' + date.format('YYYY-MM-DD A/P HH:MM'));
+              //alert('Clicked on: ' + new Date(Date.parse(date)+1000*60*30).format('YYYY-MM-DD HH:MM'));
+              //var startTime= date.format('YYYY-MM-DD HH:MM');
+              // var endTime=moment(date).add('m',30).utc().format();
+            $("#startTime").val(start.format('YYYY-MM-DD HH:MM'));         
+            $("#endTime").val(end.format('YYYY-MM-DD HH:MM'));         
+            itinearyInitFunc();//모달 초기화
+            $("#detailmap").modal('show');
+      },
+      droppable: true, // this allows things to be dropped onto the calendar !!!
+      navLinks : true,
+      navLinkDayClick : function(date, jsEvent) {
+         console.log('day', date.format()); // date is a moment
+         console.log('coords', jsEvent.pageX, jsEvent.pageY);
+      },
+      editable : true,
+      events: function(start, end, timezone, callback) {
+         //alert("이벤트"+flag);
+         $("#travelItineary_btn").click(function() {
+               if(flag==0){   
+                //alert($("#itinearyStory").val(tinymce.activeEditor.getContent()) );
+                  $("#itinearyStory").val(tinymce.activeEditor.getContent());
+                  var url="travelItineary";
+                   $.ajax({
+                        url : url, //요청이름(이동경로)
+                        type : "post", //method방식(get,post)
+                        data: $("#travelItinearyForm").serialize(),
+                        dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+                        success : function(travelItinearyDTO) {
+                           alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
+                           //alert(response+"dd5335");
+                            var events = [];
+                              events.push({
+                              id:travelItinearyDTO.itinearyNo,
+                                 title: travelItinearyDTO.travelItinearyTitle,
+                                  start:travelItinearyDTO.startTime,
+                                   end :travelItinearyDTO.endTime
+                                }); 
+                           callback(events);
+                              //$('#calendar').fullCalendar('removeEvents');
+                              
+                        
+                                calendar.fullCalendar( 'rerenderEvents' )
+                                calendar.fullCalendar('unselect'); 
+                        },//ajax_Success
+                        error : function(err) {
+                           //alert(err + "오류발생")
+                        }
+                     });//Ajax 끝
+               }
+                      
+            $("#detailmap").modal('hide');   
+            });//btnClick 
+      },//events 끝
+       eventClick: function(event) {//수정용
+          flag=1;
+          //alert("수정"+flag);
+          alert("수정할 이벤트 여행일정 번호"+event.id);
+          var itinearyNo=event.id;
+           $.ajax({
+               url :"selectTravelItineary", //요청이름(이동경로)
+               type : "post", //method방식(get,post)
+               data:"itinearyNo="+ itinearyNo,
+               dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+               success : function(travelItinearyDTO) {
+                  itinearyInitFunc();//여행일정모달 초기화
+                  alert(travelItinearyDTO.travelItinearyTitle)                      
+                   //1.여행타이틀 셋팅 
+                  $("#travelItinearyTitle").val(travelItinearyDTO.travelItinearyTitle);
+                  //2.좌표셋팅
+                  var markerpos = new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude);
+                  alert(markerpos);
+                  var marker=addMarker(markerpos,0);
+                  onePointMap.panTo(markerpos);
+                  //3.내용 셋팅
+                  tinymce.activeEditor.setContent(travelItinearyDTO.story);
+                  //4.modal 보여주기
+                  $("#detailmap").modal('show');
+               },//ajax_Success
+               error : function(err) {
+                  alert(err + "오류발생")
+               }
+            });//Ajax 끝
+            $("#travelItineary_btn").click(function() {
+               if(flag==1){//수정하기 ajax
+                  $("#itinearyNo").val(itinearyNo);
+                  alert('여행 수정 저장'+$("#itinearyNo").val());
+               $("#itinearyStory").val(tinymce.activeEditor.getContent());
+                   $.ajax({
+                        url : "travelItinearyUpdate", //요청이름(이동경로)
+                        type : "post", //method방식(get,post)
+                        data: $("#travelItinearyForm").serialize(),
+                        dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+                        success : function(travelItinearyDTO) {
+                           alert('수정완료 '+travelItinearyDTO.itinearyNo);
+                           event.title=travelItinearyDTO.travelItinearyTitle;
+                           $('#calendar').fullCalendar('updateEvent', event);
+                           
+                        },//ajax_Success
+                        error : function(err) {
+                           //alert(err + "오류발생")
+                        }
+                     });//Ajax 끝
+               }
+               $("#detailmap").modal('hide');
+            })//수정하기 버튼
+      },//event 클릭
+      eventDragStop:function( event, jsEvent, ui, view ) { 
+         alert('a');
+         
+      }
+      
+   }); /*./fullCalendar 끝*/
+   
+});//JQeury 끝
 </script>
 
 

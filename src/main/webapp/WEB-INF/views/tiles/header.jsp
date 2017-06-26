@@ -73,7 +73,7 @@
 						<a data-toggle="modal" data-target="#myModal">일정만들기</a> <!-- 일정만들기 모달   -->
 					</li>
 					<li class="has_submenu"><a
-						href="${pageContext.request.contextPath}/travelreview/travelreview_main">여행후기</a>
+						href="${pageContext.request.contextPath}/travelreview/travelreview_main?data=전체">여행후기</a>
 					</li> 
 					<li class="has_submenu"><a
 						href="${pageContext.request.contextPath}/restaurant/restaurant">맛집</a>

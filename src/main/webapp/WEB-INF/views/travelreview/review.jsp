@@ -32,7 +32,7 @@
 		<div class="section-title line-style">
 							<h3 class="title">최신 여행후기</h3>
 		</div>
- <c:choose>
+ 	<c:choose>
          <c:when test="${reviewList.size()==0}">
                <span colspan="6" align="center"><h2>여행후기가 없습니다...</h2></span>   
          </c:when>
@@ -50,7 +50,7 @@
 			<div class="image image-fill">
 			<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample" />
 			</div>
-			<h3 class="subtitle">${list.brief_story}</h3>
+			<h3 class="subtitle">${list.title}</h3>
 			<div class="text">${list.email}</div>
 			</a>
 		
@@ -90,7 +90,7 @@
 			<div class="image image-fill">
 			<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample" />
 			</div>   
-			<h3 class="subtitle">${list.brief_story}</h3>
+			<h3 class="subtitle">${list.title}</h3>
 			<div class="text">${list.email}</div>
 			</a>
 		
@@ -140,8 +140,7 @@
 		$("#block-menu-content").children().children().click(function() {
 			//alert($(this).text())
 			var thema = $(this).text()
-			
-			
+
 				$.ajax({
 				url: "${pageContext.request.contextPath}/travelreview/travelreviewData_main", //서보요청이름(주소)
 				type: "post", // method방식(get , post)
@@ -161,17 +160,17 @@
 			        	str+='<i class="fa fa-heart-o"></i><span>'+item.favor+'</span></a> <a href="#">';
 			        	str+='<i class="fa fa-eye"></i><span>0</span></a> <a href="#">';
 			        	str+='<i class="fa fa-comments"></i><span>0</span></a></div>';
-			        	str+='<a href="${pageContext.request.contextPath}/travel_review/review_detail">';
+			        	str+="<a href='${pageContext.request.contextPath}/travel_review/review_detail?index="+item.travelNo+"'>";
 			        	str+='<div class="image image-fill">';
-			        	str+='<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample"style="position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;" />';
+			        	str+="<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/"+item.travelNo+"/"+item.email+"/"+item.travelCoverImg+"' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />";
 			        	str+='</div>';
-			        	str+='<h3 class="subtitle">'+item.brief_story+'</h3>';
+			        	str+='<h3 class="subtitle">'+item.title+'</h3>';
 			        	str+='<div class="text">'+item.email+'</div></a>';
 			        	
 			     })
 			     str+='</div></div>';
 			     $("#left").html(str);
-			     	
+			     
 			 	
 			     	var str2 = "";
 			     	str2+=' <div class=" col-xs-6 col-sm-6 col-md-6  col-lg-6" style="width:40%; margin-left: 70px;" >';
@@ -187,9 +186,9 @@
 						str2+='<i class="fa fa-comments"></i><span>0</span></a></div>';
 						str2+='<a href="${pageContext.request.contextPath}/travel_review/review_detail">';
 						str2+='<div class="image image-fill">';
-						str2+='<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample" style="position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;" />';
+						str2+="<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/"+item.travelNo+"/"+item.email+"/"+item.travelCoverImg+"' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />";
 						str2+='</div>';
-						str2+='<h3 class="subtitle">'+item.brief_story+'</h3>';
+						str2+='<h3 class="subtitle">'+item.title+'</h3>';
 						str2+='<div class="text">'+item.email+'</div></a>';
 			        	
 			     })
