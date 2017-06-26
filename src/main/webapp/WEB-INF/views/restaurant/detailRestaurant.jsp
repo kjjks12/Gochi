@@ -43,6 +43,21 @@ height: 100%;
 width: 100%;
 height: 100%;
 }
+#message {
+	margin-bottom: 8px;
+}
+.modal-dialog .form-container .field textarea {
+	height : 260px;
+}
+#modal-contact3 { padding-left: 0; }
+#modal-contact3 .modal-dialog { 
+	width: 700px !important; left: calc(50% - 365px); margin-left: 0;
+}
+
+#fileUpLoad {
+	padding-left: 0px;
+}
+
 
 </style>
 <script>
@@ -353,7 +368,9 @@ function fileUpload(){
 							<textarea class="form-control" name="message" id="message" placeholder="내용을 적어주세요"></textarea>
 							</div>
 							<!-- 포스팅 사진 추가 -->
-							<input type="file" name="file" multiple>
+							<div>
+								<input type="file" name="file" multiple id="fileUpLoad">
+							</div>
 						</div>
 					</div>
 					<div class="field footer-form text-right">

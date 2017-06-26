@@ -93,14 +93,10 @@
 					src="${pageContext.request.contextPath}/resources/img/travel/travelCover/${sessionScope.travelInfo.travelNo}/${sessionScope.travelInfo.email}/${sessionScope.travelInfo.travelCoverImg}"></span>
 				<div class="container header-text">
 					<div>
-						<h1 align="center">${sessionScope.travelInfo.title}</h1>
+						<b><h1 align="center">${sessionScope.travelInfo.title}</h1></b>
 					</div>
 					<div>
-						<p class="tit-desc" align="center">
-							<span class="cities plan-tit-middle">한국</span> <span
-								class="maxday plan-tit-middle"> <span>1</span> <span>일</span>
-							</span>
-						</p>
+						
 					</div>
 				</div>
 			</div>
@@ -126,7 +122,7 @@
 										<a target="_blank"
 											href="../myPage/user/0cf608b29ae518684037.html?active=myPlan">
 											<img id="profile-img"
-											src="${pageContext.request.contextPath}/resources/review_img/review_detail_profile_img.jpg">
+											src="${pageContext.request.contextPath}/resources/img/member/profile/${sessionScope.writer.email}/${sessionScope.writer.profileImg}">
 										</a>
 									</div>
 									<div class="author-name">
@@ -143,31 +139,15 @@
 										data-id="0cf608b29ae51868">팔로잉</button>
 								</div>
 
-
-								<div class="author-page-links">
-									<ul>
-										<li><a target="_self" href="#"> <span>포스트</span> <!-- 나의 포스트  -->
-												<span class="count">(264)</span>
-										</a></li>
-										<li><a target="_self" href="#"> <span>여행일정</span> <!-- 나의 일정 -->
-												<span class="count">(27)</span>
-										</a></li>
-										<li><a target="_self" href="#"> <span>팔로워</span> <!-- 팔로워 -->
-												<span class="count">(1)</span>
-										</a></li>
-										<li><a target="_self" href="#"> <span>팔로잉</span> <!-- 팔로잉 -->
-												<span class="count ">(0)</span>
-										</a></li>
-									</ul>
-								</div>
 								<!-- author-page-links -->
 								<div class="author-page-links"></div>
 								<!-- author-page-links -->
 
 							</div>
+							<p>
+							<p>
 
-							<span class="left-menu-add">추천</span>
-							<span class="left-menu-add">북마크</span>	
+					
 							<ul class="block-menu">
 								<li><a class="faq-button active" href="#basic"><i
 										class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;방문&nbsp;명소</a></li>
@@ -189,21 +169,9 @@
 
 							<!-- 여행에 대한 간단한 소개 -->
 							<div class="plan-info-top">
-								<h2>${sessionScope.travelInfo.title}</h2>
-								<div>${sessionScope.travelInfo.briefStory}</div>
+								<b><h2>${sessionScope.travelInfo.title}</h2></b>
+								<b><div>${sessionScope.travelInfo.briefStory}</div></b>
 							</div>
-
-
-							<!-- 스토리 / 지도 /일정표 -->
-							<div class="plan-view-tab">
-								<h3 align="center">
-									<a href="#"> <i class="icon fa fa-th-list">스토리</i>
-									</a> &nbsp;&nbsp;&nbsp; <a href="#"> <i
-										class="icon fa fa-th-list">지도/일정표</i></a>
-								</h3>
-
-							</div>
-
 
 							<!-- 여행 내용 -->
 							<div class="col-xs-11 col-sm-11 col-md-11  col-lg-11">
@@ -212,199 +180,25 @@
 								<div class="day-box">
 									<c:if test="${not empty sessionScope.travelDetailInfo}">
 										<c:forEach items="${sessionScope.travelDetailInfo}" var="detailInfo">
-											${detailInfo.itinearyNo}
-											${detailInfo.travelNo}
-											${detailInfo.travelItinearyTitle}
-											${detailInfo.day}
-											${detailInfo.startTime}
-											${detailInfo.endTime}
-											${detailInfo.latitude}
-											${detailInfo.logtitude}
-											${detailInfo.money}
-											${detailInfo.category}
-											${detailInfo.story}										
+											<font size=7>
+											
+											<b>${detailInfo.travelItinearyTitle}</b> <p>
+											${detailInfo.story}
+											<p>	
+											</font>						
 										</c:forEach>
 									</c:if>
 									<c:if test="${not empty sessionScope.checkList}">
+										<b><font size=7 color="ff0000"><i class="fa fa-exclamation-circle"></i>이건 꼭 준비해 주세요</font></b><p>
 										<c:forEach items="${sessionScope.checkList}" var="list">
-											${list.category}
-											${list.item} <p>
+										<font size=5>
+											<i class="fa fa-hashtag"></i>${list.item}
+											</font>
 										</c:forEach>
 									</c:if>
-									<h2>1일차</h2>
-									<!-- 방문한 장소 + 내용 들어갈 곳  1개-->
-									<div class="spot-note-box">
-										<!-- 1.방문 장소 -->
-										<div class="spot_location">
-											<h4>
-												<span class="ct"></span><span><i class="fa fa-camera"
-													aria-hidden="true"></i>인천공항 (Incheon International Airport,
-													ICN)</span>
-											</h4>
-										</div>
-										<!-- 2.방문 내용 -->
-										<div class="spot-contents">
-											<div id="note_panel">
-
-												<!-- conts-tit-bar -->
-												<div class="conts-txt-area">
-													<p>제주항공 7C1802편 13시30분 출발</p>
-													<p>
-														<br>
-													</p>
-													<p>-----</p>
-													<p>
-														<br>
-													</p>
-													<p>↓ 스카이패스로밍에서 포켓와이파이 대여!</p>
-													<p>
-														<a
-															href="http://www.skypassroaming.co.kr/shop/main/index.php"
-															target="_blank"><span
-															data-href="http://www.skypassroaming.co.kr/shop/main/index.php"
-															data-auto-link="true">http://www.skypassroaming.co.kr/shop/main/index.php</span></a>
-													</p>
-													<p>4일 사용에 28,400원!</p>
-													<p>쿠폰 2,000원 할인이 즉시 되는데 모르고 그냥 결제... 뚀르르...</p>
-													<div class="medium-insert-images ui-sortable"
-														contenteditable="false">
-														<figure class="editor-insert-image">
-															<a class="editor-img-cnl hide"><img
-																src="/images/btn-editor-img-cnl.png" alt=""></a>
-															<img
-																src="https://thumb.wishbeen.com/AOE-7EP0r4vSmbsmOvNleGwNewM=/880x/smart/filters:no_upscale()/img-wishbeen.akamaized.net/post/1474818306372_KakaoTalk_20160922_002744044.jpg"
-																style="height: 1200.7667731629394px;">
-														</figure>
-													</div>
-													<p>↑머릿결 애도</p>
-													<p>
-														<br>
-													</p>
-													<p>공항도착하고 나서 환전한 돈을 집에 두고온지 깨닫..ㅎ</p>
-													<p>진짜 정신머리 나갔ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-													<p>급히 퀵서비스시켜서 기다리는 한시간동안 얼마나 마음 졸였는지..ㅜ</p>
-													<p>
-														<br>
-													</p>
-													<p>내쌩돈 7만원...ㅂㄷㅂㄷ</p>
-													<p>
-														<br>
-													</p>
-													<div class="medium-insert-images ui-sortable"
-														contenteditable="false">
-														<figure class="editor-insert-image">
-															<a class="editor-img-cnl hide"><img
-																src="/images/btn-editor-img-cnl.png" alt=""></a>
-															<img
-																src="https://thumb.wishbeen.com/KLUjIXTUfDir9ijiquhxdJgI-Rs=/880x/smart/filters:no_upscale()/img-wishbeen.akamaized.net/post/1474818319923_KakaoTalk_20160922_002745166.jpg"
-																style="height: 652.5px;">
-														</figure>
-													</div>
-													<p>갑작스레 우리둘의 여행에 끼어들게된 사촌언니랑 사촌동생 ㅋㅋ</p>
-													<p>도른자가 낯도안가리고 겁나 활발한애라 다행이지 아니었으면 서로 어색할뻔..ㅎ</p>
-													<div class="medium-insert-images ui-sortable"
-														contenteditable="false">
-														<figure class="editor-insert-image">
-															<a class="editor-img-cnl hide"><img
-																src="/images/btn-editor-img-cnl.png" alt=""></a>
-															<img
-																src="https://thumb.wishbeen.com/aEh9uD6j3rshPDcViwLk1bgbN80=/880x/smart/filters:no_upscale()/img-wishbeen.akamaized.net/post/1474818382568_KakaoTalk_20160922_013431848.jpg"
-																style="height: 1160px;">
-														</figure>
-													</div>
-													<p>언제 어느여행이던 설레게 하는 하늘사진 ♡3♡</p>
-													<p>
-														<br>
-													</p>
-													<div class="medium-insert-images ui-sortable"
-														contenteditable="false">
-														<figure class="editor-insert-image">
-															<a class="editor-img-cnl hide"><img
-																src="/images/btn-editor-img-cnl.png" alt=""></a>
-															<img
-																src="https://thumb.wishbeen.com/svENDflEpJ3O8ViyzMns8ijDevE=/880x/smart/filters:no_upscale()/img-wishbeen.akamaized.net/post/1474818344112_KakaoTalk_20160922_002748853.jpg"
-																style="height: 950.9583333333334px;">
-														</figure>
-													</div>
-													<p>
-														제주항공말고 딴것좀 타보고싶다..ㅎ ㅜ<br>
-													</p>
-												</div>
-												<!-- conts-txt-area -->
-												<div class="spot-note-info">
-													<div class="note-info-inner-box cost">
-														<p class="note-list type">항공료</p>
-														<p class="note-list">제주항공 왕복 / 1인</p>
-														<p class="note-list">KRW 208,900</p>
-													</div>
-													<div class="note-info-inner-box cost">
-														<p class="note-list type">기타</p>
-														<p class="note-list">포켓와이파이 28,400 / 2 = 14,200</p>
-														<p class="note-list">KRW 14,200</p>
-													</div>
-												</div>
-												<div class="author-info">
-													<div class="tit-bar">
-														<a target="_blank"
-															href="/myPage/user/4e6647aada65d963?active=myPlan"
-															onclick="WebTrackingSendEvent('/plan', 'postAuthor', '4e6647aada65d963');"><span
-															class="user-name">Jieun Lee</span></a><span class="time">2016/08/15
-															11:04</span>
-													</div>
-													<div class="conts-label">
-														<div class="spot-like-count">
-															<a class="">좋아요<span>0</span></a>
-														</div>
-														<div class="spot-commont-count">
-															<a class="show-comments-of-note">댓글<span>0</span></a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div id="note-comment-area"></div>
-											<div id="comment-more-btn-area" class="pagination hide">
-												<a id="comment-more-btn" class="btn-more">더보기</a>
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-
-
-							<!-- 왼쪽 날짜 보여줄 부분 -->
-							<div class="col-xs-1 col-sm-1 col-md-1  col-lg-1" id="floatMenu">
-								<ul>
-									<li class="story-view-nav-li"><a
-										class="btn-top nav-btn-top story-view-nav-btn" data-id="top">Top</a></li>
-									<li class="story-view-nav-li"><a
-										class="story-view-nav-btn" data-id="0"><span>Day</span><span>1</span></a></li>
-									<li class="story-view-nav-li"><a
-										class="story-view-nav-btn" data-id="1"><span>Day</span><span>2</span></a></li>
-									<li class="story-view-nav-li"><a
-										class="story-view-nav-btn" data-id="2"><span>Day</span><span>3</span></a></li>
-									<li class="story-view-nav-li"><a
-										class="story-view-nav-btn" data-id="3"><span>Day</span><span>4</span></a></li>
-								</ul>
-							</div>
-
-						</div>
-						<!--  ./오른쪽 내용 (블로그 본문+오른쪽 날짜) 끝-->
-
-					</div>
-					<!-- /.전체 12개 컬럼  -->
-				</div>
-				<!-- ./row 끝 -->
-
-
-
-
 
 				<!-- comment 시작 -->
 				<div id="comments">
-					<h2 class="title-comment">
-						Comments <span class="total-comment">4</span>
-					</h2>
 					<div class="medialist">
 						<div class="media">
 							<div class="media-left">

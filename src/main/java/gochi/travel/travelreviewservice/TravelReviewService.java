@@ -10,9 +10,9 @@ import gochi.travel.model.travelreviewdto.TravelReviewDto;
 
 public interface TravelReviewService {
 
-		List<TravelReviewDto> newTrvelReview(String data);
+		List<TravelDTO> newTrvelReview(String data);
 		
-		List<TravelReviewDto> goodTravelReview(String data);
+		List<TravelDTO> goodTravelReview(String data);
 		
 		//후기 디테일 페이지 : 게시물 정보 가져오기.
 		TravelDTO selectTravelInfo(String index);
