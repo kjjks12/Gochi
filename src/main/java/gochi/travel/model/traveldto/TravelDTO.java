@@ -1,5 +1,6 @@
 package gochi.travel.model.traveldto;
 
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 
@@ -27,6 +28,7 @@ public class TravelDTO {
 	/** 여행 커버 이미지  */
 	private String travelCoverImg;
 
+	private MultipartFile travelCoverImgFile;
 	
 	/** 여행 기본 생성자*/
 	public TravelDTO() {}
@@ -146,7 +148,11 @@ public class TravelDTO {
 		this.travelCoverImg = travelCoverImg;
 	}
 
-	
-	
-	
+	public MultipartFile getTravelCoverImgFile() {
+		return travelCoverImgFile;
+	}
+
+	public void setTravelCoverImgFile(MultipartFile travelCoverImgFile) {
+		this.travelCoverImgFile = travelCoverImgFile;
+	}		
 }

@@ -7,18 +7,19 @@
 <!-- 체크리스트 검색 -->
  <select id="selectComment" parameterType="integer" resultType="CommentDTO">
 	select  CONTENT, BOARD_NO, EMAIL, D_DAY  from FREE_BOARD_COMMENT where BOARD_NO=#{_parameter}
+	order by COMMNET_NO
 </select> 
 <!-- 체크리스트 중복검색 -->
 <!-- <select id="overLapCheckList" parameterType="CheckListDTO" resultType="String">
 	select item from TRAVEL_CHECK_LIST where travel_no=#{travel_no} and item=#{item}
 </select> -->
-<!-- 체크리스트 삽입 -->
+<!-- COMMENT 삽입 -->
 <insert id="insertComment" parameterType="CommentDTO">
 	insert into FREE_BOARD_COMMENT values(FREE_BOARD_COMMENT_NO.NEXTVAL, #{content}, #{board_no}, #{email}, sysdate)
 </insert>
-<!-- 체크리스트 삭제 -->
- <delete id="deleteComment" parameterType="CommentDTO">
-	delete from FREE_BOARD_COMMENT where email=#{email} and board_no=#{board_no}
+<!-- COMMENT 삭제 -->
+ <delete id="deleteComment" parameterType="map">
+	delete from FREE_BOARD_COMMENT where email=#{email} and board_no=#{board_no} and CONTENT=#{content}
 </delete> 
 
 

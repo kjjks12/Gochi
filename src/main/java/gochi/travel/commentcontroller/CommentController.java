@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,12 +50,20 @@ public class CommentController {
 		
 		@RequestMapping("/commentDelete")
 		@ResponseBody
-		public String commentDelete(HttpServletRequest request, String sessionEmail, String boardEmail,int board_no){
-			String result = commentService.commentDelete(sessionEmail, boardEmail, board_no);
-			List<CommentDTO> commentList = commentService.selectComment(board_no);
-			if(commentList != null){
-				request.setAttribute("commentList", commentList);
-			}
-			return result;
+		public List<CommentDTO> commentDelete(HttpServletRequest request, String sessionEmail,
+									String boardEmail,int board_no, String content){
+			
+			List<CommentDTO>  commentList=null;
+			System.out.println(content +"    CONTET ??");
+			System.out.println(sessionEmail);
+			System.out.println(boardEmail);
+			System.out.println(board_no);
+			
+			commentService.commentDelete(sessionEmail, boardEmail, board_no, content.trim());
+			
+			commentList = commentService.selectComment(board_no);
+			
+			
+			return commentList;
 		}
 }

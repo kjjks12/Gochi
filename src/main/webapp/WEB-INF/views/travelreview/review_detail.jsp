@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -89,10 +90,10 @@
 			<div class="skyline">
 				<span class="cover"> <img alt="detail_back_cover"
 					id="review_detail_back_cover_img"
-					src="${pageContext.request.contextPath}/resources/review_img/review_detail_back_img.jpg"></span>
+					src="${pageContext.request.contextPath}/resources/img/travel/travelCover/${sessionScope.travelInfo.travelNo}/${sessionScope.travelInfo.email}/${sessionScope.travelInfo.travelCoverImg}"></span>
 				<div class="container header-text">
 					<div>
-						<h1 align="center">도른자와 함꼐하는 오키나와 뚜벅이 여행</h1>
+						<h1 align="center">${sessionScope.travelInfo.title}</h1>
 					</div>
 					<div>
 						<p class="tit-desc" align="center">
@@ -129,12 +130,12 @@
 										</a>
 									</div>
 									<div class="author-name">
-										<h3>지구본</h3>
+										<h3>${sessionScope.writer.nickname}</h3>
 									</div>
 								</div>
 								<!-- author-box -->
 
-								<div class="author-ment">지구 ㅅr랑ㅎri........♠</div>
+								<div class="author-ment">${sessionScope.writer.selfContent}</div>
 
 								<div class="follower-btns">
 									<button class="following-btn" data-id="0cf608b29ae51868">팔로우</button>
@@ -188,8 +189,8 @@
 
 							<!-- 여행에 대한 간단한 소개 -->
 							<div class="plan-info-top">
-								<h2>흰자와 도른자 오키나와</h2>
-								<div>여권정보를 입력하다가 너와 나의 생일이 같았다는 사실을 다시한번 깨닫고 소름.</div>
+								<h2>${sessionScope.travelInfo.title}</h2>
+								<div>${sessionScope.travelInfo.briefStory}</div>
 							</div>
 
 
@@ -209,6 +210,27 @@
 
 
 								<div class="day-box">
+									<c:if test="${not empty sessionScope.travelDetailInfo}">
+										<c:forEach items="${sessionScope.travelDetailInfo}" var="detailInfo">
+											${detailInfo.itinearyNo}
+											${detailInfo.travelNo}
+											${detailInfo.travelItinearyTitle}
+											${detailInfo.day}
+											${detailInfo.startTime}
+											${detailInfo.endTime}
+											${detailInfo.latitude}
+											${detailInfo.logtitude}
+											${detailInfo.money}
+											${detailInfo.category}
+											${detailInfo.story}										
+										</c:forEach>
+									</c:if>
+									<c:if test="${not empty sessionScope.checkList}">
+										<c:forEach items="${sessionScope.checkList}" var="list">
+											${list.category}
+											${list.item} <p>
+										</c:forEach>
+									</c:if>
 									<h2>1일차</h2>
 									<!-- 방문한 장소 + 내용 들어갈 곳  1개-->
 									<div class="spot-note-box">

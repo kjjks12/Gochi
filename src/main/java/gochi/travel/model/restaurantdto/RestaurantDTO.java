@@ -37,7 +37,7 @@ public class RestaurantDTO {
 	}
 	
 	public RestaurantDTO(String classification, String area, String explanation, String restaurantName,
-			String operatingTime, String holiday, String phone, String remark) {
+			String operatingTime, String holiday, String phone, String email ,String remark) {
 		super();
 		this.classification = classification;
 		this.area = area;
@@ -46,8 +46,10 @@ public class RestaurantDTO {
 		this.operatingTime = operatingTime;
 		this.holiday = holiday;
 		this.phone = phone;
+		this.email = email;
 		this.remark = remark;
 	}
+	
 	
 
 	public String getRemark() {

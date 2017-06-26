@@ -36,5 +36,8 @@ public class MypageServiceImpl implements MypageService {
 	public int updateMyBackProfileImg(String backImg, String email) {
 		return mypageDAO.updateMyBackProfileImg(backImg, email);
 	}
+
+	
+	
 	
 }

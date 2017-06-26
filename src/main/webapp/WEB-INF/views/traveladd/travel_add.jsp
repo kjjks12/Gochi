@@ -53,11 +53,10 @@ width: 100%;
 
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar/fullcalendar.min.js'></script>
-
-
+<script src="http://malsup.github.com/jquery.form.js"></script>
 <!-- 초기 셋팅 -->
 <script>
-alert('여행번호'+${travelDTO.travelNo});
+/* alert('여행번호'+${travelDTO.travelNo}); */
 /* $("#travel_thema2").val(${travelDTO.thema}.attr("selected", "selected")); */
 </script>
 <!-- 데이트피커-->
@@ -68,14 +67,7 @@ alert('여행번호'+${travelDTO.travelNo});
 		    	beforeShowDay:noBefore2
 			});
 		    $("#travel_start_day2").on("change",function (){ 
-		    	$('#calendar').fullCalendar({
-		    		  validRange: function(nowDate) {
-		    		        return {
-		    		        	start: $("#travel_start_day2").val(),
-		    		        	 end:   $.fullCalendar.moment($("#travel_end_day2").val()).add(1,'days')
-		    		        };
-		    		    }
-		    	});
+
 		   });
 		    
 	  });
@@ -143,7 +135,7 @@ alert('여행번호'+${travelDTO.travelNo});
 
 		//여행 타이틀 수정하기 아이콘을 눌렀을때
 		$("#user_back_icon").click(function() {
-			//alert($("#travel_title").text());
+			//var title = ($("#travel_title").text());
 			//수정 입력폼 보여주기
 			$("#travel_title_text").show();
 			$("#travel_title_save_btn").show();
@@ -154,12 +146,18 @@ alert('여행번호'+${travelDTO.travelNo});
 			//기존 보여주는 양식 숨기기
 			$("#travel_title").hide();
 			$("#travel_title_change_btn").hide();
+			/* $.ajax({
+				type : "post",
+				url : "title="+title+"&travelNo=${travelDTO.travelNo}";
+			}) */
 		});
 
 		//여행 타이틀 수정 완료 버튼 눌렀을때
 		$("#travel_title_save_btn").click(function() {
 			//원래 여행 타이틀 div에 입력받은 text값 넣음
-			//alert($("#travel_title_text").val());
+			//var title = ($("#travel_title_text").val());
+			var travelTitle = $("#travel_title_text").val();
+			alert(travelTitle);
 			$("#travel_title").text($("#travel_title_text").val());
 
 			//수정 입력폼 숨기기
@@ -169,6 +167,13 @@ alert('여행번호'+${travelDTO.travelNo});
 			//기존 보여주는 양식 보여주기
 			$("#travel_title").show();
 			$("#travel_title_change_btn").show();
+			
+			$.ajax({
+			type : "post",
+			url : "${pageContext.request.contextPath}/updateItinearyTitle",
+			data :"title="+travelTitle+"&travelNo=${travelDTO.travelNo}"
+			
+			}) 
 		})
 
 
@@ -181,6 +186,7 @@ alert('여행번호'+${travelDTO.travelNo});
 
 		//이미지 변경 됬으면
 		$("#user_backcover_filebtn").change(function() {
+			
 			var file = this.files[0];
 			var reader = new FileReader();
 			reader.onloadend = function() {
@@ -198,6 +204,16 @@ alert('여행번호'+${travelDTO.travelNo});
 				reader.readAsDataURL(file);
 			} else {
 			}
+			//alert("chnage실행")
+			$("#updateTravelCover").ajaxForm({
+				type:"post",
+				url:"${pageContext.request.contextPath}/updateTravelCover/${travelDTO.travelNo}",
+				enctype:"multipart/form-data",
+				success:function(){
+					alert("성공!!");
+				}
+			})
+			$("#updateTravelCover").submit();
 
 		});
 
@@ -218,195 +234,161 @@ alert('여행번호'+${travelDTO.travelNo});
 <!--달력 캘린더 -->
 <script>
 var flag=0;
-	$(document).ready(function() {
 
-		/* initialize the external events
-		-----------------------------------------------------------------*/
+$(document).ready(function() {
+var calendar =    $('#calendar').fullCalendar({
+      header : {
+         left : 'prev,next today',
+         center : 'title',
+         right : 'month,agendaWeek,agendaDay'
+      },
+       selectable: true,
+      editable : true,
+       firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+      defaultView : 'agendaWeek',
+      validRange: function aaa(){
+         return{
+            start: $("#travel_start_day2").val(),
+              end:   $.fullCalendar.moment($("#travel_end_day2").val()).add(1,'days')
+         }
+      },
 
-		$('#external-events .fc-event').each(function() {
-
-			// store data so the calendar knows to render an event upon drop
-			$(this).data('event', {
-				title : $.trim($(this).text()), // use the element's text as the event title
-				stick : true // maintain when user navigates (see docs on the renderEvent method)
-			});
-
-			// make the event draggable using jQuery UI
-			$(this).draggable({
-				zIndex : 999,
-				revert : true, // will cause the event to go back to its
-				revertDuration : 0 //  original position after the drag
-			});
-
-		});
-
-/* 		$('#calendar').find('.fc-slats').find('[class="fc-widget-content"]').hover(
-			function() {
-				var tr = $(this).parent();
-				var time = tr.find('td.fc-axis.fc-time.fc-widget-content').find("span").text();
-				$(this).append('<td class="temp_cell" style="border: 0px; width:5px;">' + time + '</td>');
-			},
-			function() {
-				$(this).children('.temp_cell').remove();
-			}); */
-			/* initialize the calendar
-			-----------------------------------------------------------------*/
-
-		$('#calendar').fullCalendar({
-			header : {
-				left : 'prev,next today',
-				center : 'title',
-				right : 'month,agendaWeek,agendaDay'
-			},
-			defaultView : 'agendaWeek',
-			validRange: {
-				 	start: $("#travel_start_day2").val(),
-			        end:   $.fullCalendar.moment($("#travel_end_day2").val()).add(1,'days')
-			     },
-			editable : true,
-			droppable : true, // this allows things to be dropped onto the calendar
-			drop : function(date, allDay) {
-				//alert(date)
-				//alert(allDay)
-			},
-			monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-			monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
-			dayNames : [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
-			dayNamesShort : [ "일", "월", "화", "수", "목", "금", "토" ],
-			buttonText : {
-				today : "오늘",
-				month : "월별",
-				week : "주별",
-				day : "일별",
-			},
-		 	dayClick : function(date, jsEvent, view) {
-		 		flag=0;
-		 		alert("삽입:"+flag);
-					//alert(moment(date).add('m',30).utc().format());
-				  //alert('Clicked on: ' + date.format());
-				 // alert('Clicked on: ' + date.format('YYYY-MM-DD A/P HH:MM'));
-				  //alert('Clicked on: ' + new Date(Date.parse(date)+1000*60*30).format('YYYY-MM-DD HH:MM'));
-				  var startTime= date.format('YYYY-MM-DD HH:MM');
-			      var endTime=moment(date).add('m',30).utc().format();
-				$("#startTime").val(startTime);			
-				$("#endTime").val(endTime);			
-				itinearyInitFunc();//모달 초기화
-				$("#detailmap").modal('show');
-			
-			}, 
-			navLinks : true,
-			navLinkDayClick : function(date, jsEvent) {
-				console.log('day', date.format()); // date is a moment
-				console.log('coords', jsEvent.pageX, jsEvent.pageY);
-			},
-			editable : true,
-			eventLimit : true, // allow "more" link when too many events
-			events: function(start, end, timezone, callback) {
-				alert("이벤트"+flag);
-				$("#travelItineary_btn").click(function() {
-						if(flag==0){	
-					    //alert($("#itinearyStory").val(tinymce.activeEditor.getContent()) );
-							$("#itinearyStory").val(tinymce.activeEditor.getContent());
-							var url="travelItineary";
-							 $.ajax({
-									url : url, //요청이름(이동경로)
-									type : "post", //method방식(get,post)
-									data: $("#travelItinearyForm").serialize(),
-									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
-									success : function(travelItinearyDTO) {
-										alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
-										//alert(response+"dd5335");
-									 	 var events = [];
-											events.push({
-											id:travelItinearyDTO.itinearyNo,
-								            title: travelItinearyDTO.travelItinearyTitle,
-							                start:travelItinearyDTO.startTime,
-							              	end :travelItinearyDTO.endTime
-								           }); 
-										callback(events);
-									},//ajax_Success
-									error : function(err) {
-										//alert(err + "오류발생")
-									}
-								});//Ajax 끝
-						}
-						else if(flag==1){//수정하기 ajax
-							$("#itinearyStory").val(tinymce.activeEditor.getContent());
-							var url="travelItineary";
-							 $.ajax({
-									url : url, //요청이름(이동경로)
-									type : "post", //method방식(get,post)
-									data: $("#travelItinearyForm").serialize(),
-									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
-									success : function(travelItinearyDTO) {
-										alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
-										//alert(response+"dd5335");
-									 	
-									},//ajax_Success
-									error : function(err) {
-										//alert(err + "오류발생")
-									}
-								});//Ajax 끝
-						}
-								 
-					$("#detailmap").modal('toggle');	
-					});//btnClick 
-			},//events 끝
-			 eventClick: function(event) {//수정용
-				 flag=1;
-				 alert("수정"+flag);
-				 alert(event.id);
-				var itinearyNo="itinearyNo="+event.id;
-			 	 $.ajax({
-						url :"selectTravelItineary", //요청이름(이동경로)
-						type : "post", //method방식(get,post)
-						data: itinearyNo,
-						dataType : "json", //요청결과정보의 타입(text, html, xml, json)
-						success : function(travelItinearyDTO) {
-							itinearyInitFunc();//여행일정모달 초기화
-							alert(travelItinearyDTO.travelItinearyTitle)						 	
-						    //1.여행타이틀 셋팅 
-							$("#travelItinearyTitle").val(travelItinearyDTO.travelItinearyTitle);
-							//2.좌표셋팅
-							var markerpos = new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude);
-							alert(markerpos);
-							var marker=addMarker(markerpos,0);
-							onePointMap.panTo(markerpos);
-							//3.내용 셋팅
-							tinymce.activeEditor.setContent(travelItinearyDTO.story);
-							//4.modal 보여주기
-							$("#detailmap").modal('toggle');
-						},//ajax_Success
-						error : function(err) {
-							alert(err + "오류발생")
-						}
-					});//Ajax 끝
-			 	
-			 	
-			},//event 클릭
-		}); /*./fullCalendar 끝*/
-		
-
-		$('.fc-widget-content').hover(function() {
-			if (!$(this).html()) {
-				for (i = 0; i < 7; i++) {
-					$(this).append('<td class="temp-cell" style="border: 0px; width:' + (Number($('.fc-day').width()) + 3) + 'px"></td>');
-				}
-
-				$(this).children('td').each(function() {
-					$(this).hover(function() {
-						//$(this).html('<div class=current-time-cell  data-toggle="modal" id="detailModal" data-target="#detailmap"  aria-hidden="true" style="z-index:100"><i class="fa fa-plus-circle"></i></div>');
-						$(this).html('<div class=current-time-cell id="detailModal"  id="detailModal" aria-hidden="true" style="z-index:100"><i class="fa fa-plus-circle"></i></div>');
-
-					}, function() {
-						$(this).html('');
-					});
-				});
-			}
-		}, function() {
-			$(this).children('.temp-cell').remove();
-		});
-	});
+      droppable : true, // this allows things to be dropped onto the calendar
+      drop : function(date, allDay) {
+         //alert(date)
+         //alert(allDay)
+      },
+      monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+      monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+      dayNames : [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
+      dayNamesShort : [ "일", "월", "화", "수", "목", "금", "토" ],
+      buttonText : {
+         today : "오늘",
+         month : "월별",
+         week : "주별",
+         day : "일별",
+      },
+         selectHelper: true,
+      select: function(start, end, allDay) {
+          flag=0;
+             alert("삽입:"+flag);
+               //alert(moment(date).add('m',30).utc().format());
+              //alert('Clicked on: ' + date.format());
+             // alert('Clicked on: ' + date.format('YYYY-MM-DD A/P HH:MM'));
+              //alert('Clicked on: ' + new Date(Date.parse(date)+1000*60*30).format('YYYY-MM-DD HH:MM'));
+              //var startTime= date.format('YYYY-MM-DD HH:MM');
+              // var endTime=moment(date).add('m',30).utc().format();
+            $("#startTime").val(start.format('YYYY-MM-DD HH:MM'));         
+            $("#endTime").val(end.format('YYYY-MM-DD HH:MM'));         
+            itinearyInitFunc();//모달 초기화
+            $("#detailmap").modal('show');
+      },
+      droppable: true, // this allows things to be dropped onto the calendar !!!
+      navLinks : true,
+      navLinkDayClick : function(date, jsEvent) {
+         console.log('day', date.format()); // date is a moment
+         console.log('coords', jsEvent.pageX, jsEvent.pageY);
+      },
+      editable : true,
+      events: function(start, end, timezone, callback) {
+         //alert("이벤트"+flag);
+         $("#travelItineary_btn").click(function() {
+               if(flag==0){   
+                //alert($("#itinearyStory").val(tinymce.activeEditor.getContent()) );
+                  $("#itinearyStory").val(tinymce.activeEditor.getContent());
+                  var url="travelItineary";
+                   $.ajax({
+                        url : url, //요청이름(이동경로)
+                        type : "post", //method방식(get,post)
+                        data: $("#travelItinearyForm").serialize(),
+                        dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+                        success : function(travelItinearyDTO) {
+                           alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
+                           //alert(response+"dd5335");
+                            var events = [];
+                              events.push({
+                              id:travelItinearyDTO.itinearyNo,
+                                 title: travelItinearyDTO.travelItinearyTitle,
+                                  start:travelItinearyDTO.startTime,
+                                   end :travelItinearyDTO.endTime
+                                }); 
+                           callback(events);
+                              //$('#calendar').fullCalendar('removeEvents');
+                              
+                        
+                                calendar.fullCalendar( 'rerenderEvents' )
+                                calendar.fullCalendar('unselect'); 
+                        },//ajax_Success
+                        error : function(err) {
+                           //alert(err + "오류발생")
+                        }
+                     });//Ajax 끝
+               }
+                      
+            $("#detailmap").modal('hide');   
+            });//btnClick 
+      },//events 끝
+       eventClick: function(event) {//수정용
+          flag=1;
+          //alert("수정"+flag);
+          alert("수정할 이벤트 여행일정 번호"+event.id);
+          var itinearyNo=event.id;
+           $.ajax({
+               url :"selectTravelItineary", //요청이름(이동경로)
+               type : "post", //method방식(get,post)
+               data:"itinearyNo="+ itinearyNo,
+               dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+               success : function(travelItinearyDTO) {
+                  itinearyInitFunc();//여행일정모달 초기화
+                  alert(travelItinearyDTO.travelItinearyTitle)                      
+                   //1.여행타이틀 셋팅 
+                  $("#travelItinearyTitle").val(travelItinearyDTO.travelItinearyTitle);
+                  //2.좌표셋팅
+                  var markerpos = new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude);
+                  alert(markerpos);
+                  var marker=addMarker(markerpos,0);
+                  onePointMap.panTo(markerpos);
+                  //3.내용 셋팅
+                  tinymce.activeEditor.setContent(travelItinearyDTO.story);
+                  //4.modal 보여주기
+                  $("#detailmap").modal('show');
+               },//ajax_Success
+               error : function(err) {
+                  alert(err + "오류발생")
+               }
+            });//Ajax 끝
+            $("#travelItineary_btn").click(function() {
+               if(flag==1){//수정하기 ajax
+                  $("#itinearyNo").val(itinearyNo);
+                  alert('여행 수정 저장'+$("#itinearyNo").val());
+               $("#itinearyStory").val(tinymce.activeEditor.getContent());
+                   $.ajax({
+                        url : "travelItinearyUpdate", //요청이름(이동경로)
+                        type : "post", //method방식(get,post)
+                        data: $("#travelItinearyForm").serialize(),
+                        dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+                        success : function(travelItinearyDTO) {
+                           alert('수정완료 '+travelItinearyDTO.itinearyNo);
+                           event.title=travelItinearyDTO.travelItinearyTitle;
+                           $('#calendar').fullCalendar('updateEvent', event);
+                           
+                        },//ajax_Success
+                        error : function(err) {
+                           //alert(err + "오류발생")
+                        }
+                     });//Ajax 끝
+               }
+               $("#detailmap").modal('hide');
+            })//수정하기 버튼
+      },//event 클릭
+      eventDragStop:function( event, jsEvent, ui, view ) { 
+         alert('a');
+         
+      }
+      
+   }); /*./fullCalendar 끝*/
+   
+});//JQeury 끝
 </script>
 
 
@@ -443,13 +425,14 @@ var flag=0;
 						</h2>
 					</div>
 				</div>
-				<div class="profile_cover_div">
-					<button type="button" class="btn btn-default btn-sm"
-						id="user_backcover_changebtn">커버 바꾸기</button>
-					<input type="file" id="user_backcover_filebtn"
-						onchange="previewImage(this,'user_backcover_div')" />
-				</div>
-
+				<form id="updateTravelCover">
+					<div class="profile_cover_div">
+						<button type="button" class="btn btn-default btn-sm"
+							id="user_backcover_changebtn">커버 바꾸기</button>
+						<input type="file" id="user_backcover_filebtn" onchange="previewImage(this,'user_backcover_div')"
+						name="travelCoverImgFile"/>
+					</div>
+				</form>
 			</div>
 		</div>
 
@@ -506,15 +489,27 @@ var flag=0;
 								class="icon fa fa-envelope-o"></i></li>
 						</ul>
 
-						<h2>
-							<button type="button" class="btn btn-reverse" data-toggle="modal"
-								data-target="#exampleModal" data-whatever="@checkList">체크리스트</button>
-						</h2>
-						<ul class="grey-box">
-							<li>Info: +0123-456-789 <i class="icon fa fa-mobile"></i></li>
-							<li>Support: +0123-987-654 <i class="icon fa fa-phone"></i></li>
-							<li>Dev: +0123-123-456 <i class="icon fa fa-phone"></i></li>
-						</ul>
+					 <h2>
+                        <button type="button" class="btn btn-reverse"
+                           data-toggle="modal" data-target="#exampleModal"
+                           data-whatever="@checkList">체크리스트</button>
+                     </h2>
+                  <div id="checkboxList"> 
+                  	<c:choose>
+						<c:when test="${selectCheckList.size()==0}">
+							체크리스트 미등록...
+						</c:when>
+                  	<c:otherwise>
+                  	<div id='filter-box'>
+                  		<c:forEach items="${selectCheckList}" var="p" varStatus="state">
+                  		
+							<a href='#' class='filter'>${p}<i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>
+							
+						</c:forEach>
+					</div>
+					</c:otherwise>
+					</c:choose>
+                  	</div>
 
 
 
@@ -572,8 +567,8 @@ var flag=0;
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
-											data-dismiss="modal">취소</button>
-										<button type="button" class="btn btn-primary">저장</button>
+											data-dismiss="modal">돌아가기</button><!-- 모달종료 -->
+									
 									</div>
 								</div>
 							</div>
@@ -786,6 +781,7 @@ var flag=0;
 
 					<div class="modal-body">
 						<input type="hidden" value="${travelDTO.travelNo}" name="travelNo">
+						<input type="hidden" value="0" name="itinearyNo" id="itinearyNo">
 						<input type="hidden" value="" id="startTime" name="startTime">
 						<input type="hidden" value="" id="endTime" name="endTime">
 						<input type="hidden" value="" id="latitude" name="latitude">
@@ -1105,82 +1101,288 @@ var markers;
 </script>
 
 
-<script type="text/javascript">
-	/*  체크리스트 리스트 change */
-	function checkChange(str) {
-		var output = "";
-		var list = str;
-		if (list == "start") {
-			output = "";
-			list = "";
 
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			$("div .modal-body-list").html(output);
+   <script type="text/javascript">
+      /*  체크리스트 리스트 change */
+   
+    	  
+    
+      function checkChange(str) {
+         var output = "";
+         var list = str;
+         
+         
+         if (list == "start") {
+            output = "";
+            list = "";
+   
+            output += "<input id='startCheck' type='checkbox' value='비상금' >비상금</input>";
+            output += "<input id='startCheck' type='checkbox' value='교통편' >교통편</input>";
+            output += "<input id='startCheck' type='checkbox' value='숙소예약' >숙소예약</input>";
+            output += "<input id='startCheck' type='checkbox' value='물놀이아이템' >물놀이 아이템</input>";
+            output += "<input id='startCheck' type='checkbox' value='비상연락망' >비상연락망</input>";
+            
+            $("div .modal-body-list").html(output);
+            
 
-			return;
-		}
-		if (list == "see") {
-			output = "";
-			list = "";
+            $(document).on("click",'#startCheck' , function() { 
+        		//alert($(this).is(":checked")) // true/ false  값 리턴
+          		//alert($(this).val())   // 클릭한 해당 value값 리턴
+              	$.ajax({
+				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+				type: "post", // method방식(get , post)
+				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=출발", // 서버에게 보낼 parameter정보
+				success: function(result) {   // 성공결과
+			        var str="";
+		         
+		            	
+		            	str+="<div class='section-title line-style'>";
+		            	str+="<h3 class='title'>체크리스트</h3>";
+		            	str+="</div>";
+		            	str+="<div id='filter-box'>";
+		            	
+		            	
+		            	 $.each(result,function(index,item){
+		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+		            	  })
+		         	str+= "</div>";
+		      
+		            $("#checkboxList").html(str);
+				},
+				error :  function(err) {
+					alert("오류발생 : "+ err);
+				}
+			})
+    	 })
+            return;
+     }
+         if (list == "see") {
+            output = "";
+            list = "";
+   
+            output += "<input id='seeCheck' type='checkbox' value='선글라스' >선글라스</input>";
+            output += "<input id='seeCheck' type='checkbox' value='자외선차단제' >자외선차단제</input>";
+            output += "<input id='seeCheck' type='checkbox' value='샌들/아쿠아샌들' >샌들/아쿠아샌들</input>";
+            output += "<input id='seeCheck' type='checkbox' value='모자' >모자</input>";
+            output += "<input id='seeCheck' type='checkbox' value='수영복' >수영복</input>";
+            output += "<input id='seeCheck' type='checkbox' value='비치타월/스포츠타월' >비치타월/스포츠타월</input>";
+            $("div .modal-body-list").html(output);
+        	
+            $(document).on("click",'#seeCheck' , function() { 
+        		//alert($(this).is(":checked")) // true/ false  값 리턴
+          		//alert($(this).val())   // 클릭한 해당 value값 리턴
+              	$.ajax({
+				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+				type: "post", // method방식(get , post)
+				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=해변가", // 서버에게 보낼 parameter정보
+				success: function(result) {   // 성공결과
+			        var str="";
+		         
+		            	
+		            	str+="<div class='section-title line-style'>";
+		            	str+="<h3 class='title'>체크리스트</h3>";
+		            	str+="</div>";
+		            	str+="<div id='filter-box'>";
+		            	
+		            	
+		            	 $.each(result,function(index,item){
+		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+		            	  })
+		         	str+= "</div>";
+		      
+		            $("#checkboxList").html(str);
+				},
+				error :  function(err) {
+					alert("오류발생 : "+ err);
+				}
+			})
+           
+			})
+         
+   
+            return;
+         }
+         if (list == "mt") {
+            output = "";
+            list = "";
+   
+            output += "<input id='mtCheck' type='checkbox' value='배낭' >배낭</input>";
+            output += "<input id='mtCheck' type='checkbox' value='물통' >물통</input>";
+            output += "<input id='mtCheck' type='checkbox' value='다용도칼' >다용도칼</input>";
+            output += "<input id='mtCheck' type='checkbox' value='우비' >우비</input>";
+            output += "<input id='mtCheck' type='checkbox' value='지팡이' >지팡이</input>";
+            $("div .modal-body-list").html(output);
+            $(document).on("click",'#mtCheck' , function() { 
+        		//alert($(this).is(":checked")) // true/ false  값 리턴
+          		//alert($(this).val())   // 클릭한 해당 value값 리턴
+              	$.ajax({
+				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+				type: "post", // method방식(get , post)
+				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=산여행", // 서버에게 보낼 parameter정보
+				success: function(result) {   // 성공결과
+			        var str="";
+		         
+		            	
+		            	str+="<div class='section-title line-style'>";
+		            	str+="<h3 class='title'>체크리스트</h3>";
+		            	str+="</div>";
+		            	str+="<div id='filter-box'>";
+		            	
+		            	
+		            	 $.each(result,function(index,item){
+		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+		            	  })
+		         	str+= "</div>";
+		      
+		            $("#checkboxList").html(str);
+				},
+				error :  function(err) {
+					alert("오류발생 : "+ err);
+				}
+			})
+          })
+         
+            return;
+         }
+            
+         if (list == "buty") {
+            output = "";
+            list = "";
+   
+            output += "<input id='butyCheck' type='checkbox' value='치약' >치약</input>";
+            output += "<input id='butyCheck' type='checkbox' value='샴푸' >샴푸</input>";
+            output += "<input id='butyCheck' type='checkbox' value='칫솔' >칫솔</input>";
+            output += "<input id='butyCheck' type='checkbox' value='세안수건' >세안수건</input>";
+            output += "<input id='butyCheck' type='checkbox' value='BB크림' >BB크림</input>";
+            output += "<input id='butyCheck' type='checkbox' value='린스' >린스</input>";
+            output += "<input id='butyCheck' type='checkbox' value='바디워시' >바디워시</input>";
+            output += "<input id='butyCheck' type='checkbox' value='면도크림' >면도크림</input>";
+            output += "<input id='butyCheck' type='checkbox' value='면도기' >면도기</input>";
 
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			$("div .modal-body-list").html(output);
-
-			return;
-		}
-		if (list == "mt") {
-			output = "";
-			list = "";
-
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			$("div .modal-body-list").html(output);
-
-			return;
-		}
-		if (list == "buty") {
-			output = "";
-			list = "";
-
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			$("div .modal-body-list").html(output);
-
-			return;
-		}
-		if (list == "119") {
-			output = "";
-			list = "";
-
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			output += "<input  type='checkbox' value='아이템' >아이템</input>";
-			$("div .modal-body-list").html(output);
-
-			return;
-
-		}
-
-	}
-</script>
+            $("div .modal-body-list").html(output);
+   			
+            $(document).on("click",'#butyCheck' , function() { 
+        		//alert($(this).is(":checked")) // true/ false  값 리턴
+          		//alert($(this).val())   // 클릭한 해당 value값 리턴
+              	$.ajax({
+				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+				type: "post", // method방식(get , post)
+				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=미용도구", // 서버에게 보낼 parameter정보
+				success: function(result) {   // 성공결과
+			        var str="";
+		         
+		            	
+		            	str+="<div class='section-title line-style'>";
+		            	str+="<h3 class='title'>체크리스트</h3>";
+		            	str+="</div>";
+		            	str+="<div id='filter-box'>";
+		            	
+		            	
+		            	 $.each(result,function(index,item){
+		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+		            	  })
+		         	str+= "</div>";
+		      
+		            $("#checkboxList").html(str);
+				},
+				error :  function(err) {
+					alert("오류발생 : "+ err);
+				}
+			})
+           })
+            return;
+         }
+         if (list == "119") {
+            output = "";
+            list = "";
+   
+            output += "<input id='119Check' type='checkbox' value='종합감기약' >종합감기약</input>";
+            output += "<input id='119Check' type='checkbox' value='파스' >파스</input>";
+            output += "<input id='119Check' type='checkbox' value='소독약' >소독약</input>";
+            output += "<input id='119Check' type='checkbox' value='지사제' >지사제</input>";
+            output += "<input id='119Check' type='checkbox' value='두통약' >두통약</input>";
+            output += "<input id='119Check' type='checkbox' value='소화제' >소화제</input>";
+            output += "<input id='119Check' type='checkbox' value='아스피린' >아스피린</input>";
+            output += "<input id='119Check' type='checkbox' value='복용중인약(처방' >복용중인약(처방)</input>";
+            output += "<input id='119Check' type='checkbox' value='복합연고제' >복합연고제</input>";
+            $("div .modal-body-list").html(output);
+   
+            $(document).on("click",'#119Check' , function() { 
+        		//alert($(this).is(":checked")) // true/ false  값 리턴
+          		//alert($(this).val())   // 클릭한 해당 value값 리턴
+              	$.ajax({
+				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+				type: "post", // method방식(get , post)
+				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=응급도구", // 서버에게 보낼 parameter정보
+				success: function(result) {   // 성공결과
+			        var str="";
+		         
+		            	
+		            	str+="<div class='section-title line-style'>";
+		            	str+="<h3 class='title'>체크리스트</h3>";
+		            	str+="</div>";
+		            	str+="<div id='filter-box'>";
+		            	
+		            	
+		            	 $.each(result,function(index,item){
+		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+		            	  })
+		         	str+= "</div>";
+		      
+		            $("#checkboxList").html(str);
+				},
+				error :  function(err) {
+					alert("오류발생 : "+ err);
+				}
+			})
+           })
+            return;
+   
+         }
+ 
+        
+      }
+      /* checkListDelete 클릭시 삭제 이벤트 */
+      $(document).on("click",'#checkListDelete' , function() { 
+      		alert($(this).attr("name"))
+      		$.ajax({
+				url: "${pageContext.request.contextPath}/traveladd/deleteIcon", //서보요청이름(주소)
+				type: "post", // method방식(get , post)
+				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+				data: "item="+$(this).attr("name")+"&travel_no="+${travelDTO.travelNo}, // 서버에게 보낼 parameter정보
+				success: function(deleteData) {   // 성공결과
+					 var str="";
+			         
+		            	
+		            	str+="<div class='section-title line-style'>";
+		            	str+="<h3 class='title'>체크리스트</h3>";
+		            	str+="</div>";
+		            	str+="<div id='filter-box'>";
+		            	
+		            	
+		            	 $.each(deleteData,function(index,item){
+		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+		            	  })
+		         	str+= "</div>";
+		      
+		            $("#checkboxList").html(str);
+				},
+				
+				error :  function(err) {
+					alert("오류발생 : "+ err);
+				}
+			})
+      })//checkListDelete 클릭 이벤트 완료
+      
+     
+    
+   </script> <!-- 체크리스트 완료 -->
+   
 
 
 

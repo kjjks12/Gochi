@@ -27,14 +27,17 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public String commentDelete(String sessionEmail, String boardEmail,int board_no) {
+	public String commentDelete(String sessionEmail, String boardEmail,int board_no,String content) {
 		String result ="";
 			if(sessionEmail.equals(boardEmail)){
-				if(commentDao.commentDelete(sessionEmail, boardEmail, board_no)>0){
+				System.out.println(sessionEmail + "////" + boardEmail);
+				if(commentDao.commentDelete(sessionEmail, boardEmail, board_no, content)>0){
+					System.out.println("리턴해서 서비스옴");
+					System.out.println("삭제성공");
 				result = "삭제성공";
 				}
 			}else{
-				result = "본인작석 댓글이 아니라 삭제 불가능합니다...";
+				result = "본인작성 댓글이 아니라 삭제 불가능합니다...";
 			}
 		return result;
 	}

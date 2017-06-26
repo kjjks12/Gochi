@@ -1,6 +1,8 @@
 package gochi.travel.model.traveldao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +97,29 @@ public class TravelDaoImpl implements TravelDao{
 		String result = sqlsession.selectOne("traveladdMapper.overLapCheckList", overLapCheck);
 		return result;
 	}
+
+
+
+	@Override
+	public int updateItinearyTitle(String title, int travelNo) {
+		Map<String,Object>map = new HashMap<>();
+		map.put("title", title);
+		map.put("travelNo", travelNo);
+		return sqlsession.update("traveladdMapper.updateItinearyTitle", map);
+	}
+
+
+
+	@Override
+	public int updateTravelCover(String fileName, String email,String travelNo) {
+		Map<String,Object>map = new HashMap<>();
+		map.put("travelCoverImg", fileName);
+		map.put("email", email);
+		map.put("travelNo", travelNo);
+		return sqlsession.update("traveladdMapper.updateTravelCover", map);
+	}
+	
+	
 	
 
 }

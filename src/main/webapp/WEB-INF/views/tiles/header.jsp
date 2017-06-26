@@ -1,41 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
-<script type="text/javascript">
-   function SignInCheck() {
-
-      if (document.getElementById("nickname").value == "") {
-         alert("닉네임을 입력해 주세요!");
-      } else if (document.getElementById("email-sign").value == "") {
-         alert("email을 입력해 주세요!");
-      } else if (document.getElementById("password-sign").value == "") {
-         alert("비밀번호를 입력해 주세요!");
-      } else if (document.getElementById("re-password-sign").value == "") {
-         alert("비밀번호를 다시한번 입력해 주세요!");
-      } else if (document.getElementById("password-sign").value != document
-            .getElementById("re-password-sign").value) {
-         alert("비밀번호가 서로 일치하지 않아요!");
-      } else {
-         document.signInForm.submit();
-      }
-
-   }
-
-   function loginCheck() {
-
-      if (document.getElementById("loginEmail").value == "") {
-         alert("이메일을 입력해 주세요.");
-      } else if (document.getElementById("loginPassword").value == "") {
-         alert("패스워드를 입력해 주세요.");
-      } else {
-         document.loginForm.submit();
-      }
-   }
-</script>
-
-
 <style>
 .modal-backdrop {
    display: none !important
@@ -64,18 +29,12 @@
                   class="hidden-xs"><i class="icon fa fa-phone"></i>
                   (011)-8800-555</a> <a href="#" data-section="modal-contact"
                   data-target="#modal-contact" data-toggle="modal" class="hidden-xs"><i
-                  class="icon fa fa-envelope-o"></i> Info</a> <a
-                  href="${pageContext.request.contextPath}/mypage/goInfo"
-                  class="hidden-xs"><i class="icon fa fa-envelope-o"></i>
-                  myPageUpdate TEST</a>
+                  class="icon fa fa-envelope-o"></i> Info</a>
             </div>
-
             <div id="login-pan" class="col-md-6 hidden-xs">
                <c:if test="${empty sessionScope.dto}">
-                  <a href="#" data-toggle="modal" data-target=".login-modal"
-                     data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
-                  <a href="#" data-toggle="modal" data-target=".login-modal"
-                     data-section="login" id="login_btn"><i class="icon fa fa-user user"></i> 로그인</a>
+                  <a href="#" data-toggle="modal" data-target=".login-modal" data-section="sign-in"><i class="icon fa fa-pencil-square-o"></i>회원가입</a>
+                  <a href="#"  id="login_btn" data-toggle="modal" data-target=".login-modal" data-section="login"><i class="icon fa fa-user user"></i> 로그인</a>
                </c:if>
                <c:if test="${not empty sessionScope.dto}">
                   <a href="${pageContext.request.contextPath}/member/logout"><i
@@ -106,14 +65,16 @@
                <li class="has_submenu"><a
                   href="${pageContext.request.contextPath}/hotdeal/hotdeal_main">여행
                      핫딜</a></li>
-               <li class="has_submenu"><a href="#">나믿따</a></li>
+               <li class="has_submenu">
+               <a href="${pageContext.request.contextPath}/followme/followmeMain">나믿따</a>
+               </li>
                <li class="has_submenu">
                   <%-- <a href="${pageContext.request.contextPath}/traveladd/travel_add">여행일정</a> --%>
                   <a data-toggle="modal" data-target="#myModal">일정만들기</a> <!-- 일정만들기 모달   -->
                </li>
                <li class="has_submenu"><a
-                  href="${pageContext.request.contextPath}/travel_review/review">여행후기</a>
-               </li>
+                  href="${pageContext.request.contextPath}/travelreview/travelreview_main?data=전체">여행후기</a>
+               </li> 
                <li class="has_submenu"><a
                   href="${pageContext.request.contextPath}/restaurant/restaurant">맛집</a>
                </li>
@@ -128,7 +89,6 @@
    <a href="#" class="hidden-xs fixed-button email" data-toggle="modal"
       data-target="#modal-contact" data-section="modal-contact"><i
       class="fa fa-envelope-o"></i></a>
-
 </header>
 
 
@@ -157,17 +117,7 @@
                   <label for="content">간단 여행 이야기</label>
                   <textarea rows="2" class="form-control" name="briefStory"
                      id="brief_story"></textarea>
-                  <div id="login-pan" class="col-md-6 hidden-xs">
-                     <c:if test="${not empty sessionScope.dto}">
-                        <a href="${pageContext.request.contextPath}/member/logout"><i
-                           class="icon fa fa-user user"></i>로그아웃</a>
-                        <a href="#" data-toggle="modal" data-target=".user-info-modal"
-                           data-section="setting"><i
-                           class="icon fa fa-pencil-square-o"></i>${sessionScope.dto.email}</a>
-                     </c:if>
-                  </div>
                </div>
-
                   <!-- datepicker 시작 -->
                   <div class="travelDate">
                      <table>
@@ -237,10 +187,10 @@
             <div id="login" class="box">
                <h2 class="title">Login in to your account</h2>
                <h3 class="sub-title">come to KkoChi World~!</h3>
-               <input type="hidden" value="1" name="sep">
                <div class="field">
-                  <input id="loginEmail" name="user-log" class="form-control"
-                     type="email" placeholder="Email"> <i
+                  <input type="hidden" name="locationPath" value=""
+                     id="locationPath"> <input id="loginEmail" name="user-log"
+                     class="form-control" type="email" placeholder="Email"> <i
                      class="fa fa-user user"></i>
                </div>
                <div class="field">
@@ -256,17 +206,14 @@
                      <div id="naver_id_login"></div>
                   </button>
                   <script type="text/javascript">
-                     var naver_id_login = new naver_id_login(
-                           "qkQPxecKnvS2x7Gphr25",
-                           "http://localhost:8000/controller/login/callback");
-                     var state = naver_id_login.getUniqState();
-                     naver_id_login.setButton("green", 2, 40);
-                     naver_id_login
-                           .setDomain("http://localhost:8000/controller/");
-                     naver_id_login.setState(state);
-                     naver_id_login.setPopup();
-                     naver_id_login.init_naver_id_login();
-                  </script>
+                                var naver_id_login = new naver_id_login("qkQPxecKnvS2x7Gphr25", "http://localhost:8000/controller/login/callback");
+                                var state = naver_id_login.getUniqState();
+                                naver_id_login.setButton("green", 2,40);
+                                naver_id_login.setDomain("http://localhost:8000/controller/");
+                                naver_id_login.setState(state);
+                                naver_id_login.setPopup();
+                                naver_id_login.init_naver_id_login();
+                        </script>
                   <button type="reset" class="btn btn-reverse button-form">Reset</button>
                   <button type="button" class="btn btn-default button-form"
                      id="loginBun" onclick="loginCheck()">Login</button>
@@ -315,12 +262,8 @@
          </form>
          <!-- ./form-container -->
       </div>
-      <!-- ./login-button-container -->
    </div>
-   <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
-
 
 <!-- 사용자정보 모달!!!!!!!!!!!!!!!!!!!! -->
 <div class="modal fade user-info-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -462,3 +405,35 @@
     }
    </script>
    <!-- datepicker script  end-->
+
+   <script type="text/javascript">
+function SignInCheck(){
+   
+   if(document.getElementById("nickname").value==""){
+      alert("닉네임을 입력해 주세요!");
+   }else if(document.getElementById("email-sign").value==""){
+      alert("email을 입력해 주세요!");
+   }else if(document.getElementById("password-sign").value==""){
+      alert("비밀번호를 입력해 주세요!");
+   }else if(document.getElementById("re-password-sign").value==""){
+      alert("비밀번호를 다시한번 입력해 주세요!");
+   }else if(document.getElementById("password-sign").value!=document.getElementById("re-password-sign").value){
+      alert("비밀번호가 서로 일치하지 않아요!");
+   }else{
+      document.signInForm.submit();
+   }
+   
+}
+
+function loginCheck(){
+   if(document.getElementById("loginEmail").value==""){
+      alert("이메일을 입력해 주세요.");
+   }else if(document.getElementById("loginPassword").value==""){
+      alert("패스워드를 입력해 주세요.");
+   }else{
+      var path = window.location.pathname;
+      document.getElementById("locationPath").value=path;
+      document.loginForm.submit();
+   }
+}
+</script>
