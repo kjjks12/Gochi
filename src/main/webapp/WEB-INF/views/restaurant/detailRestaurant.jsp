@@ -43,6 +43,21 @@ height: 100%;
 width: 100%;
 height: 100%;
 }
+#message {
+	margin-bottom: 8px;
+}
+.modal-dialog .form-container .field textarea {
+	height : 260px;
+}
+#modal-contact3 { padding-left: 0; }
+#modal-contact3 .modal-dialog { 
+	width: 700px !important; left: calc(50% - 365px); margin-left: 0;
+}
+
+#fileUpLoad {
+	padding-left: 0px;
+}
+
 
 </style>
 <script>
@@ -338,37 +353,41 @@ function fileUpload(){
             <i class="fa fa-close"></i>
          </button>
 
-         <div class="form-container full-fixed">
-            <form method="post" action="post" id="postForm" enctype="multipart/form-data">
-               <div id="form-modal-map" class="box active modal-contact">
-                  <h2 class="title" id="new-food"><i class="fa fa-pencil"></i> 포스팅 하기</h2>
-                  <div class="wrap-right">
-                     <div class="field">
-                        <span class="food-insert" ></span>
-                        <input type="hidden" value="${sessionScope.dto.email}" name="email">
-                        <input id="food-name" class="form-control" type="text" name="food-name" placeholder="제목">
-                        <i class="fa fa-home" aria-hidden="true"></i>
-                     </div>
-                     <div class="field">
-                     <textarea class="form-control" name="message" id="message" placeholder="내용을 적어주세요"></textarea>
-                     </div>
-                     <!-- 포스팅 사진 추가 -->
-                     <input type="file" name="file" multiple>
-                  </div>
-               </div>
-               <div class="field footer-form text-right">
-                  <button type="reset" class="btn btn-reverse button-form" data-dismiss="modal">Reset</button>
-                  <button type="button" class="btn btn-default button-form" onclick="post()">Send</button>
-               </div>
-            </form>
-         </div>
-      </div>
-      <!-- /.modal-dialog -->
-   </div>
-   
-   <!-- 로그인 되지않은 사용자 로그인 모달 띄우기 -->
-   <script>
-      $("#abc").click(function() {
-         $("#login_btn").click()
-      })
-   </script>
+
+			<div class="form-container full-fixed">
+				<form method="post" action="post" id="postForm" enctype="multipart/form-data">
+					<div id="form-modal-map" class="box active modal-contact">
+						<h2 class="title" id="new-food"><i class="fa fa-pencil"></i> 포스팅 하기</h2>
+						<div class="wrap-right">
+							<div class="field">
+								<span class="food-insert" ></span>
+								<input type="hidden" value="${sessionScope.dto.email}" name="email">
+								<input id="food-name" class="form-control" type="text" name="food-name" placeholder="제목">
+								<i class="fa fa-home" aria-hidden="true"></i>
+							</div>
+							<div class="field">
+							<textarea class="form-control" name="message" id="message" placeholder="내용을 적어주세요"></textarea>
+							</div>
+							<!-- 포스팅 사진 추가 -->
+							<div>
+								<input type="file" name="file" multiple id="fileUpLoad">
+							</div>
+						</div>
+					</div>
+					<div class="field footer-form text-right">
+						<button type="reset" class="btn btn-reverse button-form" data-dismiss="modal">Reset</button>
+						<button type="button" class="btn btn-default button-form" onclick="post()">Send</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<!-- 로그인 되지않은 사용자 로그인 모달 띄우기 -->
+	<script>
+		$("#abc").click(function() {
+			$("#login_btn").click()
+		})
+	</script>
+

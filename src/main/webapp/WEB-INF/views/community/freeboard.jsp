@@ -97,10 +97,10 @@
 													<i id="default_btn" class="icon fa fa-cog" ></i>
 												</a>
 											<span id="modify_delete_dis" style="width:100%; height:100%; display:none">
-												<a href="#" id="modify_update_a" name="${i.boardno}">
+												<a href="javascript:;" id="modify_update_a" name="${i.boardno}">
 													<i id="modify_btn" class="icon fa fa-wrench"></i>
 												</a>
-<!-- 아이디 들어오면 권한 비교하는거 해야되 -->	<a href="#" id="modify_delete_a" name="${i.boardno}">
+<!-- 아이디 들어오면 권한 비교하는거 해야되 -->	<a href="javascript:;" id="modify_delete_a" name="${i.boardno}">
 													<i id="delete_btn" class="icon fa fa-times"></i>
 												</a>	
 											</span>

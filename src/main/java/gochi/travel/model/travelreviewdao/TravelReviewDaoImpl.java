@@ -10,6 +10,7 @@ import gochi.travel.model.memberdto.MemberDTO;
 import gochi.travel.model.traveldto.CheckListDTO;
 import gochi.travel.model.traveldto.TravelDTO;
 import gochi.travel.model.traveldto.TravelItinearyDTO;
+import gochi.travel.model.travelreviewdto.TravelReviewCommentDTO;
 import gochi.travel.model.travelreviewdto.TravelReviewDto;
 
 @Repository
@@ -20,17 +21,24 @@ public class TravelReviewDaoImpl implements TravelReviewDao{
 	
 	/* 최신글 전체검색*/
 	@Override
-	public List<TravelReviewDto> newTrvelReview(String data) {
+	public List<TravelDTO> newTrvelReview(String data) {
 		if(data.equals("all")){
-			return sqlSession.selectList("travelReviewMapper.newTrvelReview");
+			List<TravelDTO> list = sqlSession.selectList("travelReviewMapper.newTrvelReview");
+			System.out.println("타이틀 은 : "+list.get(0).getTitle());
+			System.out.println("글쓴이 는 "+list.get(0).getEmail());
+			return list;
 		}
 		return sqlSession.selectList("travelReviewMapper.newTrvelReview",data);
 	}
 	
 	/* 좋아요순 전체검색*/
 	@Override
-	public List<TravelReviewDto> goodTravelReview(String data) {
-		
+	public List<TravelDTO> goodTravelReview(String data) {
+		if(data.equals("all")){
+			List<TravelDTO> list = sqlSession.selectList("travelReviewMapper.goodTravelReview");
+			System.out.println(list.get(0).getTitle());
+			return list;
+		}
 		return sqlSession.selectList("travelReviewMapper.goodTravelReview",data);
 	}
 	
@@ -59,6 +67,12 @@ public class TravelReviewDaoImpl implements TravelReviewDao{
 	public List<CheckListDTO> checkList(String index) {
 		
 		return sqlSession.selectList("travelReviewMapper.selectCheckList", Integer.parseInt(index));
+	}
+
+	@Override
+	public int insertComment(TravelReviewCommentDTO commentDTO) {
+		
+		return sqlSession.insert("travelReviewMapper.commentInsert",commentDTO);
 	}
 
 	

@@ -52,14 +52,12 @@
 
 
 <select id="pagination" parameterType="map" resultMap="board">
-	select rnum,<include refid="replay"/> from (select rownum rnum,Board_No,Email,Title,Favor,CONTENT, D_DAY, HITS, SEL
-from Free_Board order by Board_no desc)
+	select rnum,<include refid="replay"/> from (select rownum rnum,Board_No,Email,Title,Favor,CONTENT, D_DAY, HITS, SEL from Free_Board order by Board_no desc)
 	<where>
 		<if test="startNum!=null">
 			rnum between ${startNum} and ${lastNum}
 		</if>
 	</where> 
-	order by Board_no desc
 </select>
 
 <update id="hits" parameterType="int">
@@ -71,6 +69,25 @@ from Free_Board order by Board_no desc)
 			
 		</where>
 </update>
+
+<update id="favor" parameterType="int">
+	update FREE_BOARD set favor=favor+1
+	<where>
+		<if test="_parameter!=null">
+			Board_no=#{_parameter}
+		</if>
+	</where>
+</update>
+
+<select id="favorNum" parameterType="int" resultMap="board">
+	select <include refid="replay"/> from FREE_BOARD
+	<where>
+		<if test="_parameter!=null">
+			BOARD_NO=#{_parameter}
+		</if>
+	</where>
+</select>
+
 
 <delete id="delete" parameterType="int">
 	delete from FREE_BOARD
@@ -87,6 +104,17 @@ from Free_Board order by Board_no desc)
 		BOARD_NO=#{boardno}
 	</where>
 </update>
+
+
+<!-- FAG.JSP 전체 출력 코딩 -->
+<select id="faq" resultMap="qaboard">
+select rownum,QABoard_No,EMAIL,QATITLE,QAFAVOR,QACONTENT, QAD_DAY from (select QABoard_No,EMAIL,QATITLE,QAFAVOR,QACONTENT, QAD_DAY from QA_BOARD union all 
+   select Board_No,Email,Title,Favor,CONTENT, D_DAY from FREE_BOARD order by qafavor desc) 
+   <where>
+    rownum between 1 and 5
+   </where>
+</select>
+
 
 <!-- Q&A BOARD MAPPER -->
 <select id="qapagination" parameterType="map" resultMap="qaboard">
@@ -138,6 +166,7 @@ from QA_BOARD order by QABOARD_NO desc)
 		QABOARD_NO=#{qaBoardNo}
 	</where>
 </update>
+
 
 
 

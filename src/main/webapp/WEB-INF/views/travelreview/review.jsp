@@ -25,20 +25,21 @@
 					<!-- 여행 후기 목록 -->
 					<!-- 전체 한행의 넓이 9 -->
 
+
 <div class="col-xs-9 col-sm-9 col-md-9  col-lg-10"  >
 	<div id="left">
 	<div class=" col-xs-6 col-sm-6 col-md-6  col-lg-6" style="width:40%; " >
 		<div class=" blog-list post-line">
 		<div class="section-title line-style">
-							<h3 class="title">최신 여행후기</h3>
+							<h3 class="title">전체 최신 후기</h3>
 		</div>
  	<c:choose>
-         <c:when test="${reviewList.size()==0}">
+         <c:when test="${empty sessionScope.newTrvelReview}">
                <span colspan="6" align="center"><h2>여행후기가 없습니다...</h2></span>   
          </c:when>
    <c:otherwise>
    
-   		<c:forEach items="${newTrvelReview}" var="list" varStatus="state" >
+   		<c:forEach items="${sessionScope.newTrvelReview}" var="list" varStatus="state" >
      	
        		<div class="social" >
        		<span class="date">${state.count}<span>${list.thema}</span></span> <a href="#">
@@ -46,9 +47,9 @@
 			<i class="fa fa-eye"></i><span>0</span></a> <a href="#">
 			<i class="fa fa-comments"></i><span>0</span></a>
 			</div>
-			<a href="${pageContext.request.contextPath}/travel_review/review_detail">
+			<a href="${pageContext.request.contextPath}/travel_review/review_detail?index=${list.travelNo}">
 			<div class="image image-fill">
-			<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample" />
+			<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/${list.travelNo}/${list.email}/${list.travelCoverImg}' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />
 			</div>
 			<h3 class="subtitle">${list.title}</h3>
 			<div class="text">${list.email}</div>
@@ -69,16 +70,14 @@
 <div class=" col-xs-6 col-sm-6 col-md-6  col-lg-6" style="width:40%; margin-left: 70px;" >
 		<div class=" blog-list post-line" >
 		<div class="section-title line-style">
-							<h3 class="title">추천순</h3>
+							<h3 class="title">전체 후기 인기글</h3>
 		</div>
  <c:choose>
-         <c:when test="${empty reviewList}">
+         <c:when test="${empty sessionScope.goodTrvelReview}">
                <span colspan="6" align="center"><h2>여행후기가 없습니다...</h2></span>   
          </c:when>
    <c:otherwise>
-   
-   	
-     	<c:forEach items="${goodTrvelReview}" var="list" varStatus="state"  >
+     	<c:forEach items="${sessionScope.goodTrvelReview}" var="list" varStatus="state"  >
      	
        		<div class="social" >
        		<span class="date">${state.count}<span>${list.thema}</span></span> <a href="#">
@@ -86,9 +85,9 @@
 			<i class="fa fa-eye"></i><span>0</span></a> <a href="#">
 			<i class="fa fa-comments"></i><span>0</span></a>
 			</div>
-			<a href="${pageContext.request.contextPath}/travel_review/review_detail">
+			<a href="${pageContext.request.contextPath}/travel_review/review_detail?index=${list.travelNo}">
 			<div class="image image-fill">
-			<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample" />
+			<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/${list.travelNo}/${list.email}/${list.travelCoverImg}' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />
 			</div>   
 			<h3 class="subtitle">${list.title}</h3>
 			<div class="text">${list.email}</div>
@@ -103,7 +102,6 @@
 </div>
 						<!-- /.blog-list -->
 </div>
-
 
 
 
@@ -184,7 +182,7 @@
 						str2+='<i class="fa fa-heart-o"></i><span>'+item.favor+'</span></a> <a href="#">';
 						str2+='<i class="fa fa-eye"></i><span>0</span></a> <a href="#">';
 						str2+='<i class="fa fa-comments"></i><span>0</span></a></div>';
-						str2+='<a href="${pageContext.request.contextPath}/travel_review/review_detail">';
+						str2+="<a href='${pageContext.request.contextPath}/travel_review/review_detail?index="+item.travelNo+"'>";
 						str2+='<div class="image image-fill">';
 						str2+="<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/"+item.travelNo+"/"+item.email+"/"+item.travelCoverImg+"' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />";
 						str2+='</div>';
