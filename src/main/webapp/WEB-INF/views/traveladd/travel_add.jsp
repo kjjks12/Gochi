@@ -146,6 +146,8 @@ width: 100%;
 			//기존 보여주는 양식 숨기기
 			$("#travel_title").hide();
 			$("#travel_title_change_btn").hide();
+			
+			$("#nickName").css("text-shadow","2px 2px 2px black");
 			/* $.ajax({
 				type : "post",
 				url : "title="+title+"&travelNo=${travelDTO.travelNo}";
@@ -157,7 +159,7 @@ width: 100%;
 			//원래 여행 타이틀 div에 입력받은 text값 넣음
 			//var title = ($("#travel_title_text").val());
 			var travelTitle = $("#travel_title_text").val();
-			alert(travelTitle);
+			//alert(travelTitle);
 			$("#travel_title").text($("#travel_title_text").val());
 
 			//수정 입력폼 숨기기
@@ -199,6 +201,8 @@ width: 100%;
 
 				//글씨 색 바꾸기
 				$("#travel_title_span").css('color', 'white');
+				
+				$("#travel_title").css("text-shadow","2px 2px 2px gray");
 			}
 			if (file) {
 				reader.readAsDataURL(file);
@@ -210,7 +214,7 @@ width: 100%;
 				url:"${pageContext.request.contextPath}/updateTravelCover/${travelDTO.travelNo}",
 				enctype:"multipart/form-data",
 				success:function(){
-					alert("성공!!");
+					//alert("성공!!");
 				}
 			})
 			$("#updateTravelCover").submit();

@@ -17,10 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import gochi.travel.model.memberdto.MemberDTO;
+import gochi.travel.model.mypagedto.MypageDTO;
 import gochi.travel.model.traveldao.TravelDao;
 import gochi.travel.model.traveldto.CheckListDTO;
 import gochi.travel.model.traveldto.TravelDTO;
 import gochi.travel.model.traveldto.TravelItinearyDTO;
+import gochi.travel.mypageservice.MypageService;
 
 @CrossOrigin(origins="*")
 
@@ -29,14 +31,22 @@ public class TravelController {
 
    @Autowired
    private TravelDao travelAddDao;
+   
+   @Autowired
+   private MypageService mypageService;
 
    @RequestMapping("traveladd/travel_add")
    public ModelAndView travel(HttpSession session,TravelDTO travelDTO){
       MemberDTO memberDTO=(MemberDTO) session.getAttribute("dto");
+ 
       if(memberDTO!=null){
          travelDTO.setEmail(memberDTO.getEmail());
       }
-      travelAddDao.initTravelInfoSave(travelDTO);
+      //System.out.println("수정하고자 하는 글 번호 : "+travelDTO.getTravelNo());
+      if(travelDTO.getTravelNo()==0){//수정하는 경우에는 삽입하지 않겠다
+      travelAddDao.initTravelInfoSave(travelDTO);//error
+      System.out.println("수정작업입니다.");
+      }
       System.out.println("테마:"+travelDTO.getThema());
       ModelAndView mv= new ModelAndView();
 
@@ -44,6 +54,7 @@ public class TravelController {
 
       mv.addObject("travelDTO", travelDTO);
       System.out.println("여행번호"+travelDTO.getTravelNo());
+ 
       return mv;
    }
 
@@ -201,4 +212,18 @@ public class TravelController {
 		//return memberDTO.getEmail();
 		return "index";
 	}
+  @RequestMapping(value="/selectMyTravelList/{email}")
+  public String selectMyTravelList(HttpSession session,@PathVariable String email,HttpServletRequest request){
+	  MemberDTO memberSessionDTO = (MemberDTO)session.getAttribute("dto");
+	  MypageDTO mypageDTO = mypageService.selectByEmail(email);
+	  
+	  System.out.println("세션에서 가져온 아이디 :"+memberSessionDTO.getEmail());
+	  System.out.println("인자값에서 가져온 아이디 : "+mypageDTO.getEmail());
+		  if(mypageDTO.getEmail().equals(memberSessionDTO.getEmail())){
+			 List<TravelDTO> list = travelAddDao.selectMyTravelList(memberSessionDTO.getEmail());
+			 request.setAttribute("travelDTO", list);
+			 
+		  }
+	  return "traveladd/travel_list";
+  }
 }

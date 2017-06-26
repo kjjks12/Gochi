@@ -1,25 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
-   pageEncoding="UTF-8"%>
-=======
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
->>>>>>> 63cd37b29d265a654dda053ee78a6c5814169d9f
 
 <!-- 롤링 스타일 -->
 <style>
 .sdivde {
-<<<<<<< HEAD
-   overflow: hidden;
-   position: relative;
-   height: 500px;
-   width: 100%;
-=======
 	overflow: hidden;
 	position: relative;
 	height: 500px;
 	width: 100%;
->>>>>>> 1df1be3f296441fe39f16a28913f4b44c6e28780
 }
 
 .sdivde .image_list {
@@ -50,25 +39,9 @@
 width: 100%;
 height: 100%;
 }
-<<<<<<< HEAD
-=======
-.restaurant_front_img{
-width: 100%;
-height: 100%;
-}
->>>>>>> 1df1be3f296441fe39f16a28913f4b44c6e28780
 </style>
 <script>
 function post(){
-<<<<<<< HEAD
-   if(document.getElementById("food-name").value==""){
-      alert("제목을 입력해 주세요.");
-   }else if(document.getElementById("message").value==""){
-      alert("내용을 입력해 주세요.");
-   }else{
-      document.getElementById("postForm").submit();
-   }
-=======
 	if(document.getElementById("food-name").value==""){
 		alert("제목을 입력해 주세요.");
 	}else if(document.getElementById("message").value==""){
@@ -94,15 +67,10 @@ function post(){
 	    //ajax 끝
 		//document.getElementById("postForm").submit();
 	}
->>>>>>> 63cd37b29d265a654dda053ee78a6c5814169d9f
-}
 </script>
 
 
 </head>
-
-
-<<<<<<< HEAD
    <div id="page-container">
       <section id="header-page" class="header-margin-base">
          <div class="skyline">
@@ -148,7 +116,6 @@ function post(){
                   
 <!-- 이미지 출력 스크립트입니다. -->
 <script type="text/javascript">
-=======
 	<div id="page-container">
 		<section id="header-page" class="header-margin-base">
 			<div class="skyline">
@@ -254,7 +221,7 @@ function post(){
                   </div>
                </div>
                <!-- /롤링 끝 -->
-=======
+               <script>
 	function readURL(input) {
 	
 	    if (input.files && input.files[0]) {
@@ -268,7 +235,6 @@ function post(){
 	    }
 	
 	}
-</script>
 
 <!-- ajax를 이용한 파일업로드 부분입니다. -->
 <script type="text/javascript">
@@ -405,109 +371,7 @@ function fileUpload(){
 			</div><!-- 블로그 부분 끝 -->
 		</section>
 	</div>
->>>>>>> 1df1be3f296441fe39f16a28913f4b44c6e28780
 
-<<<<<<< HEAD
-               <div class="col-md-3">
-                  <div class="section-title line-style">
-                     <h3 class="title">
-                        <i class="fa fa-cutlery" aria-hidden="true"></i> 맛집 정보
-                     </h3>
-                  </div>
-                  <ul class="category-list">
-                     <li class="category-detail">
-                        <dt>카테고리</dt>
-                        <dd>음식점</dd>
-                     </li>
-                     <li class="category-detail">
-                        <dt>맛집</dt>
-                        <dd>야탑 담소 순대국</dd>
-                     </li>
-                     <li class="category-detail">
-                        <dt>주 소</dt>
-                        <dd>경기도 판교시</dd>                     
-                     </li>
-                     <li class="category-detail">
-                        <dt>영업시간</dt>
-                        <dd>24시간</dd>
-                     </li>
-                     <li class="category-detail">
-                        <dt>휴무일</dt>
-                        <dd>24시간 영업</dd>
-                     </li>
-                     <li class="category-detail">
-                        <dt>연락처</dt>
-                        <dd>031-777-777</dd>
-                     </li>
-                     <li class="category-detail" id="category-final">
-                        <dt>추가설명</dt>
-                        <dd>여기 일반 순대국이 정말 맛나요</dd>
-                     </li>
-                  </ul>
-                  <div><a href="#" data-toggle="modal" data-target="#modal-contact3"><font style="font-size: 20px;"><i class="fa fa-comment"></i>포스트 작성하기+</font></a></div>
-               </div>
-            </div>
-         <br>
-         <br>      
-      <!--다른 사람들의 포스트 출력하는 부분 입니다.  -->
-      <div class="container">
-      
-            <div class="list-box-title">
-               <span><i class="icon fa fa-plus-square"></i>다른 여행자의 포스트</span>
-            </div>
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="box-ads box-home">
-                     <a class="hover-effect image image-fill" href="property-detail.html">
-                        <span class="cover"></span>
-                        <img alt="Sample images" src="http://placehold.it/1240x745/bbbbbb/ffffff">
-                        <h3 class="title">59 Paterson Ave</h3>
-                     </a><!-- /.hover-effect -->
-                     <span class="price">물품금액</span>
-                     <span class="address">제목부분</span>
-                     <span class="description">내용</span>
-                     <div class="footer">
-                        <a class="btn btn-reverse" href="property-detail.html">Read now</a>
-                     </div>
-                  </div><!-- /.box-home .box-ads -->
-               </div><!-- ./col-md-4 -->
-               <div class="col-md-4">
-                  <div class="box-ads box-home">
-                     <a class="hover-effect image image-fill" href="property-detail.html">
-                        <span class="cover"></span>
-                        <img alt="Sample images" src="http://placehold.it/1240x745/bbbbbb/ffffff">
-                        <h3 class="title">560 Marshall Dr</h3>
-                     </a><!-- /.hover-effect -->
-                     <span class="price">물건금액</span>
-                     <span class="address">제목부분</span>
-                     <span class="description">내용</span>
-                     <div class="footer">
-                        <a class="btn btn-reverse" href="property-detail.html">Read now</a>
-                     </div>
-                  </div><!-- /.box-home .box-ads -->
-               </div><!-- ./col-md-4 -->
-               <div class="col-md-4">
-                  <div class="box-ads box-home">
-                     <a class="hover-effect image image-fill" href="property-detail.html">
-                        <span class="cover"></span>
-                        <img alt="Sample images" src="http://placehold.it/1240x745/bbbbbb/ffffff">
-                        <h3 class="title">477 Jersey Ave</h3>
-                     </a><!-- /.hover-effect -->
-                     <span class="price">물건금액</span>
-                     <span class="address">제목부분</span>
-                     <span class="description">내용</span>
-                     <div class="footer">
-                        <a class="btn btn-reverse" href="property-detail.html">Read now</a>
-                     </div>
-                  </div><!-- /.box-home .box-ads -->
-               </div><!-- ./col-md-4 -->
-            </div><!-- 다른사람의 포스트 보기 마지막 부분입니다. -->
-         </div><!-- 블로그 부분 끝 -->
-         
-      </section>
-      
-      
-   </div>
 
    <%-- <jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" /> --%>
    

@@ -13,6 +13,11 @@
 </select>
  -->
  
+ <!-- columns -->
+ <sql id="travelCoulumns">
+ 	TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
+ </sql>
+ 
  <resultMap type="gochi.travel.model.traveldto.TravelDTO" id="travelDTOResultMap">
  <id property="travelNo" column="TRAVEL_NO"/>
  <result property="title" column="TITLE"/>
@@ -25,6 +30,17 @@
  <result property="travelCoverImg" column="TRAVEL_COVER_IMG"/>
  </resultMap>
 
+ <resultMap type="TravelDTO" id="TravelDTOResultMap">
+ 	<id property="travelNo" column="TRAVEL_NO"/>
+ 	<result property="title" column="TITLE"/>
+ 	<result property="email" column="EMAIL"/>
+ 	<result property="thema" column="THEMA"/>
+ 	<result property="travelStartDay" column="TRAVEL_START_DAY"/>
+ 	<result property="travelEndDay" column="TRAVEL_END_DAY"/>
+ 	<result property="briefStory" column="BRIEF_STORY"/>
+ 	<result property="favor" column="FAVOR"/>
+ 	<result property="travelCoverImg" column="TRAVEL_COVER_IMG"/>
+ </resultMap>
 
  <!-- 여행 일정 기본 정보 등록 -->
  <insert id="insertInitTravelInfo" parameterType="gochi.travel.model.traveldto.TravelDTO" >
@@ -32,7 +48,6 @@
  VALUES (TRAVEL_NO.NEXTVAL,#{title},#{email},#{thema},#{travelStartDay},#{travelEndDay},#{briefStory},0,NULL)
  <selectKey keyProperty="travelNo" resultType="Integer" order="AFTER">select TRAVEL_NO.currval from dual</selectKey>
 </insert>
-
 
  <resultMap type="TravelItinearyDTO" id="TravelItinearyDTOResultMap">
  <id property="itinearyNo" column="ITINEARY_NO"/>
@@ -47,6 +62,8 @@
  <result property="category" column="CATEGORY_CLASSIFICATION"/>
  <result property="story" column="STORY"/>
  </resultMap>
+ 
+
 
 <!-- 여행일정 1개 일정표 등록 -->
  <insert id="insertTravelItineary" parameterType="TravelItinearyDTO" >
@@ -76,6 +93,14 @@ where TRAVEL_NO =#{travelNo}
 	where EMAIL = #{email}
 	and TRAVEL_NO =#{travelNo}
 </update>
+
+<!-- 나의 여행 일정 리스트 조회 -->
+<select id="selectMyTravelList" parameterType="String" resultMap="TravelDTOResultMap">
+	select <include refid="travelCoulumns"/>
+	from TRAVEL
+	where EMAIL = #{email}
+	order by TRAVEL_NO desc
+</select>
 
 <!-- 체크리스트 검색 -->
 <select id="selectCheckList" parameterType="integer" resultType="String">

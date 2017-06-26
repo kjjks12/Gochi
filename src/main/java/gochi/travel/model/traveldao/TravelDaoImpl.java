@@ -118,6 +118,13 @@ public class TravelDaoImpl implements TravelDao{
 		map.put("travelNo", travelNo);
 		return sqlsession.update("traveladdMapper.updateTravelCover", map);
 	}
+
+
+
+	@Override
+	public List<TravelDTO> selectMyTravelList(String email) {
+		return sqlsession.selectList("traveladdMapper.selectMyTravelList", email);
+	}
 	
 	
 	

@@ -154,5 +154,14 @@ public class TravelDTO {
 
 	public void setTravelCoverImgFile(MultipartFile travelCoverImgFile) {
 		this.travelCoverImgFile = travelCoverImgFile;
+	}
+
+	@Override
+	public String toString() {
+		return "TravelDTO [travelNo=" + travelNo + ", title=" + title + ", email=" + email + ", thema=" + thema
+				+ ", travelStartDay=" + travelStartDay + ", travelEndDay=" + travelEndDay + ", briefStory=" + briefStory
+				+ ", favor=" + favor + ", travelCoverImg=" + travelCoverImg + ", travelCoverImgFile="
+				+ travelCoverImgFile + "]";
 	}		
+	
 }

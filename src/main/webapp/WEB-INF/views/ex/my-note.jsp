@@ -158,9 +158,9 @@ $(function(){
 		})
 	})
 	
-	$(document).on("mouseenter","[id=aTag]",function(){//id=aTag에 마우스 접촉시
+	/* $(document).on("mouseenter","[id=aTag]",function(){//id=aTag에 마우스 접촉시
 		//console.log("a");
-		$(this).animate({"font-size":"40px"},"fast");
+		$(this).delay(300).animate({"font-size":"40px"},"fast");
 	})
 	
 	$(document).on("mouseleave","[id=aTag]",function(){//id=aTag에 마우스 이탈시
@@ -168,12 +168,12 @@ $(function(){
 	})
 	
 	$(document).on("mouseenter","[class=searchedIDs]",function(){//찾은 id에 마우스 접근시
-		$(this).animate({"font-size":"30px"},"fast");
+		$(this).delay(300).animate({"font-size":"30px"},"fast");
 	})
 	
 	$(document).on("mouseleave","[class=searchedIDs]",function(){//찾은 id에서 마우스 이탈시
 		$(this).animate({"font-size":"20px"},"fast");
-	})
+	}) */
 })
 </script>
 <style>
