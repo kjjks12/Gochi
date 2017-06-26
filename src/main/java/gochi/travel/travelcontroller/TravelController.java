@@ -36,7 +36,7 @@ public class TravelController {
 		travelAddDao.initTravelInfoSave(travelDTO);
 		System.out.println("테마:"+travelDTO.getThema());
 		ModelAndView mv= new ModelAndView();
-		mv.setViewName("traveladd/travel_add/editor");
+		mv.setViewName("traveladd/travel_add");
 		mv.addObject("travelDTO", travelDTO);
 		System.out.println("여행번호"+travelDTO.getTravelNo());
 		return mv;
@@ -54,6 +54,14 @@ public class TravelController {
 	}
 
 */
+	@RequestMapping("traveladd/travelitinearySelectAll")
+	@ResponseBody
+	public List<TravelItinearyDTO> travelitinearySelectAll(@RequestParam(value="travelNo", defaultValue="0")int travelNo){
+
+		
+		return 	travelAddDao.travelitinearySelectAll(travelNo);
+	}
+	
 	
 	
 
@@ -62,6 +70,7 @@ public class TravelController {
 	public TravelItinearyDTO travelItineary(TravelItinearyDTO travelItinearyDTO){
 		
 		System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
+		System.out.println("여행 일정번호 :"+travelItinearyDTO.getItinearyNo());
 		System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
 		System.out.println("내용:"+travelItinearyDTO.getStory());
 		System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
@@ -73,22 +82,24 @@ public class TravelController {
 		return travelItinearyDTO;
 	}	
 	
-	@RequestMapping("traveladd/travelItineary")
+	@RequestMapping("traveladd/selectTravelItineary")
 	@ResponseBody
-	public TravelItinearyDTO selectTravelItineary(@RequestParam(value="itinearyNo")int itinearyNo){
-		
-		System.out.println("itinearyNo:"+itinearyNo);
+	public TravelItinearyDTO selectTravelItineary(@RequestParam(value="itinearyNo", defaultValue="0")int itinearyNo){
+		System.out.println("========수정할 정보============");
+		System.out.println("여행일정 번호:"+itinearyNo);
 		TravelItinearyDTO travelItinearyDTO=travelAddDao.selectTravelItineary(itinearyNo);
-		
-		System.out.println("11:"+travelItinearyDTO.getTravelItinearyTitle());
+		System.out.println("여행일정 제목:"+travelItinearyDTO.getTravelItinearyTitle());
+		System.out.println("여행시작시간:"+travelItinearyDTO.getStartTime());
+		System.out.println("여행끝시간:"+travelItinearyDTO.getEndTime());
 		
 		return 	travelAddDao.selectTravelItineary(itinearyNo);
 	}	
 
-	@RequestMapping("traveladd/travelItinearyUpdate")
+@RequestMapping("traveladd/travelItinearyUpdate")
 	@ResponseBody
 	public TravelItinearyDTO travelItinearyUpdate(TravelItinearyDTO travelItinearyDTO){
-		System.out.println("========수정============");
+		System.out.println("========수정된 정보============");
+		System.out.println("여행 일정번호 :"+travelItinearyDTO.getItinearyNo());
 		System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
 		System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
 		System.out.println("내용:"+travelItinearyDTO.getStory());
@@ -97,11 +108,18 @@ public class TravelController {
 		System.out.println("위도:"+travelItinearyDTO.getLatitude());
 		System.out.println("경도:"+travelItinearyDTO.getLogtitude());
 		
-		travelAddDao.travelItinearySave(travelItinearyDTO);
+		travelAddDao.travelItinearyUpdate(travelItinearyDTO);
 		return travelItinearyDTO;
 	}	
 	
+@RequestMapping("traveladd/travelItinearyDelete")
+@ResponseBody
+public int travelItinearyDelete( @RequestParam(value="itinearyNo", defaultValue="0")int itinearyNo){
 	
+	return travelAddDao.travelItinearyDelete(itinearyNo);
+}	
+
+
 
 	/*체크리스트*/
 	@RequestMapping("traveladd/checkList")

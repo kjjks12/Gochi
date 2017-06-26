@@ -38,37 +38,37 @@ public class UpLoadController{
 	 * @param request 이미지 유무 판별
 	 * @return 프로필페이지
 	 */
-	@RequestMapping(value="/uploadProfileImg/{email}")
-	public String uploadProfileImg(@RequestParam MultipartFile profileImgFile,HttpSession session,MypageDTO dto,HttpServletRequest request){
-		System.out.println("프로필 페이지 프로필 사진 관련 업로드 메소드");
-		profileImgFile = dto.getProfileImgFile();
-		System.out.println("파일 : "+profileImgFile);
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("dto");
-		String path = session.getServletContext().getRealPath("/resources/profileImg");
-		
-		System.out.println("경로 : "+session.getServletContext().getRealPath("/"));
-		System.out.println("멀티 파트 파일 : "+profileImgFile);
-		if(profileImgFile != null){
-			String fileName = profileImgFile.getOriginalFilename();
-			dto.setProfileImgFile(profileImgFile);
-		try{
-			/*profileImgFile.transferTo(new File(path+"/"+memberDTO.getEmail()+"/"+profileImgFile.getOriginalFilename()));*/
-			File file = new File(path+"/"+memberDTO.getEmail()+"/"+fileName);
-			if(!file.exists()){
-				file.mkdirs();
-			}
-			profileImgFile.transferTo(file);
-			
-			/***
-			 * @param profileImg 프로필 이미지 이름
-			 * @param email 세션에 저장된 ID
-			 */
-			myPageService.updateMyProfileImg(fileName, memberDTO.getEmail());
-			}catch(Exception e){}
-		}
-		return "redirect:/mypage/goInfo/"+memberDTO.getEmail();
-		//return memberDTO.getEmail();
-	}
+	 @RequestMapping(value="/uploadProfileImg/{email}")
+	   public String uploadProfileImg(@RequestParam MultipartFile profileImgFile,HttpSession session,MypageDTO dto,HttpServletRequest request){
+	      //System.out.println("프로필 페이지 프로필 사진 관련 업로드 메소드");
+	      profileImgFile = dto.getProfileImgFile();
+	      //System.out.println("파일 : "+profileImgFile);
+	      MemberDTO memberDTO = (MemberDTO)session.getAttribute("dto");
+	      String path = session.getServletContext().getRealPath("/resources/img/member/profile");
+	      
+	      System.out.println("경로 : "+path);
+	      //System.out.println("멀티 파트 파일 : "+profileImgFile);
+	      if(profileImgFile != null){
+	         String fileName = profileImgFile.getOriginalFilename();
+	         dto.setProfileImgFile(profileImgFile);
+	      try{
+	         /*profileImgFile.transferTo(new File(path+"/"+memberDTO.getEmail()+"/"+profileImgFile.getOriginalFilename()));*/
+	         File file = new File(path+"/"+memberDTO.getEmail()+"/"+fileName);
+	         if(!file.exists()){
+	            file.mkdirs();
+	         }
+	         profileImgFile.transferTo(file);
+	         
+	         /***
+	          * @param profileImg 프로필 이미지 이름
+	          * @param email 세션에 저장된 ID
+	          */
+	         myPageService.updateMyProfileImg(fileName, memberDTO.getEmail());
+	         }catch(Exception e){}
+	      }
+	      return "redirect:/mypage/goInfo/"+memberDTO.getEmail();
+	      //return memberDTO.getEmail();
+	   }
 	
 	/***
 	 * 프로필 페이지 커버 사진 관련 업로드 메소드
@@ -77,37 +77,38 @@ public class UpLoadController{
 	 * @param dto 이미지 파일 이름 가져오기 위한 dto
 	 * @return 프로필 페이지
 	 */
-	@RequestMapping("/uploadBackImg/{email}")
-	public String uploadBackImg(@RequestParam MultipartFile backImgFile,HttpSession session,MypageDTO dto,HttpServletRequest request){
-		System.out.println("프로필 페이지 커버 사진 관련 업로드 메소드");
-		backImgFile = dto.getBackImgFile();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("dto");
-		String path = session.getServletContext().getRealPath("/resources/uploadBackImg");
-		
-		System.out.println("경로 : "+session.getServletContext().getRealPath("/"));
-		System.out.println("멀티 파트 파일 : "+backImgFile);
-		
-		if(backImgFile != null){
-			String fileName = backImgFile.getOriginalFilename();
-			dto.setBackImgFile(backImgFile);
-		try{
-			File file = new File(path+"/"+memberDTO.getEmail()+"/"+fileName);
-			if(!file.exists()){
-				file.mkdirs();
-			}
-			
-			backImgFile.transferTo(file);
-			/***
-			 * @param profileImg 프로필 이미지 이름
-			 * @param email 세션에 저장된 ID
-			 */
-			//myPageService.updateMyProfileImg(fileName, memberDTO.getEmail());
-			System.out.println("파일 이름 : "+fileName);
-			
-			myPageService.updateMyBackProfileImg(fileName, memberDTO.getEmail());
-			}catch(Exception e){}
-		}
-		
-		return "redirect:/mypage/goInfo/"+memberDTO.getEmail();
-	}
+	 @RequestMapping("/uploadBackImg/{email}")
+	   public String uploadBackImg(@RequestParam MultipartFile backImgFile,HttpSession session,MypageDTO dto,HttpServletRequest request){
+	      //System.out.println("프로필 페이지 커버 사진 관련 업로드 메소드");
+	      backImgFile = dto.getBackImgFile();
+	      MemberDTO memberDTO = (MemberDTO)session.getAttribute("dto");
+	      String path = session.getServletContext().getRealPath("/resources/img/member/cover");
+	      
+	      //System.out.println("경로 : "+path);
+	      //System.out.println("멀티 파트 파일 : "+backImgFile);
+	      
+	      if(backImgFile != null){
+	         String fileName = backImgFile.getOriginalFilename();
+	         dto.setBackImgFile(backImgFile);
+	      try{
+	         File file = new File(path+"/"+memberDTO.getEmail()+"/"+fileName);
+	         if(!file.exists()){
+	            file.mkdirs();//폴더 없을시 자동으로 생성해줌
+	         }
+	         
+	         backImgFile.transferTo(file);
+	         /***
+	          * @param profileImg 프로필 이미지 이름
+	          * @param email 세션에 저장된 ID
+	          */
+	         //myPageService.updateMyProfileImg(fileName, memberDTO.getEmail());
+	         //System.out.println("파일 이름 : "+fileName);
+	         
+	         myPageService.updateMyBackProfileImg(fileName, memberDTO.getEmail());
+	         }catch(Exception e){}
+	      }
+	      
+	      return "redirect:/mypage/goInfo/"+memberDTO.getEmail();
+	   }
+	
 }
