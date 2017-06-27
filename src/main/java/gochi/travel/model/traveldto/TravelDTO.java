@@ -50,6 +50,20 @@ public class TravelDTO {
 		this.briefStory = briefStory;
 	}
 
+	
+	
+	/**
+	 * 저장버튼 눌렀을떄 받을 수 있는 생성자
+	 * */
+	public TravelDTO(int travelNo, String thema, String travelStartDay, String travelEndDay, String briefStory) {
+		super();
+		this.travelNo = travelNo;
+		this.thema = thema;
+		this.travelStartDay = travelStartDay;
+		this.travelEndDay = travelEndDay;
+		this.briefStory = briefStory;
+	}
+
 	/**
 	 * @see 전체 다 받는 생성자
 	 * @param travelNo

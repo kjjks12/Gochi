@@ -69,68 +69,70 @@
 		                        ${boardDTO.content}<br /><br />
 		                     </div>
 	                     </c:if>
-                              	<!-- comment start -->
-                  <div id="comments" class="col-md-12">
-                     <h2 class="title-comment">Comments<span class="total-comment">4</span></h2>
-                     <!-- 댓글 리스트 출력 -->
-                     <div class="medialist">
-                        <div class="media">
-                           <c:choose>
-                           <c:when test="${requestScope.commentList.size()==0}">
-                              첫번째 댓글을 달아주세용~! (찡끗)
-                           </c:when>
-                           </c:choose>
-                           <c:choose>
-                           <c:when test="${requestScope.commentList.size()>0}">
-                             <c:forEach items="${requestScope.commentList}" var="commentList" varStatus="state">
-                              <div class="media-left">
-                                 <a href="#">
-                                 <img class="media-object" src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" />
-                              </a>
-                           </div>
-                           <div class="media-body">
-                              <div class="comment-line">
-                                 <h4 class="media-heading">
-                                    ${commentList.email}
-                                    <span class="date-comment">${commentList.d_day}</span>
-                                     
-                                    <button class="reply" id="deleteComment" name="${commentList.email}"><i class="fa fa-share-square-o"></i></button>
-                                    
-                                 </h4>
-                                  ${commentList.content}
-                              </div>
-                           </div>
-                           <br>
-                           </c:forEach>
-                           </c:when>
-                           </c:choose>
-                           
-                        </div>
-                     </div>
-                     
-                     <!-- commnet 글쓰기 -->
-                     <div id="comments" class="col-md-12">
-                     <h3 class="title-form"><i class="icon fa fa-comment"></i> Leave a Comment</h3>
-                     <form class="form-large grey-color col-md-14" action="#" method="post">
-                        <div class="row">
-                           <div class="col-md-6 col-sm-6 col-xs-12">
-                              <label for="name">NicName</label>
-                              <input type="text" placeholder="Name .." name="name" id="name"  value="${dto.nickname}" class="margin-bottom form-control">
-                           </div>
-                           <div class="col-md-6 col-sm-6 col-xs-12">
-                              <label for="email">E-mail</label>
-                              <input type="text" placeholder="Email .." name="email" id="email" value="${dto.email}" 
-                                       class="margin-bottom form-control" >
-                           </div>
-                           <div class="col-md-12">
-                              <label for="text-message">Message</label>
-                              <textarea name="text-message" id="text-messageArea" rows="4" class="margin-bottom form-control"></textarea>
-                           </div>
-                        </div>
-                        <input type="submit" class="btn btn-default" value="Send Comment" id="commentAdd">
-                     </form>
-                        
-                  </div><!-- /. end-comment -->
+                     <!-- comment start -->
+						<div id="comments">
+							<h2 class="title-comment">Comments <span class="total-comment">4</span></h2>
+							<!-- 댓글 리스트 출력 -->
+							<div class="medialist" id="commentList">
+								<div class="media">
+									<c:choose>
+									<c:when test="${requestScope.commentList.size()==0}">
+										첫번째 댓글을 달아주세요...
+									</c:when>
+									</c:choose>
+									<c:choose>
+									<c:when test="${requestScope.commentList.size()>0}">
+									  <c:forEach items="${requestScope.commentList}" var="commentList" varStatus="state">
+										<div class="media-left">
+											<a href="#">
+											<img class="media-object" src="${pageContext.request.contextPath}/resources/img/member/profile/${commentList.email}/${commentList.profileImg}"  />
+										</a>
+									</div>
+									<div class="media-body">
+										<div class="comment-line">
+											<h4 class="media-heading">
+												${commentList.email}
+												<span class="date-comment">${commentList.d_day}</span>
+												 
+												<button class="reply" id="deleteComment" name="${commentList.email}"><h5> X </h5></button>
+											
+											</h4>
+											<span id="contentAera"> ${commentList.content} </span>
+										</div>
+									</div>
+									<br>
+									</c:forEach>
+									</c:when>
+									</c:choose>
+									
+								</div>
+							</div>
+
+                   		<!-- commnet 글쓰기 -->
+							<div id="comments">
+							<h3 class="title-form"><i class="icon fa fa-comment"></i> Leave a Comment</h3>
+							<form class="form-large grey-color" action="#" method="post">
+								<div class="row">
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<label for="name">NicName</label>
+										<input type="text" placeholder="Name .." name="name" id="name"  value="${dto.nickname}" class="margin-bottom form-control">
+									</div>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<label for="email">E-mail</label>
+										<input type="text" placeholder="Email .." name="email" id="email" value="${dto.email}" 
+													class="margin-bottom form-control" >
+									</div>
+									<div class="col-md-12">
+										<label for="text-message">Message</label>
+										<textarea name="text-message" id="text-messageArea" rows="4" class="margin-bottom form-control"></textarea>
+									</div>
+								</div>
+								<input  class="btn btn-default" value="Send Comment" id="commentAdd">
+							</form>
+							<div style="text-align: right;">
+								<button type="button" class="btn btn-default" id="back" name="back" onclick="history.back()">확인</button>
+							</div>	
+						</div><!-- /. end-comment -->
                   <div style="text-align: right;">
                         <button type="button" class="btn btn-default" id="back" name="back" onclick="page()">확인</button>
                      </div>
@@ -204,43 +206,81 @@
 
   </body>
   
-  <!-- comment 등록 스크립트 -->
+   <!-- comment 등록 스크립트 -->
 <script type="text/javascript">
 $(document).ready(function() {
-      
+		
 
-       $("#commentAdd").click(function() {
-            
-       
-          $.ajax({
-               url: "${pageContext.request.contextPath}/comment/commentAdd", //서보요청이름(주소)
-               type: "post", // method방식(get , post)
-               dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
-               data: "content="+$("#text-messageArea").val()+"&board_no=${requestScope.boardDTO.boardno}", 
-               success: function(result) {   // 성공결과
-               },
-               error :  function(err) {
-                  alert("오류발생 : "+ err);
-               }
-            })
-      })
-      
-      
-        $(document).on("click",'#deleteComment' , function() { 
-           $.ajax({
-               url: "${pageContext.request.contextPath}/comment/commentDelete", //서보요청이름(주소)
-               type: "post", // method방식(get , post)
-               dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
-               data: "sessionEmail=${sessionScope.dto.email}&board_no=${requestScope.boardDTO.boardno}&boardEmail="+$(this).attr("name"), 
-               success: function(result) {   // 성공결과
-                   alert(result)
-               },
-               error :  function(err) {
-                  alert("오류발생 : "+ err);
-               }
-            })
-           
-        })//삭제 끝
+		 $("#commentAdd").click(function() {
+				//alert($("#text-messageArea").val())
+		 
+			 $.ajax({
+					url: "${pageContext.request.contextPath}/comment/commentAdd", //서보요청이름(주소)
+					type: "post", // method방식(get , post)
+					dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+					data: "content="+$("#text-messageArea").val()+"&board_no=${requestScope.boardDTO.boardno}", 
+					success: function(result) {   // 성공결과
+						var str = "";
+						
+						 $.each(result,function(index,item){
+						//	 alert(item.email)
+		            		 str+='<div class="media-left">';
+		            		 str+='<a href="#">';
+		            		 str+='<img class="media-object" src="${pageContext.request.contextPath}/resources/img/member/profile/'+item.email+'/'+item.profileImg+'" />';
+							 str+='</a> </div>';
+							 str+='<div class="media-body"><div class="comment-line"><h4 class="media-heading">'+item.email;
+		            	 	 str+='<span class="date-comment">'+item.d_day+'</span>';
+						 	 str+='<button class="reply" id="deleteComment" name="'+item.email+'"><h5> X </h5></button>';
+						 	 str+='</h4><span id="contentAera">'+ item.content+'</span></div></div>'
+						 	str+='<br>';
+						 })
+		            	  	
+						 $("#commentList").html(str);	
+					
+					},
+					error :  function(err) {
+						alert("오류발생 : "+ err);
+					}
+				})
+		})
+		
+		
+		  $(document).on("click",'#deleteComment' , function() { 
+			//alert( $(this).parent().parent().children().next().text())
+			//alert(${sessionScope.dto.email}+"?????????????")
+			  $.ajax({
+					url: "${pageContext.request.contextPath}/comment/commentDelete", //서보요청이름(주소)
+					type: "post", // method방식(get , post)
+					dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+					data: "sessionEmail=${sessionScope.dto.email}&board_no=${requestScope.boardDTO.boardno}&boardEmail="
+							+$(this).attr("name")+"&content="+ $(this).parent().parent().children().next().text(), 
+					success: function(result) {   // 성공결과
+							var str = "";
+					
+							 $.each(result,function(index,item){
+								// alert(item.email)
+			            		 str+='<div class="media-left">';
+			            		 str+='<a href="#">';
+			            		 str+='<img class="media-object" src="${pageContext.request.contextPath}/resources/img/member/profile/'+item.email+'/'+item.profileImg+'" />';
+								 str+='</a> </div>';
+								 str+='<div class="media-body"><div class="comment-line"><h4 class="media-heading">'+item.email;
+			            	 	 str+='<span class="date-comment">'+item.d_day+'</span>';
+							 	 str+='<button class="reply" id="deleteComment" name="'+item.email+'"><h5> X </h5></button>';
+							 	 str+='</h4><span id="contentAera">'+ item.content+'</span></div></div>'
+							 	str+='<br>';
+							 })
+			            	  	
+							 $("#commentList").html(str);	
+								
+							
+					},
+					error :  function(err) {
+						alert("본인이 작성한 댓글이 아닙니다...");
+					}
+				})
+			  
+		  })
+})
         
         $("#favor").click(function() {
 	        	if($("#favorIcon").attr('class')=="fa fa-heart-o"){
@@ -268,7 +308,7 @@ $(document).ready(function() {
         
         
         
-})
+
 </script>
 <script type="text/javascript">
 function page() {

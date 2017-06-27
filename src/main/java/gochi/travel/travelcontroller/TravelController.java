@@ -22,6 +22,7 @@ import gochi.travel.model.traveldao.TravelDao;
 import gochi.travel.model.traveldto.CheckListDTO;
 import gochi.travel.model.traveldto.TravelDTO;
 import gochi.travel.model.traveldto.TravelItinearyDTO;
+import gochi.travel.mypageservice.MypageServiceImpl;
 import gochi.travel.mypageservice.MypageService;
 
 @CrossOrigin(origins="*")
@@ -190,6 +191,21 @@ public int travelItinearyDelete( @RequestParam(value="itinearyNo", defaultValue=
 	   travelAddDao.updateItinearyTitle(title, travelNo);
 	  return "index";//IOexception발생 방지하기위한 것(임의의 jsp주소를 작성)
 	}
+   
+   @RequestMapping("traveladd/savebtn")
+   public String savebtn(@RequestParam(value="travelNo")int travelNo,
+		   @RequestParam(value="briefStory")String briefStory,
+		   @RequestParam(value="thema")String thema,
+		   @RequestParam(value="travelStartDay")String travelStartDay,
+		   @RequestParam(value="travelEndDay")String travelEndDay){
+	   
+	   System.out.println("진입");
+	   travelAddDao.savebtn(new TravelDTO(travelNo, thema, travelStartDay, travelEndDay, briefStory));
+	   
+	   
+	   return "redirect:/travelreview/travelreview_main?data=all";
+   }
+   
    
   @RequestMapping(value="/updateTravelCover/{travelNo}")
 	public String updateTravelCover(@RequestParam MultipartFile travelCoverImgFile,HttpSession session,TravelDTO dto, @PathVariable String travelNo){

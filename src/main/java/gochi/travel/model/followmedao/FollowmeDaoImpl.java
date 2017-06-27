@@ -38,4 +38,9 @@ public class FollowmeDaoImpl implements FollowemeDao {
 
 
 
+	@Override
+	 public List<FollowemeDto> followSelect() {
+	      //List<FollowemeDto> list=sqlSession.selectList("followmeMapper.followSelect");
+	      return null;
+	   }
 }

@@ -1,13 +1,11 @@
 package gochi.travel.model.commentdto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class CommentDTO {
 		private int board_no;
 		private String content;
 		private String email;
 		private String d_day;
-		private MultipartFile profileImg;
+		private String profileImg;
 		
 		public CommentDTO(){}
 		public CommentDTO(int board_no, String content, String email) {
@@ -18,18 +16,19 @@ public class CommentDTO {
 		}
 		
 		
-		public CommentDTO(int board_no, String content, String email, String d_day) {
+		
+		
+		
+		public CommentDTO(int board_no, String content, String email,  String profileImg) {
 			super();
 			this.board_no = board_no;
 			this.content = content;
 			this.email = email;
-			this.d_day = d_day;
+			this.profileImg = profileImg;
 		}
 		
 		
-		
-		
-		public CommentDTO(int board_no, String content, String email, String d_day, MultipartFile profileImg) {
+		public CommentDTO(int board_no, String content, String email, String d_day, String profileImg) {
 			super();
 			this.board_no = board_no;
 			this.content = content;
@@ -61,10 +60,10 @@ public class CommentDTO {
 		public void setD_day(String d_day) {
 			this.d_day = d_day;
 		}
-		public MultipartFile getProfileImg() {
+		public String getProfileImg() {
 			return profileImg;
 		}
-		public void setProfileImg(MultipartFile profileImg) {
+		public void String(String profileImg) {
 			this.profileImg = profileImg;
 		}
 	

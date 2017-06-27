@@ -20,6 +20,11 @@ public class FollowmeServiceImpl implements FollowmeService {
 		return 0;
 	}
 
+	@Override
+	   public List<FollowemeDto> followSelect() {
+	      List<FollowemeDto> list=followemeDao.followSelect();
+	      return list;
+	   }
 	
 	//화면에 뿌려줄 정보 가져오기
 	@Override

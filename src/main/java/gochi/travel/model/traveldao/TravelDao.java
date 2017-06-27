@@ -22,14 +22,19 @@ public interface TravelDao {
 
 	/**여행일정 업데이트 */
 	TravelItinearyDTO travelItinearyUpdate(TravelItinearyDTO travelItinearyDTO);
+
+	int savebtn(TravelDTO travelDTO);
 	
 	/**여행 일정 삭제 */
 	int travelItinearyDelete (int travelNo);
 	/**여행 일정에서 타이틀 수정 */
 	int updateItinearyTitle(String title,int travelNo);
 	
+	
+	
 	/**여행 일정에서 커버 이미지 수정 */
 	int updateTravelCover(String fileName,String email,String travelNo);
+	
 	
 	/**내가 쓴 여행 일정리스트 조회 */
 	List<TravelDTO> selectMyTravelList (String email);

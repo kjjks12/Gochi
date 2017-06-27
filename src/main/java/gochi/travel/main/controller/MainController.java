@@ -1,6 +1,5 @@
 package gochi.travel.main.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +18,26 @@ import gochi.travel.model.traveldto.TravelDTO;
 @Controller
 public class MainController {
 	
+
 	@Autowired
-	private FollowmeService followmeService;
-	
-	@Autowired
-	   private TravelDao travelAddDao;
-	
+	   private FollowmeService followmeService;
+	   
+	   @Autowired
+	      private TravelDao travelAddDao;
+	   
 
-	@RequestMapping("/")
-	public ModelAndView index() {
-		ModelAndView mv = new ModelAndView();
 
-		List<TravelDTO> tlist = travelAddDao.list();
-
-		mv.addObject("tlist",tlist);
-		mv.setViewName("index");
-		return mv;
-	}
+	   @RequestMapping("/")
+	   public ModelAndView index() {
+	      ModelAndView mv = new ModelAndView();
+	      List<FollowemeDto> flist=followmeService.followSelect();
+	      List<TravelDTO> tlist = travelAddDao.list();
+	      mv.addObject("flist",flist);
+	      mv.addObject("tlist",tlist);
+	      mv.setViewName("index");
+	      return mv;
+	   }
+	   
 	
 	
 	

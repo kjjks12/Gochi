@@ -46,7 +46,11 @@ public class TravelReviewController {
 			data="alone";
 		}else if(data.equals("패키지여행")){
 			data="package";
-		}else{
+		}
+		else if(data.equals("all")){
+			data="all";
+		}
+		else{
 			data="all";
 		}
 		
