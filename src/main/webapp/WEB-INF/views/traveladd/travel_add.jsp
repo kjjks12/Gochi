@@ -80,6 +80,36 @@ $(function() {
 });
 
 </script>
+<script language="javascript">
+var i=0
+window.document.onkeydown = protectKey;
+function down() {
+        window.footer_cart.scrollBy(0,31)
+        return;
+}
+function up() {
+        window.footer_cart.scrollBy(0,-31)
+        return;
+}
+function protectKey()
+{
+        //새로고침을 막는 스크립트.. F5 번키..
+        if(event.keyCode == 116)
+        {
+                event.keyCode = 0;
+                return false;
+        }
+        //CTRL + N 즉 새로 고침을 막는 스크립트....
+        else if ((event.keyCode == 78) && (event.ctrlKey == true))
+        {
+                event.keyCode = 0;
+                return false;
+        }
+}
+
+</script>
+
+
 <script>
 function onlyNumber(obj) 
 {
@@ -494,6 +524,8 @@ var flag=0;
 var bounds;
 var mapMarkers=[];
 var countMaker=0;
+var linepPath2=[];
+var polyline2=new daum.maps.Polyline({});
 //지도 위에 표시되고 있는 마커를 모두 제거합니다
 	function removeMarker2() {
 		for (var i = 0; i < mapMarkers.length; i++) {
@@ -502,6 +534,19 @@ var countMaker=0;
 		mapMarkers = [];
 		countMaker=0;
 	}
+	function makePolyLine(){
+		// 지도에 표시할 선을 생성합니다
+		polyline2 = new daum.maps.Polyline({
+			endArrow :true,
+			path: linepPath2, // 선을 구성하는 좌표배열 입니다
+		    strokeWeight: 5, // 선의 두께 입니다
+		    strokeColor: '#FFAE00', // 선의 색깔입니다
+		    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+		    strokeStyle: 'solid' // 선의 스타일입니다
+		});
+		polyline2.setMap(map); // 지도에 올린다.
+	}
+	
 
 function addMarkers2(position,title) {
 	
@@ -554,13 +599,17 @@ function getAllDataAndMakeMarker(){
 		data: "travelNo="+${travelDTO.travelNo},
 		dataType : "json", //요청결과정보의 타입(text, html, xml, json)
 		success : function(travelItinearyDTOList) {
-			 removeMarker2(); 
+			polyline2.setMap(null);
+			removeMarker2(); 
+			 linepPath2=[];
 			 bounds = new daum.maps.LatLngBounds();
 			 $.each(travelItinearyDTOList , function (index, travelItinearyDTO) {
 				var markerPosition  = new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude); 
 				 addMarkers2(markerPosition,"일차:"+travelItinearyDTO.day+"일  제목:"+travelItinearyDTO.travelItinearyTitle);
-			 
+				 linepPath2.push(new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude))
+				 
 			 });
+			 makePolyLine();
 		},//ajax_Success
 		error : function(err) {
 			//alert(err + "오류발생")
@@ -672,90 +721,91 @@ function getAllDataAndMakeMarker(){
 								class="icon fa fa-envelope-o"></i></li>
 						</ul>
 
-					 <h2>
+					<h2>
                         <button type="button" class="btn btn-reverse"
                            data-toggle="modal" data-target="#exampleModal"
                            data-whatever="@checkList">체크리스트</button>
                      </h2>
                   <div id="checkboxList"> 
-                  	<c:choose>
-						<c:when test="${selectCheckList.size()==0}">
-							체크리스트 미등록...
-						</c:when>
-                  	<c:otherwise>
-                  	<div id='filter-box'>
-                  		<c:forEach items="${selectCheckList}" var="p" varStatus="state">
-                  		
-							<a href='#' class='filter'>${p}<i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>
-							
-						</c:forEach>
-					</div>
-					</c:otherwise>
-					</c:choose>
-                  	</div>
+                     <c:choose>
+                  <c:when test="${selectCheckList.size()==0}">
+                     체크리스트 미등록...
+                  </c:when>
+                     <c:otherwise>
+                     <div id='filter-box'>
+                        <c:forEach items="${selectCheckList}" var="p" varStatus="state">
+                        
+                     <a href='#' class='filter'>${p}<i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>
+                     
+                  </c:forEach>
+               </div>
+               </c:otherwise>
+               </c:choose>
+                     </div>
 
 
 
-						<!-- 체크리스트 모달  -->
-						<div class="modal fade" id="exampleModal" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">
-											<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-										</button>
-										<h4 class="modal-title" id="exampleModalLabel">Check List</h4>
-									</div>
+                  <!-- 체크리스트 모달  -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1"
+                     role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                     <div class="modal-dialog">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">
+                                 <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                              </button>
+                              <h4 class="modal-title" id="exampleModalLabel">Check List</h4>
+                           </div>
 
-									<div class="menu-navbar">
-										<nav id="navigation">
-
-
-											<ul>
-												<li class="has_submenu">
-													<h5>
-														<a href="#" onclick="checkChange('start')">출발</a>
-													</h5>
-												</li>
-												<li class="has_submenu">
-													<h5>
-														<a href="#" onclick="checkChange('see')">해변여행</a>
-													</h5>
-												</li>
-												<li class="has_submenu">
-													<h5>
-														<a href="#" onclick="checkChange('mt')">산 여행</a>
-													</h5>
-												</li>
-												<li class="has_submenu">
-													<h5>
-														<a href="#" onclick="checkChange('buty')">미용도구</a>
-													</h5>
-												</li>
-												<li class="has_submenu">
-													<h5>
-														<a href="#" onclick="checkChange('119')">구급약</a>
-													</h5>
-												</li>
+                           <div class="menu-navbar">
+                              <nav id="navigation">
 
 
-											</ul>
-										</nav>
-									</div>
-									<!-- /.menu -->
-									<div class="modal-body">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">돌아가기</button><!-- 모달종료 -->
-									
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 체크리스트 모달 끝 -->
+                                 <ul>
+                                    <li class="has_submenu">
+                                       <h5>
+                                          <a href="#" onclick="checkChange('start')">출발</a>
+                                       </h5>
+                                    </li>
+                                    <li class="has_submenu">
+                                       <h5>
+                                          <a href="#" onclick="checkChange('see')">해변여행</a>
+                                       </h5>
+                                    </li>
+                                    <li class="has_submenu">
+                                       <h5>
+                                          <a href="#" onclick="checkChange('mt')">산 여행</a>
+                                       </h5>
+                                    </li>
+                                    <li class="has_submenu">
+                                       <h5>
+                                          <a href="#" onclick="checkChange('buty')">미용도구</a>
+                                       </h5>
+                                    </li>
+                                    <li class="has_submenu">
+                                       <h5>
+                                          <a href="#" onclick="checkChange('119')">구급약</a>
+                                       </h5>
+                                    </li>
+
+
+                                 </ul>
+                              </nav>
+                           </div>
+                           <!-- /.menu -->
+                           <div class="modal-body">
+                              <div class="modal-body-list">히릿</div>
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button" class="btn btn-default"
+                                 data-dismiss="modal">돌아가기</button><!-- 모달종료 -->
+                           
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- 체크리스트 모달 끝 -->
 
 					</div>
 					<!-- /.info-container -->
@@ -1321,10 +1371,10 @@ var markers;
 
 
 
-   <script type="text/javascript">
+    <script type="text/javascript">
       /*  체크리스트 리스트 change */
    
-    	  
+         
     
       function checkChange(str) {
          var output = "";
@@ -1345,35 +1395,35 @@ var markers;
             
 
             $(document).on("click",'#startCheck' , function() { 
-        		//alert($(this).is(":checked")) // true/ false  값 리턴
-          		//alert($(this).val())   // 클릭한 해당 value값 리턴
-              	$.ajax({
-				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
-				type: "post", // method방식(get , post)
-				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
-				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=출발", // 서버에게 보낼 parameter정보
-				success: function(result) {   // 성공결과
-			        var str="";
-		         
-		            	
-		            	str+="<div class='section-title line-style'>";
-		            	str+="<h3 class='title'>체크리스트</h3>";
-		            	str+="</div>";
-		            	str+="<div id='filter-box'>";
-		            	
-		            	
-		            	 $.each(result,function(index,item){
-		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
-		            	  })
-		         	str+= "</div>";
-		      
-		            $("#checkboxList").html(str);
-				},
-				error :  function(err) {
-					alert("오류발생 : "+ err);
-				}
-			})
-    	 })
+              //alert($(this).is(":checked")) // true/ false  값 리턴
+                //alert($(this).val())   // 클릭한 해당 value값 리턴
+                 $.ajax({
+            url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+            type: "post", // method방식(get , post)
+            dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+            data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=출발", // 서버에게 보낼 parameter정보
+            success: function(result) {   // 성공결과
+                 var str="";
+               
+                     
+                     str+="<div class='section-title line-style'>";
+                     str+="<h3 class='title'>체크리스트</h3>";
+                     str+="</div>";
+                     str+="<div id='filter-box'>";
+                     
+                     
+                      $.each(result,function(index,item){
+                         str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+                       })
+                  str+= "</div>";
+            
+                  $("#checkboxList").html(str);
+            },
+            error :  function(err) {
+               alert("오류발생 : "+ err);
+            }
+         })
+        })
             return;
      }
          if (list == "see") {
@@ -1387,38 +1437,38 @@ var markers;
             output += "<input id='seeCheck' type='checkbox' value='수영복' >수영복</input>";
             output += "<input id='seeCheck' type='checkbox' value='비치타월/스포츠타월' >비치타월/스포츠타월</input>";
             $("div .modal-body-list").html(output);
-        	
-            $(document).on("click",'#seeCheck' , function() { 
-        		//alert($(this).is(":checked")) // true/ false  값 리턴
-          		//alert($(this).val())   // 클릭한 해당 value값 리턴
-              	$.ajax({
-				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
-				type: "post", // method방식(get , post)
-				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
-				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=해변가", // 서버에게 보낼 parameter정보
-				success: function(result) {   // 성공결과
-			        var str="";
-		         
-		            	
-		            	str+="<div class='section-title line-style'>";
-		            	str+="<h3 class='title'>체크리스트</h3>";
-		            	str+="</div>";
-		            	str+="<div id='filter-box'>";
-		            	
-		            	
-		            	 $.each(result,function(index,item){
-		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
-		            	  })
-		         	str+= "</div>";
-		      
-		            $("#checkboxList").html(str);
-				},
-				error :  function(err) {
-					alert("오류발생 : "+ err);
-				}
-			})
            
-			})
+            $(document).on("click",'#seeCheck' , function() { 
+              //alert($(this).is(":checked")) // true/ false  값 리턴
+                //alert($(this).val())   // 클릭한 해당 value값 리턴
+                 $.ajax({
+            url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+            type: "post", // method방식(get , post)
+            dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+            data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=해변가", // 서버에게 보낼 parameter정보
+            success: function(result) {   // 성공결과
+                 var str="";
+               
+                     
+                     str+="<div class='section-title line-style'>";
+                     str+="<h3 class='title'>체크리스트</h3>";
+                     str+="</div>";
+                     str+="<div id='filter-box'>";
+                     
+                     
+                      $.each(result,function(index,item){
+                         str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+                       })
+                  str+= "</div>";
+            
+                  $("#checkboxList").html(str);
+            },
+            error :  function(err) {
+               alert("오류발생 : "+ err);
+            }
+         })
+           
+         })
          
    
             return;
@@ -1434,34 +1484,34 @@ var markers;
             output += "<input id='mtCheck' type='checkbox' value='지팡이' >지팡이</input>";
             $("div .modal-body-list").html(output);
             $(document).on("click",'#mtCheck' , function() { 
-        		//alert($(this).is(":checked")) // true/ false  값 리턴
-          		//alert($(this).val())   // 클릭한 해당 value값 리턴
-              	$.ajax({
-				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
-				type: "post", // method방식(get , post)
-				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
-				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=산여행", // 서버에게 보낼 parameter정보
-				success: function(result) {   // 성공결과
-			        var str="";
-		         
-		            	
-		            	str+="<div class='section-title line-style'>";
-		            	str+="<h3 class='title'>체크리스트</h3>";
-		            	str+="</div>";
-		            	str+="<div id='filter-box'>";
-		            	
-		            	
-		            	 $.each(result,function(index,item){
-		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
-		            	  })
-		         	str+= "</div>";
-		      
-		            $("#checkboxList").html(str);
-				},
-				error :  function(err) {
-					alert("오류발생 : "+ err);
-				}
-			})
+              //alert($(this).is(":checked")) // true/ false  값 리턴
+                //alert($(this).val())   // 클릭한 해당 value값 리턴
+                 $.ajax({
+            url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+            type: "post", // method방식(get , post)
+            dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+            data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=산여행", // 서버에게 보낼 parameter정보
+            success: function(result) {   // 성공결과
+                 var str="";
+               
+                     
+                     str+="<div class='section-title line-style'>";
+                     str+="<h3 class='title'>체크리스트</h3>";
+                     str+="</div>";
+                     str+="<div id='filter-box'>";
+                     
+                     
+                      $.each(result,function(index,item){
+                         str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+                       })
+                  str+= "</div>";
+            
+                  $("#checkboxList").html(str);
+            },
+            error :  function(err) {
+               alert("오류발생 : "+ err);
+            }
+         })
           })
          
             return;
@@ -1482,36 +1532,36 @@ var markers;
             output += "<input id='butyCheck' type='checkbox' value='면도기' >면도기</input>";
 
             $("div .modal-body-list").html(output);
-   			
+            
             $(document).on("click",'#butyCheck' , function() { 
-        		//alert($(this).is(":checked")) // true/ false  값 리턴
-          		//alert($(this).val())   // 클릭한 해당 value값 리턴
-              	$.ajax({
-				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
-				type: "post", // method방식(get , post)
-				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
-				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=미용도구", // 서버에게 보낼 parameter정보
-				success: function(result) {   // 성공결과
-			        var str="";
-		         
-		            	
-		            	str+="<div class='section-title line-style'>";
-		            	str+="<h3 class='title'>체크리스트</h3>";
-		            	str+="</div>";
-		            	str+="<div id='filter-box'>";
-		            	
-		            	
-		            	 $.each(result,function(index,item){
-		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
-		            	  })
-		         	str+= "</div>";
-		      
-		            $("#checkboxList").html(str);
-				},
-				error :  function(err) {
-					alert("오류발생 : "+ err);
-				}
-			})
+              //alert($(this).is(":checked")) // true/ false  값 리턴
+                //alert($(this).val())   // 클릭한 해당 value값 리턴
+                 $.ajax({
+            url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+            type: "post", // method방식(get , post)
+            dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+            data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=미용도구", // 서버에게 보낼 parameter정보
+            success: function(result) {   // 성공결과
+                 var str="";
+               
+                     
+                     str+="<div class='section-title line-style'>";
+                     str+="<h3 class='title'>체크리스트</h3>";
+                     str+="</div>";
+                     str+="<div id='filter-box'>";
+                     
+                     
+                      $.each(result,function(index,item){
+                         str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+                       })
+                  str+= "</div>";
+            
+                  $("#checkboxList").html(str);
+            },
+            error :  function(err) {
+               alert("오류발생 : "+ err);
+            }
+         })
            })
             return;
          }
@@ -1531,34 +1581,34 @@ var markers;
             $("div .modal-body-list").html(output);
    
             $(document).on("click",'#119Check' , function() { 
-        		//alert($(this).is(":checked")) // true/ false  값 리턴
-          		//alert($(this).val())   // 클릭한 해당 value값 리턴
-              	$.ajax({
-				url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
-				type: "post", // method방식(get , post)
-				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
-				data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=응급도구", // 서버에게 보낼 parameter정보
-				success: function(result) {   // 성공결과
-			        var str="";
-		         
-		            	
-		            	str+="<div class='section-title line-style'>";
-		            	str+="<h3 class='title'>체크리스트</h3>";
-		            	str+="</div>";
-		            	str+="<div id='filter-box'>";
-		            	
-		            	
-		            	 $.each(result,function(index,item){
-		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
-		            	  })
-		         	str+= "</div>";
-		      
-		            $("#checkboxList").html(str);
-				},
-				error :  function(err) {
-					alert("오류발생 : "+ err);
-				}
-			})
+              //alert($(this).is(":checked")) // true/ false  값 리턴
+                //alert($(this).val())   // 클릭한 해당 value값 리턴
+                 $.ajax({
+            url: "${pageContext.request.contextPath}/traveladd/checkList", //서보요청이름(주소)
+            type: "post", // method방식(get , post)
+            dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+            data: "check="+ $(this).is(":checked") +"&item="+$(this).val()+"&travel_no="+${travelDTO.travelNo}+"&category=응급도구", // 서버에게 보낼 parameter정보
+            success: function(result) {   // 성공결과
+                 var str="";
+               
+                     
+                     str+="<div class='section-title line-style'>";
+                     str+="<h3 class='title'>체크리스트</h3>";
+                     str+="</div>";
+                     str+="<div id='filter-box'>";
+                     
+                     
+                      $.each(result,function(index,item){
+                         str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+                       })
+                  str+= "</div>";
+            
+                  $("#checkboxList").html(str);
+            },
+            error :  function(err) {
+               alert("오류발생 : "+ err);
+            }
+         })
            })
             return;
    
@@ -1568,40 +1618,39 @@ var markers;
       }
       /* checkListDelete 클릭시 삭제 이벤트 */
       $(document).on("click",'#checkListDelete' , function() { 
-      		//alert($(this).attr("name"))
-      		$.ajax({
-				url: "${pageContext.request.contextPath}/traveladd/deleteIcon", //서보요청이름(주소)
-				type: "post", // method방식(get , post)
-				dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
-				data: "item="+$(this).attr("name")+"&travel_no="+${travelDTO.travelNo}, // 서버에게 보낼 parameter정보
-				success: function(deleteData) {   // 성공결과
-					 var str="";
-			         
-		            	
-		            	str+="<div class='section-title line-style'>";
-		            	str+="<h3 class='title'>체크리스트</h3>";
-		            	str+="</div>";
-		            	str+="<div id='filter-box'>";
-		            	
-		            	
-		            	 $.each(deleteData,function(index,item){
-		            		 str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
-		            	  })
-		         	str+= "</div>";
-		      
-		            $("#checkboxList").html(str);
-				},
-				
-				error :  function(err) {
-					alert("오류발생 : "+ err);
-				}
-			})
+            alert($(this).attr("name"))
+            $.ajax({
+            url: "${pageContext.request.contextPath}/traveladd/deleteIcon", //서보요청이름(주소)
+            type: "post", // method방식(get , post)
+            dataType: "json", // 요청결과타입(text, html, xml, json)        //travel_no는 session 에저장된값 가져와야됨
+            data: "item="+$(this).attr("name")+"&travel_no="+${travelDTO.travelNo}, // 서버에게 보낼 parameter정보
+            success: function(deleteData) {   // 성공결과
+                var str="";
+                  
+                     
+                     str+="<div class='section-title line-style'>";
+                     str+="<h3 class='title'>체크리스트</h3>";
+                     str+="</div>";
+                     str+="<div id='filter-box'>";
+                     
+                     
+                      $.each(deleteData,function(index,item){
+                         str+="<a href='#' class='filter'>"+item+" <i class='fa fa-times' id='checkListDelete' name="+item+"></i></a>";
+                       })
+                  str+= "</div>";
+            
+                  $("#checkboxList").html(str);
+            },
+            
+            error :  function(err) {
+               alert("오류발생 : "+ err);
+            }
+         })
       })//checkListDelete 클릭 이벤트 완료
       
      
     
    </script> <!-- 체크리스트 완료 -->
-   
 
 
 

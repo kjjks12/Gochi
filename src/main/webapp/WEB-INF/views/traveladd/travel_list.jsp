@@ -61,19 +61,17 @@ table {
 
 					</ul>
 				</div>
-			</div>
-		</div>
-	</section>
-</div>
+	
 <!-- /#header================================================= -->
 <c:forEach items="${travelDTO}" var="i">
-	<div class="container">
 		<div class="col-sm-6 col-md-4">
+		
 			<div class="agent-box-card grey">
 				<div class="image-content">
+			
 					<div class="image image-fill" style="overflow: hidden; position: relative;">
+						
 						<form id="${i.travelNo }" action="${pageContext.request.contextPath}/traveladd/travel_add" method="post">
-							<input type="hidden" name="travelNo" value="${i.travelNo }">
 							<input type="hidden" name="email" value="${i.email }">
 							<input type="hidden" name="title" value="${i.title }">
 							<input type="hidden" name="briefStory" value="${i.briefStory }">
@@ -81,6 +79,8 @@ table {
 							<input type="hidden" name="travelEndDay" value="${i.travelEndDay }">
 							<input type="hidden" name="thema" value="${i.thema }">
 						</form>
+										
+						
 					<a href="#" onclick="javascript:goUpdate(${i.travelNo});">
 						<script>
 							function goUpdate(th){
@@ -91,26 +91,36 @@ table {
 								//$("#updateTravel").submit();
 							}
 						</script>
-						<img
-							src="${pageContext.request.contextPath}/resources/img/travel/travelCover/${i.travelNo}/${i.email}/${i.travelCoverImg}"
+					
+						<img src="${pageContext.request.contextPath}/resources/img/travel/travelCover/${i.travelNo}/${i.email}/${i.travelCoverImg}"
 							class="img-responsive loading" style="width: 700px; height: auto; top: auto; position: absolute;">
 						</a>
 					</div>
 				</div>
-				<div class="info-agent">
-					<span class="name">작성자 : ${i.email }</span>
-						<div class="text">
-							${i.title }<br>
-							${i.briefStory }<br>
-							${i.travelStartDay }<br>
-							${i.travelEndDay }<br>
-							${i.thema }
-						</div>
+				
+							<div class="box-ads box-home">
+								<span class="cover"></span>
+							
+							<h3 class="title">${i.title }</h3>
 						
+							<span class="price">$ 536.500,00</span>
+							<span class="address"><i class="fa fa-map-marker"></i> Hoboken, NJ 07030</span>
+							<span class="description">${i.briefStory }</span>
+							<dl class="detail">
+								<dt class="status">Status:</dt><dd><span>${i.briefStory }</span></dd>
+								<dt class="area">Area:</dt><dd><span>${i.title }</span></dd>
+								<dt class="bed">Thema:</dt><dd><span>${i.thema }</span></dd>
+								<dt class="bath">Date:</dt><dd><span>${i.travelStartDay } ~ ${i.travelEndDay }</span></dd>
+							</dl><!-- /.detail -->
+							<div class="footer">
+								<a class="btn btn-reverse" href="property-detail.html">Read now</a>
+							</div>
+						</div><!-- /.box-home .box-ads -->
 				</div>
 			</div>
-		</div>
-	</div>
 </c:forEach>
-
+		</div>
+		</div>
+	</section>
+</div>
 
