@@ -57,4 +57,10 @@ public interface RestaurantDAO {
 	 * 롤링 이미지 정보 가져오기
 	 * */
 	List<RestaurantImgDTO> selectImg(int restaurantNo);
+	
+	/**
+	 * 이미지 최대번호 가져오기
+	 * @return
+	 */
+	int selectMaxImgNo();
 }

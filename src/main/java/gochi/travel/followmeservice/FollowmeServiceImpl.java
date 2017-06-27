@@ -19,6 +19,7 @@ public class FollowmeServiceImpl implements FollowmeService {
 
 		return 0;
 	}
+
 	
 	//화면에 뿌려줄 정보 가져오기
 	@Override
@@ -33,6 +34,7 @@ public class FollowmeServiceImpl implements FollowmeService {
 	public List<TravelDTO> likeFollow() {
 		
 		return followemeDao.likeFollow();
+
 	}
 
 }

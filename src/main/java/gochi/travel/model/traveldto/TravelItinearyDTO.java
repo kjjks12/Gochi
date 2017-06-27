@@ -210,11 +210,12 @@ public class TravelItinearyDTO {
 
 
 
-
-
-
-
-	
-	
+	@Override
+	public String toString() {
+		return "TravelItinearyDTO [itinearyNo=" + itinearyNo + ", travelNo=" + travelNo + ", travelItinearyTitle="
+				+ travelItinearyTitle + ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", latitude=" + latitude + ", logtitude=" + logtitude + ", money=" + money + ", category=" + category
+				+ ", story=" + story + "]";
+	}
 	
 }

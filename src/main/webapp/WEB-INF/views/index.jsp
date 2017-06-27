@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div id="page-container">
 
    <section id="home-slide" class="header-margin-base">
@@ -26,7 +27,7 @@
                      <h2>여행 준비와 후기도</h2>
                   </div>
                   <div class="content">
-                     <h1 style="background: olive;">여행꼬치에서</h1>
+                     <h1>여행꼬치에서</h1>
                   </div>
                </div>
             </figure>
@@ -73,20 +74,21 @@
             <span><i class="icon fa fa-plus-square"></i>나만믿고 따라와 패키지</span>
          </div>
          <div class="row">
+         
+          <c:forEach items="${flist}" var="i">
+          
             <div class="col-md-4">
                <div class="box-ads box-home">
                   <a class="hover-effect image image-fill"
                      href="property-detail.html"> <span class="cover"></span> <img
                      alt="Sample images"
                      src="http://placehold.it/1240x745/bbbbbb/ffffff">
-                     <h3 class="title">59 Paterson Ave</h3>
+                     <h3 class="title">${i.title}</h3>
                   </a>
                   <!-- /.hover-effect  --> 
-                  <span class="price">$ 536.500,00</span> <span class="address"><i
-                     class="fa fa-map-marker"></i> Hoboken, NJ 07030</span> <span
-                     class="description">There are many variations of passages
-                     of Lorem Ipsum available, but the majority have suffered
-                     alteration in some form, by injected humour.</span>
+                  <span class="price">${i.cost}</span> <span class="address"><i
+                     class="fa fa-map-marker"></i>${i.location}</span> 
+                  <span class="description">${i.story}</span>
                   <dl class="detail">
                      <dt class="status">Status:</dt>
                      <dd>
@@ -94,7 +96,7 @@
                      </dd>
                      <dt class="area">Area:</dt>
                      <dd>
-                        <span>860m2</span>
+                        <span>$	{i.distance}</span>
                      </dd>
                      <dt class="bed">Beds:</dt>
                      <dd>
@@ -113,109 +115,26 @@
                </div>
                <!-- /.box-home .box-ads -->
             </div>
-            <!-- ./col-md-4 -->
-            <div class="col-md-4">
-               <div class="box-ads box-home">
-                  <a class="hover-effect image image-fill"
-                     href="property-detail.html"> <span class="cover"></span> <img
-                     alt="Sample images"
-                     src="http://placehold.it/1240x745/bbbbbb/ffffff">
-                     <h3 class="title">560 Marshall Dr</h3>
-                  </a>
-                  <!-- /.hover-effect -->
-                  <span class="price">$ 709.000,00</span> <span class="address"><i
-                     class="fa fa-map-marker"></i> Hoboken, NJ 07056</span> <span
-                     class="description">Lorem Ipsum available, but the
-                     majority have suffered There are many variations of passages by
-                     injected humour.</span>
-                  <dl class="detail">
-                     <dt class="status">Status:</dt>
-                     <dd>
-                        <span>Sale</span>
-                     </dd>
-                     <dt class="area">Area:</dt>
-                     <dd>
-                        <span>420m2</span>
-                     </dd>
-                     <dt class="bed">Beds:</dt>
-                     <dd>
-                        <span>4</span>
-                     </dd>
-                     <dt class="bath">Baths:</dt>
-                     <dd>
-                        <span>1</span>
-                     </dd>
-                  </dl>
-                  <!-- /.detail -->
-                  <div class="footer">
-                     <a class="btn btn-reverse" href="property-detail.html">Read
-                        now</a>
-                  </div>
-               </div>
-               <!-- /.box-home .box-ads -->
+            </c:forEach>
             </div>
-            <!-- ./col-md-4 -->
-            <div class="col-md-4">
-               <div class="box-ads box-home">
-                  <a class="hover-effect image image-fill"
-                     href="property-detail.html"> <span class="cover"></span> <img
-                     alt="Sample images"
-                     src="http://placehold.it/1240x745/bbbbbb/ffffff">
-                     <h3 class="title">477 Jersey Ave</h3>
-                  </a>
-                  <!-- /.hover-effect -->
-                  <span class="price">$ 663.500,00</span> <span class="address"><i
-                     class="fa fa-map-marker"></i> Jersey City, NJ 07302</span> <span
-                     class="description">Nulla condimentum neque nulla. Sed at
-                     ornare lacus, id euismod felis. Aliquam et vulputate tortor. Nunc
-                     gravida nunc sed mi bibendum accumsan.</span>
-                  <dl class="detail">
-                     <dt class="status">Status:</dt>
-                     <dd>
-                        <span>Sale</span>
-                     </dd>
-                     <dt class="area">Area:</dt>
-                     <dd>
-                        <span>333m2</span>
-                     </dd>
-                     <dt class="bed">Beds:</dt>
-                     <dd>
-                        <span>6</span>
-                     </dd>
-                     <dt class="bath">Baths:</dt>
-                     <dd>
-                        <span>2</span>
-                     </dd>
-                  </dl>
-                  <!-- /.detail -->
-                  <div class="footer">
-                     <a class="btn btn-reverse" href="property-detail.html">Read
-                        now</a>
-                  </div>
-               </div>
-               <!-- /.box-home .box-ads -->
-            </div>
-            <!-- ./col-md-4 -->
-         </div>
+            
          <div class="list-box-title">
-            <span><i class="icon fa fa-plus-square"></i>Featured
-               Properties</span>
+            <span><i class="icon fa fa-plus-square"></i>여행 후기</span>
          </div>
          <div class="row">
+         <c:forEach items="${tlist}" var="i">
             <div class="col-md-4">
+            
                <div class="box-ads box-home">
                   <a class="hover-effect image image-fill"
                      href="property-detail.html"> <span class="cover"></span> <img
                      alt="Sample images"
                      src="http://placehold.it/1240x745/bbbbbb/ffffff">
-                     <h3 class="title">403 Bloomfield St</h3>
+                     <h3 class="title">${i.title}</h3>
                   </a>
                   <!-- /.hover-effect -->
-                  <span class="price">$ 772.000,00</span> <span class="address"><i
-                     class="fa fa-map-marker"></i> Hoboken, NJ 07030</span> <span
-                     class="description">Nunc gravida nunc sed mi bibendum
-                     accumsan, condimentum neque nulla. Sed at ornare lacus. Aliquam
-                     et vulputate tortor id euismod felis.</span>
+                  <span class="price"></span> 
+                  <span class="address"><i class="fa fa-map-marker"></i>${i.briefStory}</span>
                   <dl class="detail">
                      <dt class="status">Status:</dt>
                      <dd>
@@ -242,95 +161,14 @@
                         now</a>
                   </div>
                </div>
-               <!-- /.box-home .box-ads -->
-            </div>
-            <!-- ./col-md-4 -->
-            <div class="col-md-4">
-               <div class="box-ads box-home">
-                  <a class="hover-effect image image-fill"
-                     href="property-detail.html"> <span class="cover"></span> <img
-                     alt="Sample images"
-                     src="http://placehold.it/1240x745/bbbbbb/ffffff">
-                     <h3 class="title">339 Broadway</h3>
-                  </a>
-                  <!-- /.hover-effect -->
-                  <span class="price">$ 988.000,00</span> <span class="address"><i
-                     class="fa fa-map-marker"></i> New York, NY 10013</span> <span
-                     class="description">Proin egestas vitae mi eget commodo.
-                     Proin purus dignissim porttitous vel accumsan odio. Pulvinarut id
-                     . Proin dapibus mollis purus ac luctus.</span>
-                  <dl class="detail">
-                     <dt class="status">Status:</dt>
-                     <dd>
-                        <span>Sale</span>
-                     </dd>
-                     <dt class="area">Area:</dt>
-                     <dd>
-                        <span>369m2</span>
-                     </dd>
-                     <dt class="bed">Beds:</dt>
-                     <dd>
-                        <span>4</span>
-                     </dd>
-                     <dt class="bath">Baths:</dt>
-                     <dd>
-                        <span>2</span>
-                     </dd>
-                  </dl>
-                  <!-- /.detail -->
-                  <div class="footer">
-                     <a class="btn btn-reverse" href="property-detail.html">Read
-                        now</a>
-                  </div>
                </div>
-               <!-- /.box-home .box-ads -->
-            </div>
-            <!-- ./col-md-4 -->
-            <div class="col-md-4">
-               <div class="box-ads box-home">
-                  <a class="hover-effect image image-fill"
-                     href="property-detail.html"> <span class="cover"></span> <img
-                     alt="Sample images"
-                     src="http://placehold.it/1240x745/bbbbbb/ffffff">
-                     <h3 class="title">435 Newark Ave</h3>
-                  </a>
-                  <!-- /.hover-effect -->
-                  <span class="price">$ 631.000,00</span> <span class="address"><i
-                     class="fa fa-map-marker"></i> Jersey City, NJ 07302</span> <span
-                     class="description">Mut the majority have suffered
-                     alteration in. There are many variations of passages of Lorem
-                     Ipsum available, some form, by injected humour.</span>
-                  <dl class="detail">
-                     <dt class="status">Status:</dt>
-                     <dd>
-                        <span>Sale</span>
-                     </dd>
-                     <dt class="area">Area:</dt>
-                     <dd>
-                        <span>658m2</span>
-                     </dd>
-                     <dt class="bed">Beds:</dt>
-                     <dd>
-                        <span>4</span>
-                     </dd>
-                     <dt class="bath">Baths:</dt>
-                     <dd>
-                        <span>5</span>
-                     </dd>
-                  </dl>
-                  <!-- /.detail -->
-                  <div class="footer">
-                     <a class="btn btn-reverse" href="property-detail.html">Read
-                        now</a>
-                  </div>
-               </div>
-               <!-- /.box-home .box-ads -->
+                </c:forEach>
             </div>
             <!-- ./col-md-4 -->
          </div>
+         </section>
       </div>
-   </section>
-
+   
    <section id="service" class="section-color">
       <div class="section-detail">
          <h1>Services</h1>
@@ -341,24 +179,22 @@
          <div class="row">
             <div class="col-md-4">
                <div class="content-box">
-                  <i class="icon-box fa fa-street-view"></i>
+                  <i class="icon-box fa fa-users"></i>
                   <h3>
-                     <i class="icon-quote fa fa-quote-left"></i> Donec dolor <i
+                     <i class="icon-quote fa fa-quote-left"></i> Don't Lonely Trip<i
                         class="icon-quote fa fa-quote-right"></i>
                   </h3>
-                  <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                     Donec dolor, sagittis sed elementum dignissim, lobortis.</h4>
+                  <h4>We enjoy traveling</h4>
                </div>
             </div>
             <div class="col-md-4">
                <div class="content-box">
-                  <i class="icon-box fa fa-bug"></i>
+                  <i class="icon-box fa fa-car"></i>
                   <h3>
-                     <i class="icon-quote fa fa-quote-left"></i> Elementum dignissim <i
+                     <i class="icon-quote fa fa-quote-left"></i> Enjoy Travel <i
                         class="icon-quote fa fa-quote-right"></i>
                   </h3>
-                  <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                     Donec dolor, sagittis sed elementum dignissim, lobortis.</h4>
+                  <h4>Simple Trip<br>   Pleasant Trip</h4>
                </div>
             </div>
             <div class="col-md-4">
@@ -380,9 +216,8 @@
    <section id="recent-listed" data-parallax-speed="-0.3"
       class="hidden-xs">
       <div class="section-detail">
-         <h1>Recent Listed</h1>
-         <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Donec dolor, sagittis sed elementum dignissim, lobortis.</h2>
+         <h1>맛집 소개</h1>
+         <h2>빅데이터를 이용한 이용자들이 추천해주는 맛집!!</h2>
       </div>
       <div class="margin-box">
          <div class="property-slide" data-navigation="#property-slide-nav">
@@ -868,5 +703,5 @@
       <!-- /.modal-dialog -->
    </div>
    <!-- /.modal -->
-</div>
+
 <!-- /#page-container -->

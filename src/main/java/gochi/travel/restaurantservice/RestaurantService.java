@@ -53,6 +53,10 @@ public interface RestaurantService {
 	 * */
 	List<RestaurantImgDTO> selectImg(int restaurantNo);
 	
+	/**
+	 * 저장되어있는 이미지 넘버의 최대값 가져오기
+	 */
+	int selectMaxImgNo();
 
 }
  

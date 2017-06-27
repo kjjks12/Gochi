@@ -31,6 +31,9 @@ public interface TravelDao {
 	/**여행 일정에서 커버 이미지 수정 */
 	int updateTravelCover(String fileName,String email,String travelNo);
 	
+	/**내가 쓴 여행 일정리스트 조회 */
+	List<TravelDTO> selectMyTravelList (String email);
+	
 	/* 체크리스트 삽입, 삭제*/
 	int CeckList(CheckListDTO checklist);
 	
@@ -39,6 +42,9 @@ public interface TravelDao {
 	
 	/* 체크리스트 중복체크*/
 	String overLapCheck(CheckListDTO overLapCheck); 
+	
+	/* index에서 사용할 */
+	List<TravelDTO> list();
 	
 	
 }

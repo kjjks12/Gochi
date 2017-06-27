@@ -36,4 +36,6 @@ public class FollowmeDaoImpl implements FollowemeDao {
 		return sqlSession.selectList("travelReviewMapper.goodTravelReview","followme");
 	}
 
+
+
 }

@@ -8,8 +8,10 @@ import gochi.travel.model.traveldto.TravelDTO;
 public interface FollowmeService {
 
 		int insertFollowme(FollowemeDto dto);
+
 		
 		List<TravelDTO> follow();
 		
 		 List<TravelDTO> likeFollow();
+
 }

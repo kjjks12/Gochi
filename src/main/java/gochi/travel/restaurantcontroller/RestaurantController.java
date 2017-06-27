@@ -1,10 +1,11 @@
 package gochi.travel.restaurantcontroller;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 import gochi.travel.model.memberdto.MemberDTO;
+import gochi.travel.model.mypagedto.MypageDTO;
 import gochi.travel.model.restaurantdto.RestaurantDTO;
 import gochi.travel.model.restaurantdto.RestaurantDetailDTO;
 import gochi.travel.model.restaurantdto.RestaurantImgDTO;
@@ -53,9 +55,23 @@ public class RestaurantController {
 	@RequestMapping("/selectAll")
 	@ResponseBody
 	public List<RestaurantDTO> select(HttpServletRequest request) {
-		List<RestaurantDTO> list = restaurantService.select();
+		List<RestaurantDTO> list = restaurantService.select();		
 		request.getSession().setAttribute("list", list);
+		
+		/*String index = request.getParameter("index");		
+		//세션에 index값 저장!
+		request.getSession().setAttribute("index", index);
+		int num = Integer.parseInt(index);
+		System.out.println(num);
+		restaurantService.readNum(num);
+		
+		List<RestaurantImgDTO> imgList = restaurantService.selectImg(list.get(num).getRestaurantNo());
+		request.getSession().setAttribute("imgList", imgList);
+		*/
+		
+		
 		return list;
+		
 	}
 	
 	@RequestMapping("/categorySelect")
@@ -66,12 +82,40 @@ public class RestaurantController {
 		return list;
 	}	
 	
-	@RequestMapping("/restaurant/imageSave")
-	@ResponseBody
-	public String saveImage(String img){
+	@RequestMapping("/imageSave/{restaurantNo}")
+	public String imageSave(@RequestParam MultipartFile imgFile,HttpSession session,RestaurantImgDTO dto,HttpServletRequest request,@PathVariable int restaurantNo){
 		System.out.println("들어옵니까?");
-		System.out.println(img);
-		return "index";
+		
+		imgFile = dto.getImgFile();
+	    //request.getSession().getAttribute("restaurantNo");
+	  
+	    System.out.println("받은 글 번호 "+restaurantNo);
+	   
+	      String path = session.getServletContext().getRealPath("/resources/img/restaurant/");
+	      
+	      System.out.println("경로 : "+path);
+	     
+	      if(imgFile != null){
+	    	  //System.out.println("imgFile이 존재한다면");
+	         String fileName = imgFile.getOriginalFilename();
+	         dto.setImgFile(imgFile);
+	      try{
+	    	  int imgNo = restaurantService.selectMaxImgNo()+1;
+	    	  //System.out.println("최대 번호 +1 : "+imgNo);
+	          File file = new File(path+"/"+restaurantNo+"/"+imgNo+"/"+fileName);
+	         if(!file.exists()){
+	            file.mkdirs();
+	         }
+	         imgFile.transferTo(file);
+	         
+	         
+	        int result = restaurantService.insertImg(new RestaurantImgDTO(restaurantNo,imgNo,fileName));
+	       // System.out.println("쿼리문 결과 : "+result);
+	      }catch(Exception e){
+	    	  e.printStackTrace();
+	      }
+	      }
+	      return "index";
 	}
 	
 	/**
@@ -89,7 +133,7 @@ public class RestaurantController {
 		
 		//전송된 파일을 입력받음!
 		String root = multi.getSession().getServletContext().getRealPath("/"); //root 값 설정.
-		String path = root+"resources/img/restaurant/"; //실제 저장 경로
+		String path = root+"resources/img/detail/"; //실제 저장 경로
 		String newFileName = "";
 		
 		//파일 객체 생성
@@ -139,9 +183,10 @@ public class RestaurantController {
 		String readNu = request.getParameter("restaurantNo");
 		System.out.println(readNu);
 		restaurantService.readNum(Integer.parseInt(readNu));
-		
+		request.getSession().setAttribute("restaurantNo", readNu);
 
 		List<RestaurantDTO> list = (List<RestaurantDTO>) request.getSession().getAttribute("list");
+		System.out.println("list : " + list);
 		String index = request.getParameter("index");		
 		//세션에 index값 저장!
 		request.getSession().setAttribute("index", index);
@@ -159,7 +204,7 @@ public class RestaurantController {
 		List<RestaurantImgDTO> imgList = restaurantService.selectImg(list.get(num).getRestaurantNo());
 		request.getSession().setAttribute("imgList", imgList);
 		
-		System.out.println("123123123");
+		//System.out.println("123123123");
 
 		return "restaurant/detailRestaurant";
 	}

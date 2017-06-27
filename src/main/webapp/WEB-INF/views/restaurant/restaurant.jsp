@@ -196,7 +196,7 @@ function selectList() {
             divStr+="<div class='blog-list masonry-post'>";
             divStr+="<h2 class='title'><a href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'>"+item.restaurantName+"</a></h2>";
             divStr+="<div class='image' id='food-start'>";
-            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='${pageContext.request.contextPath}/resources/images/sample1.jpg' width='100%' height='340px'/></a>";
+            divStr+="<a class='title2' href='${pageContext.request.contextPath}/restaurant/detail?index="+index+"&restaurantNo="+item.restaurantNo+"'><h5 hidden='true'>"+item.restaurantNo+"</h5><img class='sundaekuk' src='' width='100%' height='340px'/></a>";
             divStr+="<div class='social'>";
             divStr+="<a class='heart' href='javascript:;'><span class='date'><i id='favorIcon"+item.restaurantNo+"' class='fa fa-heart-o'></i><span id="+item.restaurantNo+">"+item.wish+"</span></span></a>";
             divStr+="<a href='javascript:;'><i class='fa fa-eye'></i><span>"+item.bean+"</span></a>";
@@ -320,11 +320,11 @@ $(function() {
                      <h3 class="title">맛집 카테고리</h3>
                   </div>
                   <ul class="category-list">
-                     <li class="category-foodList"><a href="#" id="category-foodList">음식점</a></li>
-                     <li class="category-foodList"><a href="#" >카페</a></li>
-                     <li class="category-foodList"><a href="#" >주점</a></li>
-                     <li class="category-foodList"><a href="#" >베이커리</a></li>
-                     <li class="category-foodList"><a href="#" >길거리음식</a></li>
+                     <li class="category-foodList"><a href="javascript:;" id="category-foodList">음식점</a></li>
+                     <li class="category-foodList"><a href="javascript:;" >카페</a></li>
+                     <li class="category-foodList"><a href="javascript:;" >주점</a></li>
+                     <li class="category-foodList"><a href="javascript:;" >베이커리</a></li>
+                     <li class="category-foodList"><a href="javascript:;" >길거리음식</a></li>
                   </ul>
                </div>
                <!-- /.col-md-3 -->

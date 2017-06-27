@@ -87,5 +87,12 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	public List<RestaurantImgDTO> selectImg(int restaurantNo){
 		List<RestaurantImgDTO> imgList = sqlsession.selectList("restaurantMapper.selectImg", restaurantNo);
 		return imgList;
+	}
+
+	@Override
+	public int selectMaxImgNo() {
+		return sqlsession.selectOne("restaurantMapper.selectMaxImgNo");
 	}	
+	
+	
 }
