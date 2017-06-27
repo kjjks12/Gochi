@@ -153,7 +153,7 @@
 													<div id="note-comment-area"></div>
 												</div>
 											</div>
-
+											${detailInfo.money}
 										</c:forEach>
 										
 									</c:if>

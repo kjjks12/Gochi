@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.14" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="gochi.travel.model.followmedao.FollowmeDaoImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/followmedao/FollowmeDaoImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="189" x="16734" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="2" language="java" name="gochi.travel.member.authoritiesDAO.AuthoritiesDAO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/member/authoritiesDAO/AuthoritiesDAO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="274" x="10731" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="3" language="java" name="gochi.travel.model.mypagedao.MypageDAOImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/mypagedao/MypageDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="224" x="12004" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="gochi.travel.friendservice.FriendServiceImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/friendservice/FriendServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="237" x="12268" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="5" language="java" name="gochi.travel.model.boarddao.BoardDAO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/boarddao/BoardDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="287" x="8715" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="6" language="java" name="gochi.travel.followmeservice.FollowmeService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/followmeservice/FollowmeService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="189" x="17078" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="7" language="java" name="gochi.travel.commentcontroller.CommentController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/commentcontroller/CommentController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="117" width="404" x="7135" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="gochi.travel.model.notedto.NoteDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/notedto/NoteDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="495" width="212" x="122" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="gochi.travel.model.restaurantdto.RestaurantDetailDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/restaurantdto/RestaurantDetailDTO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="423" width="283" x="374" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="gochi.travel.model.travelreviewdao.TravelReviewDaoImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/travelreviewdao/TravelReviewDaoImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="243" width="283" x="9170" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="gochi.travel.travelreviewservice.TravelReviewServiceImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/travelreviewservice/TravelReviewServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="225" width="283" x="9493" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="gochi.travel.model.boarddao.BoardDAOImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/boarddao/BoardDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="287" x="8843" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="gochi.travel.commentService.CommentServiceImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/commentService/CommentServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="242" x="7579" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="gochi.travel.model.followedto.FollowemeDto" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/followedto/FollowemeDto.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="963" width="513" x="697" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="gochi.travel.model.mypagedto.MypageDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/mypagedto/MypageDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="585" width="190" x="1250" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="16" language="java" name="gochi.travel.mypageservice.MypageService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/mypageservice/MypageService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="224" x="13407" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="17" language="java" name="gochi.travel.membercontroller.MemberController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/membercontroller/MemberController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="285" x="10147" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="gochi.travel.util.SimpleCORSFilter" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/util/SimpleCORSFilter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="378" x="1480" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="gochi.travel.model.hotdealdto.HotdealDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/hotdealdto/HotdealDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="212" x="1898" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="gochi.travel.model.restaurantdao.RestaurantDAOImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/restaurantdao/RestaurantDAOImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="297" width="247" x="15688" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="gochi.travel.upLoad.UpLoadController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/upLoad/UpLoadController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="418" x="12809" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="gochi.travel.model.restaurantdto.RestaurantDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/restaurantdto/RestaurantDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="765" width="426" x="2150" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="gochi.travel.member.authoritiesDAO.AuthoritiesDAOImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/member/authoritiesDAO/AuthoritiesDAOImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="274" x="10472" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="gochi.travel.model.traveldto.TravelDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/traveldto/TravelDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="675" width="327" x="2616" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="25" language="java" name="gochi.travel.travelreviewservice.TravelReviewService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/travelreviewservice/TravelReviewService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="207" width="283" x="9654" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="26" language="java" name="gochi.travel.friendservice.FriendService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/friendservice/FriendService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="237" x="12944" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="27" language="java" name="gochi.travel.member.util.Constants" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/member/util/Constants.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="135" x="2983" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="28" language="java" name="gochi.travel.model.frienddao.FriendDAO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/frienddao/FriendDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="237" x="11997" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="29" language="java" name="gochi.travel.travelservice.TravelService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/travelservice/TravelService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="81" width="117" x="3158" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="gochi.travel.model.travelreviewdto.TravelReviewCommentDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/travelreviewdto/TravelReviewCommentDTO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="315" width="253" x="3315" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="gochi.travel.memberservice.MemberServiceImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/memberservice/MemberServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="177" x="10786" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="gochi.travel.mypagecontroller.MypageController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/mypagecontroller/MypageController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="313" x="13267" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="gochi.travel.model.commentdao.CommentDaoImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/commentdao/CommentDaoImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="225" x="8322" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="gochi.travel.hotdealcontroller.HotdealController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/hotdealcontroller/HotdealController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="174" x="11513" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="gochi.travel.hotdealservice.HotdealService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/hotdealservice/HotdealService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="296" x="11513" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="36" language="java" name="gochi.travel.commentService.CommentService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/commentService/CommentService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="242" x="7579" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="37" language="java" name="gochi.travel.model.traveldto.CheckListDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/traveldto/CheckListDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="206" x="3608" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="gochi.travel.notecontroller.NoteController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/notecontroller/NoteController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="303" x="13930" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="39" language="java" name="gochi.travel.model.memberdto.Authority" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/memberdto/Authority.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="137" x="3854" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="gochi.travel.mypageservice.MypageServiceImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/mypageservice/MypageServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="224" x="12545" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="41" language="java" name="gochi.travel.model.traveldao.TravelDaoImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/traveldao/TravelDaoImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="305" x="15031" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="42" language="java" name="gochi.travel.model.commentdto.CommentDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/commentdto/CommentDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="405" width="262" x="4031" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="43" language="java" name="gochi.travel.memberservice.MemberService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/memberservice/MemberService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="177" x="10466" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="44" language="java" name="gochi.travel.noteservice.NoteServiceImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/noteservice/NoteServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="225" width="272" x="14719" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="45" language="java" name="gochi.travel.noteservice.NoteService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/noteservice/NoteService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="272" x="13930" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="46" language="java" name="gochi.travel.security.handler.MemberAuthenticationFailureHandler" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/security/handler/MemberAuthenticationFailureHandler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="99" width="487" x="4333" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="47" language="java" name="gochi.travel.boardservice.BoardService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/boardservice/BoardService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="315" width="216" x="8224" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="48" language="java" name="gochi.travel.model.traveldao.TravelDao" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/traveldao/TravelDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="297" width="305" x="14652" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="49" language="java" name="gochi.travel.model.travelreviewdao.TravelReviewDao" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/travelreviewdao/TravelReviewDao.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="207" width="283" x="9331" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="50" language="java" name="gochi.travel.boardservice.BoardServiceImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/boardservice/BoardServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="216" x="8587" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="51" language="java" name="gochi.travel.model.boarddto.BoardDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/boarddto/BoardDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="603" width="309" x="4860" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="52" language="java" name="gochi.travel.model.frienddto.FriendDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/frienddto/FriendDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="158" x="5209" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="53" language="java" name="gochi.travel.restaurantservice.RestaurantServiceImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/restaurantservice/RestaurantServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="261" width="241" x="15975" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="54" language="java" name="gochi.travel.boardcontroller.BoardController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/boardcontroller/BoardController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="459" width="421" x="7861" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="55" language="java" name="gochi.travel.model.memberdao.MemberDAOImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/memberdao/MemberDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="196" x="11277" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="56" language="java" name="gochi.travel.model.traveldto.TravelItinearyDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/traveldto/TravelItinearyDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="747" width="407" x="5407" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="57" language="java" name="gochi.travel.travelreviewcontroller.TravelReviewController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/travelreviewcontroller/TravelReviewController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="291" x="9816" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="58" language="java" name="gochi.travel.model.memberdto.MemberDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/memberdto/MemberDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="495" width="307" x="5854" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="59" language="java" name="gochi.travel.model.boarddto.QaBoardDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/boarddto/QaBoardDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="531" width="275" x="6201" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="60" language="java" name="gochi.travel.model.notedao.NoteDAO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/notedao/NoteDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="272" x="15048" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="61" language="java" name="gochi.travel.restaurantcontroller.RestaurantController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/restaurantcontroller/RestaurantController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="225" width="438" x="16256" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="62" language="java" name="gochi.travel.friendcontroller.FriendController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/friendcontroller/FriendController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="270" x="13620" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="63" language="java" name="gochi.travel.model.restaurantdao.RestaurantDAO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/restaurantdao/RestaurantDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="261" width="247" x="15830" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="64" language="java" name="gochi.travel.model.memberdao.MemberDAO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/memberdao/MemberDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="196" x="11045" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="65" language="java" name="gochi.travel.model.frienddao.FriendDAOImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/frienddao/FriendDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="225" width="237" x="11727" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="66" language="java" name="gochi.travel.security.provider.MemberAuthenticationProvider" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/security/provider/MemberAuthenticationProvider.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="234" x="11003" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="67" language="java" name="gochi.travel.model.followmedao.FollowemeDao" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/followmedao/FollowemeDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="189" x="16849" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="68" language="java" name="gochi.travel.model.restaurantdto.RestaurantImgDTO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/restaurantdto/RestaurantImgDTO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="315" width="180" x="6516" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="69" language="java" name="gochi.travel.model.mypagedao.MypageDAO" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/mypagedao/MypageDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="224" x="12274" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="70" language="java" name="gochi.travel.model.notedao.NoteDAOImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/notedao/NoteDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="272" x="15376" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="71" language="java" name="gochi.travel.restaurantservice.RestaurantService" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/restaurantservice/RestaurantService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="243" width="241" x="16117" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="72" language="java" name="gochi.travel.followmeservice.FollowmeServiceImpl" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/followmeservice/FollowmeServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="135" width="189" x="16963" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="73" language="java" name="gochi.travel.followmecontroller.FollowmeController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/followmecontroller/FollowmeController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="117" width="224" x="17192" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="74" language="java" name="gochi.travel.travelcontroller.TravelController" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/travelcontroller/TravelController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="406" x="14273" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="75" language="java" name="gochi.travel.model.commentdao.CommentDao" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/commentdao/CommentDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="225" x="7950" y="666"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="76" language="java" name="gochi.travel.model.travelreviewdto.TravelReviewDto" project="Gochi" 
+    file="/Gochi/src/main/java/gochi/travel/model/travelreviewdto/TravelReviewDto.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="585" width="359" x="6736" y="-337"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="77">    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <association id="78">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="79" name="mypageService"/>      
+      <multiplicity id="80" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="81">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="48"/>  
+  </realization>  
+  <association id="82">    
+    <end type="SOURCE" refId="54" navigable="false">      
+      <attribute id="83" name="boardService"/>      
+      <multiplicity id="84" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="47" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="85">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="75"/>  
+  </realization>  
+  <realization id="86">    
+    <end type="SOURCE" refId="72"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <association id="87">    
+    <end type="SOURCE" refId="74" navigable="false">      
+      <attribute id="88" name="travelAddDao"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="48" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="90">    
+    <end type="SOURCE" refId="70"/>    
+    <end type="TARGET" refId="60"/>  
+  </realization>  
+  <association id="91">    
+    <end type="SOURCE" refId="40" navigable="false">      
+      <attribute id="92" name="mypageDAO"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="69" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="95" name="noteDAO"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="60" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="97">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="49"/>  
+  </realization>  
+  <association id="98">    
+    <end type="SOURCE" refId="74" navigable="false">      
+      <attribute id="99" name="mypageService"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="101">    
+    <end type="SOURCE" refId="72" navigable="false">      
+      <attribute id="102" name="followemeDao"/>      
+      <multiplicity id="103" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="67" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="104">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="67"/>  
+  </realization>  
+  <association id="105">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="106" name="authDao"/>      
+      <multiplicity id="107" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="108">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="69"/>  
+  </realization>  
+  <realization id="109">    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="71"/>  
+  </realization>  
+  <association id="110">    
+    <end type="SOURCE" refId="66" navigable="false">      
+      <attribute id="111" name="authoritiesDAO"/>      
+      <multiplicity id="112" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="113">    
+    <end type="SOURCE" refId="54" navigable="false">      
+      <attribute id="114" name="commentService"/>      
+      <multiplicity id="115" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="116">    
+    <end type="SOURCE" refId="57" navigable="false">      
+      <attribute id="117" name="travelReviewService"/>      
+      <multiplicity id="118" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="119">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="120">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="121" name="commentService"/>      
+      <multiplicity id="122" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="123">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <association id="124">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="125" name="service"/>      
+      <multiplicity id="126" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="127">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="45"/>  
+  </realization>  
+  <association id="128">    
+    <end type="SOURCE" refId="50" navigable="false">      
+      <attribute id="129" name="boardDao"/>      
+      <multiplicity id="130" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="131">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="132" name="mypageService"/>      
+      <multiplicity id="133" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="134">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="26"/>  
+  </realization>  
+  <association id="135">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="136" name="friendDAO"/>      
+      <multiplicity id="137" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="138">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <association id="139">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="140" name="travelReviewDao"/>      
+      <multiplicity id="141" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="49" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="142">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="143" name="commentDao"/>      
+      <multiplicity id="144" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="75" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="145">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="146" name="myPageService"/>      
+      <multiplicity id="147" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="148">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="149" name="hotDealService"/>      
+      <multiplicity id="150" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="151">    
+    <end type="SOURCE" refId="61" navigable="false">      
+      <attribute id="152" name="restaurantService"/>      
+      <multiplicity id="153" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="71" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="154">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="63"/>  
+  </realization>  
+  <association id="155">    
+    <end type="SOURCE" refId="66" navigable="false">      
+      <attribute id="156" name="memberDAO"/>      
+      <multiplicity id="157" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="158">    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="159" name="friendService"/>      
+      <multiplicity id="160" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="161">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="36"/>  
+  </realization>  
+  <association id="162">    
+    <end type="SOURCE" refId="53" navigable="false">      
+      <attribute id="163" name="restaurantDAO"/>      
+      <multiplicity id="164" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="63" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="165">    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="166" name="mypageService"/>      
+      <multiplicity id="167" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="168">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="169" name="dao"/>      
+      <multiplicity id="170" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="64" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="171">    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="64"/>  
+  </realization>  
+  <realization id="172">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="43"/>  
+  </realization>  
+  <association id="173">    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="174" name="noteService"/>      
+      <multiplicity id="175" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="45" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="176">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="177" name="noteService"/>      
+      <multiplicity id="178" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="45" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="179">    
+    <end type="SOURCE" refId="73" navigable="false">      
+      <attribute id="180" name="followmeService"/>      
+      <multiplicity id="181" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="182">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <realization id="183">    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="47"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

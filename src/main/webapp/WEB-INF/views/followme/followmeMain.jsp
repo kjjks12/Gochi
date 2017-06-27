@@ -45,7 +45,7 @@
 										</a>
 										
 											<h3 class="subtitle">${list.title}</h3>
-											<div class="text">${list.email}<button class="btn-2" >참여하기</button></div>
+											<div class="text">${list.email}<button class="btn-2" onclick="join();">참여하기</button></div>
 											
 										
 
@@ -80,9 +80,10 @@
 									<a href="${pageContext.request.contextPath}/travel_review/review_detail?index=${list.travelNo}">
 										<div class="image image-fill">
 											<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/${list.travelNo}/${list.email}/${list.travelCoverImg}' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />
+											
 										</div>
 										<h3 class="subtitle">${list.briefStory}</h3>
-										<div class="text">${list.email}                            <input type="button" value="참여하기"></div>
+										<div class="text">${list.email}<button class="btn-2" onclick="join();">참여하기</button></div>
 									</a>
 
 								</c:forEach>
@@ -122,6 +123,13 @@
 
 		
 	</div>
+	
+	<script>
+	function join(){
+		alert("참여되었습니다!");
+	}
+	</script>
+	
 	<!-- /#page-container -->
 	<script type="text/javascript">
 	

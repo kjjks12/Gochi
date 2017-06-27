@@ -29,9 +29,9 @@ public class MainController {
 	@RequestMapping("/")
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView();
-		List<FollowemeDto> flist=followmeService.followSelect();
+
 		List<TravelDTO> tlist = travelAddDao.list();
-		mv.addObject("flist",flist);
+
 		mv.addObject("tlist",tlist);
 		mv.setViewName("index");
 		return mv;
