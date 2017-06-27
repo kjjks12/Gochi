@@ -1,5 +1,7 @@
 package gochi.travel.followmeservice;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,9 @@ public class FollowmeServiceImpl implements FollowmeService {
 		return 0;
 	}
 
+	@Override
+	   public List<FollowemeDto> followSelect() {
+	      List<FollowemeDto> list=followemeDao.followSelect();
+	      return list;
+	   }
 }

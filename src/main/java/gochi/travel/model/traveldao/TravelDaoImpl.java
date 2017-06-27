@@ -38,15 +38,17 @@ public class TravelDaoImpl implements TravelDao{
 
 	@Override
 	public TravelItinearyDTO travelItinearySave(TravelItinearyDTO travelItinearyDTO) {
-		travelItinearyDTO.setCategory("여행지");
-/*		System.out.println("DAO----------------------");
+		System.out.println("DAO----------------------");
 		System.out.println("여행 번호 :"+travelItinearyDTO.getTravelNo());
 		System.out.println("타이틀:"+travelItinearyDTO.getTravelItinearyTitle());
 		System.out.println("내용:"+travelItinearyDTO.getStory());
 		System.out.println("시작시간:"+travelItinearyDTO.getStartTime());
 		System.out.println("시작시간:"+travelItinearyDTO.getEndTime());
 		System.out.println("위도:"+travelItinearyDTO.getLatitude());
-		System.out.println("경도:"+travelItinearyDTO.getLogtitude());*/
+		System.out.println("경도:"+travelItinearyDTO.getLogtitude());
+		System.out.println("분류:"+travelItinearyDTO.getCategory());
+		System.out.println("가격:"+travelItinearyDTO.getMoney());
+		
 		
 		int result = sqlsession.insert("traveladdMapper.insertTravelItineary",travelItinearyDTO);
 		if(result!=0)
@@ -102,6 +104,15 @@ public class TravelDaoImpl implements TravelDao{
 	}
 
 
+	
+	
+
+	@Override
+	public int savebtn(TravelDTO travelDTO) {
+		return sqlsession.update("traveladdMapper.savebtn", travelDTO);
+	}
+
+
 
 	@Override
 	public int CeckList(CheckListDTO checklist) {
@@ -153,7 +164,11 @@ public class TravelDaoImpl implements TravelDao{
 		return sqlsession.update("traveladdMapper.updateTravelCover", map);
 	}
 	
-	
+	@Override
+	   public List<TravelDTO> list() {
+	      List<TravelDTO> list=sqlsession.selectList("traveladdMapper.travelCheck");
+	      return list;
+	   }
 	
 
 }

@@ -3,6 +3,13 @@
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 
 <style>
+.itenary_classfication_span{
+height:60px;
+}
+.radio_text{
+font-size:20px;
+margin-right: 20px;
+}
 #detailmap {
 	overflow: auto;
 }
@@ -36,7 +43,8 @@ text-align: center;
 <script type="text/javascript"
 	src="//apis.daum.net/maps/maps3.js?apikey=a39e6160d10aea82c49d95d61746babb&libraries=services"></script>
 
-
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a39e6160d10aea82c49d95d61746babb&libraries=services,clusterer,drawing"></script>
 <!-- custom css -->
 <link
 	href='${pageContext.request.contextPath}/resources/css/gochi/travel_add.css'
@@ -71,6 +79,47 @@ text-align: center;
 $(function() {
 	 $("#travel_thema2").val('${travelDTO.thema}'); 
 });
+
+</script>
+<script>
+/* var i=0
+window.document.onkeydown = protectKey;
+function down() {
+        window.footer_cart.scrollBy(0,31)
+        return;
+}
+function up() {
+        window.footer_cart.scrollBy(0,-31)
+        return;
+}
+function protectKey()
+{
+        //새로고침을 막는 스크립트.. F5 번키..
+        if(event.keyCode == 116)
+        {
+                event.keyCode = 0;
+                return false;
+        }
+        //CTRL + N 즉 새로 고침을 막는 스크립트....
+        else if ((event.keyCode == 78) && (event.ctrlKey == true))
+        {
+                event.keyCode = 0;
+                return false;
+        }
+}
+ */
+</script>
+
+
+<script>
+function onlyNumber(obj) 
+{
+    if (event.keyCode >= 48 && event.keyCode <= 57) { //숫자키만 입력
+        return true;
+    } else {
+        event.returnValue = false;
+    }
+}
 
 </script>
 <!-- 데이트피커-->
@@ -361,7 +410,6 @@ var flag=0;
 									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
 									success : function(travelItinearyDTO) {
 										alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
-										//alert(response+"dd5335");
 										 var events = [];
 											events.push({
 											id:travelItinearyDTO.itinearyNo,
@@ -369,9 +417,9 @@ var flag=0;
 							                start:travelItinearyDTO.startTime,
 							              	end :travelItinearyDTO.endTime
 								           }); 
-										callback(events);
+										 callback(events);
 							              calendar.fullCalendar('rerenderEvents');
-							              //calendar.fullCalendar('unselect'); 
+							              getAllDataAndMakeMarker();
 									},//ajax_Success
 									error : function(err) {
 										//alert(err + "오류발생")
@@ -396,6 +444,7 @@ var flag=0;
 							//alert(travelItinearyDTO.travelItinearyTitle)						 	
 						    //1.여행타이틀 셋팅 
 							$("#travelItinearyTitle").val(travelItinearyDTO.travelItinearyTitle);
+							$("#money").val(travelItinearyDTO.money);
 							//2.좌표셋팅
 							var markerpos = new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude);
 							//alert(markerpos);
@@ -456,7 +505,7 @@ var flag=0;
 						success : function(response) {
 							//alert('삭제완료 '+response);
 							$('#calendar').fullCalendar('removeEvents', event.id);
-							
+							getAllDataAndMakeMarker();
 						},//ajax_Success
 						error : function(err) {
 							//alert(err + "삭제 실패")
@@ -471,7 +520,111 @@ var flag=0;
 		
 	});//JQeury 끝
 </script>
+<script>
+var bounds;
+var mapMarkers=[];
+var posArr[];
+var countMaker=0;
+//지도 위에 표시되고 있는 마커를 모두 제거합니다
+	function removeMarker2() {
+		for (var i = 0; i < mapMarkers.length; i++) {
+			mapMarkers[i].setMap(null);
+		}
+		mapMarkers = [];
+		countMaker=0;
+	}
+	
+ 	function setLine(){
+ 		for (var i = 0; i < mapMarkers.length; i++) {
+			mapMarkers[i].setMap(null);
+		}
+ 		var linePath = [
+ 		    new daum.maps.LatLng(33.452344169439975, 126.56878163224233),
+ 		    new daum.maps.LatLng(33.452739313807456, 126.5709308145358),
+ 		    new daum.maps.LatLng(33.45178067090639, 126.5726886938753) 
+ 		];
+ 		
+ 		var polyline = new daum.maps.Polyline({
+		    path: mapMarkers, // 선을 구성하는 좌표배열 입니다
+		    strokeWeight: 5, // 선의 두께 입니다
+		    strokeColor: '#FFAE00', // 선의 색깔입니다
+		    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+		    strokeStyle: 'solid' // 선의 스타일입니다
+		});
+		polyline.setMap(map);
+	} 
 
+function addMarkers2(position,title) {
+	
+	var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+		imageSize = new daum.maps.Size(36, 37), // 마커 이미지의 크기
+		imgOptions = {
+			spriteSize : new daum.maps.Size(36, 691), // 스프라이트 이미지의 크기
+			spriteOrigin : new daum.maps.Point(0, (countMaker * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+			offset : new daum.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+		},
+		markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+		marker = new daum.maps.Marker({
+			position : position, // 마커의 위치
+			image : markerImage
+		});
+
+	marker.setMap(map); // 지도 위에 마커를 표출합니다
+    bounds.extend(position);
+    map.setBounds(bounds);
+	mapMarkers.push(marker); // 배열에 생성된 마커를 추가합니다
+
+	// 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
+	var iwContent = '<div style="padding:5px;">'+title+'</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+	// 인포윈도우를 생성합니다
+	var infowindow = new daum.maps.InfoWindow({
+	    content : iwContent
+	});
+
+	// 마커에 마우스오버 이벤트를 등록합니다
+	daum.maps.event.addListener(marker, 'mouseover', function() {
+	  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+	    infowindow.open(map, marker);
+	});
+
+	// 마커에 마우스아웃 이벤트를 등록합니다
+	daum.maps.event.addListener(marker, 'mouseout', function() {
+	    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+	    infowindow.close();
+	});
+	
+	countMaker+=1;
+	
+	return marker;
+}
+function getAllDataAndMakeMarker(){
+	$.ajax({
+		url : "travelitinearySelectAll", //요청이름(이동경로)
+		type : "post", //method방식(get,post)
+		data: "travelNo="+${travelDTO.travelNo},
+		dataType : "json", //요청결과정보의 타입(text, html, xml, json)
+		success : function(travelItinearyDTOList) {
+			 removeMarker2(); 
+			 bounds = new daum.maps.LatLngBounds();
+			 $.each(travelItinearyDTOList , function (index, travelItinearyDTO) {
+				var markerPosition  = new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude); 
+				 addMarkers2(markerPosition,"일차:"+travelItinearyDTO.day+"일  제목:"+travelItinearyDTO.travelItinearyTitle);
+			 });
+		},//ajax_Success
+		error : function(err) {
+			//alert(err + "오류발생")
+		}
+		
+	});//여행일정 전체 가져오기 ajax
+	
+}
+
+
+
+
+
+</script>
 <div id="page-container">
 
 
@@ -538,7 +691,7 @@ var flag=0;
 								<a target="_blank"
 									href="../myPage/user/0cf608b29ae518684037.html?active=myPlan">
 									<img id="profile-img"
-									src="${pageContext.request.contextPath}/resources/review_img/review_detail_profile_img.jpg">
+									src="${pageContext.request.contextPath}/resources/img/member/profile/${travelDTO.email}/">
 								</a>
 							</div>
 							<div class="author-name">
@@ -710,6 +863,7 @@ var flag=0;
 									<th>
 									<select id="travel_thema2" name="thema" >
 											<option value="thema">-- 테마 --</option>
+											 <option value="followme">나만믿고 따라와</option>
 											<option value="friend">친구와 함께</option>
 											<option value="alone">나홀로여행</option>
 											<option value="family">가족과 함께</option>
@@ -856,11 +1010,19 @@ var flag=0;
 						<button type="button" class="close" data-dismiss="modal"
 							id="travelitineary_modal_close_btn" aria-hidden="true">X</button>
 						<div class="section-title line-style">
-							<span class="title"><h4>
-									일정 제목 :<input type="text" id="travelItinearyTitle"
+							<div class="title">
+									일정 제목:
+								<input type="text" id="travelItinearyTitle"
 										name="travelItinearyTitle">
-								</h4></span>
+								</div>
 						</div>
+						<span class="itenary_classfication_span">
+						<i class="fa fa-camera-retro fa-2x" aria-hidden="true"  style="margin-right: 20px;"></i>
+						<input type="radio" name="category" value="여행지" style="width:20px; height:20px;"><span class="radio_text">여행지</span>
+						<i class="fa fa-cutlery fa-2x" aria-hidden="true"  style="margin-right: 20px;"></i>
+						<input type="radio" name="category" value="맛집"  style="width:20px; height:20px;"><span class="radio_text">맛집</span>
+						</span>
+						
 					</div>
 
 					<div class="modal-body">
@@ -893,6 +1055,13 @@ var flag=0;
 						</div>
 
 					</div>
+					<div class="section-title line-style">
+							<div class="title">
+									 소요비용:
+							<input type="text" id="money" name="money"  value="0"onkeypress="onlyNumber(this);" style="IME-MODE:disabled;"/>원
+								</div>
+						</div>
+					
 					<div class="section-title line-style">
 						<h3 class="title">일정 계획</h3>
 					</div>
@@ -928,9 +1097,17 @@ function itinearyInitFunc(){
 	var bounds = new daum.maps.LatLngBounds();   
 	bounds.extend(defaultpos);					
 	onePointMap.setBounds(bounds);
-	
-	
+	$("#money").val("0");
+	var paginationEl = document.getElementById('pagination'),
+	fragment = document.createDocumentFragment(),
+	i;
+
+// 기존에 추가된 페이지번호를 삭제합니다
+while (paginationEl.hasChildNodes()) {
+	paginationEl.removeChild(paginationEl.lastChild);
+}
 	removeAllChildNods(document.getElementById('placesList'));
+	
 	removeMarker();
 	setTimeout("callMap()", 500);
 	/*3.텍스트 영역 초기화*/
@@ -1533,8 +1710,13 @@ $(document).ready(function() {
 $(function(){
 	
 	$("#travelSave").click(function(){
-		
-	location.href="${pageContext.request.contextPath}/travelreview/travelreview_main?data=전체";
+	alert($("#planDetailMessage").val());
+	location.href="${pageContext.request.contextPath}/traveladd/savebtn?"
+	+"travelNo="+${travelDTO.travelNo} +"&"
+	+"briefStory="+$("#planDetailMessage").val() +"&"
+	+"thema="+$("#travel_thema2").val()+"&"
+	+"travelStartDay="+$("#travel_start_day2").val() +"&"
+	+"travelEndDay="+$("#travel_end_day2").val()
 	})
 	
 })

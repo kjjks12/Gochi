@@ -33,6 +33,16 @@
  <selectKey keyProperty="travelNo" resultType="Integer" order="AFTER">select TRAVEL_NO.currval from dual</selectKey>
 </insert>
 
+<update id="savebtn" parameterType="TravelDTO">
+update TRAVEL
+set 
+BRIEF_STORY=#{briefStory},
+THEMA=#{thema},
+TRAVEL_START_DAY=#{travelStartDay},
+TRAVEL_END_DAY=#{travelEndDay}
+where TRAVEL_NO=#{travelNo}
+</update>
+
 
  <resultMap type="TravelItinearyDTO" id="TravelItinearyDTOResultMap">
  <id property="itinearyNo" column="ITINEARY_NO"/>
@@ -58,7 +68,7 @@
 
 <select id="travelitinearySelectAll" parameterType="Integer" resultMap="TravelItinearyDTOResultMap">
 select * from TRAVEL_ITINEARY 
-where TRAVEL_NO=#{_parameter}
+where TRAVEL_NO=#{_parameter} ORDER BY START_TIME
 
 </select>
 
@@ -101,6 +111,16 @@ DELETE
 FROM TRAVEL_ITINEARY
 WHERE ITINEARY_NO=#{_parameter}
 </delete>
+
+
+<!-- index에서 사용할 최신글 1~3 -->
+<select id="travelCheck" resultMap="travelDTOResultMap">
+   select rownum,TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY, BRIEF_STORY, FAVOR, TRAVEL_COVER_IMG from travel 
+   <where>
+      rownum between 1 and 3 order by travel_no desc
+   </where>
+   
+</select>
 
 
 <!-- 체크리스트 검색 -->

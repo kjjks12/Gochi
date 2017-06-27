@@ -137,6 +137,7 @@
                   <!-- datepicker 끝 -->
                   <span> <select id="capa" name="thema">
                         <option value="thema">-- 테마 --</option>
+                  		 <option value="followme">나만믿고 따라와</option>
                         <option value="friend">친구와 함께</option>
                         <option value="alone">나홀로여행</option>
                         <option value="family">가족과 함께</option>

@@ -15,7 +15,6 @@
 	<result property="img" column="TRAVEL_COVER_IMG"/>
 </resultMap>
 
-
 <!-- 후기 최신글 검색 -->
 <select id="newTrvelReview" parameterType="string" resultMap="travelReviewMap">
 	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
