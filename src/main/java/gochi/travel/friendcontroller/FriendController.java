@@ -135,7 +135,7 @@ public class FriendController {
 	@RequestMapping("/friendAgree")
 	@ResponseBody
 	public void agreeFriend(String email,String fEmail,String content,int noteNo){ 
-	
+		System.out.println("친구요청한 아이디 :"+fEmail);
 		/***
 		 * content값에 #를 구분자로 하여 저장한 친구번호를 가져옴
 		 * 

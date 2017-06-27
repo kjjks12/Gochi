@@ -66,7 +66,7 @@
                   href="${pageContext.request.contextPath}/hotdeal/hotdeal_main">여행
                      핫딜</a></li>
                <li class="has_submenu">
-               <a href="${pageContext.request.contextPath}/followme/followmeMain">나믿따</a>
+               <a href="${pageContext.request.contextPath}/followme/followmeMain">나만믿고따라와</a>
                </li>
                 <c:if test="${not empty sessionScope.dto}">
                <li class="has_submenu">
@@ -74,7 +74,7 @@
                </li>
                </c:if>
                <li class="has_submenu"><a
-                  href="${pageContext.request.contextPath}/travelreview/travelreview_main?data=전체">일정후기</a>
+                  href="${pageContext.request.contextPath}/travelreview/travelreview_main?data=전체">일정보기</a>
                </li> 
                <li class="has_submenu"><a
                   href="${pageContext.request.contextPath}/restaurant/restaurant">맛집</a>

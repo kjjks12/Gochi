@@ -3,46 +3,80 @@
 <!-- member 관련 xml -->
 <mapper namespace="followmeMapper">
 
-<resultMap type="gochi.travel.model.travelreviewdto.TravelReviewDto" id="travelReviewMap">
-	<id property="travel_no" column="travel_no"/>
-	<result property="title" column="TITLE"/>
-	<result property="email" column="EMAIL"/>
-	<result property="thema" column="THEMA"/>
-	<result property="start_day" column="TRAVEL_START_DAY"/>
-	<result property="end_day" column="TRAVEL_END_DAY"/>
-	<result property="brief_story" column="BRIEF_STORY"/>
-	<result property="favor" column="FAVOR"/>
-	<result property="img" column="TRAVEL_COVER_IMG"/>
+<resultMap type="gochi.travel.model.followedto.FollowemeDto" id="followmeDtoMap">
+   <id property="follow_no" column="TRAVEL_NO"/>
+   <result property="title" column="TITLE"/>
+   <result property="cover_img" column="TRAVEL_COVER_IMG"/>
+   <result property="email" column="EMAIL"/>
+   <result property="follow_start_day" column="TRAVEL_START_DAY"/>
+   <result property="follow_end_day" column="TRAVEL_END_DAY"/>
+   <result property="thema" column="THEMA"/>
+   <result property="location" column="LOCATION"/>
+   <result property="distance" column="DISTANCE"/>
+   <result property="carTime" column="CARTIME"/>
+   <result property="walkTime" column="WALKTIME"/>
+   <result property="bycicleTime" column="BYCICLETIME"/>
+   <result property="cost" column="COST"/>
+   <result property="story" column="STORY"/>
+   <result property="favor" column="FAVOR"/>
+
 </resultMap>
 
-<!-- 후기 최신글 검색 -->
-<select id="newTrvelReview" parameterType="string" resultMap="travelReviewMap">
-	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
-		from TRAVEL_REVIEW 
-		<where>
-			<if test="_parameter!=null">
-				THEMA = #{_parameter}
-			</if>
-		</where>
-		order by travel_no DESC
+<!-- 나믿따 최신글 검색 -->
+<select id="newfollow" parameterType="string" resultMap="followmeDtoMap">
+   select TRAVEL_NO,TITLE,TRAVEL_COVER_IMG,EMAIL,TRAVEL_START_DAY,TRAVEL_END_DAY,THEMA,LOCATION,DISTANCE,CARTIME,WALKTIME,BYCICLETIME,COST,STORY,FAVOR
+      from FOLLOW_ME 
+      <where>
+         <if test="_parameter!=null">
+            THEMA = #{_parameter}
+         </if>
+      </where>
+      order by travel_no DESC
 </select>
-<!-- 후기 좋아요순 검색 -->
-<select id="goodTravelReview" parameterType="string"  resultMap="travelReviewMap">
-	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
-		from TRAVEL_REVIEW 
-		<where>
-			<if test="_parameter!=null">
-				THEMA = #{_parameter}
-			</if>
-		</where>
-		order by favor DESC
+<!-- 나믿따 좋아요순 검색 -->
+<select id="favorFollow" parameterType="string" resultMap="followmeDtoMap">
+   select TRAVEL_NO,TITLE,TRAVEL_COVER_IMG,EMAIL,TRAVEL_START_DAY,TRAVEL_END_DAY,THEMA,LOCATION,DISTANCE,CARTIME,WALKTIME,BYCICLETIME,COST,STORY,FAVOR
+      from FOLLOW_ME 
+      <where>
+         <if test="_parameter!=null">
+            THEMA = #{_parameter}
+         </if>
+      </where>
+      order by favor DESC
 </select>
+
+<!-- email Search 하나만  검색 -->
+<select id="seachEmailFollowme" parameterType="string" resultMap="followmeDtoMap">
+   select TRAVEL_NO,EMAIL,TRAVEL_START_DAY,TRAVEL_END_DAY,THEMA,LOCATION,DISTANCE,CARTIME,WALKTIME,BYCICLETIME,COST,STORY
+   from FOLLOW_ME
+   where EMAIL= #{_parameter}
+</select>
+
+<!-- 나믿따 dto 하나만  검색 -->
+<select id="followmeSelectDto" parameterType="FollowemeDto" resultMap="followmeDtoMap">
+   select TRAVEL_NO,EMAIL,TRAVEL_START_DAY,TRAVEL_END_DAY,THEMA,LOCATION,DISTANCE,CARTIME,WALKTIME,BYCICLETIME,COST,STORY
+   from FOLLOW_ME
+   where TRAVEL_NO=#{follow_no} AND EMAIL=#{email}
+</select>
+
 
 <!-- 나믿따 insert 하기 -->
 <insert id="insertFollowme" parameterType="FollowemeDto">
-	insert into FRIEND(TRAVEL_NO,EMAIL,TRAVEL_START_DAY,TRAVEL_END_DAY,THEMA,LOCATION,DISTANCE,CARTIME,WALKTIME,BYCICLETIME,COST,STORY)
-	values(#{travel_no},#{email},#{follow_start_day},#{follow_end_day},#{thema},#{location},#{distance},#{carTime},#{walkTime},#{bycicleTime},#{cost},#{story})
+   insert into FOLLOW_ME(TRAVEL_NO,EMAIL,TRAVEL_START_DAY,TRAVEL_END_DAY,THEMA,LOCATION,DISTANCE,CARTIME,WALKTIME,BYCICLETIME,COST,STORY)
+   values(FOLLOW_ME_NO.NEXTVAL,#{email},#{follow_start_day},#{follow_end_day},#{thema},#{location},#{distance},#{carTime},#{walkTime},#{bycicleTime},#{cost},#{story})
 </insert>
 
+<!-- 나믿따 detail 하나만  검색 -->
+<select id="followdetail" parameterType="int" resultMap="followmeDtoMap">
+   select TRAVEL_NO,TITLE,TRAVEL_COVER_IMG,EMAIL,TRAVEL_START_DAY,TRAVEL_END_DAY,THEMA,LOCATION,DISTANCE,CARTIME,WALKTIME,BYCICLETIME,COST,STORY
+   from FOLLOW_ME
+   where TRAVEL_NO=#{follow_no}
+</select>
+
+<!-- 나믿따  -->
+<select id="followSelect" resultMap="followmeDtoMap">
+	select rownum,TRAVEL_NO,TITLE,TRAVEL_COVER_IMG,EMAIL,TRAVEL_START_DAY,TRAVEL_END_DAY,THEMA,LOCATION,DISTANCE,CARTIME,WALKTIME,BYCICLETIME,COST,STORY,FAVOR
+	from FOLLOW_ME where rownum between 1 and 3 order by favor desc
+</select>
 
 </mapper>

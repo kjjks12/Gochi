@@ -102,5 +102,16 @@
 	<select id="selectImg" parameterType="int" resultMap="restaurantImg">
 		select RESTAURANT_NO, IMG_NO, IMG from RESTAURANT_IMG where RESTAURANT_NO = #{_parameter}	
 	</select>
+	
+	<!-- 맛집 이미지 넣기 -->
+	<insert id="imageSave" parameterType="RestaurantImgDTO">
+		insert into RESTAURANT_IMG(RESTAURANT_NO,IMG_NO,IMG)
+		VALUES (#{restaurantNo},#{imgNo},#{img})
+	</insert>
+	
+	<!-- 맛집 이미지 최대번호 검색 -->
+	<select id="selectMaxImgNo" resultType="int">
+		select max(IMG_NO) from RESTAURANT_IMG
+	</select>
 
 </mapper>

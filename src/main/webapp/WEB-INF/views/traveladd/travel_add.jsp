@@ -43,8 +43,7 @@ text-align: center;
 <script type="text/javascript"
 	src="//apis.daum.net/maps/maps3.js?apikey=a39e6160d10aea82c49d95d61746babb&libraries=services"></script>
 
-<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a39e6160d10aea82c49d95d61746babb&libraries=services,clusterer,drawing"></script>
+
 <!-- custom css -->
 <link
 	href='${pageContext.request.contextPath}/resources/css/gochi/travel_add.css'
@@ -81,36 +80,6 @@ $(function() {
 });
 
 </script>
-<script>
-/* var i=0
-window.document.onkeydown = protectKey;
-function down() {
-        window.footer_cart.scrollBy(0,31)
-        return;
-}
-function up() {
-        window.footer_cart.scrollBy(0,-31)
-        return;
-}
-function protectKey()
-{
-        //새로고침을 막는 스크립트.. F5 번키..
-        if(event.keyCode == 116)
-        {
-                event.keyCode = 0;
-                return false;
-        }
-        //CTRL + N 즉 새로 고침을 막는 스크립트....
-        else if ((event.keyCode == 78) && (event.ctrlKey == true))
-        {
-                event.keyCode = 0;
-                return false;
-        }
-}
- */
-</script>
-
-
 <script>
 function onlyNumber(obj) 
 {
@@ -410,6 +379,7 @@ var flag=0;
 									dataType : "json", //요청결과정보의 타입(text, html, xml, json)
 									success : function(travelItinearyDTO) {
 										alert('여행일정 seq'+travelItinearyDTO.itinearyNo);
+										//alert(response+"dd5335");
 										 var events = [];
 											events.push({
 											id:travelItinearyDTO.itinearyNo,
@@ -523,7 +493,6 @@ var flag=0;
 <script>
 var bounds;
 var mapMarkers=[];
-var posArr[];
 var countMaker=0;
 //지도 위에 표시되고 있는 마커를 모두 제거합니다
 	function removeMarker2() {
@@ -533,26 +502,6 @@ var countMaker=0;
 		mapMarkers = [];
 		countMaker=0;
 	}
-	
- 	function setLine(){
- 		for (var i = 0; i < mapMarkers.length; i++) {
-			mapMarkers[i].setMap(null);
-		}
- 		var linePath = [
- 		    new daum.maps.LatLng(33.452344169439975, 126.56878163224233),
- 		    new daum.maps.LatLng(33.452739313807456, 126.5709308145358),
- 		    new daum.maps.LatLng(33.45178067090639, 126.5726886938753) 
- 		];
- 		
- 		var polyline = new daum.maps.Polyline({
-		    path: mapMarkers, // 선을 구성하는 좌표배열 입니다
-		    strokeWeight: 5, // 선의 두께 입니다
-		    strokeColor: '#FFAE00', // 선의 색깔입니다
-		    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-		    strokeStyle: 'solid' // 선의 스타일입니다
-		});
-		polyline.setMap(map);
-	} 
 
 function addMarkers2(position,title) {
 	
@@ -610,6 +559,7 @@ function getAllDataAndMakeMarker(){
 			 $.each(travelItinearyDTOList , function (index, travelItinearyDTO) {
 				var markerPosition  = new daum.maps.LatLng(travelItinearyDTO.latitude, travelItinearyDTO.logtitude); 
 				 addMarkers2(markerPosition,"일차:"+travelItinearyDTO.day+"일  제목:"+travelItinearyDTO.travelItinearyTitle);
+			 
 			 });
 		},//ajax_Success
 		error : function(err) {

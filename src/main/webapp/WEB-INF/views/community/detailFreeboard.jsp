@@ -109,9 +109,9 @@
                      </div>
                      
                      <!-- commnet 글쓰기 -->
-                     <div id="comments" class="col-md-14">
+                     <div id="comments" class="col-md-12">
                      <h3 class="title-form"><i class="icon fa fa-comment"></i> Leave a Comment</h3>
-                     <form class="form-large grey-color" action="#" method="post" style="width: 521px;">
+                     <form class="form-large grey-color col-md-14" action="#" method="post">
                         <div class="row">
                            <div class="col-md-6 col-sm-6 col-xs-12">
                               <label for="name">NicName</label>
@@ -131,10 +131,11 @@
                      </form>
                         
                   </div><!-- /. end-comment -->
-               </div>
-              		 <div style="text-align: right;">
+                  <div style="text-align: right;">
                         <button type="button" class="btn btn-default" id="back" name="back" onclick="page()">확인</button>
                      </div>
+               </div>
+              		 
                      </div>
                      
                      <!-- comment들어가는구간 -->

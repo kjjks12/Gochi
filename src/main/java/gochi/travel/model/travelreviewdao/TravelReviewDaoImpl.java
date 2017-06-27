@@ -10,6 +10,7 @@ import gochi.travel.model.memberdto.MemberDTO;
 import gochi.travel.model.traveldto.CheckListDTO;
 import gochi.travel.model.traveldto.TravelDTO;
 import gochi.travel.model.traveldto.TravelItinearyDTO;
+import gochi.travel.model.travelreviewdto.TravelReviewCommentDTO;
 import gochi.travel.model.travelreviewdto.TravelReviewDto;
 
 @Repository
@@ -67,6 +68,19 @@ public class TravelReviewDaoImpl implements TravelReviewDao{
 		
 		return sqlSession.selectList("travelReviewMapper.selectCheckList", Integer.parseInt(index));
 	}
+
+	@Override
+	public int insertComment(TravelReviewCommentDTO commentDTO) {
+		
+		return sqlSession.insert("travelReviewMapper.commentInsert",commentDTO);
+	}
+
+	@Override
+	public List<TravelDTO> lowPrice() {
+		
+		return sqlSession.selectList("");
+	}
+
 
 	
 }

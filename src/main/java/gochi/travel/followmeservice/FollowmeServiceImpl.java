@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import gochi.travel.model.followedto.FollowemeDto;
 import gochi.travel.model.followmedao.FollowemeDao;
+import gochi.travel.model.traveldto.TravelDTO;
 
 @Service
 public class FollowmeServiceImpl implements FollowmeService {
@@ -24,4 +25,21 @@ public class FollowmeServiceImpl implements FollowmeService {
 	      List<FollowemeDto> list=followemeDao.followSelect();
 	      return list;
 	   }
+	
+	//화면에 뿌려줄 정보 가져오기
+	@Override
+	public List<TravelDTO> follow() {
+		
+		return followemeDao.follow();
+	}
+	
+	
+	//좋아요 많은 게시물 가져오기
+	@Override
+	public List<TravelDTO> likeFollow() {
+		
+		return followemeDao.likeFollow();
+
+	}
+
 }

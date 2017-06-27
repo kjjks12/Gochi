@@ -10,6 +10,7 @@ import gochi.travel.model.traveldto.CheckListDTO;
 import gochi.travel.model.traveldto.TravelDTO;
 import gochi.travel.model.traveldto.TravelItinearyDTO;
 import gochi.travel.model.travelreviewdao.TravelReviewDao;
+import gochi.travel.model.travelreviewdto.TravelReviewCommentDTO;
 import gochi.travel.model.travelreviewdto.TravelReviewDto;
 
 
@@ -56,7 +57,22 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 	
 		return travelReviewDao.checkList(index);
 	}
+
+	//후기 댓글달기
+	@Override
+	public int insertComment(TravelReviewCommentDTO commentDTO) {
 		
+		return travelReviewDao.insertComment(commentDTO);
+	}
+
+	@Override
+	public List<TravelDTO> lowPrice() {
+		
+		return travelReviewDao.lowPrice();
+	}
+	
+	
+
 }
 	
 

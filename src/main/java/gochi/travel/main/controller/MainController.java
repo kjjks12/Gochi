@@ -17,6 +17,7 @@ import gochi.travel.model.traveldto.TravelDTO;
  */
 @Controller
 public class MainController {
+	
 
 	@Autowired
 	   private FollowmeService followmeService;
@@ -36,6 +37,7 @@ public class MainController {
 	      return mv;
 	   }
 	   
+	
 	
 	
 	

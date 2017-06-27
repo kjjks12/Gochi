@@ -1,46 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>PROHOME - Responsive Real Estate Template</title>
-
-<jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
-<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
-
-
-<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
-<link rel="shortcut icon" href="images/favicon/favicon.ico"
-	type="image/x-icon" />
-<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
-<link rel="apple-touch-icon" sizes="57x57"
-	href="images/favicon/apple-touch-icon-57x57.png" />
-<link rel="apple-touch-icon" sizes="72x72"
-	href="images/favicon/apple-touch-icon-72x72.png" />
-<link rel="apple-touch-icon" sizes="76x76"
-	href="images/favicon/apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" sizes="114x114"
-	href="images/favicon/apple-touch-icon-114x114.png" />
-<link rel="apple-touch-icon" sizes="120x120"
-	href="images/favicon/apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" sizes="144x144"
-	href="images/favicon/apple-touch-icon-144x144.png" />
-<link rel="apple-touch-icon" sizes="152x152"
-	href="images/favicon/apple-touch-icon-152x152.png" />
-
-<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<script
+   src='${pageContext.request.contextPath}/resources/fullcalendar/moment.min.js'></script>
 
 <script>
 	$(document).ready(function() {
@@ -93,10 +55,7 @@
 					src="${pageContext.request.contextPath}/resources/img/travel/travelCover/${sessionScope.travelInfo.travelNo}/${sessionScope.travelInfo.email}/${sessionScope.travelInfo.travelCoverImg}"></span>
 				<div class="container header-text">
 					<div>
-						<b><h1 align="center">${sessionScope.travelInfo.title}</h1></b>
-					</div>
-					<div>
-						
+						<h1 align="center">${sessionScope.travelInfo.title}</h1>
 					</div>
 				</div>
 			</div>
@@ -139,23 +98,24 @@
 										data-id="0cf608b29ae51868">팔로잉</button>
 								</div>
 
+
+							
 								<!-- author-page-links -->
 								<div class="author-page-links"></div>
 								<!-- author-page-links -->
 
 							</div>
-							<p>
-							<p>
 
-					
+							<p>
+							<p>
+							<p>
 							<ul class="block-menu">
-								<li><a class="faq-button active" href="#basic"><i
+								<li><a class="faq-button" href="#basic"><i
 										class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;방문&nbsp;명소</a></li>
 								<li><a class="faq-button" href="#summary"><i
 										class="fa fa-krw" aria-hidden="true"></i>&nbsp;여행가계부</a></li>
-								<li><a class="faq-button" href="#images"><i
-										class="fa fa-check-square-o" aria-hidden="true"></i>
-										&nbsp;체크리스트</a></li>
+								<li><a data-toggle="modal" data-target="#checkList" class="faq-button active">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>체크리스트</a></li>
 							</ul>
 
 
@@ -169,8 +129,8 @@
 
 							<!-- 여행에 대한 간단한 소개 -->
 							<div class="plan-info-top">
-								<b><h2>${sessionScope.travelInfo.title}</h2></b>
-								<b><div>${sessionScope.travelInfo.briefStory}</div></b>
+								<h2>${sessionScope.travelInfo.title}</h2>
+								<div>${sessionScope.travelInfo.briefStory}</div>
 							</div>
 
 							<!-- 여행 내용 -->
@@ -180,144 +140,52 @@
 								<div class="day-box">
 									<c:if test="${not empty sessionScope.travelDetailInfo}">
 										<c:forEach items="${sessionScope.travelDetailInfo}" var="detailInfo">
-											<font size=7>
 											
-											<b>${detailInfo.travelItinearyTitle}</b> <p>
-											${detailInfo.story}
-											<p>	
-											</font>						
-										</c:forEach>
-									</c:if>
-									<c:if test="${not empty sessionScope.checkList}">
-										<b><font size=7 color="ff0000"><i class="fa fa-exclamation-circle"></i>이건 꼭 준비해 주세요</font></b><p>
-										<c:forEach items="${sessionScope.checkList}" var="list">
-										<font size=5>
-											<i class="fa fa-hashtag"></i>${list.item}
-											</font>
-										</c:forEach>
-									</c:if>
+											<!-- 방문한 장소 + 내용 들어갈 곳  1개-->
+											<div class="spot-note-box">
+												<!-- 1.방문 장소 -->
+												<div class="spot_location">				
+														<h1><span class="ct"></span><span><i class="fa fa-camera" aria-hidden="true"></i>${detailInfo.travelItinearyTitle} ( ${detailInfo.startTime} ~ ${detailInfo.endTime} )</span></h1>			
+												</div>
+												<!-- 2.방문 내용 -->
+												<div class="spot-contents">
+													<div id="note_panel">${detailInfo.story}</div>
+													<div id="note-comment-area"></div>
+												</div>
+											</div>
 
-				<!-- comment 시작 -->
-				<div id="comments">
-					<div class="medialist">
-						<div class="media">
-							<div class="media-left">
-								<a href="#"> <img class="media-object"
-									src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" />
-								</a>
-							</div>
-							<div class="media-body">
-								<div class="comment-line">
-									<h4 class="media-heading">
-										Manuel Lawrence <span class="date-comment">1 February
-											at 22:03</span>
-										<button class="reply">
-											<i class="fa fa-share-square-o"></i>
-										</button>
-									</h4>
-									<b>Lorem ipsum dolor sit amet, consectetur adipiscing elit</b>
-									Aliquam at maximus nibh. Nunc odio dolor, cursus rutrum lorem
-									vel, rutrum faucibus risus. Duis id imperdiet mauris, eget
-									lobortis urna. Donec efficitur, tellus sed dapibus consequat,
-									nulla sapien accumsan ligula, sollicitudin congue est magna non
-									dui. Sed malesuada convallis est, et laoreet sem accumsan at.
-									Ut vestibulum eleifend urna, nec sodales lorem rhoncus quis.
-									Nulla imperdiet mattis nisl sit amet cursus. Nullam malesuada,
-									lorem ac commodo finibus, ipsum eros fermentumet euismod
-									ultricies.
+										</c:forEach>
+										
+									</c:if>
 								</div>
+
 							</div>
+
+
+							<!-- 왼쪽 날짜 보여줄 부분 -->
+							<div class="col-xs-1 col-sm-1 col-md-1  col-lg-1" id="floatMenu">
+								<ul>
+									<li class="story-view-nav-li"><a
+										class="btn-top nav-btn-top story-view-nav-btn" data-id="top">Top</a></li>
+									<li class="story-view-nav-li"><a
+										class="story-view-nav-btn" data-id="0"><span>Day</span><span>1</span></a></li>
+									<li class="story-view-nav-li"><a
+										class="story-view-nav-btn" data-id="1"><span>Day</span><span>2</span></a></li>
+									<li class="story-view-nav-li"><a
+										class="story-view-nav-btn" data-id="2"><span>Day</span><span>3</span></a></li>
+									<li class="story-view-nav-li"><a
+										class="story-view-nav-btn" data-id="3"><span>Day</span><span>4</span></a></li>
+								</ul>
+							</div>
+
 						</div>
-						<div class="media">
-							<div class="media-left">
-								<a href="#"> <img class="media-object"
-									src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" />
-								</a>
-							</div>
-							<div class="media-body">
-								<div class="comment-line">
-									<h4 class="media-heading">
-										Ruth Stone <span class="date-comment">2 February at
-											22:36</span>
-										<button class="reply">
-											<i class="fa fa-share-square-o"></i>
-										</button>
-									</h4>
-									<b>Morbi mattis neque eu justo fringilla</b> Scelerisque ut
-									facilisis risus. Proin imperdiet erat tellus, non viverra dui
-									condimentum eget. Nullam at enim id elit semper scelerisque.
-									Etiam lorem ex, semper sed magna sed, molestie interdum ante.
-									Donec blandit nisl mauris, nec placerat ante sodales quis.
-								</div>
-								<div class="media">
-									<div class="media-left">
-										<a href="#"><img class="media-object"
-											src="http://placehold.it/512/bbbbbb/ffffff"
-											alt="Image sample" /></a>
-									</div>
-									<div class="media-body nested">
-										<div class="comment-line">
-											<h4 class="media-heading">
-												Jean Medina <span class="date-comment">8 February at
-													22:40</span>
-											</h4>
-											Mauris eu ipsum porta, rhoncus mi eget, vehicula est. Nulla
-											condimentum condimentum dapibus. Nullam at enim id elit
-											semper scelerisque. Etiam lorem ex, semper sed magna sed,
-											molestie interdum ante. Donec blandit nisl mauris, nec
-											placerat ante sodales quis.
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="media">
-							<div class="media-left">
-								<a href="#"> <img class="media-object"
-									src="http://placehold.it/512/bbbbbb/ffffff" alt="Image sample" />
-								</a>
-							</div>
-							<div class="media-body">
-								<div class="comment-line">
-									<h4 class="media-heading">
-										Margaret Smith <span class="date-comment">4 February at
-											16:52</span>
-										<button class="reply">
-											<i class="fa fa-share-square-o"></i>
-										</button>
-									</h4>
-									Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-									scelerisque ante sollicitudin commodo. Cras purus odio,
-									vestibulum in vulputate at, tempus viverra turpis.
-								</div>
-							</div>
-						</div>
+						<!--  ./오른쪽 내용 (블로그 본문+오른쪽 날짜) 끝-->
+
 					</div>
-					<h3 class="title-form">
-						<i class="icon fa fa-comment"></i> Leave a Comment
-					</h3>
-					<form class="form-large grey-color" action="#" method="post">
-						<div class="row">
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<label for="name">Name</label> <input type="text"
-									placeholder="Name .." name="name" id="name"
-									class="margin-bottom form-control">
-							</div>
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<label for="email">Email</label> <input type="text"
-									placeholder="Email .." name="email" id="email"
-									class="margin-bottom form-control">
-							</div>
-							<div class="col-md-12">
-								<label for="text-message">Message</label>
-								<textarea name="text-message" id="text-message" rows="4"
-									class="margin-bottom form-control"></textarea>
-							</div>
-						</div>
-						<input type="submit" class="btn btn-default" value="Send Comment">
-					</form>
+					<!-- /.전체 12개 컬럼  -->
 				</div>
-				<!-- /. end-comment -->
+				<!-- ./row 끝 -->
+
 			</div>
 			<!-- /.container끝 -->
 		</section>
@@ -511,7 +379,43 @@
 	</div>
 	<!-- /#page-container -->
 
+<!--여행일정 모달  Modal -->
+<div class="modal fade" id="checkList" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1000">
+   <div class="modal-dialog" style="z-index: 1001;">
+      <div class="modal-content" style="background-clip: border-box;">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+            <h3 class="modal-title" id="myModalLabel"><i class="fa fa-hand-o-right"></i>잊지말고 챙겨가세요!</h3>
+         </div>
+         <div class="modal-body">
+         <h4>${sessionScope.writer.nickname} 님이 직접 선별한 준비물 입니다!</h4><p>
+         <h4>깜빡하기 전에 지금 챙겨보는건 어떨까요?</h4><p>
+         <div class="form-group">
+        	
+          <c:if test="${not empty sessionScope.checkList}">
+          	<c:forEach items="${sessionScope.checkList}" var="check" varStatus="state">
+          	  ${state.index} ) ${check.item} <br> 
+              </c:forEach>
+		</c:if>
+		</div>
+                  <!-- 모달 foot -->
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-default"
+                        data-dismiss="modal">닫기</button>
+                  </div>
+                  <!-- 모달 foot end-->
+         </div>
 
-
+         <!--./form 전송 끝 -->
+      </div>
+      <!-- 모달 콘텐츠 -->
+   </div>
+   <!-- 모달 다이얼로그 -->
+</div>
+<!-- 모달 전체 윈도우 -->
 </body>
 </html>

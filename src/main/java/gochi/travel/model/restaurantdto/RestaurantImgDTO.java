@@ -1,9 +1,13 @@
 package gochi.travel.model.restaurantdto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class RestaurantImgDTO {
 	private int restaurantNo;
 	private int imgNo;
 	private String img;
+	
+	private MultipartFile imgFile;
 	
 	public RestaurantImgDTO() {}
 	public RestaurantImgDTO(int restaurantNo, int imgNo, String img) {
@@ -31,4 +35,11 @@ public class RestaurantImgDTO {
 	public void setImg(String img) {
 		this.img = img;
 	}
+	public MultipartFile getImgFile() {
+		return imgFile;
+	}
+	public void setImgFile(MultipartFile imgFile) {
+		this.imgFile = imgFile;
+	}
+	
 }

@@ -84,6 +84,7 @@ $(function(){
 	});
 	
 	$(document).on("mouseenter","#review_detail_back_cover_img",function(){//배경 이미지에 마우스 커서 접근시
+		
 		$("#backImgForm").show();
 		//alert("배경이미지 나타내기");
 		var str='';
@@ -217,7 +218,7 @@ $(function(){
 							<c:if test="${MYPAGEEMAIL eq MYEMAIL}">
 								 <li><a class="faq-button" href="${pageContext.request.contextPath}/friends"><i class="icon fa fa-pencil-square-o"></i>친구목록</a></li>
 								 <li><a class="faq-button" href="${pageContext.request.contextPath}/note"><i class="icon fa fa-envelope-o"></i>받은쪽지함</a></li>
-								 <li><a class="faq-button" href="${pageContext.request.contextPath}/itineary"><i class="icon fa fa-envelope-o"></i>나의 여행 일정</a></li>
+								 <li><a class="faq-button" href="${pageContext.request.contextPath}/selectMyTravelList/${MYEMAIL}"><i class="icon fa fa-calendar" aria-hidden="true"></i>나의 일정</a></li>
 							</c:if>
 						</ul>
 					</div>
