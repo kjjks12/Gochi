@@ -34,8 +34,15 @@ public class TravelItinearyDTO {
 	
 	/** 기본 생성자 */
 	public TravelItinearyDTO() {}
-
 	
+	
+
+	public TravelItinearyDTO(String day) {
+		super();
+		this.day = day;
+	}
+
+
 
 	public TravelItinearyDTO(int itinearyNo, int travelNo, String travelItinearyTitle, String day, String startTime,
 			String endTime, String latitude, String logtitude, String story) {

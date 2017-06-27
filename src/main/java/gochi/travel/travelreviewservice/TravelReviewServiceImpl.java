@@ -64,7 +64,15 @@ public class TravelReviewServiceImpl implements TravelReviewService {
 		
 		return travelReviewDao.insertComment(commentDTO);
 	}
+
+	@Override
+	public List<TravelDTO> lowPrice() {
 		
+		return travelReviewDao.lowPrice();
+	}
+	
+	
+
 }
 	
 

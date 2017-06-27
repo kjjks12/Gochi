@@ -1,46 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-<title>PROHOME - Responsive Real Estate Template</title>
-
-<jsp:include page="/WEB-INF/views/include/include_top_css.jsp" />
-<jsp:include page="/WEB-INF/views/include/include_buttom_css.jsp" />
-
-
-<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
-<link rel="shortcut icon" href="images/favicon/favicon.ico"
-	type="image/x-icon" />
-<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" />
-<link rel="apple-touch-icon" sizes="57x57"
-	href="images/favicon/apple-touch-icon-57x57.png" />
-<link rel="apple-touch-icon" sizes="72x72"
-	href="images/favicon/apple-touch-icon-72x72.png" />
-<link rel="apple-touch-icon" sizes="76x76"
-	href="images/favicon/apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" sizes="114x114"
-	href="images/favicon/apple-touch-icon-114x114.png" />
-<link rel="apple-touch-icon" sizes="120x120"
-	href="images/favicon/apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" sizes="144x144"
-	href="images/favicon/apple-touch-icon-144x144.png" />
-<link rel="apple-touch-icon" sizes="152x152"
-	href="images/favicon/apple-touch-icon-152x152.png" />
-
-<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<script
+   src='${pageContext.request.contextPath}/resources/fullcalendar/moment.min.js'></script>
 
 <script>
 	$(document).ready(function() {
@@ -148,13 +110,12 @@
 							<p>
 							<p>
 							<ul class="block-menu">
-								<li><a class="faq-button active" href="#basic"><i
+								<li><a class="faq-button" href="#basic"><i
 										class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;방문&nbsp;명소</a></li>
 								<li><a class="faq-button" href="#summary"><i
 										class="fa fa-krw" aria-hidden="true"></i>&nbsp;여행가계부</a></li>
-								<li><a class="faq-button" href="#images"><i
-										class="fa fa-check-square-o" aria-hidden="true"></i>
-										&nbsp;체크리스트</a></li>
+								<li><a data-toggle="modal" data-target="#checkList" class="faq-button active">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>체크리스트</a></li>
 							</ul>
 
 
@@ -179,38 +140,22 @@
 								<div class="day-box">
 									<c:if test="${not empty sessionScope.travelDetailInfo}">
 										<c:forEach items="${sessionScope.travelDetailInfo}" var="detailInfo">
-											${detailInfo.travelItinearyTitle}
-											${detailInfo.day}
-											${detailInfo.startTime}
-											${detailInfo.endTime}		
 											
-								<h2>1일차</h2>
-									<!-- 방문한 장소 + 내용 들어갈 곳  1개-->
-									<div class="spot-note-box">
-										<!-- 1.방문 장소 -->
-										<div class="spot_location">
-											<h4>
-												<span class="ct"></span><span><i class="fa fa-camera"
-													aria-hidden="true"></i>${detailInfo.travelItinearyTitle}</span>
-											</h4>
-										</div>
-										<!-- 2.방문 내용 -->
-										<div class="spot-contents">
-											<div id="note_panel">
-												${detailInfo.story}
+											<!-- 방문한 장소 + 내용 들어갈 곳  1개-->
+											<div class="spot-note-box">
+												<!-- 1.방문 장소 -->
+												<div class="spot_location">				
+														<h1><span class="ct"></span><span><i class="fa fa-camera" aria-hidden="true"></i>${detailInfo.travelItinearyTitle} ( ${detailInfo.startTime} ~ ${detailInfo.endTime} )</span></h1>			
+												</div>
+												<!-- 2.방문 내용 -->
+												<div class="spot-contents">
+													<div id="note_panel">${detailInfo.story}</div>
+													<div id="note-comment-area"></div>
+												</div>
 											</div>
-											<div id="note-comment-area"></div>
-									
-										</div>
-									</div>
-															
+
 										</c:forEach>
-									</c:if>
-									<c:if test="${not empty sessionScope.checkList}">
-										<c:forEach items="${sessionScope.checkList}" var="list">
-											${list.category}
-											${list.item} <p>
-										</c:forEach>
+										
 									</c:if>
 								</div>
 
@@ -434,7 +379,43 @@
 	</div>
 	<!-- /#page-container -->
 
+<!--여행일정 모달  Modal -->
+<div class="modal fade" id="checkList" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1000">
+   <div class="modal-dialog" style="z-index: 1001;">
+      <div class="modal-content" style="background-clip: border-box;">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+            <h3 class="modal-title" id="myModalLabel"><i class="fa fa-hand-o-right"></i>잊지말고 챙겨가세요!</h3>
+         </div>
+         <div class="modal-body">
+         <h4>${sessionScope.writer.nickname} 님이 직접 선별한 준비물 입니다!</h4><p>
+         <h4>깜빡하기 전에 지금 챙겨보는건 어떨까요?</h4><p>
+         <div class="form-group">
+        	
+          <c:if test="${not empty sessionScope.checkList}">
+          	<c:forEach items="${sessionScope.checkList}" var="check" varStatus="state">
+          	  ${state.index} ) ${check.item} <br> 
+              </c:forEach>
+		</c:if>
+		</div>
+                  <!-- 모달 foot -->
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-default"
+                        data-dismiss="modal">닫기</button>
+                  </div>
+                  <!-- 모달 foot end-->
+         </div>
 
-
+         <!--./form 전송 끝 -->
+      </div>
+      <!-- 모달 콘텐츠 -->
+   </div>
+   <!-- 모달 다이얼로그 -->
+</div>
+<!-- 모달 전체 윈도우 -->
 </body>
 </html>

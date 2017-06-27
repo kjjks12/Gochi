@@ -1,11 +1,13 @@
 package gochi.travel.travelreviewcontroller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.type.IntegerTypeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +46,8 @@ public class TravelReviewController {
 			data="alone";
 		}else if(data.equals("패키지여행")){
 			data="package";
+		}else{
+			data="all";
 		}
 		
 		System.out.println(data +"111111111" );
@@ -81,6 +85,19 @@ public class TravelReviewController {
 			data="alone";
 		}else if(data.equals("패키지여행")){
 			data="package";
+		}else if(data.equals("all")){
+			data="all";
+		}else if(data.equals("전체목록")){
+			data="followme";
+		}else if(data.equals("최저가")){
+			data="followme";
+			List<TravelDTO> newTrvelReview = travelReviewService.newTrvelReview(data);
+			List<TravelDTO> goodTrvelReview = travelReviewService.lowPrice();
+				System.out.println(goodTrvelReview.size());
+				map.put("newTrvelReview", newTrvelReview);
+				map.put("goodTrvelReview", goodTrvelReview);
+			
+				return map;
 		}
 		
 		List<TravelDTO> newTrvelReview = travelReviewService.newTrvelReview(data);
@@ -106,6 +123,19 @@ public class TravelReviewController {
 		List<TravelItinearyDTO> list = travelReviewService.selectTravelDetailInfo(index);
 		request.getSession().setAttribute("travelDetailInfo", list);
 		
+		List<String> dayInfo = new ArrayList<>();
+		for(int i=0; i<list.size(); i++){
+			if(!dayInfo.contains(list.get(i).getDay())){
+				dayInfo.add(list.get(i).getDay());
+			}
+		}
+		
+		for(int j=0; j<dayInfo.size(); j++){
+			System.out.println("day : "+dayInfo.get(j));
+		}
+		
+		//일차 정보 저장
+		request.getSession().setAttribute("day", dayInfo);
 		//글쓴이 정보 가져오기. (DB TABLE : MEMBER)
 		MemberDTO writerInfo = travelReviewService.writerInfo(travelInfo.getEmail());
 		request.getSession().setAttribute("writer", writerInfo);

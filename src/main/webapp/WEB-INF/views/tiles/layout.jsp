@@ -29,13 +29,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ui-spinner.css">                               <!-- Spinner -->
    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/menu.css">                                     <!-- Include Menu stylesheet -->
    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">                                   <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/media-query.css">                           <!-- Media Query -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/media-query.css">  
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gochi/button.css">                           <!-- Media Query -->
     
 
 
    <!-- wish -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gochi/review_detail.css">                              <!-- plan view Stylesheet -->
-   <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/wish/styles/plan-view-styles.css"> --%> <!-- 플랜 -->                          <!-- Media Query -->
+
  <script src="${pageContext.request.contextPath}/resources/script/modernizr.min.js"></script> <!-- Modernizr -->
 
 

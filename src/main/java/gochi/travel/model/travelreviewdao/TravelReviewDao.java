@@ -29,4 +29,7 @@ public interface TravelReviewDao {
 		
 		//후기 디테일 페이지 : 댓글 달기
 		int insertComment(TravelReviewCommentDTO commentDTO);
+
+		//최저가 가져오기
+		List<TravelDTO> lowPrice();
 }

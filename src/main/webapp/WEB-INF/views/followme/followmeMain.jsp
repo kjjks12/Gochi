@@ -10,104 +10,95 @@
 					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-2" id="block-menu-content">
 						<ul class="block-menu" data-spy="affix" data-offset-top="500"
 							data-offset-bottom="400">
-							<li><a class="faq-button active" href="#basic" id="select">전체</a></li>
-							<li><a class="faq-button" href="#summary" id="select">최저가</a></li>
-							<li><a class="faq-button" href="#images" id="select">강</a></li>
-							<li><a class="faq-button" href="#features" id="select">바닷가</a></li>
-							<li><a class="faq-button" href="#features" id="select">산</a></li>
-						
+							<li><a class="faq-button active" href="#basic" id="select">
+							<h3>각박한 세상 속 새로운 사람들과 함께 떠나보는건 어떤가요?
+							여행꼬치에서 그 발판을 마련해 드립니다.</h3></a></li>
 						</ul>
-						<a class="faq-button" href="${pageContext.request.contextPath}/followme/followmeAdd" id="select">나믿따 작성하기</a>
+						
 					</div>
 					
 				
 					<!-- 여행 후기 목록 -->
 					<!-- 전체 한행의 넓이 9 -->
 
-<div class="col-xs-9 col-sm-9 col-md-9  col-lg-10"  >
-	<div id="left">
-	<div class=" col-xs-6 col-sm-6 col-md-6  col-lg-6" style="width:40%; " >
-		<div class=" blog-list post-line">
-		<div class="section-title line-style">
-							<h3 class="title">최신 나만믿고따라와</h3>
-		</div>
- <c:choose>
-         <c:when test="${reviewList.size()==0}">
-               <span colspan="6" align="center"><h2>여행후기가 없습니다...</h2></span>   
-         </c:when>
-   <c:otherwise>
-   
-   		<c:forEach items="${newTrvelReview}" var="list" varStatus="state" >
-     	
-       		<div class="social" >
-       		<span class="date">${state.count}<span>${list.thema}</span></span> <a href="#">
-			<i class="fa fa-heart-o"></i><span>${list.favor}</span></a> <a href="#">
-			<i class="fa fa-eye"></i><span>0</span></a> <a href="#">
-			<i class="fa fa-comments"></i><span>0</span></a>
-			</div>
-			<a href="${pageContext.request.contextPath}/travel_review/review_detail">
-			<div class="image image-fill">
-			<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample" />
-			</div>
-			<h3 class="subtitle">${list.brief_story}</h3>
-			<div class="text">${list.email}</div>
-			</a>
-		
-		</c:forEach>
-	 </c:otherwise>
-	</c:choose>
-	
-	 	</div>
-	 
-</div>
-</div> <!-- 	<div id="left"> end -->
+				<div class="col-xs-9 col-sm-9 col-md-9  col-lg-10">
+					<div id="left">
+						<div class=" col-xs-6 col-sm-6 col-md-6  col-lg-6"
+							style="width: 40%;">
+							<div class=" blog-list post-line">
+								<div class="section-title line-style">
+									<h3 class="title">최신 나만믿고따라와</h3>
+								</div>
+								<c:if test="${not empty sessionScope.followList}">
+									<c:forEach items="${sessionScope.followList}" var="list"
+										varStatus="state">
 
-	
+										<div class="social">
+											<span class="date">${state.count}<span>${list.thema}</span></span>
+											<a href="#"> <i class="fa fa-heart-o"></i><span>${list.favor}</span></a>
+											<a href="#"> <i class="fa fa-eye"></i><span>0</span></a> 
+										</div>
+										<a href="${pageContext.request.contextPath}/travel_review/review_detail?index=${list.travelNo}">
+											<div class="image image-fill">
+												<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/${list.travelNo}/${list.email}/${list.travelCoverImg}' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />
+											</div>
+										</a>
+										
+											<h3 class="subtitle">${list.title}</h3>
+											<div class="text">${list.email}<button class="btn-2" >참여하기</button></div>
+											
+										
 
-<div id="right">
-<div class=" col-xs-6 col-sm-6 col-md-6  col-lg-6" style="width:40%; margin-left: 70px;" >
-		<div class=" blog-list post-line" >
-		<div class="section-title line-style">
-							<h3 class="title">추천순</h3>
-		</div>
- <c:choose>
-         <c:when test="${reviewList.size()==0}">
-               <span colspan="6" align="center"><h2>여행후기가 없습니다...</h2></span>   
-         </c:when>
-   <c:otherwise>
-   
-   	
-     	<c:forEach items="${goodTrvelReview}" var="list" varStatus="state"  >
-     	
-       		<div class="social" >
-       		<span class="date">${state.count}<span>${list.thema}</span></span> <a href="#">
-			<i class="fa fa-heart-o"></i><span>${list.favor}</span></a> <a href="#">
-			<i class="fa fa-eye"></i><span>0</span></a> <a href="#">
-			<i class="fa fa-comments"></i><span>0</span></a>
-			</div>
-			<a href="${pageContext.request.contextPath}/travel_review/review_detail">
-			<div class="image image-fill">
-			<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample" />
-			</div>
-			<h3 class="subtitle">${list.brief_story}</h3>
-			<div class="text">${list.email}</div>
-			</a>
-		
-		</c:forEach>
-	 </c:otherwise>
-	</c:choose>
-	
-	 				 </div>
-	</div> 
-</div>
-						<!-- /.blog-list -->
-</div>
+									</c:forEach>
+								</c:if>
+
+							</div>
+
+						</div>
+					</div>
+					<!-- 	<div id="left"> end -->
 
 
 
+					<div id="right">
+						<div class=" col-xs-6 col-sm-6 col-md-6  col-lg-6"
+							style="width: 40%; margin-left: 70px;">
+							<div class=" blog-list post-line">
+								<div class="section-title line-style">
+									<h3 class="title">추천순</h3>
+								</div>
+							<c:if test="${not empty sessionScope.likeFollow}">
+								<c:forEach items="${sessionScope.likeFollow}" var="list"
+									varStatus="state">
 
+									<div class="social">
+										<span class="date">${state.count}<span>${list.thema}</span></span>
+										<a href="#"> <i class="fa fa-heart-o"></i><span>${list.favor}</span></a>
+										<a href="#"> <i class="fa fa-eye"></i><span>0</span></a> <a
+											href="#"> <i class="fa fa-comments"></i><span>0</span></a>
+									</div>
+									<a href="${pageContext.request.contextPath}/travel_review/review_detail?index=${list.travelNo}">
+										<div class="image image-fill">
+											<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/${list.travelNo}/${list.email}/${list.travelCoverImg}' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />
+										</div>
+										<h3 class="subtitle">${list.briefStory}</h3>
+										<div class="text">${list.email}                            <input type="button" value="참여하기"></div>
+									</a>
 
+								</c:forEach>
+							</c:if>
+
+							</div>
+						</div>
+					</div>
+					<!-- /.blog-list -->
 				</div>
+
+
+
+
+
+			</div>
 			</div>
 
 			<!-- pagination -->
@@ -152,7 +143,7 @@
 					str+='<div class=" col-xs-6 col-sm-6 col-md-6  col-lg-6" style="width:40%" >';
 			    	str+='<div class=" blog-list post-line">';
 			    	str+='<div class="section-title line-style">';
-		    		str+='<h3 class="title">'+thema+' 최신 후기</h3></div>';
+		    		str+='<h3 class="title">최신 나만믿고따라와</h3></div>';
 			    	
 			        $.each(result.newTrvelReview,function(index, item) {
 			        	str+='<div class="social" >';
@@ -160,11 +151,11 @@
 			        	str+='<i class="fa fa-heart-o"></i><span>'+item.favor+'</span></a> <a href="#">';
 			        	str+='<i class="fa fa-eye"></i><span>0</span></a> <a href="#">';
 			        	str+='<i class="fa fa-comments"></i><span>0</span></a></div>';
-			        	str+='<a href="${pageContext.request.contextPath}/travel_review/review_detail">';
+			        	str+="<a href='${pageContext.request.contextPath}/travel_review/review_detail?index="+item.travelNo+"'>";
 			        	str+='<div class="image image-fill">';
-			        	str+='<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample"style="position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;" />';
+			        	str+="<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/"+item.travelNo+"/"+item.email+"/"+item.travelCoverImg+"' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />";
 			        	str+='</div>';
-			        	str+='<h3 class="subtitle">'+item.brief_story+'</h3>';
+			        	str+='<h3 class="subtitle">'+item.briefStory+'</h3>';
 			        	str+='<div class="text">'+item.email+'</div></a>';
 			        	
 			     })
@@ -176,7 +167,7 @@
 			     	str2+=' <div class=" col-xs-6 col-sm-6 col-md-6  col-lg-6" style="width:40%; margin-left: 70px;" >';
 			     	str2+='<div class=" blog-list post-line">';
 			     	str2+='<div class="section-title line-style">';
-			     	str2+='<h3 class="title">'+thema+' 후기 인기글</h3></div>';
+			     	str2+='<h3 class="title">추천순</h3></div>';
 
 					$.each(result.goodTrvelReview,function(index, item) {
 						str2+='<div class="social" >';
@@ -184,11 +175,11 @@
 						str2+='<i class="fa fa-heart-o"></i><span>'+item.favor+'</span></a> <a href="#">';
 						str2+='<i class="fa fa-eye"></i><span>0</span></a> <a href="#">';
 						str2+='<i class="fa fa-comments"></i><span>0</span></a></div>';
-						str2+='<a href="${pageContext.request.contextPath}/travel_review/review_detail">';
+						str2+="<a href='${pageContext.request.contextPath}/travel_review/review_detail?index="+item.travelNo+"'>";
 						str2+='<div class="image image-fill">';
-						str2+='<img src="${pageContext.request.contextPath}/resources/review_img/temp_review.jpg" alt="Image Sample" style="position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;" />';
+						str2+="<img src='${pageContext.request.contextPath}/resources/img/travel/travelCover/"+item.travelNo+"/"+item.email+"/"+item.travelCoverImg+"' alt='Image Sample' style='position: absolute; width: 500px; height: 255px; top: 0px; left: -36px;' />";
 						str2+='</div>';
-						str2+='<h3 class="subtitle">'+item.brief_story+'</h3>';
+						str2+='<h3 class="subtitle">'+item.briefStory+'</h3>';
 						str2+='<div class="text">'+item.email+'</div></a>';
 			        	
 			     })

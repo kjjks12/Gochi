@@ -69,6 +69,14 @@
 		order by favor DESC
 </select>
 
+<!-- 최저가 검색 -->
+<select id="lowPrice" resultMap="travelReviewMap">
+	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
+		from TRAVEL
+		where thema='followme'
+		order by favor DESC
+</select>
+
 <!-- 선택된 게시물 정보 가져오기! -->
 <select id="TravelInfo" parameterType="int" resultMap="travelReviewMap">
 	select TRAVEL_NO,TITLE,EMAIL,THEMA,TRAVEL_START_DAY,TRAVEL_END_DAY,BRIEF_STORY,FAVOR,TRAVEL_COVER_IMG
@@ -90,4 +98,9 @@
 <insert id="commentInsert" parameterType="TravelReviewCommentDTO">
 	insert into travel_review_comment(COMMENT_NO, TRAVEL_NO, CONTENT, WRITER_EMAIL) VALUES(COMMENT_NO.NEXTVAL, #{travelNo}, #{content}, #{writerEmail})
 </insert>
+
+<!-- 일차가져오기 -->
+<select id="dayInfo" parameterType="int" resultType="TravelItinearyDTO">
+	select d_day from travel_itineary where travel_no = #{_parameter}
+</select>
 </mapper>

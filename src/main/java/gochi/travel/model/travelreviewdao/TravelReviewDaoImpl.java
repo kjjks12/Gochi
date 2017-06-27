@@ -75,5 +75,12 @@ public class TravelReviewDaoImpl implements TravelReviewDao{
 		return sqlSession.insert("travelReviewMapper.commentInsert",commentDTO);
 	}
 
+	@Override
+	public List<TravelDTO> lowPrice() {
+		
+		return sqlSession.selectList("");
+	}
+
+
 	
 }
